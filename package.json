@@ -19,7 +19,7 @@
     "build-dist": "run-p build-dist:*",
     "build-dist:dev": "NODE_ENV=development webpack",
     "build-dist:prod": "NODE_ENV=production webpack",
-    "test": "run-s build test-lint test-node test-browser-local",
+    "test": "run-s build test-lint test-node",
     "test-lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
     "test-node": "nyc --silent mocha 'build/main/**/*.spec.js'",
     "test-browser-local": "node ./node_modules/karma/bin/karma start karma.local.conf.js --single-run",

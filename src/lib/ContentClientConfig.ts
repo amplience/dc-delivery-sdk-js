@@ -17,6 +17,7 @@ export interface ContentClientConfig {
 
   /**
    * If set, the SDK will request content and media from the staging environment host name specified.
+   * This will override any values set for “baseUrl”, “mediaHost” and “secureMediaHost”.
    */
   stagingEnvironment?: string;
 
@@ -40,7 +41,8 @@ export interface ContentClientConfig {
   secureMediaHost?: string;
 
   /**
-   * Override for the content delivery API base URL
+   * Override for the content delivery API base URL. If “stagingEnvironment” is set the sdk will automatically
+   * update the baseUrl to load content from the virtual staging environment.
    */
   baseUrl?: string;
 }

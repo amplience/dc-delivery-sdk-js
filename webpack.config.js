@@ -24,9 +24,20 @@ function bundleConfig(name) {
                   targets: {
                     browsers: browserTargets
                   },
-                  useBuiltIns: 'usage'
+                  useBuiltIns: 'usage',
+                  exclude: [
+                    'web.dom.iterable'
+                  ]
                 }
               ]
+            ],
+            plugins: [
+              ["@babel/plugin-transform-for-of", {
+                assumeArray: true
+              }],
+              ["@babel/plugin-transform-classes", {
+                loose: true
+              }]
             ]
           }
         }

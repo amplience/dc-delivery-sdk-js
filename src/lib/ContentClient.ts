@@ -67,6 +67,7 @@ export class ContentClient {
    *
    * * Linked content items are joined together into the root content item to create a single JSON document.
    * * Media references (images and videos) are replaced with wrapper objects [[Image]] and [[Video]] which provide helper functions.
+   * * Content created using V1 of the CMS will be upgraded to the V2 format.
    *
    * You can convert the content back to plain JSON by calling the toJSON() function on the returned ContentItem.
    * @typeparam T The type of content returned. This is optional and by default the content returned is assumed to be “any”.

@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { ContentMapper } from './ContentMapper';
 import { ContentMeta } from '../model/ContentMeta';
 import { Image } from '../../media/Image';
+import { Video } from '../../media/Video';
 
 const config = {
   account: 'test'
@@ -177,41 +178,23 @@ describe('ContentMapper', () => {
       expect(result.image).to.be.instanceOf(Image);
     });
 
-    // it('should use defaultHost by default', () => {
-    //   const mapper = new ContentMapper(config);
-    //   const result = mapper.toMappedContent({
-    //     image: {
-    //       _meta: {
-    //         schema:
-    //           'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
-    //       },
-    //       id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
-    //       name: 'image',
-    //       endpoint: 'test',
-    //       defaultHost: 'i1.adis.ws'
-    //     }
-    //   });
-    //   expect(result.image.defaultHost).to.eq('i1.adis.ws');
-    // });
-
-    // it('should use mediaHost if set', () => {
-    //   const mapper = new ContentMapper({
-    //     ...config,
-    //     mediaHost: 'images.mywebsite.com'
-    //   });
-    //   const result = mapper.toMappedContent({
-    //     image: {
-    //       _meta: {
-    //         schema:
-    //           'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
-    //       },
-    //       id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
-    //       name: 'image',
-    //       endpoint: 'test',
-    //       defaultHost: 'i1.adis.ws'
-    //     }
-    //   });
-    //   expect(result.image.defaultHost).to.eq('images.mywebsite.com');
-    // });
+    context('convertVideo', () => {
+      it('should convert video-link', () => {
+        const mapper = new ContentMapper(config);
+        const result = mapper.toMappedContent({
+          image: {
+            _meta: {
+              schema:
+                'http://bigcontent.io/cms/schema/v1/core#/definitions/video-link'
+            },
+            id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
+            name: 'image',
+            endpoint: 'test',
+            defaultHost: 'i1.adis.ws'
+          }
+        });
+        expect(result.image).to.be.instanceOf(Video);
+      });
+    });
   });
 });

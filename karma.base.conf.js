@@ -63,9 +63,20 @@ module.exports = {
                   targets: {
                     browsers: ['last 2 versions', 'not dead']
                   },
-                  useBuiltIns: 'usage'
+                  useBuiltIns: 'usage',
+                  exclude: [
+                    'web.dom.iterable'
+                  ]
                 }
               ]
+            ],
+            plugins: [
+              ["@babel/plugin-transform-for-of", {
+                assumeArray: true
+              }],
+              ["@babel/plugin-transform-classes", {
+                loose: true
+              }]
             ]
           }
         }

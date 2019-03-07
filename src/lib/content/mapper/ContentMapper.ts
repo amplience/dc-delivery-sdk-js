@@ -3,6 +3,7 @@ import { FragmentMeta } from '../model/FragmentMeta';
 import { ContentMeta } from '../model/ContentMeta';
 import { ContentClientConfig } from '../../ContentClientConfig';
 import { Image } from '../../media/Image';
+import { Video } from '../../media/Video';
 
 /**
  * @hidden
@@ -88,6 +89,7 @@ export class ContentMapper {
   protected registerBuiltInMappers(): void {
     this.addCustomMapper(this.convertContentMeta.bind(this));
     this.addCustomMapper(this.convertImage.bind(this));
+    this.addCustomMapper(this.convertVideo.bind(this));
   }
 
   /**
@@ -110,6 +112,17 @@ export class ContentMapper {
   protected convertImage(fragment: any): any {
     if (Image.isImage(fragment)) {
       const result = new Image(fragment, this.config);
+      return result;
+    }
+  }
+
+  /**
+   * Converts image-link into an Image class instance
+   * @param fragment
+   */
+  protected convertVideo(fragment: any): any {
+    if (Video.isVideo(fragment)) {
+      const result = new Video(fragment, this.config);
       return result;
     }
   }

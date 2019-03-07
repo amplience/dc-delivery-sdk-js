@@ -9,9 +9,9 @@ This sdk is designed to help build client side and server side content managed a
 
 ## Features
 
-* Fetch content and slots using the [Content Delivery Service](https://docs.amplience.net/integration/deliveryapi.html?h=content%20delivery)
+* Fetch content and slots using the [Content Delivery Service](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api)
 * Fetch preview content using Virtual Staging
-* Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html?h=rendering%20service)
+* Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service)
 * Localize content
 * Transform images on the fly using the [Dynamic Media Service](http://playground.amplience.com/di/app/#/intro)
 
@@ -136,7 +136,7 @@ Dynamic Content generates a VSE for each user and typically passes the "stagingE
 
 ### Localize content
 
-Content types can make use of [field-level localization](https://docs.amplience.net/production/localization.html?h=field%20level) to give content producers the ability to enter locale specific values for a field.
+Content types can make use of [field-level localization](https://docs.amplience.net/production/localization.html#field-level-localization) to give content producers the ability to enter locale specific values for a field.
 
 By default, every locale value will be returned in the content object:
 
@@ -210,7 +210,7 @@ See the sdk [reference documentation](https://amplience.github.io/dc-delivery-sd
 
 ### Transform content
 
-Using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html?h=rendering%20service), you can convert the JSON content into any format you choose by applying a template previously setup in the back-office. This is typically used to convert content into fragments of HTML, XML or even rewrite the JSON.
+Using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service), you can convert the JSON content into any format you choose by applying a template previously setup in the back-office. This is typically used to convert content into fragments of HTML, XML or even rewrite the JSON.
 
 ```js
 client.renderContentItem('b322f84a-9719-42ff-a6a0-6e2924608d19', 'templateName')
@@ -226,7 +226,7 @@ client.renderContentItem('b322f84a-9719-42ff-a6a0-6e2924608d19', 'templateName')
 
 ### Detecting content types
 
-When displaying content you may need to detect the content type used to decide which UI widget should be used to display the content.
+When displaying content you may need to detect the content type to decide which UI widget should be used to display the content.
 
 Every content item in the body includes a built-in property _meta.schema which identifies the content type that was used to create that fragment of content. This can be used by your application to influence how the content is processed.
 
@@ -309,7 +309,7 @@ var client = new ContentClient({
 Please use the following documentation resources to assist building your application:
 
 * Dynamic Content SDK [Reference documentation](https://amplience.github.io/dc-delivery-sdk-js/)
-* Dynamic Content Delivery API [Reference documentation](https://docs.amplience.net/integration/deliveryapi.html?h=content%20delivery)
+* Dynamic Content Delivery API [Reference documentation](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api)
 * Dynamic Content [User guide](https://docs.amplience.net/)
 
 ## Getting Help
