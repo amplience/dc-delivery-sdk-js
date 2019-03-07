@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig",
+    "compilerOptions": {
+      "types": ["mocha", "chai", "chai-as-promised"]
+    },
+    "include": [
+      "**/*.spec.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
