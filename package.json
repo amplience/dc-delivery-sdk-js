@@ -6,7 +6,7 @@
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
   "browser": "dist/dynamicContent.browser.umd.min.js",
-  "repository": "https://github.com/techiedarren/dc-delivery-sdk-js",
+  "repository": "https://github.com/amplience/dc-delivery-sdk-js",
   "license": "Apache-2.0",
   "keywords": [],
   "scripts": {
