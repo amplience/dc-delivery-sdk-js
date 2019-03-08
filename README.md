@@ -6,6 +6,7 @@
 > Official Javascript SDK for the Amplience Dynamic Content Delivery API
 
 [![Build Status](https://travis-ci.org/amplience/dc-delivery-sdk-js.svg?branch=master)](https://travis-ci.org/amplience/dc-delivery-sdk-js)
+[![npm version](https://badge.fury.io/js/dc-delivery-sdk-js.svg)](https://badge.fury.io/js/dc-delivery-sdk-js)
 
 This sdk is designed to help build client side and server side content managed applications.
 
