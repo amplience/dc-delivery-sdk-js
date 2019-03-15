@@ -52,7 +52,7 @@ This sdk supports browser and node.js applications using ES6 or CommonJS style i
 ES6:
 
 ```js
-import { ContentClient } from 'dc-management-sdk-js';
+import { ContentClient } from 'dc-delivery-sdk-js';
 
 const client = new ContentClient({
     account: 'myaccount'
@@ -62,7 +62,7 @@ const client = new ContentClient({
 CommonJS:
 
 ```js
-var ContentClient = require('dc-management-sdk-js').ContentClient;
+var ContentClient = require('dc-delivery-sdk-js').ContentClient;
 
 var client = new ContentClient({
     account: 'myaccount'
@@ -197,7 +197,7 @@ In addition to serving image and Video content, Dynamic Content can also transfo
 The sdk attaches helper functions to Image and Video properties to simplify constructing Dynamic Media URLs:
 
 ```js
-var ImageFormat = require('dc-management-sdk-js').ImageFormat;
+var ImageFormat = require('dc-delivery-sdk-js').ImageFormat;
 
 var imageUrl = 
     content.body.imageProperty
