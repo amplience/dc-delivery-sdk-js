@@ -69,7 +69,8 @@
 				<blockquote>
 					<p>Official Javascript SDK for the Amplience Dynamic Content Delivery API</p>
 				</blockquote>
-				<p><a href="https://travis-ci.org/amplience/dc-delivery-sdk-js"><img src="https://travis-ci.org/amplience/dc-delivery-sdk-js.svg?branch=master" alt="Build Status"></a></p>
+				<p><a href="https://travis-ci.org/amplience/dc-delivery-sdk-js"><img src="https://travis-ci.org/amplience/dc-delivery-sdk-js.svg?branch=master" alt="Build Status"></a>
+				<a href="https://badge.fury.io/js/dc-delivery-sdk-js"><img src="https://badge.fury.io/js/dc-delivery-sdk-js.svg" alt="npm version"></a></p>
 				<p>This sdk is designed to help build client side and server side content managed applications.</p>
 				<h2 id="features">Features</h2>
 				<ul>
@@ -96,13 +97,13 @@
 				<h2 id="usage">Usage</h2>
 				<p>This sdk supports browser and node.js applications using ES6 or CommonJS style imports.</p>
 				<p>ES6:</p>
-				<pre><code class="language-js"><span class="hljs-keyword">import</span> { ContentClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'dc-management-sdk-js'</span>;
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { ContentClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'dc-delivery-sdk-js'</span>;
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
     <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>
 });</code></pre>
 				<p>CommonJS:</p>
-				<pre><code class="language-js"><span class="hljs-keyword">var</span> ContentClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dc-management-sdk-js'</span>).ContentClient;
+				<pre><code class="language-js"><span class="hljs-keyword">var</span> ContentClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dc-delivery-sdk-js'</span>).ContentClient;
 
 <span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> ContentClient({
     <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>
@@ -192,7 +193,7 @@ client.getContentItem(slotId)
 				<h3 id="transform-images">Transform images</h3>
 				<p>In addition to serving image and Video content, Dynamic Content can also transform media on the fly allowing you to target multiple channels and deliver just the pixels required from a single master asset.</p>
 				<p>The sdk attaches helper functions to Image and Video properties to simplify constructing Dynamic Media URLs:</p>
-				<pre><code class="language-js"><span class="hljs-keyword">var</span> ImageFormat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dc-management-sdk-js'</span>).ImageFormat;
+				<pre><code class="language-js"><span class="hljs-keyword">var</span> ImageFormat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dc-delivery-sdk-js'</span>).ImageFormat;
 
 <span class="hljs-keyword">var</span> imageUrl = 
     content.body.imageProperty
