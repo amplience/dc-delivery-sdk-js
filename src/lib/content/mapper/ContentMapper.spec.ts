@@ -1,10 +1,9 @@
 import { expect } from 'chai';
 import { ContentMapper } from './ContentMapper';
-import { ContentMeta } from '../model/ContentMeta';
+import { ContentMeta, ContentReferenceMeta } from '../model/ContentMeta';
 import { Image } from '../../media/Image';
 import { Video } from '../../media/Video';
-import { ContentReference } from '../../media/ContentReference';
-import { ContentReferenceMeta } from '../../media/MediaMeta';
+import { ContentReference } from '../model/ContentReference';
 
 const config = {
   account: 'test'

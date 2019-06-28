@@ -1,13 +1,32 @@
-import { Media } from './Media';
-import { ContentReferenceMeta } from './MediaMeta';
-import { ContentClientConfig } from '../ContentClientConfig';
-import { FragmentMeta } from '../content/model/FragmentMeta';
+import { FragmentMeta } from './FragmentMeta';
+import { ContentReferenceMeta } from './ContentMeta';
 
-export class ContentReference extends Media {
+export type ContentReferenceSchema = 'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference';
+
+/**
+ * Required params for creating an content reference
+ */
+export type RequriedContentReference<T extends {} = {}> = T & {
+  id: string;
+  name: string;
+  contentType?: string;
+  _meta?: {
+    schema: ContentReferenceSchema;
+  };
+};
+
+/**
+ * Class representing an Content Reference.
+ */
+export class ContentReference {
+
+  id: string;
+  name: string;
   contentType: string;
+  _meta: ContentReferenceMeta;
 
-  constructor(data: any, config: ContentClientConfig) {
-    super(data, config);
+  constructor(data: RequriedContentReference) {
+    Object.assign(this, data);
 
     if (data && data._meta) {
       this._meta = new ContentReferenceMeta(data._meta);
@@ -22,8 +41,11 @@ export class ContentReference extends Media {
    * Export ContentReference to JSON
    */
   toJSON(): any {
-    const json = super.toJSON();
-    const { defaultHost, endpoint, ...result } = json;
+    const { name, id } = this;
+    const result: RequriedContentReference = {
+      id,
+      name
+    };
 
     if (this._meta) {
       result._meta = this._meta.toJSON();

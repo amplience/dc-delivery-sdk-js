@@ -13,7 +13,7 @@ describe('Content Reference', () => {
         name: 'content ref'
       };
 
-      const content = new ContentReference(json, { account: 'test' });
+      const content = new ContentReference(json);
       expect(content.toJSON()).to.deep.eq(json);
     });
 
@@ -28,7 +28,7 @@ describe('Content Reference', () => {
         contentType: 'http://some-content-type.com/type.json'
       };
 
-      const content = new ContentReference(json, { account: 'test' });
+      const content = new ContentReference(json);
       expect(content.toJSON()).to.deep.eq(json);
     });
   });

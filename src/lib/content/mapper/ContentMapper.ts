@@ -4,7 +4,7 @@ import { ContentMeta } from '../model/ContentMeta';
 import { ContentClientConfig } from '../../ContentClientConfig';
 import { Image } from '../../media/Image';
 import { Video } from '../../media/Video';
-import { ContentReference } from '../../media/ContentReference';
+import { ContentReference } from '../model/ContentReference';
 
 /**
  * @hidden
@@ -113,7 +113,7 @@ export class ContentMapper {
    */
   protected convertContentReference(fragment: any): any {
     if (ContentReference.isContentReference(fragment)) {
-      const result = new ContentReference(fragment, this.config);
+      const result = new ContentReference(fragment);
       return result;
     }
   }

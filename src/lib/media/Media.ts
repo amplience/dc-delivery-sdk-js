@@ -1,5 +1,5 @@
 import { ContentClientConfig } from '../ContentClientConfig';
-import { ImageMeta, VideoMeta, ContentReferenceMeta } from './MediaMeta';
+import { ImageMeta, VideoMeta } from './MediaMeta';
 
 /**
  * @hidden
@@ -9,7 +9,7 @@ export abstract class Media {
   /**
    * Metadata about the Media object
    */
-  _meta: ImageMeta | VideoMeta | ContentReferenceMeta;
+  _meta: ImageMeta | VideoMeta;
 
   /**
    * Default host name to use when constructing a URL to the resource.
