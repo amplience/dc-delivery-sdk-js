@@ -19,7 +19,6 @@ export type RequriedContentReference<T extends {} = {}> = T & {
  * Class representing an Content Reference.
  */
 export class ContentReference {
-
   id: string;
   name: string;
   contentType: string;
