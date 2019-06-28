@@ -3,6 +3,8 @@ import { ContentMapper } from './ContentMapper';
 import { ContentMeta } from '../model/ContentMeta';
 import { Image } from '../../media/Image';
 import { Video } from '../../media/Video';
+import { ContentReference } from '../../media/ContentReference';
+import { ContentReferenceMeta } from '../../media/MediaMeta';
 
 const config = {
   account: 'test'
@@ -157,6 +159,23 @@ describe('ContentMapper', () => {
       });
 
       expect(result._meta).to.be.instanceOf(ContentMeta);
+    });
+  });
+
+  context('convertContentReference', () => {
+    it('should convert content reference meta data', () => {
+      const mapper = new ContentMapper(config);
+      const result = mapper.toMappedContent({
+        _meta: {
+          name: 'content reference',
+          id: '123',
+          schema:
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
+        }
+      });
+
+      expect(result._meta).to.be.instanceOf(ContentReferenceMeta);
+      expect(result).to.be.instanceOf(ContentReference);
     });
   });
 

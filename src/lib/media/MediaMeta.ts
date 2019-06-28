@@ -19,6 +19,15 @@ export class ImageMeta extends MediaMeta {
 }
 
 /**
+ * Class providing meta data about an Content Reference resource.
+ */
+export class ContentReferenceMeta extends MediaMeta {
+  constructor(data?: any) {
+    super(data);
+  }
+}
+
+/**
  * Class providing meta data about a Video resource.
  */
 export class VideoMeta extends MediaMeta {

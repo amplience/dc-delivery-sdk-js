@@ -14,5 +14,6 @@ export * from './lib/media/Image';
 export * from './lib/media/ImageUrlBuilder';
 export * from './lib/media/model/ImageFormat';
 export * from './lib/media/Video';
+export * from './lib/media/ContentReference';
 
 export * from './lib/rendering/model/RenderedContentItem';
