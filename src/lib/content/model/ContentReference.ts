@@ -1,8 +1,6 @@
 import { FragmentMeta } from './FragmentMeta';
 import { ContentReferenceMeta } from './ContentMeta';
 
-export type ContentReferenceSchema = 'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference';
-
 /**
  * Required params for creating an content reference
  */
@@ -11,7 +9,7 @@ export type RequriedContentReference<T extends {} = {}> = T & {
   name: string;
   contentType?: string;
   _meta?: {
-    schema: ContentReferenceSchema;
+    schema: string;
   };
 };
 
