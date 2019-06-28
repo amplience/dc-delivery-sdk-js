@@ -29,7 +29,7 @@ describe('Content Reference', () => {
       };
 
       const content = new ContentReference(json, { account: 'test' });
-      expect(content.toJSON()).to.deep.eq(json); 
+      expect(content.toJSON()).to.deep.eq(json);
     });
   });
 });

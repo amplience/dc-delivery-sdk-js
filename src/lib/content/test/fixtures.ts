@@ -144,28 +144,31 @@ const SINGLE_LEGACY_RESULT_WITH_IMAGE = {
  * @hidden
  */
 const SINGLE_CONTENT_REFERENCE = {
-  "@context": "http://context.system.cms.amplience.com/v0.0/api",
-  "@type": "QueryResult",
-  "result": [
+  '@context': 'http://context.system.cms.amplience.com/v0.0/api',
+  '@type': 'QueryResult',
+  result: [
     {
-      "@id": "http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452"
+      '@id':
+        'http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452'
     }
   ],
-  "@graph": [
+  '@graph': [
     {
-      "_meta": {
-        "schema": "http://content.ref",
-        "name": "content-reference"
+      _meta: {
+        schema: 'http://content.ref',
+        name: 'content-reference'
       },
-      "contentRefExample": {
-        "_meta": {
-          "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference"
+      contentRefExample: {
+        _meta: {
+          schema:
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
         },
-        "contentType": "http://basic.example",
-        "id": "de111147-1a23-47c6-aee1-4060dd570b3d"
+        contentType: 'http://basic.example',
+        id: 'de111147-1a23-47c6-aee1-4060dd570b3d'
       },
-      "@type": "http://content.ref",
-      "@id": "http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452"
+      '@type': 'http://content.ref',
+      '@id':
+        'http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452'
     }
   ]
 };
@@ -219,7 +222,8 @@ const NESTED_CONTENT = {
         }
       },
       content: {
-        '@id': 'http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452'
+        '@id':
+          'http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452'
       },
       aspectRatio: {
         w: 5,
@@ -248,19 +252,21 @@ const NESTED_CONTENT = {
       mediaType: 'image'
     },
     {
-      "_meta": {
-        "schema": "http://content.ref",
-        "name": "content-reference"
+      _meta: {
+        schema: 'http://content.ref',
+        name: 'content-reference'
       },
-      "contentRefExample": {
-        "_meta": {
-          "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference"
+      contentRefExample: {
+        _meta: {
+          schema:
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
         },
-        "contentType": "http://basic.example",
-        "id": "de111147-1a23-47c6-aee1-4060dd570b3d"
+        contentType: 'http://basic.example',
+        id: 'de111147-1a23-47c6-aee1-4060dd570b3d'
       },
-      "@type": "http://content.ref",
-      "@id": "http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452"
+      '@type': 'http://content.ref',
+      '@id':
+        'http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452'
     }
   ]
 };

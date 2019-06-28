@@ -220,7 +220,9 @@ describe('GetContentItem', () => {
     });
 
     it('should inline content references', () => {
-      const contentItems = coordinator.processResponse(SINGLE_CONTENT_REFERENCE);
+      const contentItems = coordinator.processResponse(
+        SINGLE_CONTENT_REFERENCE
+      );
       expect(contentItems.length).to.eq(1);
 
       expect(contentItems[0]).to.deep.eq({

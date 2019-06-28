@@ -4,8 +4,7 @@ import { ContentClientConfig } from '../ContentClientConfig';
 import { FragmentMeta } from '../content/model/FragmentMeta';
 
 export class ContentReference extends Media {
-
-  private contentType: string;
+  contentType: string;
 
   constructor(data: any, config: ContentClientConfig) {
     super(data, config);
@@ -24,7 +23,7 @@ export class ContentReference extends Media {
    */
   toJSON(): any {
     const json = super.toJSON();
-    const { defaultHost, endpoint, ...result} = json;
+    const { defaultHost, endpoint, ...result } = json;
 
     if (this._meta) {
       result._meta = this._meta.toJSON();
