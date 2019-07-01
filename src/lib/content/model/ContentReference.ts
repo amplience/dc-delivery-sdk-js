@@ -6,7 +6,6 @@ import { ContentReferenceMeta } from './ContentMeta';
  */
 export type RequriedContentReference<T extends {} = {}> = T & {
   id: string;
-  name: string;
   contentType?: string;
   _meta?: {
     schema: string;
@@ -18,7 +17,6 @@ export type RequriedContentReference<T extends {} = {}> = T & {
  */
 export class ContentReference {
   id: string;
-  name: string;
   contentType: string;
   _meta: ContentReferenceMeta;
 
@@ -38,10 +36,9 @@ export class ContentReference {
    * Export ContentReference to JSON
    */
   toJSON(): any {
-    const { name, id } = this;
+    const { id } = this;
     const result: RequriedContentReference = {
-      id,
-      name
+      id
     };
 
     if (this._meta) {
