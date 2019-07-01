@@ -9,8 +9,7 @@ describe('Content Reference', () => {
           schema:
             'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
         },
-        id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
-        name: 'content ref'
+        id: 'ddf4eac9-7822-401c-97d6-b1be985e421c'
       };
 
       const content = new ContentReference(json);
@@ -24,7 +23,6 @@ describe('Content Reference', () => {
             'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
-        name: 'content ref',
         contentType: 'http://some-content-type.com/type.json'
       };
 

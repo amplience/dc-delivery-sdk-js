@@ -228,7 +228,6 @@ describe('GetContentItem', () => {
       expect(contentItems[0]).to.deep.eq({
         _meta: {
           deliveryId: '54cb30c7-e142-49d0-9e50-74f20c234452',
-          name: 'content-reference',
           schema: 'http://content.ref'
         },
         contentRefExample: {

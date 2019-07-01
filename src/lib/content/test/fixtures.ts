@@ -155,8 +155,7 @@ const SINGLE_CONTENT_REFERENCE = {
   '@graph': [
     {
       _meta: {
-        schema: 'http://content.ref',
-        name: 'content-reference'
+        schema: 'http://content.ref'
       },
       contentRefExample: {
         _meta: {
