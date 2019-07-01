@@ -219,7 +219,7 @@ describe('GetContentItem', () => {
       });
     });
 
-    it('should inline content references', () => {
+    it('should attach content reference', () => {
       const contentItems = coordinator.processResponse(
         SINGLE_CONTENT_REFERENCE
       );
