@@ -254,22 +254,31 @@ Example:
 ```
 
 ```js
-getComponentForContentType(contentItem) {
-    switch(contentItem._meta.schema) {
-        case 'https://www.anyafinn.online/content-types/banner.json':
-            return 'Banner';
-        case 'https://www.anyafinn.online/content-types/carousel.json':
-            return 'Carousel';
-        default:
-            return 'Empty';
+import React from 'react'
+import { Banner, Carousel, Empty } from './components'
+
+class App extends React.Component {
+    //...
+
+    getComponentForContentType(contentItem) {
+        switch(contentItem._meta.schema) {
+            case 'https://www.anyafinn.online/content-types/banner.json':
+                return Banner;
+            case 'https://www.anyafinn.online/content-types/carousel.json':
+                return Carousel;
+            default:
+                return Empty;
+        }
+    }
+
+    render() {
+        const slotContent = this.props.content.slotContent;
+        const TagName = this.getComponentForContentType(slotContent);
+        return <TagName content={slotContent} />
     }
 }
 
-render() {
-    const slotContent = this.props.content.slotContent;
-    const TagName = this.getComponentForContentType(slotContent);
-    return <TagName content={slotContent} />
-}
+
 ```
 
 ### Strongly typed content
