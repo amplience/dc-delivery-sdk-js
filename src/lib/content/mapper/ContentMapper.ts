@@ -4,6 +4,7 @@ import { ContentMeta } from '../model/ContentMeta';
 import { ContentClientConfig } from '../../ContentClientConfig';
 import { Image } from '../../media/Image';
 import { Video } from '../../media/Video';
+import { ContentReference } from '../model/ContentReference';
 
 /**
  * @hidden
@@ -87,6 +88,7 @@ export class ContentMapper {
    * Registers built in mappers
    */
   protected registerBuiltInMappers(): void {
+    this.addCustomMapper(this.convertContentReference.bind(this));
     this.addCustomMapper(this.convertContentMeta.bind(this));
     this.addCustomMapper(this.convertImage.bind(this));
     this.addCustomMapper(this.convertVideo.bind(this));
@@ -102,6 +104,17 @@ export class ContentMapper {
         ...fragment,
         _meta: new ContentMeta(fragment._meta)
       };
+    }
+  }
+
+  /**
+   * Converts content-link into an Content reference class instance
+   * @param fragment
+   */
+  protected convertContentReference(fragment: any): any {
+    if (ContentReference.isContentReference(fragment)) {
+      const result = new ContentReference(fragment);
+      return result;
     }
   }
 

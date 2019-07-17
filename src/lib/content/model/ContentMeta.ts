@@ -3,6 +3,15 @@ import { ContentLifecycle } from './ContentLifecycle';
 import { FragmentMeta } from './FragmentMeta';
 
 /**
+ * Class providing meta data about an Content Reference resource.
+ */
+export class ContentReferenceMeta extends FragmentMeta {
+  constructor(data?: any) {
+    super(data);
+  }
+}
+
+/**
  * Class providing meta data about a content item with helper functions.
  */
 export class ContentMeta extends FragmentMeta {

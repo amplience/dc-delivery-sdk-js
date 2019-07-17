@@ -140,7 +140,37 @@ const SINGLE_LEGACY_RESULT_WITH_IMAGE = {
     }
   ]
 };
-
+/**
+ * @hidden
+ */
+const SINGLE_CONTENT_REFERENCE = {
+  '@context': 'http://context.system.cms.amplience.com/v0.0/api',
+  '@type': 'QueryResult',
+  result: [
+    {
+      '@id':
+        'http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452'
+    }
+  ],
+  '@graph': [
+    {
+      _meta: {
+        schema: 'http://content.ref'
+      },
+      contentRefExample: {
+        _meta: {
+          schema:
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
+        },
+        contentType: 'http://basic.example',
+        id: 'de111147-1a23-47c6-aee1-4060dd570b3d'
+      },
+      '@type': 'http://content.ref',
+      '@id':
+        'http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452'
+    }
+  ]
+};
 /**
  * @hidden
  */
@@ -190,6 +220,10 @@ const NESTED_CONTENT = {
             'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/mixins/aspect-ratio.json'
         }
       },
+      content: {
+        '@id':
+          'http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452'
+      },
       aspectRatio: {
         w: 5,
         h: 2,
@@ -215,6 +249,23 @@ const NESTED_CONTENT = {
       '@id':
         'http://image.cms.amplience.com/ddf4eac9-7822-401c-97d6-b1be985e421c',
       mediaType: 'image'
+    },
+    {
+      _meta: {
+        schema: 'http://content.ref',
+        name: 'content-reference'
+      },
+      contentRefExample: {
+        _meta: {
+          schema:
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
+        },
+        contentType: 'http://basic.example',
+        id: 'de111147-1a23-47c6-aee1-4060dd570b3d'
+      },
+      '@type': 'http://content.ref',
+      '@id':
+        'http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452'
     }
   ]
 };
@@ -225,5 +276,6 @@ export {
   SINGLE_RESULT_WITH_IMAGE,
   SINGLE_LEGACY_RESULT_WITH_IMAGE,
   SINGLE_LEGACY_RESULT,
-  NESTED_CONTENT
+  NESTED_CONTENT,
+  SINGLE_CONTENT_REFERENCE
 };

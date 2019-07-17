@@ -4,6 +4,7 @@ export * from './lib/ContentClientConfig';
 export * from './lib/content/model/ContentBody';
 export * from './lib/content/model/ContentItem';
 export * from './lib/content/model/ContentLifecycle';
+export * from './lib/content/model/ContentReference';
 export * from './lib/content/model/ContentMeta';
 export * from './lib/content/model/Edition';
 export * from './lib/content/model/FragmentMeta';

@@ -11,6 +11,7 @@ import {
   SINGLE_RESULT_WITH_IMAGE,
   SINGLE_LEGACY_RESULT_WITH_IMAGE,
   SINGLE_LEGACY_RESULT,
+  SINGLE_CONTENT_REFERENCE,
   NESTED_CONTENT
 } from '../test/fixtures';
 import { ContentMapper } from '../mapper/ContentMapper';
@@ -182,6 +183,21 @@ describe('GetContentItem', () => {
               defaultHost: 'i1.adis.ws',
               mediaType: 'image'
             },
+            content: {
+              _meta: {
+                deliveryId: '54cb30c7-e142-49d0-9e50-74f20c234452',
+                name: 'content-reference',
+                schema: 'http://content.ref'
+              },
+              contentRefExample: {
+                _meta: {
+                  schema:
+                    'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
+                },
+                contentType: 'http://basic.example',
+                id: 'de111147-1a23-47c6-aee1-4060dd570b3d'
+              }
+            },
             mobileAspectRatio: {
               w: 1,
               h: 1,
@@ -200,6 +216,28 @@ describe('GetContentItem', () => {
             }
           }
         ]
+      });
+    });
+
+    it('should attach content reference', () => {
+      const contentItems = coordinator.processResponse(
+        SINGLE_CONTENT_REFERENCE
+      );
+      expect(contentItems.length).to.eq(1);
+
+      expect(contentItems[0]).to.deep.eq({
+        _meta: {
+          deliveryId: '54cb30c7-e142-49d0-9e50-74f20c234452',
+          schema: 'http://content.ref'
+        },
+        contentRefExample: {
+          _meta: {
+            schema:
+              'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
+          },
+          contentType: 'http://basic.example',
+          id: 'de111147-1a23-47c6-aee1-4060dd570b3d'
+        }
       });
     });
   });
