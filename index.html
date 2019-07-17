@@ -233,22 +233,31 @@ client.getContentItem(slotId)
         <span class="hljs-attr">"heading"</span>: <span class="hljs-string">"Free shipping until Sunday!"</span>
    }
 }</code></pre>
-				<pre><code class="language-js">getComponentForContentType(contentItem) {
-    <span class="hljs-keyword">switch</span>(contentItem._meta.schema) {
-        <span class="hljs-keyword">case</span> <span class="hljs-string">'https://www.anyafinn.online/content-types/banner.json'</span>:
-            <span class="hljs-keyword">return</span> <span class="hljs-string">'Banner'</span>;
-        <span class="hljs-keyword">case</span> <span class="hljs-string">'https://www.anyafinn.online/content-types/carousel.json'</span>:
-            <span class="hljs-keyword">return</span> <span class="hljs-string">'Carousel'</span>;
-        <span class="hljs-keyword">default</span>:
-            <span class="hljs-keyword">return</span> <span class="hljs-string">'Empty'</span>;
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+<span class="hljs-keyword">import</span> { Banner, Carousel, Empty } <span class="hljs-keyword">from</span> <span class="hljs-string">'./components'</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+    <span class="hljs-comment">//...</span>
+
+    getComponentForContentType(contentItem) {
+        <span class="hljs-keyword">switch</span>(contentItem._meta.schema) {
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'https://www.anyafinn.online/content-types/banner.json'</span>:
+                <span class="hljs-keyword">return</span> Banner;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'https://www.anyafinn.online/content-types/carousel.json'</span>:
+                <span class="hljs-keyword">return</span> Carousel;
+            <span class="hljs-keyword">default</span>:
+                <span class="hljs-keyword">return</span> Empty;
+        }
+    }
+
+    render() {
+        <span class="hljs-keyword">const</span> slotContent = <span class="hljs-keyword">this</span>.props.content.slotContent;
+        <span class="hljs-keyword">const</span> TagName = <span class="hljs-keyword">this</span>.getComponentForContentType(slotContent);
+        <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TagName</span> <span class="hljs-attr">content</span>=<span class="hljs-string">{slotContent}</span> /&gt;</span>
     }
 }
 
-render() {
-    <span class="hljs-keyword">const</span> slotContent = <span class="hljs-keyword">this</span>.props.content.slotContent;
-    <span class="hljs-keyword">const</span> TagName = <span class="hljs-keyword">this</span>.getComponentForContentType(slotContent);
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TagName</span> <span class="hljs-attr">content</span>=<span class="hljs-string">{slotContent}</span> /&gt;</span>
-}</span></code></pre>
+</span></code></pre>
 				<h3 id="strongly-typed-content">Strongly typed content</h3>
 				<p>Applications that support TypeScript can optionally create interfaces to represent content types within the code. This can be passed as a generic parameter when loading content which will result in a typed content body.</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">interface</span> Banner <span class="hljs-keyword">extends</span> ContentBody {
@@ -354,6 +363,12 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">'ec5d12cc-b1bb-4df
 						<a href="classes/contentmeta.html" class="tsd-kind-icon">Content<wbr>Meta</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/contentreference.html" class="tsd-kind-icon">Content<wbr>Reference</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/contentreferencemeta.html" class="tsd-kind-icon">Content<wbr>Reference<wbr>Meta</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/edition.html" class="tsd-kind-icon">Edition</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -382,6 +397,9 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">'ec5d12cc-b1bb-4df
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/contentclientconfig.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a>
 					</li>
 				</ul>
 			</nav>
