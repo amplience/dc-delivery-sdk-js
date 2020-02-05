@@ -1,6 +1,9 @@
 export * from './lib/ContentClient';
 export * from './lib/ContentClientConfig';
 
+export * from './lib/VseClient';
+export * from './lib/VseClientConfig';
+
 export * from './lib/content/model/ContentBody';
 export * from './lib/content/model/ContentItem';
 export * from './lib/content/model/ContentLifecycle';
