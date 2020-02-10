@@ -1,6 +1,10 @@
 export * from './lib/ContentClient';
 export * from './lib/ContentClientConfig';
 
+export * from './lib/vse/VseDomainFactory';
+export * from './lib/vse/VseDomainFactoryConfig';
+export * from './lib/vse/GetDomainOptions';
+
 export * from './lib/content/model/ContentBody';
 export * from './lib/content/model/ContentItem';
 export * from './lib/content/model/ContentLifecycle';
