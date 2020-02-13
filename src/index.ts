@@ -1,9 +1,9 @@
 export * from './lib/ContentClient';
 export * from './lib/ContentClientConfig';
 
-export * from './lib/vse/VseDomainFactory';
-export * from './lib/vse/VseDomainFactoryConfig';
-export * from './lib/vse/GetDomainOptions';
+export * from './lib/staging-environment/StagingEnvironmentFactory';
+export * from './lib/staging-environment/StagingEnvironmentFactoryConfig';
+export * from './lib/staging-environment/GenerateDomainOptions';
 
 export * from './lib/content/model/ContentBody';
 export * from './lib/content/model/ContentItem';
