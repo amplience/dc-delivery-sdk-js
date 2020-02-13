@@ -55,21 +55,18 @@ export class StagingEnvironmentFactory {
    * Generates a new staging environment domain name using the snapshotId and/or timestamp thats supplied in the options argument
    * @param options
    */
-  generateDomain(options: GenerateDomainOptions): Promise<string> {
-    const url = this.buildUrl(options);
-
-    return this.client
-      .get<string>(url)
-      .then(response => {
-        return Promise.resolve(response.data);
-      })
-      .catch(err => {
-        return Promise.reject(
-          `An error occurred whilst attempting to generate a staging environment domain using options '${JSON.stringify(
-            options
-          )}': ${err.message}`
-        );
-      });
+  async generateDomain(options: GenerateDomainOptions): Promise<string> {
+    try {
+      const url = this.buildUrl(options);
+      const response = await this.client.get<string>(url);
+      return response.data;
+    } catch (err) {
+      throw new Error(
+        `An error occurred whilst attempting to generate a staging environment domain using options '${JSON.stringify(
+          options
+        )}': ${err.message}`
+      );
+    }
   }
 
   /**
