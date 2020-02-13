@@ -1,4 +1,3 @@
-
 [![Amplience Dynamic Content](media/header.png)](https://amplience.com/dynamic-content)
 
 # dc-delivery-sdk-js
@@ -12,36 +11,36 @@ This sdk is designed to help build client side and server side content managed a
 
 ## Features
 
-* Fetch content and slots using the [Content Delivery Service](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api)
-* Fetch preview content using Virtual Staging
-* Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service)
-* Localize content
-* Transform images on the fly using the [Dynamic Media Service](http://playground.amplience.com/di/app/#/intro)
+- Fetch content and slots using the [Content Delivery Service](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api)
+- Fetch preview content using Virtual Staging
+- Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service)
+- Localize content
+- Transform images on the fly using the [Dynamic Media Service](http://playground.amplience.com/di/app/#/intro)
 
 So we can have nice things:
 
-* ES6 module & tree-shaking support for tools capable of using [ES6 imports](https://github.com/rollup/rollup/wiki/pkg.module) (like [Rollup](http://rollupjs.org/), [Webpack](https://webpack.js.org/), or [Parcel](https://parceljs.org/))
-* Backwards compatibility for Node.js-style (CommonJS) imports
-* TypeScript type definitions
-* Universal Module Definition (UMD) to support direct use in the browser
+- ES6 module & tree-shaking support for tools capable of using [ES6 imports](https://github.com/rollup/rollup/wiki/pkg.module) (like [Rollup](http://rollupjs.org/), [Webpack](https://webpack.js.org/), or [Parcel](https://parceljs.org/))
+- Backwards compatibility for Node.js-style (CommonJS) imports
+- TypeScript type definitions
+- Universal Module Definition (UMD) to support direct use in the browser
 
 ## Installation
 
 Using npm:
 
-``` sh
+```sh
 npm install dc-delivery-sdk-js --save
 ```
 
 Using cdn:
 
-``` html
+```html
 <script src="https://unpkg.com/dc-delivery-sdk-js/dist/dynamicContent.browser.umd.min.js"></script>
 ```
 
 for legacy browsers:
 
-``` html
+```html
 <script src="https://unpkg.com/dc-delivery-sdk-js/dist/dynamicContent.browser.umd.legacy.min.js"></script>
 ```
 
@@ -55,29 +54,29 @@ ES6:
 import { ContentClient } from 'dc-delivery-sdk-js';
 
 const client = new ContentClient({
-    account: 'myaccount'
+  account: 'myaccount'
 });
 ```
 
 CommonJS:
 
 ```js
-var ContentClient = require('dc-delivery-sdk-js').ContentClient;
+const ContentClient = require('dc-delivery-sdk-js').ContentClient;
 
-var client = new ContentClient({
-    account: 'myaccount'
+const client = new ContentClient({
+  account: 'myaccount'
 });
 ```
 
 If your application does not use a package manager you can directly include the pre-bundled version of the sdk and access the features using the global "ampDynamicContent".
 
-``` html
+```html
 <script src="https://unpkg.com/dc-delivery-sdk-js/dist/dynamicContent.browser.umd.min.js"></script>
 ```
 
-``` js
-var client = new ampDynamicContent.ContentClient({
-    account: 'myaccount'
+```js
+const client = new ampDynamicContent.ContentClient({
+  account: 'myaccount'
 });
 ```
 
@@ -88,39 +87,40 @@ If you need to support old browsers a legacy version of the bundle is provided, 
 Once your client is created you can request content for a slot or content item id. This will return a promise which will resolve to the JSON of your slot or content item. If no content is found with the provided id the promise will reject with an error.
 
 ```js
-var slotId = 'cb671f37-0a66-46c3-a011-54ce3cdff241';
-client.getContentItem(slotId)
-    .then(content => {
-        console.log(content.body);
-    })
-    .catch(error => {
-        console.log('content not found', error);
-    });
+const slotId = 'cb671f37-0a66-46c3-a011-54ce3cdff241';
+client
+  .getContentItem(slotId)
+  .then(content => {
+    console.log(content.body);
+  })
+  .catch(error => {
+    console.log('content not found', error);
+  });
 ```
 
-The format of the content object will be specific to your content types, which define the JSON structure of content items and slots, however a set of standard metadata is always included in a property called "_meta".
+The format of the content object will be specific to your content types, which define the JSON structure of content items and slots, however a set of standard metadata is always included in a property called "\_meta".
 
 If the slot or content item requested returns a graph of content, for example a carousel may also return linked slides, these will be included inline in the JSON.
 
 Example:
 
 ```json
-{  
-   "_meta":{  
-      "schema":"https://www.anyafinn.online/content-types/carousel.json",
-      "deliveryId":"543246b7-5948-4849-884c-b295402a95b4",
-      "name":"example-carousel"
-   },
-   "slides": [
-       {
-           "_meta":{  
-                "schema":"https://www.anyafinn.online/content-types/slide.json",
-                "deliveryId":"d6ccc158-6ab7-48d0-aa85-d9fbf2aef000",
-                "name":"example-slide"
-            },
-            "heading": "Free shipping until Sunday!"
-       }
-   ]
+{
+  "_meta": {
+    "schema": "https://www.anyafinn.online/content-types/carousel.json",
+    "deliveryId": "543246b7-5948-4849-884c-b295402a95b4",
+    "name": "example-carousel"
+  },
+  "slides": [
+    {
+      "_meta": {
+        "schema": "https://www.anyafinn.online/content-types/slide.json",
+        "deliveryId": "d6ccc158-6ab7-48d0-aa85-d9fbf2aef000",
+        "name": "example-slide"
+      },
+      "heading": "Free shipping until Sunday!"
+    }
+  ]
 }
 ```
 
@@ -129,9 +129,9 @@ Example:
 By default, the content client will request content from the production content delivery services. When a user wants to preview content before it is published you can re-point the client to a virtual staging environment (VSE):
 
 ```js
-var client = new ContentClient({
-    account: 'myaccount',
-    stagingEnvironment: 'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'
+const client = new ContentClient({
+  account: 'myaccount',
+  stagingEnvironment: 'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'
 });
 ```
 
@@ -142,22 +142,32 @@ Dynamic Content generates a VSE for each user and typically passes the "stagingE
 You can use the `StagingEnvironmentFactory` to generate a new staging environment that is 'pinned' to a Snapshot or a timestamp, which then can be passed into the ContentClient.
 
 Previewing content for a given Snapshot:
-```js
-var factory = new StagingEnvironmentFactory('fhboh562c3tx1844c2ycknz96.staging.bigcontent.io');
-var stagingEnvironmentAtSnapshot = await factory.generateDomain({snapshotId: 'abcdef123456'});
 
-var client = new ContentClient({
+```js
+const factory = new StagingEnvironmentFactory(
+  'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'
+);
+const stagingEnvironmentAtSnapshot = await factory.generateDomain({
+  snapshotId: 'abcdef123456'
+});
+
+const client = new ContentClient({
   account: 'myaccount',
   stagingEnvironment: stagingEnvironmentAtSnapshot
 });
 ```
 
 Previewing content at a given timestamp (epoch milliseconds):
-```js
-var factory = new StagingEnvironmentFactory('fhboh562c3tx1844c2ycknz96.staging.bigcontent.io');
-var stagingEnvironmentAtTimestamp = await factory.generateDomain({timestamp: 1546264721816});
 
-var client = new ContentClient({
+```js
+const factory = new StagingEnvironmentFactory(
+  'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'
+);
+const stagingEnvironmentAtTimestamp = await factory.generateDomain({
+  timestamp: 1546264721816
+});
+
+const client = new ContentClient({
   account: 'myaccount',
   stagingEnvironment: stagingEnvironmentAtTimestamp
 });
@@ -171,35 +181,35 @@ By default, every locale value will be returned in the content object:
 
 ```json
 {
-    "_meta":{  
-        "schema":"https://www.anyafinn.online/content-types/slide.json",
-        "deliveryId":"d6ccc158-6ab7-48d0-aa85-d9fbf2aef000",
-        "name":"example-slide"
+  "_meta": {
+    "schema": "https://www.anyafinn.online/content-types/slide.json",
+    "deliveryId": "d6ccc158-6ab7-48d0-aa85-d9fbf2aef000",
+    "name": "example-slide"
+  },
+  "heading": {
+    "_meta": {
+      "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/localized-value"
     },
-    "heading": {
-        "_meta":{  
-            "schema":"http://bigcontent.io/cms/schema/v1/core#/definitions/localized-value"
-        },
-        "values":[  
-            {  
-                "locale":"en-US",
-                "value":"Free shipping until Sunday!"
-            },
-            {
-                "locale":"de-de",
-                "value": "Kostenloser Versand bis Sonntag!"
-            }
-        ]
-    }
+    "values": [
+      {
+        "locale": "en-US",
+        "value": "Free shipping until Sunday!"
+      },
+      {
+        "locale": "de-de",
+        "value": "Kostenloser Versand bis Sonntag!"
+      }
+    ]
+  }
 }
 ```
 
 If desired, you can configure the sdk with a locale query. If set, the locale matching is performed server side and only a single value will be returned.
 
 ```js
-var client = new ContentClient({
-    account: 'myaccount',
-    locale: 'en-US,en-*'
+const client = new ContentClient({
+  account: 'myaccount',
+  locale: 'en-US,en-*'
 });
 ```
 
@@ -207,12 +217,12 @@ Returns
 
 ```json
 {
-    "_meta":{  
-        "schema":"https://www.anyafinn.online/content-types/slide.json",
-        "deliveryId":"d6ccc158-6ab7-48d0-aa85-d9fbf2aef000",
-        "name":"example-slide"
-    },
-    "heading": "Free shipping until Sunday!"
+  "_meta": {
+    "schema": "https://www.anyafinn.online/content-types/slide.json",
+    "deliveryId": "d6ccc158-6ab7-48d0-aa85-d9fbf2aef000",
+    "name": "example-slide"
+  },
+  "heading": "Free shipping until Sunday!"
 }
 ```
 
@@ -223,16 +233,15 @@ In addition to serving image and Video content, Dynamic Content can also transfo
 The sdk attaches helper functions to Image and Video properties to simplify constructing Dynamic Media URLs:
 
 ```js
-var ImageFormat = require('dc-delivery-sdk-js').ImageFormat;
+const ImageFormat = require('dc-delivery-sdk-js').ImageFormat;
 
-var imageUrl = 
-    content.body.imageProperty
-        .url()
-        .width(500)
-        .height(500)
-        .sharpen()
-        .format(ImageFormat.WEBP)
-        .build();
+const imageUrl = content.body.imageProperty
+  .url()
+  .width(500)
+  .height(500)
+  .sharpen()
+  .format(ImageFormat.WEBP)
+  .build();
 ```
 
 See the sdk [reference documentation](https://amplience.github.io/dc-delivery-sdk-js/) for further details.
@@ -242,13 +251,14 @@ See the sdk [reference documentation](https://amplience.github.io/dc-delivery-sd
 Using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service), you can convert the JSON content into any format you choose by applying a template previously setup in the back-office. This is typically used to convert content into fragments of HTML, XML or even rewrite the JSON.
 
 ```js
-client.renderContentItem('b322f84a-9719-42ff-a6a0-6e2924608d19', 'templateName')
-    .then(response => {
-        console.log(response.body);
-    })
-    .catch(error => {
-        console.log('unable to find content', error);
-    });
+client
+  .renderContentItem('b322f84a-9719-42ff-a6a0-6e2924608d19', 'templateName')
+  .then(response => {
+    console.log(response.body);
+  })
+  .catch(error => {
+    console.log('unable to find content', error);
+  });
 ```
 
 ## Advanced
@@ -257,54 +267,52 @@ client.renderContentItem('b322f84a-9719-42ff-a6a0-6e2924608d19', 'templateName')
 
 When displaying content you may need to detect the content type to decide which UI widget should be used to display the content.
 
-Every content item in the body includes a built-in property _meta.schema which identifies the content type that was used to create that fragment of content. This can be used by your application to influence how the content is processed.
+Every content item in the body includes a built-in property \_meta.schema which identifies the content type that was used to create that fragment of content. This can be used by your application to influence how the content is processed.
 
 Example:
 
 ```json
-{  
-   "_meta":{  
-      "schema":"https://www.anyafinn.online/content-types/slot.json",
-      "deliveryId":"62ece7d6-b541-411c-b776-0a6704ede1fb",
-      "name":"homepage-hero"
-   },
-   "slotContent": {
-        "_meta":{  
-            "schema":"https://www.anyafinn.online/content-types/banner.json",
-            "deliveryId":"28583572-c964-4755-825b-044718312a29",
-            "name":"example-banner"
-        },
-        "heading": "Free shipping until Sunday!"
-   }
+{
+  "_meta": {
+    "schema": "https://www.anyafinn.online/content-types/slot.json",
+    "deliveryId": "62ece7d6-b541-411c-b776-0a6704ede1fb",
+    "name": "homepage-hero"
+  },
+  "slotContent": {
+    "_meta": {
+      "schema": "https://www.anyafinn.online/content-types/banner.json",
+      "deliveryId": "28583572-c964-4755-825b-044718312a29",
+      "name": "example-banner"
+    },
+    "heading": "Free shipping until Sunday!"
+  }
 }
 ```
 
 ```js
-import React from 'react'
-import { Banner, Carousel, Empty } from './components'
+import React from 'react';
+import { Banner, Carousel, Empty } from './components';
 
 class App extends React.Component {
-    //...
+  //...
 
-    getComponentForContentType(contentItem) {
-        switch(contentItem._meta.schema) {
-            case 'https://www.anyafinn.online/content-types/banner.json':
-                return Banner;
-            case 'https://www.anyafinn.online/content-types/carousel.json':
-                return Carousel;
-            default:
-                return Empty;
-        }
+  getComponentForContentType(contentItem) {
+    switch (contentItem._meta.schema) {
+      case 'https://www.anyafinn.online/content-types/banner.json':
+        return Banner;
+      case 'https://www.anyafinn.online/content-types/carousel.json':
+        return Carousel;
+      default:
+        return Empty;
     }
+  }
 
-    render() {
-        const slotContent = this.props.content.slotContent;
-        const TagName = this.getComponentForContentType(slotContent);
-        return <TagName content={slotContent} />
-    }
+  render() {
+    const slotContent = this.props.content.slotContent;
+    const TagName = this.getComponentForContentType(slotContent);
+    return <TagName content={slotContent} />;
+  }
 }
-
-
 ```
 
 ### Strongly typed content
@@ -313,7 +321,7 @@ Applications that support TypeScript can optionally create interfaces to represe
 
 ```typescript
 interface Banner extends ContentBody {
-    heading: string;
+  heading: string;
 }
 
 client.getContentItem<Banner>('ec5d12cc-b1bb-4df4-a7b3-fd7796326cfe');
@@ -324,17 +332,17 @@ client.getContentItem<Banner>('ec5d12cc-b1bb-4df4-a7b3-fd7796326cfe');
 If you have previously configured custom CNAMEs for your media hosting, you can override the hostname used by the sdk when constructing image URLs as shown below:
 
 ```js
-var client = new ContentClient({
-    account: 'myaccount',
-    mediaHost: 'images.mybrand.com',
-    secureMediaHost: 'images.mybrand.com'
+const client = new ContentClient({
+  account: 'myaccount',
+  mediaHost: 'images.mybrand.com',
+  secureMediaHost: 'images.mybrand.com'
 });
 ```
 
 ### Configuration options
 
 | Option             | Description                                                                                             |
-|--------------------|---------------------------------------------------------------------------------------------------------|
+| ------------------ | ------------------------------------------------------------------------------------------------------- |
 | account            | Required: Account to retrieve content from.                                                             |
 | stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.        |
 | locale             | If set, the SDK will request content using the locale settings provided.                                |
@@ -344,19 +352,21 @@ var client = new ContentClient({
 | adaptor            | Allows custom handling of requests which makes testing and supporting non-standard environments easier. |
 
 ## Documentation
+
 Please use the following documentation resources to assist building your application:
 
-* Dynamic Content SDK [Reference documentation](https://amplience.github.io/dc-delivery-sdk-js/)
-* Dynamic Content Delivery API [Reference documentation](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api)
-* Dynamic Content [User guide](https://docs.amplience.net/)
+- Dynamic Content SDK [Reference documentation](https://amplience.github.io/dc-delivery-sdk-js/)
+- Dynamic Content Delivery API [Reference documentation](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api)
+- Dynamic Content [User guide](https://docs.amplience.net/)
 
 ## Getting Help
+
 If you need help using the sdk please reach out using one of the following channels:
 
-* Ask a question on [StackOverflow](https://stackoverflow.com/) using the tag `amplience-dynamic-content`
-* Open a support ticket with [Amplience Support](https://support.amplience.com/)
-* Contact your [Amplience Customer Success](https://amplience.com/customer-success) representative
-* If you have found a bug please report it by [opening an issue](https://github.com/amplience/dc-delivery-sdk-js/issues/new)
+- Ask a question on [StackOverflow](https://stackoverflow.com/) using the tag `amplience-dynamic-content`
+- Open a support ticket with [Amplience Support](https://support.amplience.com/)
+- Contact your [Amplience Customer Success](https://amplience.com/customer-success) representative
+- If you have found a bug please report it by [opening an issue](https://github.com/amplience/dc-delivery-sdk-js/issues/new)
 
 ## License
 
