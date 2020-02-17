@@ -1,6 +1,10 @@
 export * from './lib/ContentClient';
 export * from './lib/ContentClientConfig';
 
+export * from './lib/staging-environment/StagingEnvironmentFactory';
+export * from './lib/staging-environment/StagingEnvironmentFactoryConfig';
+export * from './lib/staging-environment/GenerateDomainOptions';
+
 export * from './lib/content/model/ContentBody';
 export * from './lib/content/model/ContentItem';
 export * from './lib/content/model/ContentLifecycle';

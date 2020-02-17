@@ -126,16 +126,42 @@ Example:
 
 ### Preview staging content
 
-By default, the content client will request content from the production content delivery services. When a user wants to preview content before it is published you can repoint the client to a virtual staging environment (VSE):
+By default, the content client will request content from the production content delivery services. When a user wants to preview content before it is published you can re-point the client to a virtual staging environment (VSE):
 
 ```js
 var client = new ContentClient({
     account: 'myaccount',
-    stagingEnvironment: 'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io'
+    stagingEnvironment: 'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'
 });
 ```
 
 Dynamic Content generates a VSE for each user and typically passes the "stagingEnvironment" value into your application using a URL parameter. This allows each user to effectively have their own staging environment which allows content producers to work in parallel.
+
+#### Previewing staging content for a given Snapshot or at a given point in time (time machine)
+
+You can use the `StagingEnvironmentFactory` to generate a new staging environment that is 'pinned' to a Snapshot or a timestamp, which then can be passed into the ContentClient.
+
+Previewing content for a given Snapshot:
+```js
+var factory = new StagingEnvironmentFactory('fhboh562c3tx1844c2ycknz96.staging.bigcontent.io');
+var stagingEnvironmentAtSnapshot = await factory.generateDomain({snapshotId: 'abcdef123456'});
+
+var client = new ContentClient({
+  account: 'myaccount',
+  stagingEnvironment: stagingEnvironmentAtSnapshot
+});
+```
+
+Previewing content at a given timestamp (epoch milliseconds):
+```js
+var factory = new StagingEnvironmentFactory('fhboh562c3tx1844c2ycknz96.staging.bigcontent.io');
+var stagingEnvironmentAtTimestamp = await factory.generateDomain({timestamp: 1546264721816});
+
+var client = new ContentClient({
+  account: 'myaccount',
+  stagingEnvironment: stagingEnvironmentAtTimestamp
+});
+```
 
 ### Localize content
 
