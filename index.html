@@ -100,177 +100,202 @@
 				<pre><code class="language-js"><span class="hljs-keyword">import</span> { ContentClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'dc-delivery-sdk-js'</span>;
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-    <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>
+  <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>
 });</code></pre>
 				<p>CommonJS:</p>
-				<pre><code class="language-js"><span class="hljs-keyword">var</span> ContentClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dc-delivery-sdk-js'</span>).ContentClient;
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> ContentClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dc-delivery-sdk-js'</span>).ContentClient;
 
-<span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> ContentClient({
-    <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
+  <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>
 });</code></pre>
 				<p>If your application does not use a package manager you can directly include the pre-bundled version of the sdk and access the features using the global &quot;ampDynamicContent&quot;.</p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/dc-delivery-sdk-js/dist/dynamicContent.browser.umd.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-				<pre><code class="language-js"><span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> ampDynamicContent.ContentClient({
-    <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ampDynamicContent.ContentClient({
+  <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>
 });</code></pre>
 				<p>If you need to support old browsers a legacy version of the bundle is provided, however we strongly recommend using a tool like <a href="https://babeljs.io/">babel</a> in your project to compile the sdk to your exact browser requirements.</p>
 				<h3 id="fetch-content">Fetch content</h3>
 				<p>Once your client is created you can request content for a slot or content item id. This will return a promise which will resolve to the JSON of your slot or content item. If no content is found with the provided id the promise will reject with an error.</p>
-				<pre><code class="language-js"><span class="hljs-keyword">var</span> slotId = <span class="hljs-string">'cb671f37-0a66-46c3-a011-54ce3cdff241'</span>;
-client.getContentItem(slotId)
-    .then(<span class="hljs-function"><span class="hljs-params">content</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(content.body);
-    })
-    .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'content not found'</span>, error);
-    });</code></pre>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> slotId = <span class="hljs-string">'cb671f37-0a66-46c3-a011-54ce3cdff241'</span>;
+client
+  .getContentItem(slotId)
+  .then(<span class="hljs-function"><span class="hljs-params">content</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(content.body);
+  })
+  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'content not found'</span>, error);
+  });</code></pre>
 				<p>The format of the content object will be specific to your content types, which define the JSON structure of content items and slots, however a set of standard metadata is always included in a property called &quot;_meta&quot;.</p>
 				<p>If the slot or content item requested returns a graph of content, for example a carousel may also return linked slides, these will be included inline in the JSON.</p>
 				<p>Example:</p>
 				<pre><code class="language-json">{
-   <span class="hljs-attr">"_meta"</span>:{  
-      <span class="hljs-attr">"schema"</span>:<span class="hljs-string">"https://www.anyafinn.online/content-types/carousel.json"</span>,
-      <span class="hljs-attr">"deliveryId"</span>:<span class="hljs-string">"543246b7-5948-4849-884c-b295402a95b4"</span>,
-      <span class="hljs-attr">"name"</span>:<span class="hljs-string">"example-carousel"</span>
-   },
-   <span class="hljs-attr">"slides"</span>: [
-       {
-           <span class="hljs-attr">"_meta"</span>:{  
-                <span class="hljs-attr">"schema"</span>:<span class="hljs-string">"https://www.anyafinn.online/content-types/slide.json"</span>,
-                <span class="hljs-attr">"deliveryId"</span>:<span class="hljs-string">"d6ccc158-6ab7-48d0-aa85-d9fbf2aef000"</span>,
-                <span class="hljs-attr">"name"</span>:<span class="hljs-string">"example-slide"</span>
-            },
-            <span class="hljs-attr">"heading"</span>: <span class="hljs-string">"Free shipping until Sunday!"</span>
-       }
-   ]
+  <span class="hljs-attr">"_meta"</span>: {
+    <span class="hljs-attr">"schema"</span>: <span class="hljs-string">"https://www.anyafinn.online/content-types/carousel.json"</span>,
+    <span class="hljs-attr">"deliveryId"</span>: <span class="hljs-string">"543246b7-5948-4849-884c-b295402a95b4"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"example-carousel"</span>
+  },
+  <span class="hljs-attr">"slides"</span>: [
+    {
+      <span class="hljs-attr">"_meta"</span>: {
+        <span class="hljs-attr">"schema"</span>: <span class="hljs-string">"https://www.anyafinn.online/content-types/slide.json"</span>,
+        <span class="hljs-attr">"deliveryId"</span>: <span class="hljs-string">"d6ccc158-6ab7-48d0-aa85-d9fbf2aef000"</span>,
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"example-slide"</span>
+      },
+      <span class="hljs-attr">"heading"</span>: <span class="hljs-string">"Free shipping until Sunday!"</span>
+    }
+  ]
 }</code></pre>
 				<h3 id="preview-staging-content">Preview staging content</h3>
-				<p>By default, the content client will request content from the production content delivery services. When a user wants to preview content before it is published you can repoint the client to a virtual staging environment (VSE):</p>
-				<pre><code class="language-js"><span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> ContentClient({
-    <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>,
-    <span class="hljs-attr">stagingEnvironment</span>: <span class="hljs-string">'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io'</span>
+				<p>By default, the content client will request content from the production content delivery services. When a user wants to preview content before it is published you can re-point the client to a virtual staging environment (VSE):</p>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
+  <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>,
+  <span class="hljs-attr">stagingEnvironment</span>: <span class="hljs-string">'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'</span>
 });</code></pre>
 				<p>Dynamic Content generates a VSE for each user and typically passes the &quot;stagingEnvironment&quot; value into your application using a URL parameter. This allows each user to effectively have their own staging environment which allows content producers to work in parallel.</p>
+				<h4 id="previewing-staging-content-for-a-given-snapshot-or-at-a-given-point-in-time-time-machine-">Previewing staging content for a given Snapshot or at a given point in time (time machine)</h4>
+				<p>You can use the <code>StagingEnvironmentFactory</code> to generate a new staging environment that is &#39;pinned&#39; to a Snapshot or a timestamp, which then can be passed into the ContentClient.</p>
+				<p>Previewing content for a given Snapshot:</p>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> factory = <span class="hljs-keyword">new</span> StagingEnvironmentFactory(
+  <span class="hljs-string">'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'</span>
+);
+<span class="hljs-keyword">const</span> stagingEnvironmentAtSnapshot = <span class="hljs-keyword">await</span> factory.generateDomain({
+  <span class="hljs-attr">snapshotId</span>: <span class="hljs-string">'abcdef123456'</span>
+});
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
+  <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>,
+  <span class="hljs-attr">stagingEnvironment</span>: stagingEnvironmentAtSnapshot
+});</code></pre>
+				<p>Previewing content at a given timestamp (epoch milliseconds):</p>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> factory = <span class="hljs-keyword">new</span> StagingEnvironmentFactory(
+  <span class="hljs-string">'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'</span>
+);
+<span class="hljs-keyword">const</span> stagingEnvironmentAtTimestamp = <span class="hljs-keyword">await</span> factory.generateDomain({
+  <span class="hljs-attr">timestamp</span>: <span class="hljs-number">1546264721816</span>
+});
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
+  <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>,
+  <span class="hljs-attr">stagingEnvironment</span>: stagingEnvironmentAtTimestamp
+});</code></pre>
 				<h3 id="localize-content">Localize content</h3>
 				<p>Content types can make use of <a href="https://docs.amplience.net/production/localization.html#field-level-localization">field-level localization</a> to give content producers the ability to enter locale specific values for a field.</p>
 				<p>By default, every locale value will be returned in the content object:</p>
 				<pre><code class="language-json">{
-    <span class="hljs-attr">"_meta"</span>:{  
-        <span class="hljs-attr">"schema"</span>:<span class="hljs-string">"https://www.anyafinn.online/content-types/slide.json"</span>,
-        <span class="hljs-attr">"deliveryId"</span>:<span class="hljs-string">"d6ccc158-6ab7-48d0-aa85-d9fbf2aef000"</span>,
-        <span class="hljs-attr">"name"</span>:<span class="hljs-string">"example-slide"</span>
+  <span class="hljs-attr">"_meta"</span>: {
+    <span class="hljs-attr">"schema"</span>: <span class="hljs-string">"https://www.anyafinn.online/content-types/slide.json"</span>,
+    <span class="hljs-attr">"deliveryId"</span>: <span class="hljs-string">"d6ccc158-6ab7-48d0-aa85-d9fbf2aef000"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"example-slide"</span>
+  },
+  <span class="hljs-attr">"heading"</span>: {
+    <span class="hljs-attr">"_meta"</span>: {
+      <span class="hljs-attr">"schema"</span>: <span class="hljs-string">"http://bigcontent.io/cms/schema/v1/core#/definitions/localized-value"</span>
     },
-    <span class="hljs-attr">"heading"</span>: {
-        <span class="hljs-attr">"_meta"</span>:{  
-            <span class="hljs-attr">"schema"</span>:<span class="hljs-string">"http://bigcontent.io/cms/schema/v1/core#/definitions/localized-value"</span>
-        },
-        <span class="hljs-attr">"values"</span>:[  
-            {  
-                <span class="hljs-attr">"locale"</span>:<span class="hljs-string">"en-US"</span>,
-                <span class="hljs-attr">"value"</span>:<span class="hljs-string">"Free shipping until Sunday!"</span>
-            },
-            {
-                <span class="hljs-attr">"locale"</span>:<span class="hljs-string">"de-de"</span>,
-                <span class="hljs-attr">"value"</span>: <span class="hljs-string">"Kostenloser Versand bis Sonntag!"</span>
-            }
-        ]
-    }
+    <span class="hljs-attr">"values"</span>: [
+      {
+        <span class="hljs-attr">"locale"</span>: <span class="hljs-string">"en-US"</span>,
+        <span class="hljs-attr">"value"</span>: <span class="hljs-string">"Free shipping until Sunday!"</span>
+      },
+      {
+        <span class="hljs-attr">"locale"</span>: <span class="hljs-string">"de-de"</span>,
+        <span class="hljs-attr">"value"</span>: <span class="hljs-string">"Kostenloser Versand bis Sonntag!"</span>
+      }
+    ]
+  }
 }</code></pre>
 				<p>If desired, you can configure the sdk with a locale query. If set, the locale matching is performed server side and only a single value will be returned.</p>
-				<pre><code class="language-js"><span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> ContentClient({
-    <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>,
-    <span class="hljs-attr">locale</span>: <span class="hljs-string">'en-US,en-*'</span>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
+  <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>,
+  <span class="hljs-attr">locale</span>: <span class="hljs-string">'en-US,en-*'</span>
 });</code></pre>
 				<p>Returns</p>
 				<pre><code class="language-json">{
-    <span class="hljs-attr">"_meta"</span>:{  
-        <span class="hljs-attr">"schema"</span>:<span class="hljs-string">"https://www.anyafinn.online/content-types/slide.json"</span>,
-        <span class="hljs-attr">"deliveryId"</span>:<span class="hljs-string">"d6ccc158-6ab7-48d0-aa85-d9fbf2aef000"</span>,
-        <span class="hljs-attr">"name"</span>:<span class="hljs-string">"example-slide"</span>
-    },
-    <span class="hljs-attr">"heading"</span>: <span class="hljs-string">"Free shipping until Sunday!"</span>
+  <span class="hljs-attr">"_meta"</span>: {
+    <span class="hljs-attr">"schema"</span>: <span class="hljs-string">"https://www.anyafinn.online/content-types/slide.json"</span>,
+    <span class="hljs-attr">"deliveryId"</span>: <span class="hljs-string">"d6ccc158-6ab7-48d0-aa85-d9fbf2aef000"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"example-slide"</span>
+  },
+  <span class="hljs-attr">"heading"</span>: <span class="hljs-string">"Free shipping until Sunday!"</span>
 }</code></pre>
 				<h3 id="transform-images">Transform images</h3>
 				<p>In addition to serving image and Video content, Dynamic Content can also transform media on the fly allowing you to target multiple channels and deliver just the pixels required from a single master asset.</p>
 				<p>The sdk attaches helper functions to Image and Video properties to simplify constructing Dynamic Media URLs:</p>
-				<pre><code class="language-js"><span class="hljs-keyword">var</span> ImageFormat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dc-delivery-sdk-js'</span>).ImageFormat;
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> ImageFormat = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dc-delivery-sdk-js'</span>).ImageFormat;
 
-<span class="hljs-keyword">var</span> imageUrl = 
-    content.body.imageProperty
-        .url()
-        .width(<span class="hljs-number">500</span>)
-        .height(<span class="hljs-number">500</span>)
-        .sharpen()
-        .format(ImageFormat.WEBP)
-        .build();</code></pre>
+<span class="hljs-keyword">const</span> imageUrl = content.body.imageProperty
+  .url()
+  .width(<span class="hljs-number">500</span>)
+  .height(<span class="hljs-number">500</span>)
+  .sharpen()
+  .format(ImageFormat.WEBP)
+  .build();</code></pre>
 				<p>See the sdk <a href="https://amplience.github.io/dc-delivery-sdk-js/">reference documentation</a> for further details.</p>
 				<h3 id="transform-content">Transform content</h3>
 				<p>Using the <a href="https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service">Content Rendering Service</a>, you can convert the JSON content into any format you choose by applying a template previously setup in the back-office. This is typically used to convert content into fragments of HTML, XML or even rewrite the JSON.</p>
-				<pre><code class="language-js">client.renderContentItem(<span class="hljs-string">'b322f84a-9719-42ff-a6a0-6e2924608d19'</span>, <span class="hljs-string">'templateName'</span>)
-    .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(response.body);
-    })
-    .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'unable to find content'</span>, error);
-    });</code></pre>
+				<pre><code class="language-js">client
+  .renderContentItem(<span class="hljs-string">'b322f84a-9719-42ff-a6a0-6e2924608d19'</span>, <span class="hljs-string">'templateName'</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(response.body);
+  })
+  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'unable to find content'</span>, error);
+  });</code></pre>
 				<h2 id="advanced">Advanced</h2>
 				<h3 id="detecting-content-types">Detecting content types</h3>
 				<p>When displaying content you may need to detect the content type to decide which UI widget should be used to display the content.</p>
 				<p>Every content item in the body includes a built-in property _meta.schema which identifies the content type that was used to create that fragment of content. This can be used by your application to influence how the content is processed.</p>
 				<p>Example:</p>
 				<pre><code class="language-json">{
-   <span class="hljs-attr">"_meta"</span>:{  
-      <span class="hljs-attr">"schema"</span>:<span class="hljs-string">"https://www.anyafinn.online/content-types/slot.json"</span>,
-      <span class="hljs-attr">"deliveryId"</span>:<span class="hljs-string">"62ece7d6-b541-411c-b776-0a6704ede1fb"</span>,
-      <span class="hljs-attr">"name"</span>:<span class="hljs-string">"homepage-hero"</span>
-   },
-   <span class="hljs-attr">"slotContent"</span>: {
-        <span class="hljs-attr">"_meta"</span>:{  
-            <span class="hljs-attr">"schema"</span>:<span class="hljs-string">"https://www.anyafinn.online/content-types/banner.json"</span>,
-            <span class="hljs-attr">"deliveryId"</span>:<span class="hljs-string">"28583572-c964-4755-825b-044718312a29"</span>,
-            <span class="hljs-attr">"name"</span>:<span class="hljs-string">"example-banner"</span>
-        },
-        <span class="hljs-attr">"heading"</span>: <span class="hljs-string">"Free shipping until Sunday!"</span>
-   }
+  <span class="hljs-attr">"_meta"</span>: {
+    <span class="hljs-attr">"schema"</span>: <span class="hljs-string">"https://www.anyafinn.online/content-types/slot.json"</span>,
+    <span class="hljs-attr">"deliveryId"</span>: <span class="hljs-string">"62ece7d6-b541-411c-b776-0a6704ede1fb"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"homepage-hero"</span>
+  },
+  <span class="hljs-attr">"slotContent"</span>: {
+    <span class="hljs-attr">"_meta"</span>: {
+      <span class="hljs-attr">"schema"</span>: <span class="hljs-string">"https://www.anyafinn.online/content-types/banner.json"</span>,
+      <span class="hljs-attr">"deliveryId"</span>: <span class="hljs-string">"28583572-c964-4755-825b-044718312a29"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"example-banner"</span>
+    },
+    <span class="hljs-attr">"heading"</span>: <span class="hljs-string">"Free shipping until Sunday!"</span>
+  }
 }</code></pre>
-				<pre><code class="language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
-<span class="hljs-keyword">import</span> { Banner, Carousel, Empty } <span class="hljs-keyword">from</span> <span class="hljs-string">'./components'</span>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> { Banner, Carousel, Empty } <span class="hljs-keyword">from</span> <span class="hljs-string">'./components'</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-    <span class="hljs-comment">//...</span>
+  <span class="hljs-comment">//...</span>
 
-    getComponentForContentType(contentItem) {
-        <span class="hljs-keyword">switch</span>(contentItem._meta.schema) {
-            <span class="hljs-keyword">case</span> <span class="hljs-string">'https://www.anyafinn.online/content-types/banner.json'</span>:
-                <span class="hljs-keyword">return</span> Banner;
-            <span class="hljs-keyword">case</span> <span class="hljs-string">'https://www.anyafinn.online/content-types/carousel.json'</span>:
-                <span class="hljs-keyword">return</span> Carousel;
-            <span class="hljs-keyword">default</span>:
-                <span class="hljs-keyword">return</span> Empty;
-        }
+  getComponentForContentType(contentItem) {
+    <span class="hljs-keyword">switch</span> (contentItem._meta.schema) {
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'https://www.anyafinn.online/content-types/banner.json'</span>:
+        <span class="hljs-keyword">return</span> Banner;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">'https://www.anyafinn.online/content-types/carousel.json'</span>:
+        <span class="hljs-keyword">return</span> Carousel;
+      <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">return</span> Empty;
     }
+  }
 
-    render() {
-        <span class="hljs-keyword">const</span> slotContent = <span class="hljs-keyword">this</span>.props.content.slotContent;
-        <span class="hljs-keyword">const</span> TagName = <span class="hljs-keyword">this</span>.getComponentForContentType(slotContent);
-        <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TagName</span> <span class="hljs-attr">content</span>=<span class="hljs-string">{slotContent}</span> /&gt;</span>
-    }
-}
-
-</span></code></pre>
+  render() {
+    <span class="hljs-keyword">const</span> slotContent = <span class="hljs-keyword">this</span>.props.content.slotContent;
+    <span class="hljs-keyword">const</span> TagName = <span class="hljs-keyword">this</span>.getComponentForContentType(slotContent);
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TagName</span> <span class="hljs-attr">content</span>=<span class="hljs-string">{slotContent}</span> /&gt;</span>;
+  }
+}</span></code></pre>
 				<h3 id="strongly-typed-content">Strongly typed content</h3>
 				<p>Applications that support TypeScript can optionally create interfaces to represent content types within the code. This can be passed as a generic parameter when loading content which will result in a typed content body.</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">interface</span> Banner <span class="hljs-keyword">extends</span> ContentBody {
-    heading: <span class="hljs-built_in">string</span>;
+  heading: <span class="hljs-built_in">string</span>;
 }
 
 client.getContentItem&lt;Banner&gt;(<span class="hljs-string">'ec5d12cc-b1bb-4df4-a7b3-fd7796326cfe'</span>);</code></pre>
 				<h3 id="custom-media-cnames">Custom media CNAMEs</h3>
 				<p>If you have previously configured custom CNAMEs for your media hosting, you can override the hostname used by the sdk when constructing image URLs as shown below:</p>
-				<pre><code class="language-js"><span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> ContentClient({
-    <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>,
-    <span class="hljs-attr">mediaHost</span>: <span class="hljs-string">'images.mybrand.com'</span>,
-    <span class="hljs-attr">secureMediaHost</span>: <span class="hljs-string">'images.mybrand.com'</span>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
+  <span class="hljs-attr">account</span>: <span class="hljs-string">'myaccount'</span>,
+  <span class="hljs-attr">mediaHost</span>: <span class="hljs-string">'images.mybrand.com'</span>,
+  <span class="hljs-attr">secureMediaHost</span>: <span class="hljs-string">'images.mybrand.com'</span>
 });</code></pre>
 				<h3 id="configuration-options">Configuration options</h3>
 				<table>
@@ -387,6 +412,9 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">'ec5d12cc-b1bb-4df
 						<a href="classes/renderedcontentitem.html" class="tsd-kind-icon">Rendered<wbr>Content<wbr>Item</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/stagingenvironmentfactory.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/video.html" class="tsd-kind-icon">Video</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -398,8 +426,17 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">'ec5d12cc-b1bb-4df
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/contentclientconfig.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/generatedomainoptions.html" class="tsd-kind-icon">Generate<wbr>Domain<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/stagingenvironmentfactoryconfig.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory<wbr>Config</a>
+					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#defaultstagingenvironmentfactoryconfig" class="tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</a>
 					</li>
 				</ul>
 			</nav>

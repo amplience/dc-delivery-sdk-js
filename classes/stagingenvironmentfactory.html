@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ContentClient | dc-delivery-sdk-js</title>
+	<title>StagingEnvironmentFactory | dc-delivery-sdk-js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="contentclient.html">ContentClient</a>
+					<a href="stagingenvironmentfactory.html">StagingEnvironmentFactory</a>
 				</li>
 			</ul>
-			<h1>Class ContentClient</h1>
+			<h1>Class StagingEnvironmentFactory</h1>
 		</div>
 	</div>
 </header>
@@ -69,14 +69,20 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Amplience <a href="https://docs.amplience.net/integration/deliveryapi.html?h=delivery">Content Delivery API</a> client.</p>
+						<p>Amplience <a href="https://docs.amplience.net/virtualstaging/virtualstagingintro.html?h=vse">Virtual Staging Environment</a> factory.</p>
 					</div>
-					<p>This client is intended to be used by end user applications to fetch content so that it can be displayed to users.</p>
-					<p>You must provide some basic account information in order to create an instance of ContentClient.</p>
+					<p>This factory is intended to be used by end user applications to preview content for a given snapshotID or at a given timestamp.</p>
+					<p>It works by passing the virtual staging environment domain and the snapshotID or timestamp to the virtual-staging API,
+					which will return a new domain that can be used in the ContentClient.</p>
 					<p>Example:</p>
-					<pre><code class="language-typescript"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-   account: <span class="hljs-string">'test'</span>
-});</code></pre>
+					<pre><code class="language-typescript"><span class="hljs-keyword">const</span> factory = <span class="hljs-keyword">new</span> StagingEnvironmentFactory(<span class="hljs-string">'11122222gggg232gg32g32g.staging.bigcontent.io'</span>);
+<span class="hljs-keyword">const</span> stagingEnvironmentWithSnapshot = <span class="hljs-keyword">await</span> factory.generateDomain({snapshotId: <span class="hljs-string">'abcdef123456'</span>});
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
+  account: <span class="hljs-string">'test'</span>,
+  stagingEnvironment: stagingEnvironmentWithSnapshot
+});
+</code></pre>
 					<p>You may override other settings when constructing the client but if no additional configuration is provided sensible defaults will be used.</p>
 				</div>
 			</section>
@@ -84,7 +90,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ContentClient</span>
+						<span class="target">StagingEnvironmentFactory</span>
 					</li>
 				</ul>
 			</section>
@@ -95,24 +101,22 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="contentclient.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="stagingenvironmentfactory.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="contentclient.html#config" class="tsd-kind-icon">config</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="contentclient.html#contentclient-1" class="tsd-kind-icon">content<wbr>Client</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="contentclient.html#contentmapper" class="tsd-kind-icon">content<wbr>Mapper</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="stagingenvironmentfactory.html#client" class="tsd-kind-icon">client</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="stagingenvironmentfactory.html#stagingenvironment" class="tsd-kind-icon">staging<wbr>Environment</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="contentclient.html#createcontentclient" class="tsd-kind-icon">create<wbr>Content<wbr>Client</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="contentclient.html#createcontentmapper" class="tsd-kind-icon">create<wbr>Content<wbr>Mapper</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#getcontentitem" class="tsd-kind-icon">get<wbr>Content<wbr>Item</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="contentclient.html#rendercontentitem" class="tsd-kind-icon">render<wbr>Content<wbr>Item</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="stagingenvironmentfactory.html#buildurl" class="tsd-kind-icon">build<wbr>Url</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="stagingenvironmentfactory.html#createclient" class="tsd-kind-icon">create<wbr>Client</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="stagingenvironmentfactory.html#generatedomain" class="tsd-kind-icon">generate<wbr>Domain</a></li>
 							</ul>
 						</section>
 					</div>
@@ -124,24 +128,27 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Content<wbr>Client<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/contentclientconfig.html" class="tsd-signature-type">ContentClientConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="contentclient.html" class="tsd-signature-type">ContentClient</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Staging<wbr>Environment<wbr>Factory<span class="tsd-signature-symbol">(</span>stagingEnvironment<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, config<span class="tsd-signature-symbol">?: </span><a href="../interfaces/stagingenvironmentfactoryconfig.html" class="tsd-signature-type">StagingEnvironmentFactoryConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="stagingenvironmentfactory.html" class="tsd-signature-type">StagingEnvironmentFactory</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/ContentClient.ts#L29">lib/ContentClient.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/staging-environment/StagingEnvironmentFactory.ts#L37">lib/staging-environment/StagingEnvironmentFactory.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates a Delivery API Client instance. You must provide a configuration object with the account you wish to fetch content from.</p>
+									<p>Creates a StagingEnvironmentFactory instance.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/contentclientconfig.html" class="tsd-signature-type">ContentClientConfig</a></h5>
+									<h5>stagingEnvironment: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> config: <a href="../interfaces/stagingenvironmentfactoryconfig.html" class="tsd-signature-type">StagingEnvironmentFactoryConfig</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>Client configuration options</p>
@@ -149,7 +156,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="contentclient.html" class="tsd-signature-type">ContentClient</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="stagingenvironmentfactory.html" class="tsd-signature-type">StagingEnvironmentFactory</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -157,37 +164,22 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="config" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> config</h3>
-					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <a href="../interfaces/contentclientconfig.html" class="tsd-signature-type">ContentClientConfig</a></div>
+					<a name="client" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> client</h3>
+					<div class="tsd-signature tsd-kind-icon">client<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AxiosInstance</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/ContentClient.ts#L35">lib/ContentClient.ts:35</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Client configuration options</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="contentclient-1" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> content<wbr>Client</h3>
-					<div class="tsd-signature tsd-kind-icon">content<wbr>Client<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AxiosInstance</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/ContentClient.ts#L28">lib/ContentClient.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/staging-environment/StagingEnvironmentFactory.ts#L37">lib/staging-environment/StagingEnvironmentFactory.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="contentmapper" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> content<wbr>Mapper</h3>
-					<div class="tsd-signature tsd-kind-icon">content<wbr>Mapper<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ContentMapper</span></div>
+					<a name="stagingenvironment" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> staging<wbr>Environment</h3>
+					<div class="tsd-signature tsd-kind-icon">staging<wbr>Environment<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/ContentClient.ts#L29">lib/ContentClient.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/staging-environment/StagingEnvironmentFactory.ts#L45">lib/staging-environment/StagingEnvironmentFactory.ts:45</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -195,27 +187,58 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<a name="createcontentclient" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> create<wbr>Content<wbr>Client</h3>
+					<a name="buildurl" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> build<wbr>Url</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Content<wbr>Client<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/contentclientconfig.html" class="tsd-signature-type">ContentClientConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AxiosInstance</span></li>
+						<li class="tsd-signature tsd-kind-icon">build<wbr>Url<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/generatedomainoptions.html" class="tsd-signature-type">GenerateDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/ContentClient.ts#L107">lib/ContentClient.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/staging-environment/StagingEnvironmentFactory.ts#L76">lib/staging-environment/StagingEnvironmentFactory.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create network client to make requests to the content delivery service</p>
+									<p>Build the URL to invoke using the supplied GenerateDomainOptions</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/contentclientconfig.html" class="tsd-signature-type">ContentClientConfig</a></h5>
+									<h5>options: <a href="../interfaces/generatedomainoptions.html" class="tsd-signature-type">GenerateDomainOptions</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>GenerateDomainOptions</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="createclient" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> create<wbr>Client</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Client<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/stagingenvironmentfactoryconfig.html" class="tsd-signature-type">StagingEnvironmentFactoryConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AxiosInstance</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/staging-environment/StagingEnvironmentFactory.ts#L89">lib/staging-environment/StagingEnvironmentFactory.ts:89</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create network client to make requests to the vse service</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="../interfaces/stagingenvironmentfactoryconfig.html" class="tsd-signature-type">StagingEnvironmentFactoryConfig</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -224,128 +247,33 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-					<a name="createcontentmapper" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> create<wbr>Content<wbr>Mapper</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Content<wbr>Mapper<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/contentclientconfig.html" class="tsd-signature-type">ContentClientConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ContentMapper</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/ContentClient.ts#L124">lib/ContentClient.ts:124</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates a parser which converts content JSON into classes and objects used by the SDK</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>config: <a href="../interfaces/contentclientconfig.html" class="tsd-signature-type">ContentClientConfig</a></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ContentMapper</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a name="getcontentitem" class="tsd-anchor"></a>
-					<h3>get<wbr>Content<wbr>Item</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Content<wbr>Item&lt;T&gt;<span class="tsd-signature-symbol">(</span>contentItemId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="contentitem.html" class="tsd-signature-type">ContentItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/ContentClient.ts#L76">lib/ContentClient.ts:76</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>This function will load a Content Item or Slot by id and return a Promise of the result.
-										If the content is not found the promise will reject with an error.
-									If the content is found the promise will resolve with a parsed version of the content with all dependencies.</p>
-								</div>
-								<p>The content body will match the format defined by your content type, however keep in mind that if you have evolved your content type some published content may still be in the older format.</p>
-								<p>Some pre-processing is applied to the content body to make it easier to work with:</p>
-								<ul>
-									<li>Linked content items are joined together into the root content item to create a single JSON document.</li>
-									<li>Media references (images and videos) are replaced with wrapper objects <a href="image.html">Image</a> and <a href="video.html">Video</a> which provide helper functions.</li>
-									<li>Content created using V1 of the CMS will be upgraded to the V2 format.</li>
-								</ul>
-								<p>You can convert the content back to plain JSON by calling the toJSON() function on the returned ContentItem.</p>
-							</div>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><a href="../interfaces/contentbody.html" class="tsd-signature-type">ContentBody</a></h4>
-									<div class="tsd-comment tsd-typography">
-										<p>The type of content returned. This is optional and by default the content returned is assumed to be “any”.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>contentItemId: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="contentitem.html" class="tsd-signature-type">ContentItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="rendercontentitem" class="tsd-anchor"></a>
-					<h3>render<wbr>Content<wbr>Item</h3>
+					<a name="generatedomain" class="tsd-anchor"></a>
+					<h3>generate<wbr>Domain</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">render<wbr>Content<wbr>Item<span class="tsd-signature-symbol">(</span>contentItemId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, templateName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, customParameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="renderedcontentitem.html" class="tsd-signature-type">RenderedContentItem</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>Domain<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/generatedomainoptions.html" class="tsd-signature-type">GenerateDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/ContentClient.ts#L92">lib/ContentClient.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/b4d7f07/src/lib/staging-environment/StagingEnvironmentFactory.ts#L58">lib/staging-environment/StagingEnvironmentFactory.ts:58</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Converts a Content Item or Slot into a custom format (e.g. HTML / XML) by applying a template server side.</p>
+									<p>Generates a new staging environment domain name using the snapshotId and/or timestamp thats supplied in the options argument</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>contentItemId: <span class="tsd-signature-type">string</span></h5>
+									<h5>options: <a href="../interfaces/generatedomainoptions.html" class="tsd-signature-type">GenerateDomainOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Unique id of the Content Item or Slot to convert using the rendering service</p>
 									</div>
-								</li>
-								<li>
-									<h5>templateName: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Name of the template to render the content item or slot with. The template must be setup in your account</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> customParameters: <span class="tsd-signature-type">object</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Custom parameters which will be sent to the rendering API and made avaliable to your template</p>
-									</div>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-index-signature">
-											<h5><span class="tsd-signature-symbol">[</span>id: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
-										</li>
-									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="renderedcontentitem.html" class="tsd-signature-type">RenderedContentItem</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -364,39 +292,9 @@
 					<li class=" tsd-kind-enum">
 						<a href="../enums/imageformat.html" class="tsd-kind-icon">Image<wbr>Format</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="contentclient.html" class="tsd-kind-icon">Content<wbr>Client</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="contentclient.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="contentclient.html#config" class="tsd-kind-icon">config</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="contentclient.html#contentclient-1" class="tsd-kind-icon">content<wbr>Client</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="contentclient.html#contentmapper" class="tsd-kind-icon">content<wbr>Mapper</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-								<a href="contentclient.html#createcontentclient" class="tsd-kind-icon">create<wbr>Content<wbr>Client</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-								<a href="contentclient.html#createcontentmapper" class="tsd-kind-icon">create<wbr>Content<wbr>Mapper</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="contentclient.html#getcontentitem" class="tsd-kind-icon">get<wbr>Content<wbr>Item</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="contentclient.html#rendercontentitem" class="tsd-kind-icon">render<wbr>Content<wbr>Item</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="contentitem.html" class="tsd-kind-icon">Content<wbr>Item</a>
 					</li>
@@ -430,9 +328,33 @@
 					<li class=" tsd-kind-class">
 						<a href="renderedcontentitem.html" class="tsd-kind-icon">Rendered<wbr>Content<wbr>Item</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="stagingenvironmentfactory.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="stagingenvironmentfactory.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="stagingenvironmentfactory.html#client" class="tsd-kind-icon">client</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="stagingenvironmentfactory.html#stagingenvironment" class="tsd-kind-icon">staging<wbr>Environment</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="stagingenvironmentfactory.html#buildurl" class="tsd-kind-icon">build<wbr>Url</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="stagingenvironmentfactory.html#createclient" class="tsd-kind-icon">create<wbr>Client</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="stagingenvironmentfactory.html#generatedomain" class="tsd-kind-icon">generate<wbr>Domain</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="video.html" class="tsd-kind-icon">Video</a>
 					</li>
