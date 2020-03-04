@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.4.0...v0.5.0) (2020-03-04)
+
+
+### Features
+
+* **content-meta:** exposes the delivery key property ([#6](https://github.com/amplience/dc-delivery-sdk-js/issues/6)) ([696a218](https://github.com/amplience/dc-delivery-sdk-js/commit/696a218))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.3.1...v0.4.0) (2020-02-17)
 
