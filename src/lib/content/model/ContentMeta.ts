@@ -22,9 +22,14 @@ export class ContentMeta extends FragmentMeta {
   edition?: Edition;
 
   /**
-   * Delivery id of the content item
+   * Delivery ID of the content item
    */
   deliveryId: string;
+
+  /**
+   * Delivery Key of the content item
+   */
+  deliveryKey?: string;
 
   /**
    * Metadata related to the lifecycle status of this content item, by default this is undefined.
@@ -64,6 +69,10 @@ export class ContentMeta extends FragmentMeta {
 
     if (this.deliveryId) {
       result.deliveryId = this.deliveryId;
+    }
+
+    if (this.deliveryKey) {
+      result.deliveryKey = this.deliveryKey;
     }
 
     if (this.name) {
