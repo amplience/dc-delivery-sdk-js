@@ -1,5 +1,8 @@
 import { expect } from 'chai';
 import { Image } from './Image';
+import { CommonContentClientConfig } from '../ContentClientConfig';
+
+const config: CommonContentClientConfig = {};
 
 describe('Image', () => {
   context('toJSON', () => {
@@ -15,7 +18,7 @@ describe('Image', () => {
         defaultHost: 'i1.adis.ws'
       };
 
-      const content = new Image(json, { account: 'test' });
+      const content = new Image(json, config);
       expect(content.toJSON()).to.deep.eq(json);
     });
   });
@@ -33,7 +36,7 @@ describe('Image', () => {
         defaultHost: 'i1.adis.ws'
       };
 
-      const content = new Image(json, { account: 'test' });
+      const content = new Image(json, config);
       const url = content.url().build();
       expect(url).to.eq('https://i1.adis.ws/i/test/image');
     });

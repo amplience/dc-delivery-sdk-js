@@ -1,4 +1,4 @@
-import { ContentClientConfig } from '../ContentClientConfig';
+import { CommonContentClientConfig } from '../ContentClientConfig';
 import Axios, { AxiosInstance } from 'axios';
 
 /**
@@ -6,7 +6,8 @@ import Axios, { AxiosInstance } from 'axios';
  * @param config
  */
 export function createContentClient(
-  config: ContentClientConfig
+  config: CommonContentClientConfig,
+  defaultHost
 ): AxiosInstance {
   const client = Axios.create({
     adapter: config.adaptor
@@ -15,7 +16,7 @@ export function createContentClient(
   if (config.stagingEnvironment) {
     client.defaults.baseURL = `https://${config.stagingEnvironment}`;
   } else {
-    client.defaults.baseURL = config.baseUrl || 'https://c1.adis.ws';
+    client.defaults.baseURL = config.baseUrl || defaultHost;
   }
   return client;
 }

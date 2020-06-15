@@ -1,7 +1,7 @@
 import { walkAndReplace } from '../../utils/JsonWalker';
 import { FragmentMeta } from '../model/FragmentMeta';
 import { ContentMeta } from '../model/ContentMeta';
-import { ContentClientConfig } from '../../ContentClientConfig';
+import { CommonContentClientConfig } from '../../ContentClientConfig';
 import { Image } from '../../media/Image';
 import { Video } from '../../media/Video';
 import { ContentReference } from '../model/ContentReference';
@@ -22,7 +22,7 @@ export type ContentMapperFn = (fragment: any) => any;
 export class ContentMapper {
   protected mappers: ContentMapperFn[] = [];
 
-  constructor(private readonly config: ContentClientConfig) {
+  constructor(private readonly config: CommonContentClientConfig) {
     this.registerBuiltInMappers();
   }
 

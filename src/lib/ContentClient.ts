@@ -1,10 +1,17 @@
-import { ContentClientConfig } from './ContentClientConfig';
+import {
+  CommonContentClientConfig,
+  ContentClientConfigV2,
+  ContentClientConfigV1
+} from './ContentClientConfig';
 import { RenderedContentItem } from './rendering/model/RenderedContentItem';
 import { RenderContentItem } from './rendering/coordinators/RenderContentItem';
 import { ContentItem } from './content/model/ContentItem';
 import { ContentBody, DefaultContentBody } from './content/model/ContentBody';
-import { GetContentItem } from './content/coordinators/GetContentItem';
+import { GetContentItemV1Impl } from './content/coordinators/GetContentItemV1Impl';
 import { ContentMapper } from './content/mapper/ContentMapper';
+import { GetContentItemById } from './content/coordinators/GetContentItemById';
+import { GetContentItemV2Impl } from './content/coordinators/GetContentItemV2Impl';
+import { GetContentItemByKey } from './content/coordinators/GetContentItemByKey';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
@@ -23,21 +30,26 @@ import { ContentMapper } from './content/mapper/ContentMapper';
  *
  * You may override other settings when constructing the client but if no additional configuration is provided sensible defaults will be used.
  */
-export class ContentClient {
+export class ContentClient implements GetContentItemById, GetContentItemByKey {
   private readonly contentMapper: ContentMapper;
 
   /**
    * Creates a Delivery API Client instance. You must provide a configuration object with the account you wish to fetch content from.
    * @param config Client configuration options
    */
-  constructor(private readonly config: ContentClientConfig) {
+  constructor(
+    private readonly config: ContentClientConfigV1 | ContentClientConfigV2
+  ) {
     if (!config) {
       throw new TypeError('Parameter "config" is required');
     }
 
-    if (!config.account) {
+    if (
+      !(config as ContentClientConfigV1).account &&
+      !(config as ContentClientConfigV2).hubName
+    ) {
       throw new TypeError(
-        'Parameter "config" must contain a valid "account" name'
+        'Parameter "config" must contain a valid "account" name or "hubName" property'
       );
     }
 
@@ -51,6 +63,27 @@ export class ContentClient {
     }
 
     this.contentMapper = this.createContentMapper(config);
+  }
+
+  isContentClientConfigV1(
+    config: ContentClientConfigV1 | ContentClientConfigV2
+  ): config is ContentClientConfigV1 {
+    return (config as ContentClientConfigV1).account !== undefined;
+  }
+
+  isContentClientConfigV2(
+    config: ContentClientConfigV1 | ContentClientConfigV2
+  ): config is ContentClientConfigV2 {
+    return (config as ContentClientConfigV2).hubName !== undefined;
+  }
+
+  /**
+   * @deprecated use getContentItemById
+   */
+  getContentItem<T extends ContentBody = DefaultContentBody>(
+    contentItemId: string
+  ): Promise<ContentItem<T>> {
+    return this.getContentItemById(contentItemId);
   }
 
   /**
@@ -70,12 +103,51 @@ export class ContentClient {
    * @typeparam T The type of content returned. This is optional and by default the content returned is assumed to be “any”.
    * @param id Unique id of the Content Item or Slot to load
    */
-  getContentItem<T extends ContentBody = DefaultContentBody>(
-    contentItemId: string
+  getContentItemById<T extends ContentBody = DefaultContentBody>(
+    id: string
   ): Promise<ContentItem<T>> {
-    return new GetContentItem(this.config, this.contentMapper).getContentItem(
-      contentItemId
-    );
+    if (this.isContentClientConfigV1(this.config)) {
+      return new GetContentItemV1Impl(
+        this.config,
+        this.contentMapper
+      ).getContentItemById(id);
+    }
+    return new GetContentItemV2Impl(
+      this.config,
+      this.contentMapper
+    ).getContentItemById(id);
+  }
+
+  /**
+   * This function will load a Content Item or Slot by key and return a Promise of the result.
+   * If the content is not found the promise will reject with an error.
+   * If the content is found the promise will resolve with a parsed version of the content with all dependencies.
+   *
+   * The content body will match the format defined by your content type, however keep in mind that if you have evolved your content type some published content may still be in the older format.
+   *
+   * Some pre-processing is applied to the content body to make it easier to work with:
+   *
+   * * Linked content items are joined together into the root content item to create a single JSON document.
+   * * Media references (images and videos) are replaced with wrapper objects [[Image]] and [[Video]] which provide helper functions.
+   * * Content created using V1 of the CMS will be upgraded to the V2 format.
+   *
+   * You can convert the content back to plain JSON by calling the toJSON() function on the returned ContentItem.
+   * @typeparam T The type of content returned. This is optional and by default the content returned is assumed to be “any”.
+   * @param id Unique id of the Content Item or Slot to load
+   */
+  getContentItemByKey<T extends ContentBody = DefaultContentBody>(
+    key: string
+  ): Promise<ContentItem<T>> {
+    if (!this.isContentClientConfigV2(this.config)) {
+      throw new Error(
+        'Not supported. You need to define "hubName" configuration property to use getContentItemByKey()'
+      );
+    }
+
+    return new GetContentItemV2Impl(
+      this.config,
+      this.contentMapper
+    ).getContentItemByKey(key);
   }
 
   /**
@@ -89,6 +161,12 @@ export class ContentClient {
     templateName: string,
     customParameters?: { [id: string]: string }
   ): Promise<RenderedContentItem> {
+    if (!this.isContentClientConfigV1(this.config)) {
+      throw new Error(
+        'Not supported. You need to define "account" configuration property to use renderContentItem()'
+      );
+    }
+
     return new RenderContentItem(this.config).renderContentItem(
       contentItemId,
       templateName,
@@ -100,7 +178,9 @@ export class ContentClient {
    * Creates a parser which converts content JSON into classes and objects used by the SDK
    * @param config
    */
-  protected createContentMapper(config: ContentClientConfig): ContentMapper {
+  protected createContentMapper(
+    config: CommonContentClientConfig
+  ): ContentMapper {
     return new ContentMapper(config);
   }
 }

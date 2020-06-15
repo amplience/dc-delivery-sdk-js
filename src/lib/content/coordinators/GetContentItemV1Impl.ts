@@ -1,4 +1,4 @@
-import { ContentClientConfig } from '../../ContentClientConfig';
+import { ContentClientConfigV1 } from '../../ContentClientConfig';
 import { AxiosInstance } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
 import { walkAndReplace } from '../../utils/JsonWalker';
@@ -6,6 +6,7 @@ import { ContentItem } from '../model/ContentItem';
 import { ContentBody } from '../model/ContentBody';
 import { ContentMapper } from '../mapper/ContentMapper';
 import { createContentClient } from '../../client/createContentClient';
+import { GetContentItemById } from './GetContentItemById';
 
 /**
  * @hidden
@@ -25,17 +26,26 @@ const LD_GRAPH = '@graph';
 /**
  * @hidden
  */
-export class GetContentItem {
+export class GetContentItemV1Impl implements GetContentItemById {
   private readonly contentClient: AxiosInstance;
 
   constructor(
-    private readonly config: ContentClientConfig,
+    private readonly config: ContentClientConfigV1,
     private readonly mapper: ContentMapper
   ) {
-    this.contentClient = createContentClient(this.config);
+    this.contentClient = createContentClient(this.config, 'https://c1.adis.ws');
   }
 
+  /**
+   * @deprecated use getContentItemById
+   */
   getContentItem<T extends ContentBody>(id: string): Promise<ContentItem<T>> {
+    return this.getContentItemById(id);
+  }
+
+  getContentItemById<T extends ContentBody>(
+    id: string
+  ): Promise<ContentItem<T>> {
     const url = this.getUrl({
       'sys.iri': `http://content.cms.amplience.com/${id}`
     });

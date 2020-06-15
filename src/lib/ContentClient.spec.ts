@@ -1,5 +1,7 @@
 import { expect } from 'chai';
 import { ContentClient } from '../index';
+import MockAdapter from 'axios-mock-adapter';
+import { SINGLE_RESULT } from './content/test/fixtures';
 
 describe('ContentClient', () => {
   context('configuration', () => {
@@ -31,6 +33,35 @@ describe('ContentClient', () => {
       expect(() => new ContentClient({ account: '' })).to.throw(
         'Parameter "config" must contain a valid "account" name'
       );
+    });
+  });
+
+  context('getContentItem', () => {
+    it('should resolve if content item is found', async () => {
+      const mocks = new MockAdapter(null);
+      mocks
+        .onGet(
+          'https://c1.adis.ws/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
+        )
+        .reply(200, SINGLE_RESULT);
+
+      const client = new ContentClient({
+        account: 'test',
+        adaptor: mocks.adapter()
+      });
+
+      const response = await client.getContentItem(
+        '2c7efa09-7e31-4503-8d00-5a150ff82f17'
+      );
+
+      expect(response.toJSON()).to.deep.eq({
+        _meta: {
+          deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
+          name: 'name',
+          schema:
+            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
+        }
+      });
     });
   });
 });

@@ -4,10 +4,9 @@ import { ContentMeta, ContentReferenceMeta } from '../model/ContentMeta';
 import { Image } from '../../media/Image';
 import { Video } from '../../media/Video';
 import { ContentReference } from '../model/ContentReference';
+import { CommonContentClientConfig } from '../../ContentClientConfig';
 
-const config = {
-  account: 'test'
-};
+const config: CommonContentClientConfig = {};
 
 describe('ContentMapper', () => {
   context('map', () => {

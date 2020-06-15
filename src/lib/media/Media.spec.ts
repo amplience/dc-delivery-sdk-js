@@ -1,9 +1,11 @@
 import { expect } from 'chai';
 import { Media } from './Media';
-import { ContentClientConfig } from '../ContentClientConfig';
+import { CommonContentClientConfig } from '../ContentClientConfig';
+
+const config: CommonContentClientConfig = {};
 
 class MediaImpl extends Media {
-  constructor(data: any, config: ContentClientConfig) {
+  constructor(data: any, config: CommonContentClientConfig) {
     super(data, config);
   }
 }
@@ -22,7 +24,7 @@ describe('Media', () => {
         defaultHost: 'i1.adis.ws'
       };
 
-      const media = new MediaImpl(json, { account: 'test' });
+      const media = new MediaImpl(json, config);
       expect(media.getHost(false)).to.eq('i1.adis.ws');
     });
 
@@ -39,7 +41,7 @@ describe('Media', () => {
       };
 
       const media = new MediaImpl(json, {
-        account: 'test',
+        ...config,
         stagingEnvironment: 'staging.adis.ws'
       });
       expect(media.getHost(false)).to.eq('staging.adis.ws');
@@ -58,7 +60,7 @@ describe('Media', () => {
       };
 
       const media = new MediaImpl(json, {
-        account: 'test',
+        ...config,
         secureMediaHost: 'secure.adis.ws'
       });
       expect(media.getHost(true)).to.eq('secure.adis.ws');
@@ -76,7 +78,7 @@ describe('Media', () => {
         defaultHost: 'i1.adis.ws'
       };
 
-      const media = new MediaImpl(json, { account: 'test' });
+      const media = new MediaImpl(json, config);
       expect(media.getHost(true)).to.eq('i1.adis.ws');
     });
 
@@ -93,7 +95,7 @@ describe('Media', () => {
       };
 
       const media = new MediaImpl(json, {
-        account: 'test',
+        ...config,
         mediaHost: 'images.mysite.com'
       });
       expect(media.getHost(false)).to.eq('images.mysite.com');
@@ -112,7 +114,7 @@ describe('Media', () => {
       };
 
       const media = new MediaImpl(json, {
-        account: 'test',
+        ...config,
         secureMediaHost: 'secure.adis.ws'
       });
       expect(media.getHost(false)).to.eq('secure.adis.ws');

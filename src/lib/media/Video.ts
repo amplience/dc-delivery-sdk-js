@@ -1,7 +1,7 @@
 import { Media } from './Media';
 import { FragmentMeta } from '../content/model/FragmentMeta';
 import { ImageUrlBuilder } from './ImageUrlBuilder';
-import { ContentClientConfig } from '../ContentClientConfig';
+import { CommonContentClientConfig } from '../ContentClientConfig';
 import { VideoMeta } from './MediaMeta';
 
 /**
@@ -17,7 +17,7 @@ export class Video extends Media {
    * Creates a new Video instance.
    * @param data JSON data from delivery API
    */
-  constructor(data: any, config: ContentClientConfig) {
+  constructor(data: any, config: CommonContentClientConfig) {
     super(data, config);
     if (data && data._meta) {
       this._meta = new VideoMeta(data._meta);

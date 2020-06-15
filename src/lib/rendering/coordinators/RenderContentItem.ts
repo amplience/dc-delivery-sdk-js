@@ -1,6 +1,6 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
-import { ContentClientConfig } from '../../ContentClientConfig';
+import { ContentClientConfigV1 } from '../../ContentClientConfig';
 import { RenderedContentItem } from '../model/RenderedContentItem';
 import { Edition } from '../../content/model/Edition';
 import { ContentLifecycle } from '../../content/model/ContentLifecycle';
@@ -12,8 +12,8 @@ import { createContentClient } from '../../client/createContentClient';
 export class RenderContentItem {
   private readonly contentClient: AxiosInstance;
 
-  constructor(private readonly config: ContentClientConfig) {
-    this.contentClient = createContentClient(this.config);
+  constructor(private readonly config: ContentClientConfigV1) {
+    this.contentClient = createContentClient(this.config, 'https://c1.adis.ws');
   }
 
   renderContentItem(

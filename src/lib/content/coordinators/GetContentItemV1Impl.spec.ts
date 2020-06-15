@@ -3,7 +3,7 @@ import { expect, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 use(chaiAsPromised);
 
-import { GetContentItem } from './GetContentItem';
+import { GetContentItemV1Impl } from './GetContentItemV1Impl';
 
 import {
   NO_RESULTS,
@@ -20,15 +20,15 @@ import { ContentMeta } from '../model/ContentMeta';
 function createCoordinator(
   accountName: string,
   locale?: string
-): [MockAdapter, GetContentItem] {
+): [MockAdapter, GetContentItemV1Impl] {
   const mocks = new MockAdapter(null);
   const config = { account: accountName, adaptor: mocks.adapter(), locale };
 
-  const client = new GetContentItem(config, new ContentMapper(config));
+  const client = new GetContentItemV1Impl(config, new ContentMapper(config));
   return [mocks, client];
 }
 
-describe('GetContentItem', () => {
+describe('GetContentItemV1Impl', () => {
   context('getUrl', () => {
     it('should url encode account name', () => {
       const [, coordinator] = createCoordinator('test account');
@@ -235,7 +235,7 @@ describe('GetContentItem', () => {
 
   context('getContentItem', () => {
     let mocks: MockAdapter;
-    let coordinator: GetContentItem;
+    let coordinator: GetContentItemV1Impl;
 
     beforeEach(() => {
       [mocks, coordinator] = createCoordinator('test');
@@ -252,27 +252,25 @@ describe('GetContentItem', () => {
       ).to.eventually.rejected.and.notify(done);
     });
 
-    it('should resolve if content item is found', done => {
+    it('should resolve if content item is found', async () => {
       mocks
         .onGet(
           '/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
         )
         .reply(200, SINGLE_RESULT);
 
-      const response = coordinator
-        .getContentItem('2c7efa09-7e31-4503-8d00-5a150ff82f17')
-        .then(x => x.toJSON());
+      const response = await coordinator.getContentItem(
+        '2c7efa09-7e31-4503-8d00-5a150ff82f17'
+      );
 
-      expect(response)
-        .to.eventually.deep.eq({
-          _meta: {
-            deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
-            name: 'name',
-            schema:
-              'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
-          }
-        })
-        .notify(done);
+      expect(response.toJSON()).to.deep.eq({
+        _meta: {
+          deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
+          name: 'name',
+          schema:
+            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
+        }
+      });
     });
 
     it('should hydrate content items', () => {
