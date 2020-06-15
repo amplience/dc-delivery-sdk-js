@@ -24,7 +24,7 @@ export class RenderContentItem {
     const path = `/v1/content/${encodeURIComponent(
       this.config.account
     )}/content-item/${encodeURIComponent(contentItemId)}`;
-    return this.contentClient.get(`${path}?${queryString}`).then(response => {
+    return this.contentClient.get(`${path}?${queryString}`).then((response) => {
       return this.parseResponse(response);
     });
   }
@@ -65,13 +65,13 @@ export class RenderContentItem {
         result.edition = new Edition({
           id: editionId,
           start: editionStart,
-          end: editionEnd
+          end: editionEnd,
         });
       }
 
       if (lifecycleExpiryTime) {
         result.lifecycle = new ContentLifecycle({
-          expiryTime: lifecycleExpiryTime
+          expiryTime: lifecycleExpiryTime,
         });
       }
     }

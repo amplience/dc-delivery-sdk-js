@@ -7,11 +7,11 @@ describe('ContentItem', () => {
     it('should serialize to json', () => {
       const content = new ContentItem();
       content.body = {
-        _meta: new ContentMeta()
+        _meta: new ContentMeta(),
       };
 
       expect(content.toJSON()).to.deep.eq({
-        _meta: {}
+        _meta: {},
       });
     });
 
@@ -22,12 +22,12 @@ describe('ContentItem', () => {
         customToJson: {
           toJSON: () => {
             return 'customValue';
-          }
-        }
+          },
+        },
       };
       expect(content.toJSON()).to.deep.eq({
         _meta: {},
-        customToJson: 'customValue'
+        customToJson: 'customValue',
       });
     });
   });

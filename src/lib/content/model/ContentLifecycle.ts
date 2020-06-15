@@ -36,7 +36,7 @@ export class ContentLifecycle {
    */
   toJSON(): any {
     return {
-      expiryTime: this.expiryTime
+      expiryTime: this.expiryTime,
     };
   }
 }

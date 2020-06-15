@@ -33,17 +33,17 @@ export class GetContentItem {
 
   getContentItem<T extends ContentBody>(id: string): Promise<ContentItem<T>> {
     const url = this.getUrl({
-      'sys.iri': `http://content.cms.amplience.com/${id}`
+      'sys.iri': `http://content.cms.amplience.com/${id}`,
     });
 
-    return this.contentClient.get(url).then(response => {
+    return this.contentClient.get(url).then((response) => {
       const contentItems = this.processResponse(response.data);
 
       if (contentItems.length === 0) {
         return Promise.reject(`Content item "${id}" was not found`);
       }
 
-      const item = contentItems.find(x => x._meta.deliveryId === id);
+      const item = contentItems.find((x) => x._meta.deliveryId === id);
       if (!item) {
         return Promise.reject(`Content item "${id}" was not found`);
       }
@@ -57,7 +57,7 @@ export class GetContentItem {
       ['query', JSON.stringify(query)],
       ['fullBodyObject', 'true'],
       ['scope', 'tree'],
-      ['store', this.config.account]
+      ['store', this.config.account],
     ];
     if (this.config.locale) {
       args.push(['locale', this.config.locale]);
@@ -87,31 +87,31 @@ export class GetContentItem {
     } else {
       const graph = data[LD_GRAPH];
       const graphChildrenById = {};
-      graph.forEach(child => (graphChildrenById[child[LD_ID]] = child));
+      graph.forEach((child) => (graphChildrenById[child[LD_ID]] = child));
 
-      return data.result.map(result => {
+      return data.result.map((result) => {
         result = graphChildrenById[result[LD_ID]];
 
         // inline linked items
         result = walkAndReplace(result, {
-          beforeWalk: node => {
+          beforeWalk: (node) => {
             if (typeof node === 'object') {
               if (node[LD_ID]) {
                 node = graphChildrenById[node[LD_ID]];
               }
             }
             return node;
-          }
+          },
         });
 
         // upgrade legacy content & remove json-ld
         result = walkAndReplace(result, {
-          beforeWalk: node => {
+          beforeWalk: (node) => {
             node = this.upgradeLegacyContent(node);
             node = this.injectMetaData(node);
             node = this.removeJsonLD(node);
             return node;
-          }
+          },
         });
 
         return result;

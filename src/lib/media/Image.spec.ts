@@ -7,12 +7,12 @@ describe('Image', () => {
       const json = {
         _meta: {
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws'
+        defaultHost: 'i1.adis.ws',
       };
 
       const content = new Image(json, { account: 'test' });
@@ -25,12 +25,12 @@ describe('Image', () => {
       const json = {
         _meta: {
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws'
+        defaultHost: 'i1.adis.ws',
       };
 
       const content = new Image(json, { account: 'test' });

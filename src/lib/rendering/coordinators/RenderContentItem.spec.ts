@@ -13,13 +13,13 @@ function createCoordinator(
   const mocks = new MockAdapter(null);
   const networkClient = Axios.create({
     baseURL: 'https://c1.adis.ws',
-    adapter: mocks.adapter()
+    adapter: mocks.adapter(),
   });
 
   const config = {
     account: accountName,
     adaptor: mocks.adapter(),
-    locale: locale
+    locale: locale,
   };
   const client = new RenderContentItem(config, networkClient);
   return [mocks, client];
@@ -33,7 +33,7 @@ describe('RenderContentItem', () => {
     [mocks, coordinator] = createCoordinator('test');
   });
 
-  it('should reject if content is not found', done => {
+  it('should reject if content is not found', (done) => {
     const response = coordinator.renderContentItem(
       '629c7260-9442-4095-b1c7-763a344e2225',
       'mapping'
@@ -50,9 +50,9 @@ describe('RenderContentItem', () => {
 
     return coordinator
       .renderContentItem('629c7260-9442-4095-b1c7-763a344e2225', 'mapping')
-      .then(response => {
+      .then((response) => {
         expect(response).to.deep.eq({
-          body: '<h1>Test</h1>'
+          body: '<h1>Test</h1>',
         });
       });
   });
@@ -63,12 +63,12 @@ describe('RenderContentItem', () => {
         '/v1/content/test/content-item/629c7260-9442-4095-b1c7-763a344e2225?template=mapping'
       )
       .reply(200, '<h1>Test</h1>', {
-        'X-Amp-Lifecycle-Expiry-Time': '2019-01-22T20:25:12.508Z'
+        'X-Amp-Lifecycle-Expiry-Time': '2019-01-22T20:25:12.508Z',
       });
 
     return coordinator
       .renderContentItem('629c7260-9442-4095-b1c7-763a344e2225', 'mapping')
-      .then(response => {
+      .then((response) => {
         expect(response.body).to.eq('<h1>Test</h1>');
         expect(response.lifecycle.expiryTime).to.eq('2019-01-22T20:25:12.508Z');
       });
@@ -82,12 +82,12 @@ describe('RenderContentItem', () => {
       .reply(200, '<h1>Test</h1>', {
         'X-Amp-Edition-ID': '5c40e6724cedfd0001467592',
         'X-Amp-Edition-Start-Time': '2019-01-17T20:36:13.508Z',
-        'X-Amp-Edition-End-Time': '2019-01-22T20:25:12.508Z'
+        'X-Amp-Edition-End-Time': '2019-01-22T20:25:12.508Z',
       });
 
     return coordinator
       .renderContentItem('629c7260-9442-4095-b1c7-763a344e2225', 'mapping')
-      .then(response => {
+      .then((response) => {
         expect(response.body).to.eq('<h1>Test</h1>');
         expect(response.edition.id).to.eq('5c40e6724cedfd0001467592');
         expect(response.edition.start).to.eq('2019-01-17T20:36:13.508Z');
@@ -105,11 +105,11 @@ describe('RenderContentItem', () => {
     return coordinator
       .renderContentItem('629c7260-9442-4095-b1c7-763a344e2225', 'mapping', {
         key1: 'value1',
-        key2: 'value2'
+        key2: 'value2',
       })
-      .then(response => {
+      .then((response) => {
         expect(response).to.deep.eq({
-          body: '<h1>Test</h1>'
+          body: '<h1>Test</h1>',
         });
       });
   });
@@ -126,9 +126,9 @@ describe('RenderContentItem', () => {
         '629c7260-9442-4095-b1c7-763a344e2225',
         'mapping template'
       )
-      .then(response => {
+      .then((response) => {
         expect(response).to.deep.eq({
-          body: '<h1>Test</h1>'
+          body: '<h1>Test</h1>',
         });
       });
   });
@@ -143,9 +143,9 @@ describe('RenderContentItem', () => {
 
     return coordinator
       .renderContentItem('629c7260-9442-4095-b1c7-763a344e2225', 'mapping')
-      .then(response => {
+      .then((response) => {
         expect(response).to.deep.eq({
-          body: '<h1>Test</h1>'
+          body: '<h1>Test</h1>',
         });
       });
   });
@@ -159,11 +159,11 @@ describe('RenderContentItem', () => {
 
     return coordinator
       .renderContentItem('629c7260-9442-4095-b1c7-763a344e2225', 'mapping', {
-        email: 'user@website.com'
+        email: 'user@website.com',
       })
-      .then(response => {
+      .then((response) => {
         expect(response).to.deep.eq({
-          body: '<h1>Test</h1>'
+          body: '<h1>Test</h1>',
         });
       });
   });
@@ -179,11 +179,11 @@ describe('RenderContentItem', () => {
 
     return coordinator
       .renderContentItem('629c7260-9442-4095-b1c7-763a344e2225', 'mapping', {
-        email: 'user@website.com'
+        email: 'user@website.com',
       })
-      .then(response => {
+      .then((response) => {
         expect(response).to.deep.eq({
-          body: '<h1>Test</h1>'
+          body: '<h1>Test</h1>',
         });
       });
   });

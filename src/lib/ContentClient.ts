@@ -106,7 +106,7 @@ export class ContentClient {
    */
   protected createContentClient(config: ContentClientConfig): AxiosInstance {
     const client = Axios.create({
-      adapter: config.adaptor
+      adapter: config.adaptor,
     });
 
     if (config.stagingEnvironment) {

@@ -26,5 +26,5 @@ export enum ImageFormat {
   /**
    * Bitmap (bmp) image format.
    */
-  BITMAP = 'bmp'
+  BITMAP = 'bmp',
 }

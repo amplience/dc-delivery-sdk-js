@@ -33,13 +33,13 @@ export class ContentMapper {
    */
   addSchema(schema: string | RegExp, fn: ContentMapperFn): void {
     if (typeof schema === 'string') {
-      this.addCustomMapper(fragment => {
+      this.addCustomMapper((fragment) => {
         if (fragment._meta.schema === schema) {
           return fn(fragment);
         }
       });
     } else {
-      this.addCustomMapper(fragment => {
+      this.addCustomMapper((fragment) => {
         if (schema.test(fragment._meta.schema)) {
           return fn(fragment);
         }
@@ -61,12 +61,12 @@ export class ContentMapper {
    */
   toMappedContent(content: any): any {
     return walkAndReplace(content, {
-      afterWalk: node => {
+      afterWalk: (node) => {
         if (FragmentMeta.isFragment(node)) {
           return this.mapFragment(node);
         }
         return node;
-      }
+      },
     });
   }
 
@@ -102,7 +102,7 @@ export class ContentMapper {
     if (ContentMeta.isContentBody(fragment)) {
       return {
         ...fragment,
-        _meta: new ContentMeta(fragment._meta)
+        _meta: new ContentMeta(fragment._meta),
       };
     }
   }

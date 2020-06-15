@@ -6,7 +6,7 @@ describe('FragmentMeta', () => {
     it('should parse inputs', () => {
       const meta = new FragmentMeta({
         schema:
-          'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+          'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
       });
 
       expect(meta.schema).to.eq(
@@ -17,12 +17,12 @@ describe('FragmentMeta', () => {
     it('should serialize to json', () => {
       const meta = new FragmentMeta({
         schema:
-          'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+          'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
       });
 
       expect(JSON.parse(JSON.stringify(meta))).to.deep.eq({
         schema:
-          'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+          'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
       });
     });
   });

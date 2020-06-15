@@ -4,7 +4,9 @@ import { ContentReferenceMeta } from './ContentMeta';
 /**
  * Required params for creating an content reference
  */
-export type RequriedContentReference<T extends {} = {}> = T & {
+export type RequriedContentReference<
+  T extends Record<string, unknown> = Record<string, unknown>
+> = T & {
   id: string;
   contentType?: string;
   _meta?: {
@@ -38,7 +40,7 @@ export class ContentReference {
   toJSON(): any {
     const { id } = this;
     const result: RequriedContentReference = {
-      id
+      id,
     };
 
     if (this._meta) {
