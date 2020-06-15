@@ -4,24 +4,19 @@ import chaiAsPromised from 'chai-as-promised';
 use(chaiAsPromised);
 
 import { RenderContentItem } from './RenderContentItem';
-import Axios from 'axios';
 
 function createCoordinator(
   accountName: string,
   locale?: string
 ): [MockAdapter, RenderContentItem] {
   const mocks = new MockAdapter(null);
-  const networkClient = Axios.create({
-    baseURL: 'https://c1.adis.ws',
-    adapter: mocks.adapter()
-  });
 
   const config = {
     account: accountName,
     adaptor: mocks.adapter(),
     locale: locale
   };
-  const client = new RenderContentItem(config, networkClient);
+  const client = new RenderContentItem(config);
   return [mocks, client];
 }
 

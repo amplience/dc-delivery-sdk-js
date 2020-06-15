@@ -1,5 +1,4 @@
 import { ContentClientConfig } from './ContentClientConfig';
-import Axios, { AxiosInstance } from 'axios';
 import { RenderedContentItem } from './rendering/model/RenderedContentItem';
 import { RenderContentItem } from './rendering/coordinators/RenderContentItem';
 import { ContentItem } from './content/model/ContentItem';
@@ -25,7 +24,6 @@ import { ContentMapper } from './content/mapper/ContentMapper';
  * You may override other settings when constructing the client but if no additional configuration is provided sensible defaults will be used.
  */
 export class ContentClient {
-  private readonly contentClient: AxiosInstance;
   private readonly contentMapper: ContentMapper;
 
   /**
@@ -52,7 +50,6 @@ export class ContentClient {
       );
     }
 
-    this.contentClient = this.createContentClient(config);
     this.contentMapper = this.createContentMapper(config);
   }
 
@@ -76,11 +73,9 @@ export class ContentClient {
   getContentItem<T extends ContentBody = DefaultContentBody>(
     contentItemId: string
   ): Promise<ContentItem<T>> {
-    return new GetContentItem(
-      this.config,
-      this.contentClient,
-      this.contentMapper
-    ).getContentItem(contentItemId);
+    return new GetContentItem(this.config, this.contentMapper).getContentItem(
+      contentItemId
+    );
   }
 
   /**
@@ -94,27 +89,11 @@ export class ContentClient {
     templateName: string,
     customParameters?: { [id: string]: string }
   ): Promise<RenderedContentItem> {
-    return new RenderContentItem(
-      this.config,
-      this.contentClient
-    ).renderContentItem(contentItemId, templateName, customParameters);
-  }
-
-  /**
-   * Create network client to make requests to the content delivery service
-   * @param config
-   */
-  protected createContentClient(config: ContentClientConfig): AxiosInstance {
-    const client = Axios.create({
-      adapter: config.adaptor
-    });
-
-    if (config.stagingEnvironment) {
-      client.defaults.baseURL = `https://${config.stagingEnvironment}`;
-    } else {
-      client.defaults.baseURL = config.baseUrl || 'https://c1.adis.ws';
-    }
-    return client;
+    return new RenderContentItem(this.config).renderContentItem(
+      contentItemId,
+      templateName,
+      customParameters
+    );
   }
 
   /**

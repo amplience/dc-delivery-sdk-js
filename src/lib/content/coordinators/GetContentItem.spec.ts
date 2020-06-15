@@ -16,7 +16,6 @@ import {
 } from '../test/fixtures';
 import { ContentMapper } from '../mapper/ContentMapper';
 import { ContentMeta } from '../model/ContentMeta';
-import Axios from 'axios';
 
 function createCoordinator(
   accountName: string,
@@ -24,16 +23,8 @@ function createCoordinator(
 ): [MockAdapter, GetContentItem] {
   const mocks = new MockAdapter(null);
   const config = { account: accountName, adaptor: mocks.adapter(), locale };
-  const networkClient = Axios.create({
-    baseURL: 'https://c1.adis.ws',
-    adapter: mocks.adapter()
-  });
 
-  const client = new GetContentItem(
-    config,
-    networkClient,
-    new ContentMapper(config)
-  );
+  const client = new GetContentItem(config, new ContentMapper(config));
   return [mocks, client];
 }
 

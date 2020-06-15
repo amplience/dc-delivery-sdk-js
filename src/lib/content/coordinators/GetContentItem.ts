@@ -5,6 +5,7 @@ import { walkAndReplace } from '../../utils/JsonWalker';
 import { ContentItem } from '../model/ContentItem';
 import { ContentBody } from '../model/ContentBody';
 import { ContentMapper } from '../mapper/ContentMapper';
+import { createContentClient } from '../../client/createContentClient';
 
 /**
  * @hidden
@@ -25,11 +26,14 @@ const LD_GRAPH = '@graph';
  * @hidden
  */
 export class GetContentItem {
+  private readonly contentClient: AxiosInstance;
+
   constructor(
     private readonly config: ContentClientConfig,
-    private readonly contentClient: AxiosInstance,
     private readonly mapper: ContentMapper
-  ) {}
+  ) {
+    this.contentClient = createContentClient(this.config);
+  }
 
   getContentItem<T extends ContentBody>(id: string): Promise<ContentItem<T>> {
     const url = this.getUrl({

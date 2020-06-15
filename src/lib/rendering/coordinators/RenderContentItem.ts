@@ -4,15 +4,17 @@ import { ContentClientConfig } from '../../ContentClientConfig';
 import { RenderedContentItem } from '../model/RenderedContentItem';
 import { Edition } from '../../content/model/Edition';
 import { ContentLifecycle } from '../../content/model/ContentLifecycle';
+import { createContentClient } from '../../client/createContentClient';
 
 /**
  * @hidden
  */
 export class RenderContentItem {
-  constructor(
-    private readonly config: ContentClientConfig,
-    private readonly contentClient: AxiosInstance
-  ) {}
+  private readonly contentClient: AxiosInstance;
+
+  constructor(private readonly config: ContentClientConfig) {
+    this.contentClient = createContentClient(this.config);
+  }
 
   renderContentItem(
     contentItemId: string,
