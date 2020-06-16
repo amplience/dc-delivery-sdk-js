@@ -121,7 +121,10 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * If the content is not found the promise will reject with an error.
    * If the content is found the promise will resolve with a parsed version of the content with all dependencies.
    *
-   * The content body will match the format defined by your content type, however keep in mind that if you have evolved your content type some published content may still be in the older format.
+   * A delivery key can be a simple string or a path such as "home-page/feature-banner". This makes it simpler to write your integration code and allows users more control over where items of content are delivered. You can add a delivery key to a slot in the Dynamic Content app or to a content item or slot using the Dynamic Content Management API.
+   * Note that a delivery key may not start or end with "/" and must be between 1 and 150 characters. Delivery keys can contain the following alphanumeric characters: a to z, A to Z and 0 to 9. You can also include "-" and "_" and "/" as long as it is not included at the start or end of the key.
+   *
+   * The content body will match the format defined by your content type.
    *
    * Some pre-processing is applied to the content body to make it easier to work with:
    *
