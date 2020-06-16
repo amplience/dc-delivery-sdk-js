@@ -63,13 +63,19 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     this.contentMapper = this.createContentMapper(config);
   }
 
-  isContentClientConfigV1(
+  /**
+   * @hidden
+   */
+  private isContentClientConfigV1(
     config: ContentClientConfigV1 | ContentClientConfigV2
   ): config is ContentClientConfigV1 {
     return (config as ContentClientConfigV1).account !== undefined;
   }
 
-  isContentClientConfigV2(
+  /**
+   * @hidden
+   */
+  private isContentClientConfigV2(
     config: ContentClientConfigV1 | ContentClientConfigV2
   ): config is ContentClientConfigV2 {
     return (config as ContentClientConfigV2).hubName !== undefined;
@@ -178,6 +184,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   /**
    * Creates a parser which converts content JSON into classes and objects used by the SDK
    * @param config
+   * @hidden
    */
   protected createContentMapper(
     config: CommonContentClientConfig

@@ -4,6 +4,7 @@ import Axios, { AxiosInstance } from 'axios';
 /**
  * Create network client to make requests to the content delivery service
  * @param config
+ * @hidden
  */
 export function createContentClient(
   config: CommonContentClientConfig,

@@ -8,6 +8,9 @@ import { AxiosInstance, AxiosResponse } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
 import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
 
+/**
+ * @hidden
+ */
 export class GetContentItemV2Impl
   implements GetContentItemById, GetContentItemByKey {
   private readonly contentClient: AxiosInstance;
