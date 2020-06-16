@@ -1,0 +1,16 @@
+{
+  "@context": "http://context.system.cms.amplience.com/v0.0/api",
+  "@type": "QueryResult",
+  "result": [
+    {
+      "@id": "http://content.cms.amplience.com/2c7efa09-7e31-4503-8d00-5a150ff82f17"
+    }
+  ],
+  "@graph": [
+    {
+      "_title": "Title",
+      "@type": "https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json",
+      "@id": "http://content.cms.amplience.com/2c7efa09-7e31-4503-8d00-5a150ff82f17"
+    }
+  ]
+}

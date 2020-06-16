@@ -2,18 +2,14 @@ import MockAdapter from 'axios-mock-adapter';
 import { expect, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 use(chaiAsPromised);
-
 import { GetContentItemV1Impl } from './GetContentItemV1Impl';
-
-import {
-  NO_RESULTS,
-  SINGLE_RESULT,
-  SINGLE_RESULT_WITH_IMAGE,
-  SINGLE_LEGACY_RESULT_WITH_IMAGE,
-  SINGLE_LEGACY_RESULT,
-  SINGLE_CONTENT_REFERENCE,
-  NESTED_CONTENT
-} from '../test/fixtures';
+import * as NO_RESULTS from './__fixtures__/v1/NO_RESULTS.json';
+import * as SINGLE_RESULT from './__fixtures__/v1/SINGLE_RESULT.json';
+import * as SINGLE_RESULT_WITH_IMAGE from './__fixtures__/v1/SINGLE_RESULT_WITH_IMAGE.json';
+import * as SINGLE_LEGACY_RESULT_WITH_IMAGE from './__fixtures__/v1/SINGLE_LEGACY_RESULT_WITH_IMAGE.json';
+import * as SINGLE_LEGACY_RESULT from './__fixtures__/v1/SINGLE_LEGACY_RESULT.json';
+import * as SINGLE_CONTENT_REFERENCE from './__fixtures__/v1/SINGLE_CONTENT_REFERENCE.json';
+import * as NESTED_CONTENT from './__fixtures__/v1/NESTED_CONTENT.json';
 import { ContentMapper } from '../mapper/ContentMapper';
 import { ContentMeta } from '../model/ContentMeta';
 

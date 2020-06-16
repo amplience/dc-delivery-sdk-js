@@ -1,0 +1,23 @@
+{
+  "@context": "http://context.system.cms.amplience.com/v0.0/api",
+  "@type": "QueryResult",
+  "result": [
+    {
+      "@id": "http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452"
+    }
+  ],
+  "@graph": [
+    {
+      "_meta": { "schema": "http://content.ref" },
+      "contentRefExample": {
+        "_meta": {
+          "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference"
+        },
+        "contentType": "http://basic.example",
+        "id": "de111147-1a23-47c6-aee1-4060dd570b3d"
+      },
+      "@type": "http://content.ref",
+      "@id": "http://content.cms.amplience.com/54cb30c7-e142-49d0-9e50-74f20c234452"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "@context": "http://context.system.cms.amplience.com/v0.0/api",
+  "@type": "QueryResult",
+  "result": [],
+  "@graph": []
+}
