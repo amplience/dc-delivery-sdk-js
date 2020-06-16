@@ -1,8 +1,4 @@
-import {
-  CommonContentClientConfig,
-  ContentClientConfigV2,
-  ContentClientConfigV1
-} from './ContentClientConfig';
+import { CommonContentClientConfig } from './config/CommonContentClientConfig';
 import { RenderedContentItem } from './rendering/model/RenderedContentItem';
 import { RenderContentItem } from './rendering/coordinators/RenderContentItem';
 import { ContentItem } from './content/model/ContentItem';
@@ -12,6 +8,8 @@ import { ContentMapper } from './content/mapper/ContentMapper';
 import { GetContentItemById } from './content/coordinators/GetContentItemById';
 import { GetContentItemV2Impl } from './content/coordinators/GetContentItemV2Impl';
 import { GetContentItemByKey } from './content/coordinators/GetContentItemByKey';
+import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
+import { ContentClientConfigV2 } from './config/ContentClientConfigV2';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.

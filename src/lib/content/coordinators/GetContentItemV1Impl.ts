@@ -1,4 +1,3 @@
-import { ContentClientConfigV1 } from '../../ContentClientConfig';
 import { AxiosInstance } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
 import { walkAndReplace } from '../../utils/JsonWalker';
@@ -7,6 +6,7 @@ import { ContentBody } from '../model/ContentBody';
 import { ContentMapper } from '../mapper/ContentMapper';
 import { createContentClient } from '../../client/createContentClient';
 import { GetContentItemById } from './GetContentItemById';
+import { ContentClientConfigV1 } from '../../config/ContentClientConfigV1';
 
 /**
  * @hidden

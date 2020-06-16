@@ -1,7 +1,7 @@
 import { walkAndReplace } from '../../utils/JsonWalker';
 import { FragmentMeta } from '../model/FragmentMeta';
 import { ContentMeta } from '../model/ContentMeta';
-import { CommonContentClientConfig } from '../../ContentClientConfig';
+import { CommonContentClientConfig } from '../../config/CommonContentClientConfig';
 import { Image } from '../../media/Image';
 import { Video } from '../../media/Video';
 import { ContentReference } from '../model/ContentReference';

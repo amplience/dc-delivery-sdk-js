@@ -1,4 +1,4 @@
-import { CommonContentClientConfig } from '../ContentClientConfig';
+import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
 import Axios, { AxiosInstance } from 'axios';
 
 /**

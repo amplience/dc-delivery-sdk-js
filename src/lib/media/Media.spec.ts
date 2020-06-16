@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Media } from './Media';
-import { CommonContentClientConfig } from '../ContentClientConfig';
+import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
 
 const config: CommonContentClientConfig = {};
 

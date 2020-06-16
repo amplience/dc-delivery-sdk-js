@@ -1,5 +1,8 @@
 export * from './lib/ContentClient';
-export * from './lib/ContentClientConfig';
+
+export * from './lib/config/CommonContentClientConfig';
+export * from './lib/config/ContentClientConfigV1';
+export * from './lib/config/ContentClientConfigV2';
 
 export * from './lib/staging-environment/StagingEnvironmentFactory';
 export * from './lib/staging-environment/StagingEnvironmentFactoryConfig';

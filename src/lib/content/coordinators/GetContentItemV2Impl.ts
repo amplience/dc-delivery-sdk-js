@@ -4,9 +4,9 @@ import { ContentBody } from '../model/ContentBody';
 import { ContentItem } from '../model/ContentItem';
 import { createContentClient } from '../../client/createContentClient';
 import { ContentMapper } from '../mapper/ContentMapper';
-import { ContentClientConfigV2 } from '../../ContentClientConfig';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
+import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
 
 export class GetContentItemV2Impl
   implements GetContentItemById, GetContentItemByKey {

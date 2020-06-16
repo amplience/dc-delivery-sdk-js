@@ -2,7 +2,7 @@ import { Media } from './Media';
 import { ImageMeta } from './MediaMeta';
 import { FragmentMeta } from '../content/model/FragmentMeta';
 import { ImageUrlBuilder } from './ImageUrlBuilder';
-import { CommonContentClientConfig } from '../ContentClientConfig';
+import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
 
 /**
  * Class representing an Image resource with helper functions.

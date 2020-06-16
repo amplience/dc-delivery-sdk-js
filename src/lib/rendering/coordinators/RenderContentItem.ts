@@ -1,10 +1,10 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
-import { ContentClientConfigV1 } from '../../ContentClientConfig';
 import { RenderedContentItem } from '../model/RenderedContentItem';
 import { Edition } from '../../content/model/Edition';
 import { ContentLifecycle } from '../../content/model/ContentLifecycle';
 import { createContentClient } from '../../client/createContentClient';
+import { ContentClientConfigV1 } from '../../config/ContentClientConfigV1';
 
 /**
  * @hidden

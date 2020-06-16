@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { ImageUrlBuilder } from './ImageUrlBuilder';
 import { Image } from './Image';
 import { ImageFormat } from './model/ImageFormat';
-import { CommonContentClientConfig } from '../ContentClientConfig';
+import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
 
 const config: CommonContentClientConfig = {};
 

@@ -1,7 +1,7 @@
 import { Media } from './Media';
 import { FragmentMeta } from '../content/model/FragmentMeta';
 import { ImageUrlBuilder } from './ImageUrlBuilder';
-import { CommonContentClientConfig } from '../ContentClientConfig';
+import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
 import { VideoMeta } from './MediaMeta';
 
 /**

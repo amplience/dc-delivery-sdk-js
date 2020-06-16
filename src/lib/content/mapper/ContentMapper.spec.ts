@@ -4,7 +4,7 @@ import { ContentMeta, ContentReferenceMeta } from '../model/ContentMeta';
 import { Image } from '../../media/Image';
 import { Video } from '../../media/Video';
 import { ContentReference } from '../model/ContentReference';
-import { CommonContentClientConfig } from '../../ContentClientConfig';
+import { CommonContentClientConfig } from '../../config/CommonContentClientConfig';
 
 const config: CommonContentClientConfig = {};
 

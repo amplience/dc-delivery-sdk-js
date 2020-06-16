@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Video } from './Video';
-import { CommonContentClientConfig } from '../ContentClientConfig';
+import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
 
 const config: CommonContentClientConfig = {};
 describe('Video', () => {
