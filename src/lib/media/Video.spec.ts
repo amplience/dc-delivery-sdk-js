@@ -9,12 +9,12 @@ describe('Video', () => {
       const json = {
         _meta: {
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/video-link'
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/video-link',
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'video',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws'
+        defaultHost: 'i1.adis.ws',
       };
 
       const content = new Video(json, config);
@@ -27,12 +27,12 @@ describe('Video', () => {
       const json = {
         _meta: {
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/video-link'
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/video-link',
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws'
+        defaultHost: 'i1.adis.ws',
       };
 
       const content = new Video(json, config);

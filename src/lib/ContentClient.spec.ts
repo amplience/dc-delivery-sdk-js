@@ -3,6 +3,7 @@ import { ContentClient } from '../index';
 import MockAdapter from 'axios-mock-adapter';
 import * as V1_SINGLE_RESULT from './content/coordinators/__fixtures__/v1/SINGLE_RESULT.json';
 import * as V2_SINGLE_RESULT from './content/coordinators/__fixtures__/v2/SINGLE_RESULT.json';
+import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
 
 describe('ContentClient', () => {
   context('configuration', () => {
@@ -13,17 +14,17 @@ describe('ContentClient', () => {
     });
 
     it('should throw if config.account is not provided', () => {
-      expect(() => new ContentClient(<any>{})).to.throw(
-        'Parameter "config" must contain a valid "account" name'
-      );
+      expect(
+        () => new ContentClient(({} as unknown) as ContentClientConfigV1)
+      ).to.throw('Parameter "config" must contain a valid "account" name');
     });
 
     it('should throw if config.stagingEnvironment is a URL', () => {
       expect(
         () =>
-          new ContentClient(<any>{
+          new ContentClient({
             account: 'test',
-            stagingEnvironment: 'http://staging.com'
+            stagingEnvironment: 'http://staging.com',
           })
       ).to.throw(
         'Parameter "stagingEnvironment" should be a hostname not a URL'
@@ -49,7 +50,7 @@ describe('ContentClient', () => {
 
         const client = new ContentClient({
           account: 'test',
-          adaptor: mocks.adapter()
+          adaptor: mocks.adapter(),
         });
 
         const response = await client.getContentItem(
@@ -61,8 +62,8 @@ describe('ContentClient', () => {
             deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
             name: 'name',
             schema:
-              'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
-          }
+              'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
+          },
         });
       });
     });
@@ -77,7 +78,7 @@ describe('ContentClient', () => {
 
         const client = new ContentClient({
           hubName: 'test',
-          adaptor: mocks.adapter()
+          adaptor: mocks.adapter(),
         });
 
         const response = await client.getContentItem(
@@ -101,7 +102,7 @@ describe('ContentClient', () => {
 
         const client = new ContentClient({
           account: 'test',
-          adaptor: mocks.adapter()
+          adaptor: mocks.adapter(),
         });
 
         const response = await client.getContentItemById(
@@ -113,8 +114,8 @@ describe('ContentClient', () => {
             deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
             name: 'name',
             schema:
-              'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
-          }
+              'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
+          },
         });
       });
     });
@@ -129,7 +130,7 @@ describe('ContentClient', () => {
 
         const client = new ContentClient({
           hubName: 'test',
-          adaptor: mocks.adapter()
+          adaptor: mocks.adapter(),
         });
 
         const response = await client.getContentItemById(
@@ -145,7 +146,7 @@ describe('ContentClient', () => {
     context('ContentClientConfigV1', () => {
       it('should resolve if content item is found', async () => {
         const client = new ContentClient({
-          account: 'test'
+          account: 'test',
         });
 
         expect(() => client.getContentItemByKey('content-key')).to.throw(
@@ -164,7 +165,7 @@ describe('ContentClient', () => {
 
         const client = new ContentClient({
           hubName: 'test',
-          adaptor: mocks.adapter()
+          adaptor: mocks.adapter(),
         });
 
         const response = await client.getContentItemByKey('welcome-para-1');

@@ -13,11 +13,11 @@ describe('ContentMapper', () => {
     it('should return original json', () => {
       const mapper = new ContentMapper(config);
       const result = mapper.toMappedContent({
-        key: 'value'
+        key: 'value',
       });
 
       expect(result).to.deep.eq({
-        key: 'value'
+        key: 'value',
       });
     });
 
@@ -31,8 +31,8 @@ describe('ContentMapper', () => {
 
       mapper.toMappedContent({
         _meta: {
-          schema: 'schema.json'
-        }
+          schema: 'schema.json',
+        },
       });
 
       expect(mapperInvocations).to.eq(1);
@@ -45,14 +45,14 @@ describe('ContentMapper', () => {
 
       const result = mapper.toMappedContent({
         _meta: {
-          schema: 'schema.json'
-        }
+          schema: 'schema.json',
+        },
       });
 
       expect(result).to.deep.eq({
         _meta: {
-          schema: 'schema.json'
-        }
+          schema: 'schema.json',
+        },
       });
     });
 
@@ -65,8 +65,8 @@ describe('ContentMapper', () => {
 
       const result = mapper.toMappedContent({
         _meta: {
-          schema: 'schema.json'
-        }
+          schema: 'schema.json',
+        },
       });
 
       expect(result).to.deep.eq({});
@@ -75,36 +75,36 @@ describe('ContentMapper', () => {
     it('should replace nested nodes', () => {
       const mapper = new ContentMapper(config);
 
-      mapper.addCustomMapper(fragment => {
+      mapper.addCustomMapper((fragment) => {
         if (fragment._meta.schema === 'customType.json') {
           return {
             ...fragment,
-            injectedKey: 'value'
+            injectedKey: 'value',
           };
         }
       });
 
       const result = mapper.toMappedContent({
         _meta: {
-          schema: 'schema.json'
+          schema: 'schema.json',
         },
         customType: {
           _meta: {
-            schema: 'customType.json'
-          }
-        }
+            schema: 'customType.json',
+          },
+        },
       });
 
       expect(result).to.deep.eq({
         _meta: {
-          schema: 'schema.json'
+          schema: 'schema.json',
         },
         customType: {
           _meta: {
-            schema: 'customType.json'
+            schema: 'customType.json',
           },
-          injectedKey: 'value'
-        }
+          injectedKey: 'value',
+        },
       });
     });
   });
@@ -117,13 +117,13 @@ describe('ContentMapper', () => {
       const result = mapper.toMappedContent({
         customType: {
           _meta: {
-            schema: 'customType.json'
-          }
-        }
+            schema: 'customType.json',
+          },
+        },
       });
 
       expect(result).to.deep.eq({
-        customType: 'replaced'
+        customType: 'replaced',
       });
     });
 
@@ -134,13 +134,13 @@ describe('ContentMapper', () => {
       const result = mapper.toMappedContent({
         customType: {
           _meta: {
-            schema: 'customType.json'
-          }
-        }
+            schema: 'customType.json',
+          },
+        },
       });
 
       expect(result).to.deep.eq({
-        customType: 'replaced'
+        customType: 'replaced',
       });
     });
   });
@@ -152,8 +152,8 @@ describe('ContentMapper', () => {
         _meta: {
           name: 'page',
           schema:
-            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
-        }
+            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
+        },
       });
 
       expect(result._meta).to.be.instanceOf(ContentMeta);
@@ -168,8 +168,8 @@ describe('ContentMapper', () => {
           name: 'content reference',
           id: '123',
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
-        }
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference',
+        },
       });
 
       expect(result._meta).to.be.instanceOf(ContentReferenceMeta);
@@ -184,13 +184,13 @@ describe('ContentMapper', () => {
         image: {
           _meta: {
             schema:
-              'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+              'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
           },
           id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'i1.adis.ws'
-        }
+          defaultHost: 'i1.adis.ws',
+        },
       });
       expect(result.image).to.be.instanceOf(Image);
     });
@@ -202,13 +202,13 @@ describe('ContentMapper', () => {
           image: {
             _meta: {
               schema:
-                'http://bigcontent.io/cms/schema/v1/core#/definitions/video-link'
+                'http://bigcontent.io/cms/schema/v1/core#/definitions/video-link',
             },
             id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
             name: 'image',
             endpoint: 'test',
-            defaultHost: 'i1.adis.ws'
-          }
+            defaultHost: 'i1.adis.ws',
+          },
         });
         expect(result.image).to.be.instanceOf(Video);
       });

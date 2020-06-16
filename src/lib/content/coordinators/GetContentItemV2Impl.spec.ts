@@ -23,7 +23,7 @@ function createCoordinator(
 
 describe('GetContentItemV2Impl', () => {
   context('getContentItemById', () => {
-    it('should reject if content item not found', done => {
+    it('should reject if content item not found', (done) => {
       const [mocks, coordinator] = createCoordinator('test', 'en_US');
       mocks
         .onGet(
@@ -83,7 +83,7 @@ describe('GetContentItemV2Impl', () => {
   });
 
   context('getContentItemByKey', () => {
-    it('should reject if content item not found', done => {
+    it('should reject if content item not found', (done) => {
       const [mocks, coordinator] = createCoordinator('test', 'en_US');
       mocks
         .onGet(

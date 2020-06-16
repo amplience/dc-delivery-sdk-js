@@ -37,7 +37,10 @@ export class GetContentItemV2Impl
     requestType: 'id' | 'key',
     value: string
   ): Promise<ContentItem<T>> {
-    const args = [['depth', 'all'], ['format', 'inlined']];
+    const args = [
+      ['depth', 'all'],
+      ['format', 'inlined'],
+    ];
     if (this.config.locale) {
       args.push(['locale', this.config.locale]);
     }

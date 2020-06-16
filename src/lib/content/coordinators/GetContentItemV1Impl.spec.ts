@@ -36,7 +36,7 @@ describe('GetContentItemV1Impl', () => {
       expect(
         coordinator.getUrl({
           'sys.iri':
-            'http://content.cms.amplience.com/2c7efa09-7e31-4503-8d00-5a150ff82f17'
+            'http://content.cms.amplience.com/2c7efa09-7e31-4503-8d00-5a150ff82f17',
         })
       ).to.eq(
         '/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
@@ -48,7 +48,7 @@ describe('GetContentItemV1Impl', () => {
       expect(
         coordinator.getUrl({
           'sys.iri':
-            'http://content.cms.amplience.com/2c7efa09-7e31-4503-8d00-5a150ff82f17'
+            'http://content.cms.amplience.com/2c7efa09-7e31-4503-8d00-5a150ff82f17',
         })
       ).to.eq(
         '/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test&locale=en-GB'
@@ -72,8 +72,8 @@ describe('GetContentItemV1Impl', () => {
           deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
           name: 'name',
           schema:
-            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
-        }
+            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
+        },
       });
     });
 
@@ -85,9 +85,9 @@ describe('GetContentItemV1Impl', () => {
           deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
           name: 'Title',
           schema:
-            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
+            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
         },
-        _title: 'Title'
+        _title: 'Title',
       });
     });
 
@@ -100,19 +100,19 @@ describe('GetContentItemV1Impl', () => {
         _meta: {
           deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
           schema:
-            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
+            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
         },
         image: {
           _meta: {
             schema:
-              'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+              'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
           },
           defaultHost: 'i1.adis.ws',
           endpoint: 'dcdemo',
           id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
           mediaType: 'image',
-          name: 'shutterstock_749703970'
-        }
+          name: 'shutterstock_749703970',
+        },
       });
     });
 
@@ -125,19 +125,19 @@ describe('GetContentItemV1Impl', () => {
         _meta: {
           deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
           schema:
-            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
+            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
         },
         image: {
           _meta: {
             schema:
-              'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+              'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
           },
           defaultHost: 'i1.adis.ws',
           endpoint: 'dcdemo',
           id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
           mediaType: 'image',
-          name: 'shutterstock_749703970'
-        }
+          name: 'shutterstock_749703970',
+        },
       });
     });
 
@@ -149,7 +149,7 @@ describe('GetContentItemV1Impl', () => {
         _meta: {
           deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
           schema:
-            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
+            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
         },
         contentSlots: [
           {
@@ -157,52 +157,52 @@ describe('GetContentItemV1Impl', () => {
               deliveryId: '286f3e8e-f088-4956-92c6-a196d7e16c4e',
               schema:
                 'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/blocks/image-block.json',
-              name: 'fathers-day-pre-sale'
+              name: 'fathers-day-pre-sale',
             },
             image: {
               _meta: {
                 schema:
-                  'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+                  'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
               },
               id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
               name: 'shutterstock_749703970',
               endpoint: 'dcdemo',
               defaultHost: 'i1.adis.ws',
-              mediaType: 'image'
+              mediaType: 'image',
             },
             content: {
               _meta: {
                 deliveryId: '54cb30c7-e142-49d0-9e50-74f20c234452',
                 name: 'content-reference',
-                schema: 'http://content.ref'
+                schema: 'http://content.ref',
               },
               contentRefExample: {
                 _meta: {
                   schema:
-                    'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
+                    'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference',
                 },
                 contentType: 'http://basic.example',
-                id: 'de111147-1a23-47c6-aee1-4060dd570b3d'
-              }
+                id: 'de111147-1a23-47c6-aee1-4060dd570b3d',
+              },
             },
             mobileAspectRatio: {
               w: 1,
               h: 1,
               _meta: {
                 schema:
-                  'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/mixins/aspect-ratio.json'
-              }
+                  'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/mixins/aspect-ratio.json',
+              },
             },
             aspectRatio: {
               w: 5,
               h: 2,
               _meta: {
                 schema:
-                  'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/mixins/aspect-ratio.json'
-              }
-            }
-          }
-        ]
+                  'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/mixins/aspect-ratio.json',
+              },
+            },
+          },
+        ],
       });
     });
 
@@ -215,16 +215,16 @@ describe('GetContentItemV1Impl', () => {
       expect(contentItems[0]).to.deep.eq({
         _meta: {
           deliveryId: '54cb30c7-e142-49d0-9e50-74f20c234452',
-          schema: 'http://content.ref'
+          schema: 'http://content.ref',
         },
         contentRefExample: {
           _meta: {
             schema:
-              'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference'
+              'http://bigcontent.io/cms/schema/v1/core#/definitions/content-reference',
           },
           contentType: 'http://basic.example',
-          id: 'de111147-1a23-47c6-aee1-4060dd570b3d'
-        }
+          id: 'de111147-1a23-47c6-aee1-4060dd570b3d',
+        },
       });
     });
   });
@@ -237,7 +237,7 @@ describe('GetContentItemV1Impl', () => {
       [mocks, coordinator] = createCoordinator('test');
     });
 
-    it('should reject if content item not found', done => {
+    it('should reject if content item not found', (done) => {
       mocks
         .onGet(
           '/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
@@ -264,8 +264,8 @@ describe('GetContentItemV1Impl', () => {
           deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
           name: 'name',
           schema:
-            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json'
-        }
+            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
+        },
       });
     });
 
@@ -278,7 +278,7 @@ describe('GetContentItemV1Impl', () => {
 
       return coordinator
         .getContentItem('2c7efa09-7e31-4503-8d00-5a150ff82f17')
-        .then(response => {
+        .then((response) => {
           expect(response.body._meta).to.be.instanceOf(ContentMeta);
         });
     });

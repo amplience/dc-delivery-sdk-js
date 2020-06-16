@@ -10,7 +10,7 @@ export function createContentClient(
   defaultHost
 ): AxiosInstance {
   const client = Axios.create({
-    adapter: config.adaptor
+    adapter: config.adaptor,
   });
 
   if (config.stagingEnvironment) {

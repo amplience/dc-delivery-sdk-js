@@ -9,7 +9,7 @@ import { ImageFormat } from './model/ImageFormat';
  * back-office and applying the template to the builder.
  */
 export class ImageUrlBuilder {
-  private _protocol: string = 'https';
+  private _protocol = 'https';
   private _host: string;
   private _format: ImageFormat;
   private _seoFileName: string;
@@ -112,12 +112,7 @@ export class ImageUrlBuilder {
    * @param amount The percentage of the difference between the original and the blur image that is added back into the original.
    * @param threshold The threshold, as a fraction of MaxRGB, needed to apply the difference amount.
    */
-  sharpen(
-    radius: number = 0,
-    sigma: number = 1,
-    amount: number = 1,
-    threshold: number = 0.05
-  ): this {
+  sharpen(radius = 0, sigma = 1, amount = 1, threshold = 0.05): this {
     this._query.push(`unsharp=${radius},${sigma},${amount},${threshold}`);
     return this;
   }

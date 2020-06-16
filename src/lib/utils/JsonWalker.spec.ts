@@ -15,7 +15,7 @@ describe('walkAndReplace', () => {
       afterWalk: (value: any, pointer: string[]) => {
         after.push(pointer.join('/'));
         return value;
-      }
+      },
     });
 
     expect(result).to.deep.eq(data);
@@ -36,7 +36,7 @@ describe('walkAndReplace', () => {
       afterWalk: (value: any, pointer: string[]) => {
         after.push(pointer.join('/'));
         return value;
-      }
+      },
     });
 
     expect(result).to.deep.eq(data);
@@ -57,7 +57,7 @@ describe('walkAndReplace', () => {
       afterWalk: (value: any, pointer: string[]) => {
         after.push(pointer.join('/'));
         return value;
-      }
+      },
     });
 
     expect(result).to.deep.eq(data);
@@ -78,7 +78,7 @@ describe('walkAndReplace', () => {
       afterWalk: (value: any, pointer: string[]) => {
         after.push(pointer.join('/'));
         return value;
-      }
+      },
     });
 
     expect(result).to.deep.eq(data);
@@ -87,14 +87,14 @@ describe('walkAndReplace', () => {
       'nested',
       'nested/a',
       'nested/b',
-      'nested/c'
+      'nested/c',
     ]);
     expect(after).to.deep.eq([
       'nested/a',
       'nested/b',
       'nested/c',
       'nested',
-      ''
+      '',
     ]);
   });
 
@@ -107,7 +107,7 @@ describe('walkAndReplace', () => {
           return 0 - value;
         }
         return value;
-      }
+      },
     });
 
     expect(result).to.deep.eq([-1, -2, -3]);
@@ -122,7 +122,7 @@ describe('walkAndReplace', () => {
           return 0 - value;
         }
         return value;
-      }
+      },
     });
 
     expect(result).to.deep.eq([-1, -2, -3]);
@@ -137,7 +137,7 @@ describe('walkAndReplace', () => {
           return 0 - value;
         }
         return value;
-      }
+      },
     });
 
     expect(result).to.deep.eq({ a: -1, b: -2, c: -3 });
@@ -152,7 +152,7 @@ describe('walkAndReplace', () => {
           return 0 - value;
         }
         return value;
-      }
+      },
     });
 
     expect(result).to.deep.eq({ a: -1, b: -2, c: -3 });
@@ -177,13 +177,13 @@ describe('walkAndReplace', () => {
       afterWalk: (value: any, pointer: string[]) => {
         after.push(pointer.join('/'));
         return value;
-      }
+      },
     });
 
     expect(result).to.deep.eq({
       a: ['x', 'b', 'c'],
       b: 2,
-      c: 3
+      c: 3,
     });
     expect(before).to.deep.eq(['', 'a', 'a/0', 'a/1', 'a/2', 'b', 'c']);
     expect(after).to.deep.eq(['a/0', 'a/1', 'a/2', 'a', 'b', 'c', '']);

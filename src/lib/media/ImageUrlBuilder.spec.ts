@@ -13,7 +13,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -27,7 +27,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -42,7 +42,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -59,7 +59,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -72,7 +72,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -86,7 +86,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -100,12 +100,12 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         {
           ...config,
           stagingEnvironment:
-            'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io'
+            'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io',
         }
       );
 
@@ -120,12 +120,12 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         {
           ...config,
           stagingEnvironment:
-            'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io'
+            'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io',
         }
       );
 
@@ -141,14 +141,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         {
           ...config,
           stagingEnvironment:
             'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io',
           mediaHost: 'invalid.adis.ws',
-          secureMediaHost: 'invalid.adis.ws'
+          secureMediaHost: 'invalid.adis.ws',
         }
       );
 
@@ -164,11 +164,11 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         {
           ...config,
-          mediaHost: 'images.mywebsite.com'
+          mediaHost: 'images.mywebsite.com',
         }
       );
 
@@ -182,11 +182,11 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         {
           ...config,
-          mediaHost: 'images.mywebsite.com'
+          mediaHost: 'images.mywebsite.com',
         }
       );
 
@@ -200,11 +200,11 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         {
           ...config,
-          secureMediaHost: 'images.mywebsite.com'
+          secureMediaHost: 'images.mywebsite.com',
         }
       );
 
@@ -221,11 +221,11 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         {
           ...config,
-          secureMediaHost: 'images.mywebsite.com'
+          secureMediaHost: 'images.mywebsite.com',
         }
       );
 
@@ -242,7 +242,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test ',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -258,7 +258,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image ',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -273,7 +273,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -291,7 +291,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -305,7 +305,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -321,7 +321,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -340,7 +340,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -356,7 +356,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -372,7 +372,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -392,7 +392,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -408,7 +408,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -426,7 +426,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -444,7 +444,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -462,7 +462,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );
@@ -480,7 +480,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'default.adis.ws'
+          defaultHost: 'default.adis.ws',
         },
         config
       );

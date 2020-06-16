@@ -11,7 +11,7 @@ describe('createContentClient', () => {
   it('should use the override base url if provided', () => {
     const client = createContentClient(
       {
-        baseUrl: 'http://localhost:3000'
+        baseUrl: 'http://localhost:3000',
       },
       'https://example.com'
     );
@@ -23,7 +23,7 @@ describe('createContentClient', () => {
       {
         baseUrl: 'http://localhost:3000',
         stagingEnvironment:
-          'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io'
+          'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io',
       },
       'https://example.com'
     );
@@ -38,12 +38,12 @@ describe('createContentClient', () => {
       {
         adaptor: () =>
           Promise.resolve<any>({
-            data: 'response'
-          })
+            data: 'response',
+          }),
       },
       'https://example.com'
     );
-    return client.get('/test').then(response => {
+    return client.get('/test').then((response) => {
       expect(response).to.deep.eq({ data: 'response' });
     });
   });

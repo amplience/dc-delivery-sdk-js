@@ -25,9 +25,7 @@ function bundleConfig(name) {
                     browsers: browserTargets
                   },
                   useBuiltIns: 'usage',
-                  exclude: [
-                    'web.dom.iterable'
-                  ]
+                  corejs: { version: 3, proposals: true }
                 }
               ]
             ],

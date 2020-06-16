@@ -13,7 +13,7 @@ function createFactory(
   const mocks = new MockAdapter(null);
   const client = new StagingEnvironmentFactory(stagingEnvironment, {
     adaptor: mocks.adapter(),
-    ...config
+    ...config,
   });
   return [mocks, client];
 }
@@ -34,7 +34,7 @@ describe('StagingEnvironmentFactory', () => {
         );
 
       const response = await factory.generateDomain({
-        snapshotId: snapshotId
+        snapshotId: snapshotId,
       });
 
       expect(response).to.eq(
@@ -54,7 +54,7 @@ describe('StagingEnvironmentFactory', () => {
         );
 
       const response = await factory.generateDomain({
-        timestamp: timestamp
+        timestamp: timestamp,
       });
 
       expect(response).to.eq(
@@ -64,7 +64,7 @@ describe('StagingEnvironmentFactory', () => {
 
     it('should be possible to supply a different baseUrl', async () => {
       const [mocks, factory] = createFactory(stagingEnvironment, {
-        baseUrl: 'http://example.com'
+        baseUrl: 'http://example.com',
       });
 
       mocks
