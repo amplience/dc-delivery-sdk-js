@@ -11,7 +11,7 @@ This sdk is designed to help build client side and server side content managed a
 
 ## Features
 
-- Fetch content and slots using the [Content Delivery Service v1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) and/or [Content Delivery Service v2](https://docs.amplience.net/development/contentdelivery/readme.htm)
+- Fetch content and slots using the [Content Delivery Service 1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) and/or [Content Delivery Service 2](https://docs.amplience.net/development/contentdelivery/readme.htm)
 - Fetch preview content using Virtual Staging
 - Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service)
 - Localize content
@@ -86,8 +86,8 @@ If you need to support old browsers a legacy version of the bundle is provided, 
 
 | Option             | Description                                                                                             |
 | ------------------ | ------------------------------------------------------------------------------------------------------- |
-| account            | Required (see Note below): Account to retrieve content from Content Delivery v1 API                     |
-| hubName            | Required (see Note below): hubName to retrieve content from Content Delivery v2 API                     |
+| account            | Required (see Note below): Account to retrieve content from Content Delivery 1 API                      |
+| hubName            | Required (see Note below): hubName to retrieve content from Content Delivery 2 API                      |
 | stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.        |
 | locale             | If set, the SDK will request content using the locale settings provided.                                |
 | mediaHost          | Allows users with custom hostnames to override the hostname used when constructing media URLs.          |
@@ -95,7 +95,7 @@ If you need to support old browsers a legacy version of the bundle is provided, 
 | baseUrl            | Override for the content delivery API base URL                                                          |
 | adaptor            | Allows custom handling of requests which makes testing and supporting non-standard environments easier. |
 
-**Note**: In order to use the client must be configure it with either `account` or `hubName`. If both are supplied the SDK will use the Content Delivery V2 API over Content Delivery V2.
+**Note**: In order to use the client must be configure it with either `account` or `hubName`. If both are supplied the SDK will use the Content Delivery 2 API over the Content Delivery 1 API.
 
 ### Fetch content by delivery ID
 
@@ -139,7 +139,7 @@ Example:
 }
 ```
 
-### Fetch content by delivery key (via Content Delivery Service 2)
+### Fetch content by delivery key (via Content Delivery 2)
 
 **Note:** In order to get content by it's delivery key via `getContentItemByKey()`, you must supply the `hubName` option to the client, you [find your Hub name under the settings section in Dynamic Content](https://docs.amplience.net/development/contentdelivery/readme.html#hubname).
 
