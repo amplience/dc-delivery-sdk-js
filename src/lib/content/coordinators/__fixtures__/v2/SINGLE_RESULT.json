@@ -1,0 +1,11 @@
+{
+  "content": {
+    "_meta": {
+      "name": "welcome-para-1",
+      "schema": "https://raw.githubusercontent.com/amplience/dc-static-blog-nextjs/master/schemas/text.json",
+      "deliveryId": "0bf85aa1-9386-4068-adad-6b9a813f5ddb",
+      "delivertKey": "welcome-para-1"
+    },
+    "text": "Hello, and welcome, from the tech team at Amplience.\n\nIf you’re a developer or content practitioner using Amplience or one who’s working in the same space as us and want to find out more about the platform, you’ve come to the right place. This is a blog written specifically for you from the people who know our products inside out.\n\nWe’ll be covering all things in the headless space including technical approaches, agile working and industry trends, alongside articles on new product features and updates, implementation advice and best practice guides.\n\nAnd, to prove we follow the 'eat your own dog food' philosophy here at Amplience, our own engineers have built it in the JAMstack using Dynamic Content to power the content. You can read more about how we did this in a couple of our first posts [here](https://productblog.amplience.com/blog/building-the-amplience-blog-part-1/) and [here](https://productblog.amplience.com/blog/building-the-amplience-blog-part-2/).\n\nThis is going to be an ever-evolving space to learn and share. As we continue to grow our products and platform, we’ll be writing about what we discover along the way. We’d also love to hear from you about what we could cover in future posts. Get in touch with thoughts, feedback and requests: [productblog@amplience.com](mailto:productblog@amplience.com)"
+  }
+}
