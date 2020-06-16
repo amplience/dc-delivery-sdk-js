@@ -64,10 +64,7 @@ module.exports = {
                     browsers: ['last 2 versions', 'not dead']
                   },
                   useBuiltIns: 'usage',
-                  corejs: { version: 2, proposals: true },
-                  exclude: [
-                    'web.dom.iterable'
-                  ]
+                  corejs: { version: 3, proposals: true }
                 }
               ]
             ],
