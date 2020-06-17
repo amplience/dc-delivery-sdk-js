@@ -11,7 +11,7 @@ This sdk is designed to help build client side and server side content managed a
 
 ## Features
 
-- Fetch content and slots using the [Content Delivery Service 1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) and/or [Content Delivery Service 2](https://docs.amplience.net/development/contentdelivery/readme.htm)
+- Fetch content and slots using the [Content Delivery 1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) and/or [Content Delivery 2](https://docs.amplience.net/development/contentdelivery/readme.htm)
 - Fetch preview content using Virtual Staging
 - Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service)
 - Localize content
