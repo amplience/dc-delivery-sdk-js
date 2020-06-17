@@ -17,7 +17,7 @@ export interface CommonContentClientConfig {
   stagingEnvironment?: string;
 
   /**
-   * If set, the SDK will request content using the locale settings provided.rm -fr
+   * If set, the SDK will request content using the locale settings provided.
    * If your content contains any localized fields, this will cause a single
    * locale to be returned rather than the complete list of values.
    */
