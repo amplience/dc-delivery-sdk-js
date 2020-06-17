@@ -143,9 +143,9 @@ Example:
 
 **Note:** In order to get content by it's delivery key via `getContentItemByKey()`, you must supply the `hubName` option to the client, you [find your Hub name under the settings section in Dynamic Content](https://docs.amplience.net/development/contentdelivery/readme.html#hubname).
 
-Once you have [set a delivery key for a slot or content item](https://docs.amplience.net/development/delivery-keys/readme.html), the content item item must be published before it can be retrieved using SDK.
+Once you have [set a delivery key for a slot or content item](https://docs.amplience.net/development/delivery-keys/readme.html), the content item must be published before it can be retrieved using SDK.
 
-The `getContentItemByKey()` method will return a promise which will resolve to the JSON of your slot or content item. If no content is found with the provided id the promise will reject with an error.
+The `getContentItemByKey()` method will return a promise which will resolve to the JSON of your slot or content item. If no content is found with the provided key the promise will reject with an error.
 
 ```js
 const client = new ContentClient({
