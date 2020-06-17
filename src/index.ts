@@ -1,5 +1,6 @@
 export * from './lib/ContentClient';
 
+export * from './lib/ContentClientConfig';
 export * from './lib/config/CommonContentClientConfig';
 export * from './lib/config/ContentClientConfigV1';
 export * from './lib/config/ContentClientConfigV2';
