@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>dc-delivery-sdk-js</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for dc-delivery-sdk-js">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> dc-delivery-sdk-js</h1>
+			<h1>dc-delivery-sdk-js</h1>
 		</div>
 	</div>
 </header>
@@ -96,22 +96,27 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface"><a href="interfaces/commoncontentclientconfig.html" class="tsd-kind-icon">Common<wbr>Content<wbr>Client<wbr>Config</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/contentbody.html" class="tsd-kind-icon">Content<wbr>Body</a></li>
-								<li class="tsd-kind-interface"><a href="interfaces/contentclientconfig.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/contentclientconfigv1.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V1</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/contentclientconfigv2.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/generatedomainoptions.html" class="tsd-kind-icon">Generate<wbr>Domain<wbr>Options</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/getcontentitembyid.html" class="tsd-kind-icon">Get<wbr>Content<wbr>Item<wbr>ById</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/getcontentitembykey.html" class="tsd-kind-icon">Get<wbr>Content<wbr>Item<wbr>ByKey</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/stagingenvironmentfactoryconfig.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory<wbr>Config</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias"><a href="globals.html#contentclientconfig" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a></li>
 								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Object literals</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-object-literal tsd-is-not-exported"><a href="globals.html#defaultstagingenvironmentfactoryconfig" class="tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</a></li>
+								<li class="tsd-kind-object-literal"><a href="globals.html#defaultstagingenvironmentfactoryconfig" class="tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</a></li>
 							</ul>
 						</section>
 					</div>
@@ -119,13 +124,30 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="contentclientconfig" class="tsd-anchor"></a>
+					<h3>Content<wbr>Client<wbr>Config</h3>
+					<div class="tsd-signature tsd-kind-icon">Content<wbr>Client<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="interfaces/contentclientconfigv1.html" class="tsd-signature-type">ContentClientConfigV1</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/e209bf7/src/lib/ContentClientConfig.ts#L6">lib/ContentClientConfig.ts:6</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>use ContentClientConfigV1</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
 					<a name="requriedcontentreference" class="tsd-anchor"></a>
 					<h3>Requried<wbr>Content<wbr>Reference</h3>
-					<div class="tsd-signature tsd-kind-icon">Requried<wbr>Content<wbr>Reference<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
+					<div class="tsd-signature tsd-kind-icon">Requried<wbr>Content<wbr>Reference&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>_meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>contentType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/696a218/src/lib/content/model/ContentReference.ts#L7">lib/content/model/ContentReference.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/e209bf7/src/lib/content/model/ContentReference.ts#L7">lib/content/model/ContentReference.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -133,17 +155,23 @@
 							<p>Required params for creating an content reference</p>
 						</div>
 					</div>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Object literals</h2>
-				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-object-literal">
 					<a name="defaultstagingenvironmentfactoryconfig" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</h3>
 					<div class="tsd-signature tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/696a218/src/lib/staging-environment/StagingEnvironmentFactory.ts#L9">lib/staging-environment/StagingEnvironmentFactory.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/e209bf7/src/lib/staging-environment/StagingEnvironmentFactory.ts#L9">lib/staging-environment/StagingEnvironmentFactory.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -151,13 +179,13 @@
 							<p>Default StagingEnvironmentFactoryConfig values</p>
 						</div>
 					</div>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="defaultstagingenvironmentfactoryconfig.baseurl" class="tsd-anchor"></a>
 						<h3>base<wbr>Url</h3>
-						<div class="tsd-signature tsd-kind-icon">base<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;https://virtual-staging.adis.ws&quot;</span></div>
+						<div class="tsd-signature tsd-kind-icon">base<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;https://virtual-staging.adis.ws&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/696a218/src/lib/staging-environment/StagingEnvironmentFactory.ts#L10">lib/staging-environment/StagingEnvironmentFactory.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/e209bf7/src/lib/staging-environment/StagingEnvironmentFactory.ts#L10">lib/staging-environment/StagingEnvironmentFactory.ts:10</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -223,21 +251,36 @@
 						<a href="classes/videometa.html" class="tsd-kind-icon">Video<wbr>Meta</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/commoncontentclientconfig.html" class="tsd-kind-icon">Common<wbr>Content<wbr>Client<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/contentbody.html" class="tsd-kind-icon">Content<wbr>Body</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/contentclientconfig.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a>
+						<a href="interfaces/contentclientconfigv1.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V1</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/contentclientconfigv2.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/generatedomainoptions.html" class="tsd-kind-icon">Generate<wbr>Domain<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/getcontentitembyid.html" class="tsd-kind-icon">Get<wbr>Content<wbr>Item<wbr>ById</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/getcontentitembykey.html" class="tsd-kind-icon">Get<wbr>Content<wbr>Item<wbr>ByKey</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/stagingenvironmentfactoryconfig.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#contentclientconfig" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a>
 					</li>
-					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#defaultstagingenvironmentfactoryconfig" class="tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</a>
 					</li>
 				</ul>
@@ -250,62 +293,28 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
