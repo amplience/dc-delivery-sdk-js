@@ -49,7 +49,7 @@ export class Edition {
     return {
       id: this.id,
       start: this.start,
-      end: this.end
+      end: this.end,
     };
   }
 }

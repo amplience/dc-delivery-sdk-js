@@ -64,7 +64,7 @@ export abstract class Media {
       defaultHost: this.defaultHost,
       endpoint: this.endpoint,
       name: this.name,
-      id: this.id
+      id: this.id,
     };
   }
 }

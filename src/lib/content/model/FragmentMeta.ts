@@ -23,7 +23,7 @@ export class FragmentMeta {
    */
   toJSON(): any {
     return {
-      schema: this.schema
+      schema: this.schema,
     };
   }
 

@@ -7,7 +7,7 @@ describe('Edition', () => {
       const edition = new Edition({
         id: '5b1a621ac9e77c0001b121b4',
         start: '2018-06-30T23:00:00.000Z',
-        end: '2018-07-06T22:59:59.999Z'
+        end: '2018-07-06T22:59:59.999Z',
       });
 
       expect(edition.id).to.eq('5b1a621ac9e77c0001b121b4');
@@ -19,13 +19,13 @@ describe('Edition', () => {
       const edition = new Edition({
         id: '5b1a621ac9e77c0001b121b4',
         start: '2018-06-30T23:00:00.000Z',
-        end: '2018-07-06T22:59:59.999Z'
+        end: '2018-07-06T22:59:59.999Z',
       });
 
       expect(JSON.parse(JSON.stringify(edition))).to.deep.eq({
         id: '5b1a621ac9e77c0001b121b4',
         start: '2018-06-30T23:00:00.000Z',
-        end: '2018-07-06T22:59:59.999Z'
+        end: '2018-07-06T22:59:59.999Z',
       });
     });
   });
@@ -35,7 +35,7 @@ describe('Edition', () => {
       const edition = new Edition({
         id: '5b1a621ac9e77c0001b121b4',
         start: '2018-06-30T23:00:00.000Z',
-        end: '2018-07-06T22:59:59.999Z'
+        end: '2018-07-06T22:59:59.999Z',
       });
 
       expect(edition.getStartDate().getTime()).to.eq(1530399600000);
@@ -47,7 +47,7 @@ describe('Edition', () => {
       const edition = new Edition({
         id: '5b1a621ac9e77c0001b121b4',
         start: '2018-06-30T23:00:00.000Z',
-        end: '2018-07-06T22:59:59.999Z'
+        end: '2018-07-06T22:59:59.999Z',
       });
 
       expect(edition.getEndDate().getTime()).to.eq(1530917999999);

@@ -14,12 +14,12 @@ describe('Media', () => {
       const json = {
         _meta: {
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws'
+        defaultHost: 'i1.adis.ws',
       };
 
       const media = new MediaImpl(json, { account: 'test' });
@@ -30,17 +30,17 @@ describe('Media', () => {
       const json = {
         _meta: {
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws'
+        defaultHost: 'i1.adis.ws',
       };
 
       const media = new MediaImpl(json, {
         account: 'test',
-        stagingEnvironment: 'staging.adis.ws'
+        stagingEnvironment: 'staging.adis.ws',
       });
       expect(media.getHost(false)).to.eq('staging.adis.ws');
     });
@@ -49,17 +49,17 @@ describe('Media', () => {
       const json = {
         _meta: {
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws'
+        defaultHost: 'i1.adis.ws',
       };
 
       const media = new MediaImpl(json, {
         account: 'test',
-        secureMediaHost: 'secure.adis.ws'
+        secureMediaHost: 'secure.adis.ws',
       });
       expect(media.getHost(true)).to.eq('secure.adis.ws');
     });
@@ -68,12 +68,12 @@ describe('Media', () => {
       const json = {
         _meta: {
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws'
+        defaultHost: 'i1.adis.ws',
       };
 
       const media = new MediaImpl(json, { account: 'test' });
@@ -84,17 +84,17 @@ describe('Media', () => {
       const json = {
         _meta: {
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws'
+        defaultHost: 'i1.adis.ws',
       };
 
       const media = new MediaImpl(json, {
         account: 'test',
-        mediaHost: 'images.mysite.com'
+        mediaHost: 'images.mysite.com',
       });
       expect(media.getHost(false)).to.eq('images.mysite.com');
     });
@@ -103,17 +103,17 @@ describe('Media', () => {
       const json = {
         _meta: {
           schema:
-            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link'
+            'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
         },
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws'
+        defaultHost: 'i1.adis.ws',
       };
 
       const media = new MediaImpl(json, {
         account: 'test',
-        secureMediaHost: 'secure.adis.ws'
+        secureMediaHost: 'secure.adis.ws',
       });
       expect(media.getHost(false)).to.eq('secure.adis.ws');
     });

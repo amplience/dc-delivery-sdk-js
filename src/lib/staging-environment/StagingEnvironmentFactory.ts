@@ -7,7 +7,7 @@ import { GenerateDomainOptions } from './GenerateDomainOptions';
  * Default StagingEnvironmentFactoryConfig values
  */
 const DefaultStagingEnvironmentFactoryConfig: StagingEnvironmentFactoryConfig = {
-  baseUrl: 'https://virtual-staging.adis.ws'
+  baseUrl: 'https://virtual-staging.adis.ws',
 };
 
 /**
@@ -47,7 +47,7 @@ export class StagingEnvironmentFactory {
   ) {
     this.client = this.createClient({
       ...DefaultStagingEnvironmentFactoryConfig,
-      ...config
+      ...config,
     });
   }
 
@@ -76,7 +76,7 @@ export class StagingEnvironmentFactory {
   protected buildUrl(options: GenerateDomainOptions): string {
     const queryParameters = Object.entries(options).map(([key, value]) => [
       key,
-      value.toString()
+      value.toString(),
     ]);
     const queryString = encodeQueryString(queryParameters);
     return `/domain/${this.stagingEnvironment}?${queryString}`;
@@ -90,7 +90,7 @@ export class StagingEnvironmentFactory {
     config: StagingEnvironmentFactoryConfig
   ): AxiosInstance {
     const client = Axios.create({
-      adapter: config.adaptor
+      adapter: config.adaptor,
     });
     client.defaults.baseURL = config.baseUrl;
     return client;
