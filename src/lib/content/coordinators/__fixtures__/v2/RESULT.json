@@ -1,0 +1,69 @@
+{
+  "content": {
+    "_meta": {
+      "name": "localization-blog-post",
+      "schema": "https://raw.githubusercontent.com/amplience/dc-static-blog-nextjs/master/schemas/blog-post.json",
+      "deliveryKey": "welcome-to-the-amplience-product-blog",
+      "deliveryId": "4cef6e46-95a3-48a6-8202-e31871eaaa72"
+    },
+    "authors": [
+      {
+        "_meta": {
+          "name": "olly-author",
+          "schema": "https://raw.githubusercontent.com/amplience/dc-static-blog-nextjs/master/schemas/author.json",
+          "deliveryId": "5f7693c4-fd9c-4e8b-b709-d0324347e93c"
+        },
+        "avatar": {
+          "_meta": {
+            "name": "olly-avatar",
+            "schema": "https://raw.githubusercontent.com/amplience/dc-static-blog-nextjs/master/schemas/image.json",
+            "deliveryId": "fce083ee-b9ff-4956-b8b4-c465d81124e9"
+          },
+          "image": {
+            "_meta": {
+              "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/image-link"
+            },
+            "id": "88e5826a-7c69-415f-8c32-bc53445d85e8",
+            "name": "np",
+            "endpoint": "ampproduct",
+            "defaultHost": "i1.adis.ws"
+          },
+          "altText": "Nick Piper"
+        },
+        "name": "Nick Piper"
+      }
+    ],
+    "image": {
+      "_meta": {
+        "name": "built-in-the-north",
+        "schema": "https://raw.githubusercontent.com/amplience/dc-static-blog-nextjs/master/schemas/image.json",
+        "deliveryId": "5c4da9e3-81e2-4225-8ddf-7698d2b9933b"
+      },
+      "image": {
+        "_meta": {
+          "schema": "http://bigcontent.io/cms/schema/v1/core#/definitions/image-link"
+        },
+        "id": "099378a3-418f-48bd-ba91-f1ceeb55b2fc",
+        "name": "IMG_3598",
+        "endpoint": "ampproduct",
+        "defaultHost": "i1.adis.ws"
+      },
+      "altText": "Built in the North!"
+    },
+    "content": [
+      {
+        "_meta": {
+          "name": "welcome-para-1",
+          "schema": "https://raw.githubusercontent.com/amplience/dc-static-blog-nextjs/master/schemas/text.json",
+          "deliveryId": "0bf85aa1-9386-4068-adad-6b9a813f5ddb"
+        },
+        "text": "Hello, and welcome, from the tech team at Amplience.\n\nIf you’re a developer or content practitioner using Amplience or one who’s working in the same space as us and want to find out more about the platform, you’ve come to the right place. This is a blog written specifically for you from the people who know our products inside out.\n\nWe’ll be covering all things in the headless space including technical approaches, agile working and industry trends, alongside articles on new product features and updates, implementation advice and best practice guides.\n\nAnd, to prove we follow the 'eat your own dog food' philosophy here at Amplience, our own engineers have built it in the JAMstack using Dynamic Content to power the content. You can read more about how we did this in a couple of our first posts [here](https://productblog.amplience.com/blog/building-the-amplience-blog-part-1/) and [here](https://productblog.amplience.com/blog/building-the-amplience-blog-part-2/).\n\nThis is going to be an ever-evolving space to learn and share. As we continue to grow our products and platform, we’ll be writing about what we discover along the way. We’d also love to hear from you about what we could cover in future posts. Get in touch with thoughts, feedback and requests: [productblog@amplience.com](mailto:productblog@amplience.com)"
+      }
+    ],
+    "title": "Welcome!",
+    "date": "2019-09-30",
+    "description": "Welcome to the Amplience product and engineering blog.\nThe place to come for updates, advice and guides directly from the Amplience product and engineering teams.",
+    "urlSlug": "welcome-to-the-amplience-product-blog",
+    "readTime": 2
+  }
+}

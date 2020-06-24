@@ -2,6 +2,9 @@ import { expect } from 'chai';
 import { ImageUrlBuilder } from './ImageUrlBuilder';
 import { Image } from './Image';
 import { ImageFormat } from './model/ImageFormat';
+import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
+
+const config: CommonContentClientConfig = {};
 
 describe('ImageUrlBuilder', () => {
   context('protocol', () => {
@@ -12,7 +15,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
 
       const builder = new ImageUrlBuilder(image);
@@ -26,9 +29,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        {
-          account: 'test',
-        }
+        config
       );
 
       const builder = new ImageUrlBuilder(image);
@@ -43,7 +44,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
 
       const builder = new ImageUrlBuilder(image);
@@ -60,7 +61,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
 
       const builder = new ImageUrlBuilder(image);
@@ -73,7 +74,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
 
       const builder = new ImageUrlBuilder(image);
@@ -87,7 +88,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
 
       const builder = new ImageUrlBuilder(image);
@@ -102,7 +103,7 @@ describe('ImageUrlBuilder', () => {
           defaultHost: 'default.adis.ws',
         },
         {
-          account: 'test',
+          ...config,
           stagingEnvironment:
             'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io',
         }
@@ -122,7 +123,7 @@ describe('ImageUrlBuilder', () => {
           defaultHost: 'default.adis.ws',
         },
         {
-          account: 'test',
+          ...config,
           stagingEnvironment:
             'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io',
         }
@@ -143,7 +144,7 @@ describe('ImageUrlBuilder', () => {
           defaultHost: 'default.adis.ws',
         },
         {
-          account: 'test',
+          ...config,
           stagingEnvironment:
             'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io',
           mediaHost: 'invalid.adis.ws',
@@ -166,7 +167,7 @@ describe('ImageUrlBuilder', () => {
           defaultHost: 'default.adis.ws',
         },
         {
-          account: 'test',
+          ...config,
           mediaHost: 'images.mywebsite.com',
         }
       );
@@ -184,7 +185,7 @@ describe('ImageUrlBuilder', () => {
           defaultHost: 'default.adis.ws',
         },
         {
-          account: 'test',
+          ...config,
           mediaHost: 'images.mywebsite.com',
         }
       );
@@ -202,7 +203,7 @@ describe('ImageUrlBuilder', () => {
           defaultHost: 'default.adis.ws',
         },
         {
-          account: 'test',
+          ...config,
           secureMediaHost: 'images.mywebsite.com',
         }
       );
@@ -223,7 +224,7 @@ describe('ImageUrlBuilder', () => {
           defaultHost: 'default.adis.ws',
         },
         {
-          account: 'test',
+          ...config,
           secureMediaHost: 'images.mywebsite.com',
         }
       );
@@ -243,7 +244,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test ',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
 
       const builder = new ImageUrlBuilder(image);
@@ -259,7 +260,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       expect(builder.build()).to.eq('https://default.adis.ws/i/test/image%20');
@@ -274,7 +275,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.format(ImageFormat.WEBP);
@@ -292,7 +293,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.seoFileName('seo');
@@ -306,7 +307,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.seoFileName('seo ');
@@ -322,7 +323,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.seoFileName('seo');
@@ -341,7 +342,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.template('thumb');
@@ -357,7 +358,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.template('thumb ');
@@ -373,7 +374,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.template('thumb');
@@ -393,7 +394,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.parameter('offers', '241');
@@ -409,7 +410,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.parameter('offers ', '241 ');
@@ -427,7 +428,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.quality(70);
@@ -445,7 +446,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.sharpen(0, 1, 1, 0.05);
@@ -463,7 +464,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.width(100);
@@ -481,7 +482,7 @@ describe('ImageUrlBuilder', () => {
           endpoint: 'test',
           defaultHost: 'default.adis.ws',
         },
-        { account: 'test' }
+        config
       );
       const builder = new ImageUrlBuilder(image);
       builder.height(100);

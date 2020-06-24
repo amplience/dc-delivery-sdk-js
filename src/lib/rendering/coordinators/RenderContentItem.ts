@@ -1,18 +1,20 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
-import { ContentClientConfig } from '../../ContentClientConfig';
 import { RenderedContentItem } from '../model/RenderedContentItem';
 import { Edition } from '../../content/model/Edition';
 import { ContentLifecycle } from '../../content/model/ContentLifecycle';
+import { createContentClient } from '../../client/createContentClient';
+import { ContentClientConfigV1 } from '../../config/ContentClientConfigV1';
 
 /**
  * @hidden
  */
 export class RenderContentItem {
-  constructor(
-    private readonly config: ContentClientConfig,
-    private readonly contentClient: AxiosInstance
-  ) {}
+  private readonly contentClient: AxiosInstance;
+
+  constructor(private readonly config: ContentClientConfigV1) {
+    this.contentClient = createContentClient(this.config, 'https://c1.adis.ws');
+  }
 
   renderContentItem(
     contentItemId: string,

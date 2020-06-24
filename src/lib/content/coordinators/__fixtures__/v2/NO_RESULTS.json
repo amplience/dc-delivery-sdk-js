@@ -1,0 +1,7 @@
+{
+  "error": {
+    "type": "CONTENT_NOT_FOUND",
+    "message": "Not found",
+    "data": { "deliveryId": "2bc17011-9547-4094-958f-bce30de8f1b91" }
+  }
+}

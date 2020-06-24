@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import { Video } from './Video';
+import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
 
+const config: CommonContentClientConfig = {};
 describe('Video', () => {
   context('toJSON', () => {
     it('should serialize to json', () => {
@@ -15,7 +17,7 @@ describe('Video', () => {
         defaultHost: 'i1.adis.ws',
       };
 
-      const content = new Video(json, { account: 'test' });
+      const content = new Video(json, config);
       expect(content.toJSON()).to.deep.eq(json);
     });
   });
@@ -33,7 +35,7 @@ describe('Video', () => {
         defaultHost: 'i1.adis.ws',
       };
 
-      const content = new Video(json, { account: 'test' });
+      const content = new Video(json, config);
       const url = content.thumbnail().build();
       expect(url).to.eq('https://i1.adis.ws/v/test/image');
     });

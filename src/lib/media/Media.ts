@@ -1,4 +1,4 @@
-import { ContentClientConfig } from '../ContentClientConfig';
+import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
 import { ImageMeta, VideoMeta } from './MediaMeta';
 
 /**
@@ -32,7 +32,7 @@ export abstract class Media {
    */
   id: string;
 
-  constructor(data: any, protected config: ContentClientConfig) {
+  constructor(data: any, protected config: CommonContentClientConfig) {
     Object.assign(this, data);
   }
 

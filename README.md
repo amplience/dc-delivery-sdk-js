@@ -11,7 +11,7 @@ This sdk is designed to help build client side and server side content managed a
 
 ## Features
 
-- Fetch content and slots using the [Content Delivery Service](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api)
+- Fetch content and slots using the [Content Delivery 1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) and/or [Content Delivery 2](https://docs.amplience.net/development/contentdelivery/readme.htm)
 - Fetch preview content using Virtual Staging
 - Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service)
 - Localize content
@@ -82,14 +82,29 @@ const client = new ampDynamicContent.ContentClient({
 
 If you need to support old browsers a legacy version of the bundle is provided, however we strongly recommend using a tool like [babel](https://babeljs.io/) in your project to compile the sdk to your exact browser requirements.
 
-### Fetch content
+### Configuration options
+
+| Option             | Description                                                                                             |
+| ------------------ | ------------------------------------------------------------------------------------------------------- |
+| account            | Required (see Note below): Account to retrieve content from Content Delivery 1 API                      |
+| hubName            | Required (see Note below): hubName to retrieve content from Content Delivery 2 API                      |
+| stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.        |
+| locale             | If set, the SDK will request content using the locale settings provided.                                |
+| mediaHost          | Allows users with custom hostnames to override the hostname used when constructing media URLs.          |
+| secureMediaHost    | Allows users with custom hostnames to override the hostname used when constructing secure media URLs.   |
+| baseUrl            | Override for the content delivery API base URL                                                          |
+| adaptor            | Allows custom handling of requests which makes testing and supporting non-standard environments easier. |
+
+**Note**: In order to use the client must be configure it with either `account` or `hubName`. If both are supplied the SDK will use the Content Delivery 2 API over the Content Delivery 1 API.
+
+### Fetch content by delivery ID
 
 Once your client is created you can request content for a slot or content item id. This will return a promise which will resolve to the JSON of your slot or content item. If no content is found with the provided id the promise will reject with an error.
 
 ```js
 const slotId = 'cb671f37-0a66-46c3-a011-54ce3cdff241';
 client
-  .getContentItem(slotId)
+  .getContentItemById(slotId)
   .then(content => {
     console.log(content.body);
   })
@@ -109,6 +124,59 @@ Example:
   "_meta": {
     "schema": "https://www.anyafinn.online/content-types/carousel.json",
     "deliveryId": "543246b7-5948-4849-884c-b295402a95b4",
+    "name": "example-carousel"
+  },
+  "slides": [
+    {
+      "_meta": {
+        "schema": "https://www.anyafinn.online/content-types/slide.json",
+        "deliveryId": "d6ccc158-6ab7-48d0-aa85-d9fbf2aef000",
+        "name": "example-slide"
+      },
+      "heading": "Free shipping until Sunday!"
+    }
+  ]
+}
+```
+
+### Fetch content by delivery key (via Content Delivery 2)
+
+**Note:** In order to get content by its delivery key via `getContentItemByKey()`, you must supply the `hubName` option to the client, you [find your Hub name under the settings section in Dynamic Content](https://docs.amplience.net/development/contentdelivery/readme.html#hubname).
+
+Once you have [set a delivery key for a slot or content item](https://docs.amplience.net/development/delivery-keys/readme.html), the content item must be published before it can be retrieved using this SDK.
+
+The `getContentItemByKey()` method will return a promise which will resolve to the JSON of your slot or content item. If no content is found with the provided key the promise will reject with an error.
+
+```js
+const client = new ContentClient({
+  hubName: 'myhub'
+});
+
+const slot = 'homepage-banner-slot';
+client
+  .getContentItemByKey(slot)
+  .then(content => {
+    console.log(content.body);
+  })
+  .catch(error => {
+    console.log('content not found', error);
+  });
+```
+
+The format of the content object will be specific to your content types, which define the JSON structure of content items and slots, however a set of standard metadata is always included in a property called "\_meta" along with the `deliveryKey` on content items that have it defined. 
+
+If the slot or content item requested returns a graph of content, for example a carousel may also return linked slides, these will be included inline in the JSON. 
+
+The delivery key
+
+Example:
+
+```json
+{
+  "_meta": {
+    "schema": "https://www.anyafinn.online/content-types/carousel.json",
+    "deliveryId": "543246b7-5948-4849-884c-b295402a95b4",
+    "deliveryKey": "homepage-banner-slot",
     "name": "example-carousel"
   },
   "slides": [
@@ -338,18 +406,6 @@ const client = new ContentClient({
   secureMediaHost: 'images.mybrand.com'
 });
 ```
-
-### Configuration options
-
-| Option             | Description                                                                                             |
-| ------------------ | ------------------------------------------------------------------------------------------------------- |
-| account            | Required: Account to retrieve content from.                                                             |
-| stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.        |
-| locale             | If set, the SDK will request content using the locale settings provided.                                |
-| mediaHost          | Allows users with custom hostnames to override the hostname used when constructing media URLs.          |
-| secureMediaHost    | Allows users with custom hostnames to override the hostname used when constructing secure media URLs.   |
-| baseUrl            | Override for the content delivery API base URL                                                          |
-| adaptor            | Allows custom handling of requests which makes testing and supporting non-standard environments easier. |
 
 ## Documentation
 
