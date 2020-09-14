@@ -18,6 +18,10 @@ describe('ContentMeta', () => {
         lifecycle: {
           expiryTime: '2018-07-06T22:59:59.999Z',
         },
+        hierarchy: {
+          parentId: 'e72ec600-2975-4c6a-80dd-3f55981cd254',
+          root: false,
+        },
       });
 
       expect(meta.schema).to.eq(
@@ -30,6 +34,7 @@ describe('ContentMeta', () => {
       expect(meta.edition.start).to.eq('2018-06-30T23:00:00.000Z');
       expect(meta.edition.end).to.eq('2018-07-06T22:59:59.999Z');
       expect(meta.lifecycle.expiryTime).to.eq('2018-07-06T22:59:59.999Z');
+      expect(meta.hierarchy.root).to.eq(false);
     });
 
     it('should serialize to json', () => {
@@ -47,6 +52,10 @@ describe('ContentMeta', () => {
         lifecycle: {
           expiryTime: '2018-07-06T22:59:59.999Z',
         },
+        hierarchy: {
+          parentId: 'e72ec600-2975-4c6a-80dd-3f55981cd254',
+          root: false,
+        },
       });
 
       expect(meta.toJSON()).to.deep.eq({
@@ -62,6 +71,10 @@ describe('ContentMeta', () => {
         },
         lifecycle: {
           expiryTime: '2018-07-06T22:59:59.999Z',
+        },
+        hierarchy: {
+          parentId: 'e72ec600-2975-4c6a-80dd-3f55981cd254',
+          root: false,
         },
       });
     });

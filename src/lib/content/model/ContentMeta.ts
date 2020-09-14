@@ -1,6 +1,7 @@
 import { Edition } from './Edition';
 import { ContentLifecycle } from './ContentLifecycle';
 import { FragmentMeta } from './FragmentMeta';
+import { Hierarchy } from './Hierarchy';
 
 /**
  * Class providing meta data about an Content Reference resource.
@@ -44,6 +45,11 @@ export class ContentMeta extends FragmentMeta {
   name: string;
 
   /**
+   * Metadata related to hierarchies
+   */
+  hierarchy?: Hierarchy;
+
+  /**
    * Creates a new ContentMeta instance.
    * @param data JSON representation of the ContentMeta model
    */
@@ -85,6 +91,10 @@ export class ContentMeta extends FragmentMeta {
 
     if (this.lifecycle) {
       result.lifecycle = this.lifecycle.toJSON();
+    }
+
+    if (this.hierarchy) {
+      result.hierarchy = this.hierarchy;
     }
 
     return result;
