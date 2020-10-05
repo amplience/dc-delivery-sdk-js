@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.6.0...v0.7.0) (2020-10-05)
+
+
+### Features
+
+* **content meta:** exposing content meta hierachy content item property ([f4ec9aa](https://github.com/amplience/dc-delivery-sdk-js/commit/f4ec9aa684137a62d10cacfccb53045bb3acb12a))
+
 ## [0.6.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.5.0...v0.6.0) (2020-06-24)
 
 
