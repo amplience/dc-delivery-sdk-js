@@ -37,7 +37,9 @@
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "clean": "trash build test dist",
     "all": "run-s clean test cov:check doc:html",
-    "release": "run-s all standard-version doc:publish",
+    "prerelease": "run-s all",
+    "release": "standard-version",
+    "postrelease": "run-s doc:publish",
     "prepack": "npm ci && npm run build"
   },
   "scripts-info": {
@@ -95,7 +97,7 @@
     "nyc": "^15.1.0",
     "opn-cli": "^5.0.0",
     "prettier": "^2.0.5",
-    "standard-version": "^8.0.0",
+    "standard-version": "^9.0.0",
     "start": "^5.1.0",
     "trash-cli": "^3.0.0",
     "ts-loader": "^7.0.5",
