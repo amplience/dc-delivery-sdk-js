@@ -39,7 +39,7 @@
     "all": "run-s clean test cov:check doc:html",
     "prerelease": "run-s all",
     "release": "standard-version",
-    "postrelease": "run-s doc:publish",
+    "postrelease": "run-s doc:html doc:publish",
     "prepack": "npm ci && npm run build"
   },
   "scripts-info": {
