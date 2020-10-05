@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>RenderedContentItem | dc-delivery-sdk-js</title>
+	<title>Hierarchy | dc-delivery-sdk-js</title>
 	<meta name="description" content="Documentation for dc-delivery-sdk-js">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="renderedcontentitem.html">RenderedContentItem</a>
+					<a href="hierarchy.html">Hierarchy</a>
 				</li>
 			</ul>
-			<h1>Class RenderedContentItem</h1>
+			<h1>Interface Hierarchy</h1>
 		</div>
 	</div>
 </header>
@@ -69,8 +69,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Class representing the response from the <a href="https://docs.amplience.net/integration/contentrenderingservice.html?h=rendering%20service">Content Rendering Service</a>.
-						Rendered content is the output of converting the JSON body of a content item using a template.</p>
+						<p>Hierarchy status of a ContentItem.</p>
 					</div>
 				</div>
 			</section>
@@ -78,7 +77,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">RenderedContentItem</span>
+						<span class="target">Hierarchy</span>
 					</li>
 				</ul>
 			</section>
@@ -89,9 +88,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="renderedcontentitem.html#body" class="tsd-kind-icon">body</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="renderedcontentitem.html#edition" class="tsd-kind-icon">edition</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="renderedcontentitem.html#lifecycle" class="tsd-kind-icon">lifecycle</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="hierarchy.html#parentid" class="tsd-kind-icon">parent<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="hierarchy.html#root" class="tsd-kind-icon">root</a></li>
 							</ul>
 						</section>
 					</div>
@@ -99,51 +97,33 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="body" class="tsd-anchor"></a>
-					<h3>body</h3>
-					<div class="tsd-signature tsd-kind-icon">body<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="parentid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> parent<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">parent<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/7acc302/src/lib/rendering/model/RenderedContentItem.ts#L12">lib/rendering/model/RenderedContentItem.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/7acc302/src/lib/content/model/Hierarchy.ts#L12">lib/content/model/Hierarchy.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Rendered output produced by the template</p>
+							<p>Parent ID of a Hierarcy</p>
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="edition" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> edition</h3>
-					<div class="tsd-signature tsd-kind-icon">edition<span class="tsd-signature-symbol">:</span> <a href="edition.html" class="tsd-signature-type">Edition</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="root" class="tsd-anchor"></a>
+					<h3>root</h3>
+					<div class="tsd-signature tsd-kind-icon">root<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/7acc302/src/lib/rendering/model/RenderedContentItem.ts#L18">lib/rendering/model/RenderedContentItem.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/7acc302/src/lib/content/model/Hierarchy.ts#L8">lib/content/model/Hierarchy.ts:8</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Metadata related to the edition that published this content item. If the content was not published using
-							an edition this will be undefined.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="lifecycle" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> lifecycle</h3>
-					<div class="tsd-signature tsd-kind-icon">lifecycle<span class="tsd-signature-symbol">:</span> <a href="contentlifecycle.html" class="tsd-signature-type">ContentLifecycle</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/7acc302/src/lib/rendering/model/RenderedContentItem.ts#L25">lib/rendering/model/RenderedContentItem.ts:25</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Metadata related to the lifecycle status of this content item, by default this is undefined.
-								Business users can flag content to expire at a certain time. If this option is chosen this property
-							will be set with the chosen expiry time.</p>
+							<p>Determines Hierarchy is the root item</p>
 						</div>
 					</div>
 				</section>
@@ -163,91 +143,88 @@
 						<a href="../enums/imageformat.html" class="tsd-kind-icon">Image<wbr>Format</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="contentclient.html" class="tsd-kind-icon">Content<wbr>Client</a>
+						<a href="../classes/contentclient.html" class="tsd-kind-icon">Content<wbr>Client</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
-						<a href="contentitem.html" class="tsd-kind-icon">Content<wbr>Item</a>
+						<a href="../classes/contentitem.html" class="tsd-kind-icon">Content<wbr>Item</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="contentlifecycle.html" class="tsd-kind-icon">Content<wbr>Lifecycle</a>
+						<a href="../classes/contentlifecycle.html" class="tsd-kind-icon">Content<wbr>Lifecycle</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="contentmeta.html" class="tsd-kind-icon">Content<wbr>Meta</a>
+						<a href="../classes/contentmeta.html" class="tsd-kind-icon">Content<wbr>Meta</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="contentreference.html" class="tsd-kind-icon">Content<wbr>Reference</a>
+						<a href="../classes/contentreference.html" class="tsd-kind-icon">Content<wbr>Reference</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="contentreferencemeta.html" class="tsd-kind-icon">Content<wbr>Reference<wbr>Meta</a>
+						<a href="../classes/contentreferencemeta.html" class="tsd-kind-icon">Content<wbr>Reference<wbr>Meta</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="edition.html" class="tsd-kind-icon">Edition</a>
+						<a href="../classes/edition.html" class="tsd-kind-icon">Edition</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="image.html" class="tsd-kind-icon">Image</a>
+						<a href="../classes/image.html" class="tsd-kind-icon">Image</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="imagemeta.html" class="tsd-kind-icon">Image<wbr>Meta</a>
+						<a href="../classes/imagemeta.html" class="tsd-kind-icon">Image<wbr>Meta</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="imageurlbuilder.html" class="tsd-kind-icon">Image<wbr>Url<wbr>Builder</a>
+						<a href="../classes/imageurlbuilder.html" class="tsd-kind-icon">Image<wbr>Url<wbr>Builder</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="mediameta.html" class="tsd-kind-icon">Media<wbr>Meta</a>
+						<a href="../classes/mediameta.html" class="tsd-kind-icon">Media<wbr>Meta</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/renderedcontentitem.html" class="tsd-kind-icon">Rendered<wbr>Content<wbr>Item</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/stagingenvironmentfactory.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/video.html" class="tsd-kind-icon">Video</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/videometa.html" class="tsd-kind-icon">Video<wbr>Meta</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="commoncontentclientconfig.html" class="tsd-kind-icon">Common<wbr>Content<wbr>Client<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="contentbody.html" class="tsd-kind-icon">Content<wbr>Body</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="contentclientconfigv1.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V1</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="contentclientconfigv2.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="generatedomainoptions.html" class="tsd-kind-icon">Generate<wbr>Domain<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="getcontentitembyid.html" class="tsd-kind-icon">Get<wbr>Content<wbr>Item<wbr>ById</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="getcontentitembykey.html" class="tsd-kind-icon">Get<wbr>Content<wbr>Item<wbr>ByKey</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class">
-						<a href="renderedcontentitem.html" class="tsd-kind-icon">Rendered<wbr>Content<wbr>Item</a>
+					<li class="current tsd-kind-interface">
+						<a href="hierarchy.html" class="tsd-kind-icon">Hierarchy</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="renderedcontentitem.html#body" class="tsd-kind-icon">body</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="hierarchy.html#parentid" class="tsd-kind-icon">parent<wbr>Id</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="renderedcontentitem.html#edition" class="tsd-kind-icon">edition</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="renderedcontentitem.html#lifecycle" class="tsd-kind-icon">lifecycle</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="hierarchy.html#root" class="tsd-kind-icon">root</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class">
-						<a href="stagingenvironmentfactory.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="video.html" class="tsd-kind-icon">Video</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="videometa.html" class="tsd-kind-icon">Video<wbr>Meta</a>
-					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/commoncontentclientconfig.html" class="tsd-kind-icon">Common<wbr>Content<wbr>Client<wbr>Config</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/contentbody.html" class="tsd-kind-icon">Content<wbr>Body</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/contentclientconfigv1.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V1</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/contentclientconfigv2.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/generatedomainoptions.html" class="tsd-kind-icon">Generate<wbr>Domain<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/getcontentitembyid.html" class="tsd-kind-icon">Get<wbr>Content<wbr>Item<wbr>ById</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/getcontentitembykey.html" class="tsd-kind-icon">Get<wbr>Content<wbr>Item<wbr>ByKey</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/hierarchy.html" class="tsd-kind-icon">Hierarchy</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/stagingenvironmentfactoryconfig.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory<wbr>Config</a>
+						<a href="stagingenvironmentfactoryconfig.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../globals.html#contentclientconfig" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a>
