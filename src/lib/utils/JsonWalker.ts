@@ -26,7 +26,7 @@ export function walkAndReplace(
       newValue.push(entryValue);
     }
     value = newValue;
-  } else if (typeof value === 'object') {
+  } else if (typeof value === 'object' && value !== null) {
     const newValue = {};
     const keys = Object.keys(value);
     for (const entryKey of keys) {
