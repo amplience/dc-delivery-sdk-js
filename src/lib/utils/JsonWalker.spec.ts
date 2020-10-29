@@ -23,6 +23,27 @@ describe('walkAndReplace', () => {
     expect(after).to.deep.eq(['0', '1', '2', '']);
   });
 
+  it('should handle falsy values in arrays', () => {
+    const data = [false, null, undefined];
+
+    const before = [];
+    const after = [];
+    const result = walkAndReplace(data, {
+      beforeWalk: (value: any, pointer: string[]) => {
+        before.push(pointer.join('-'));
+        return value;
+      },
+      afterWalk: (value: any, pointer: string[]) => {
+        after.push(pointer.join('-'));
+        return value;
+      },
+    });
+
+    expect(result).to.deep.eq(data);
+    expect(before).to.deep.eq(['', '0', '1', '2']);
+    expect(after).to.deep.eq(['0', '1', '2', '']);
+  });
+
   it('should visit nested array children', () => {
     const data = [['a', 'b', 'c']];
 
@@ -56,6 +77,27 @@ describe('walkAndReplace', () => {
       },
       afterWalk: (value: any, pointer: string[]) => {
         after.push(pointer.join('/'));
+        return value;
+      },
+    });
+
+    expect(result).to.deep.eq(data);
+    expect(before).to.deep.eq(['', 'a', 'b', 'c']);
+    expect(after).to.deep.eq(['a', 'b', 'c', '']);
+  });
+
+  it('should handle falsy values in arrays', () => {
+    const data = { a: false, b: null, c: undefined };
+
+    const before = [];
+    const after = [];
+    const result = walkAndReplace(data, {
+      beforeWalk: (value: any, pointer: string[]) => {
+        before.push(pointer.join('-'));
+        return value;
+      },
+      afterWalk: (value: any, pointer: string[]) => {
+        after.push(pointer.join('-'));
         return value;
       },
     });
