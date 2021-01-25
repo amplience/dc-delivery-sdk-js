@@ -44,7 +44,7 @@ describe('ContentClient', () => {
         const mocks = new MockAdapter(null);
         mocks
           .onGet(
-            'https://c1.adis.ws/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
+            'https://cdn.c1.amplience.net/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
           )
           .reply(200, V1_SINGLE_RESULT);
 
@@ -96,7 +96,7 @@ describe('ContentClient', () => {
         const mocks = new MockAdapter(null);
         mocks
           .onGet(
-            'https://c1.adis.ws/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
+            'https://cdn.c1.amplience.net/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
           )
           .reply(200, V1_SINGLE_RESULT);
 

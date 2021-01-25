@@ -33,7 +33,10 @@ export class GetContentItemV1Impl implements GetContentItemById {
     private readonly config: ContentClientConfigV1,
     private readonly mapper: ContentMapper
   ) {
-    this.contentClient = createContentClient(this.config, 'https://c1.adis.ws');
+    this.contentClient = createContentClient(
+      this.config,
+      'https://cdn.c1.amplience.net'
+    );
   }
 
   /**

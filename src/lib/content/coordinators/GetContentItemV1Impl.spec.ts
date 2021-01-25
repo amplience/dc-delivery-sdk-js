@@ -107,7 +107,7 @@ describe('GetContentItemV1Impl', () => {
             schema:
               'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
           },
-          defaultHost: 'i1.adis.ws',
+          defaultHost: 'classic.cdn.media.amplience.net',
           endpoint: 'dcdemo',
           id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
           mediaType: 'image',
@@ -132,7 +132,7 @@ describe('GetContentItemV1Impl', () => {
             schema:
               'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
           },
-          defaultHost: 'i1.adis.ws',
+          defaultHost: 'classic.cdn.media.amplience.net',
           endpoint: 'dcdemo',
           id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
           mediaType: 'image',
@@ -167,7 +167,7 @@ describe('GetContentItemV1Impl', () => {
               id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
               name: 'shutterstock_749703970',
               endpoint: 'dcdemo',
-              defaultHost: 'i1.adis.ws',
+              defaultHost: 'classic.cdn.media.amplience.net',
               mediaType: 'image',
             },
             content: {

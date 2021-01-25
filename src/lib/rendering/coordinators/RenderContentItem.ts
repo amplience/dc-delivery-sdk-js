@@ -13,7 +13,10 @@ export class RenderContentItem {
   private readonly contentClient: AxiosInstance;
 
   constructor(private readonly config: ContentClientConfigV1) {
-    this.contentClient = createContentClient(this.config, 'https://c1.adis.ws');
+    this.contentClient = createContentClient(
+      this.config,
+      'https://cdn.c1.amplience.net'
+    );
   }
 
   renderContentItem(

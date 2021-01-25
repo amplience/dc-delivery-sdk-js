@@ -21,11 +21,11 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws',
+        defaultHost: 'classic.cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, config);
-      expect(media.getHost(false)).to.eq('i1.adis.ws');
+      expect(media.getHost(false)).to.eq('classic.cdn.media.amplience.net');
     });
 
     it('should return the stagingEnvironment host if specified', () => {
@@ -37,7 +37,7 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws',
+        defaultHost: 'classic.cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, {
@@ -56,7 +56,7 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws',
+        defaultHost: 'classic.cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, {
@@ -75,11 +75,11 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws',
+        defaultHost: 'classic.cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, config);
-      expect(media.getHost(true)).to.eq('i1.adis.ws');
+      expect(media.getHost(true)).to.eq('classic.cdn.media.amplience.net');
     });
 
     it('should return mediaHost if specified and secure is false', () => {
@@ -91,7 +91,7 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws',
+        defaultHost: 'classic.cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, {
@@ -110,7 +110,7 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws',
+        defaultHost: 'classic.cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, {

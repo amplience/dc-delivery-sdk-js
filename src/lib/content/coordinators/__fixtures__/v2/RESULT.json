@@ -26,7 +26,7 @@
             "id": "88e5826a-7c69-415f-8c32-bc53445d85e8",
             "name": "np",
             "endpoint": "ampproduct",
-            "defaultHost": "i1.adis.ws"
+            "defaultHost": "classic.cdn.media.amplience.net"
           },
           "altText": "Nick Piper"
         },
@@ -46,7 +46,7 @@
         "id": "099378a3-418f-48bd-ba91-f1ceeb55b2fc",
         "name": "IMG_3598",
         "endpoint": "ampproduct",
-        "defaultHost": "i1.adis.ws"
+        "defaultHost": "classic.cdn.media.amplience.net"
       },
       "altText": "Built in the North!"
     },
