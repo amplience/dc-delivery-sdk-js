@@ -21,11 +21,11 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'classic.cdn.media.amplience.net',
+        defaultHost: 'cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, config);
-      expect(media.getHost(false)).to.eq('classic.cdn.media.amplience.net');
+      expect(media.getHost(false)).to.eq('cdn.media.amplience.net');
     });
 
     it('should return the stagingEnvironment host if specified', () => {
@@ -37,14 +37,14 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'classic.cdn.media.amplience.net',
+        defaultHost: 'cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, {
         ...config,
-        stagingEnvironment: 'staging.adis.ws',
+        stagingEnvironment: 'staging.bigcontent.io',
       });
-      expect(media.getHost(false)).to.eq('staging.adis.ws');
+      expect(media.getHost(false)).to.eq('staging.bigcontent.io');
     });
 
     it('should return secureMediaHost if specified', () => {
@@ -56,14 +56,14 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'classic.cdn.media.amplience.net',
+        defaultHost: 'cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, {
         ...config,
-        secureMediaHost: 'secure.adis.ws',
+        secureMediaHost: 'secure.cdn.media.amplience.net',
       });
-      expect(media.getHost(true)).to.eq('secure.adis.ws');
+      expect(media.getHost(true)).to.eq('secure.cdn.media.amplience.net');
     });
 
     it('should return defaultHost if secure is specified but no secureMediaHost is provided', () => {
@@ -75,11 +75,11 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'classic.cdn.media.amplience.net',
+        defaultHost: 'cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, config);
-      expect(media.getHost(true)).to.eq('classic.cdn.media.amplience.net');
+      expect(media.getHost(true)).to.eq('cdn.media.amplience.net');
     });
 
     it('should return mediaHost if specified and secure is false', () => {
@@ -91,7 +91,7 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'classic.cdn.media.amplience.net',
+        defaultHost: 'cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, {
@@ -110,14 +110,14 @@ describe('Media', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'classic.cdn.media.amplience.net',
+        defaultHost: 'cdn.media.amplience.net',
       };
 
       const media = new MediaImpl(json, {
         ...config,
-        secureMediaHost: 'secure.adis.ws',
+        secureMediaHost: 'secure.cdn.media.amplience.net',
       });
-      expect(media.getHost(false)).to.eq('secure.adis.ws');
+      expect(media.getHost(false)).to.eq('secure.cdn.media.amplience.net');
     });
   });
 });

@@ -24,7 +24,7 @@
       "id": "ddf4eac9-7822-401c-97d6-b1be985e421c",
       "name": "shutterstock_749703970",
       "endpoint": "dcdemo",
-      "defaultHost": "classic.cdn.media.amplience.net",
+      "defaultHost": "cdn.media.amplience.net",
       "@id": "http://image.cms.amplience.com/ddf4eac9-7822-401c-97d6-b1be985e421c",
       "mediaType": "image"
     }

@@ -14,7 +14,7 @@ describe('Video', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'video',
         endpoint: 'test',
-        defaultHost: 'classic.cdn.media.amplience.net',
+        defaultHost: 'cdn.media.amplience.net',
       };
 
       const content = new Video(json, config);
@@ -32,12 +32,12 @@ describe('Video', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'classic.cdn.media.amplience.net',
+        defaultHost: 'cdn.media.amplience.net',
       };
 
       const content = new Video(json, config);
       const url = content.thumbnail().build();
-      expect(url).to.eq('https://classic.cdn.media.amplience.net/v/test/image');
+      expect(url).to.eq('https://cdn.media.amplience.net/v/test/image');
     });
   });
 });

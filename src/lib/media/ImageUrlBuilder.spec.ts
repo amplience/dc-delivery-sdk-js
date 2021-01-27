@@ -13,14 +13,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
 
       const builder = new ImageUrlBuilder(image);
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image'
+        'https://default.cdn.media.amplience.net/i/test/image'
       );
     });
 
@@ -29,7 +29,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
@@ -37,7 +37,7 @@ describe('ImageUrlBuilder', () => {
       const builder = new ImageUrlBuilder(image);
       builder.protocol('http');
       expect(builder.build()).to.eq(
-        'http://cdn.media.amplience.net/i/test/image'
+        'http://default.cdn.media.amplience.net/i/test/image'
       );
     });
 
@@ -46,14 +46,16 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
 
       const builder = new ImageUrlBuilder(image);
       builder.protocol('//');
-      expect(builder.build()).to.eq('//cdn.media.amplience.net/i/test/image');
+      expect(builder.build()).to.eq(
+        '//default.cdn.media.amplience.net/i/test/image'
+      );
     });
   });
 
@@ -63,14 +65,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
 
       const builder = new ImageUrlBuilder(image);
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image'
+        'https://default.cdn.media.amplience.net/i/test/image'
       );
     });
     it('should use defaultHost by default for insecure URLs', () => {
@@ -78,7 +80,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
@@ -86,7 +88,7 @@ describe('ImageUrlBuilder', () => {
       const builder = new ImageUrlBuilder(image);
       builder.protocol('http');
       expect(builder.build()).to.eq(
-        'http://cdn.media.amplience.net/i/test/image'
+        'http://default.cdn.media.amplience.net/i/test/image'
       );
     });
     it('should use override host if set', () => {
@@ -94,7 +96,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
@@ -108,7 +110,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         {
           ...config,
@@ -128,7 +130,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         {
           ...config,
@@ -149,14 +151,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         {
           ...config,
           stagingEnvironment:
             'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io',
-          mediaHost: 'invalid.adis.ws',
-          secureMediaHost: 'invalid.adis.ws',
+          mediaHost: 'invalid.cdn.media.amplience.net',
+          secureMediaHost: 'invalid.cdn.media.amplience.net',
         }
       );
 
@@ -172,7 +174,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         {
           ...config,
@@ -190,7 +192,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         {
           ...config,
@@ -202,7 +204,7 @@ describe('ImageUrlBuilder', () => {
 
       builder.protocol('https');
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image'
+        'https://default.cdn.media.amplience.net/i/test/image'
       );
     });
     it('should use secureMediaHost for https urls', () => {
@@ -210,7 +212,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         {
           ...config,
@@ -231,7 +233,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         {
           ...config,
@@ -252,14 +254,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test ',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
 
       const builder = new ImageUrlBuilder(image);
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test%20/image'
+        'https://default.cdn.media.amplience.net/i/test%20/image'
       );
     });
   });
@@ -270,13 +272,13 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image ',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image%20'
+        'https://default.cdn.media.amplience.net/i/test/image%20'
       );
     });
   });
@@ -287,14 +289,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.format(ImageFormat.WEBP);
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image.webp'
+        'https://default.cdn.media.amplience.net/i/test/image.webp'
       );
     });
   });
@@ -305,14 +307,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.seoFileName('seo');
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image/seo'
+        'https://default.cdn.media.amplience.net/i/test/image/seo'
       );
     });
 
@@ -321,14 +323,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.seoFileName('seo ');
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image/seo%20'
+        'https://default.cdn.media.amplience.net/i/test/image/seo%20'
       );
     });
 
@@ -337,7 +339,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
@@ -345,7 +347,7 @@ describe('ImageUrlBuilder', () => {
       builder.seoFileName('seo');
       builder.format(ImageFormat.JPEG);
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image/seo.jpg'
+        'https://default.cdn.media.amplience.net/i/test/image/seo.jpg'
       );
     });
   });
@@ -356,14 +358,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.template('thumb');
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image?$thumb$'
+        'https://default.cdn.media.amplience.net/i/test/image?$thumb$'
       );
     });
 
@@ -372,14 +374,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.template('thumb ');
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image?$thumb%20$'
+        'https://default.cdn.media.amplience.net/i/test/image?$thumb%20$'
       );
     });
 
@@ -388,7 +390,7 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
@@ -397,7 +399,7 @@ describe('ImageUrlBuilder', () => {
       builder.template('poi');
 
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image?$thumb$&$poi$'
+        'https://default.cdn.media.amplience.net/i/test/image?$thumb$&$poi$'
       );
     });
   });
@@ -408,14 +410,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.parameter('offers', '241');
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image?offers=241'
+        'https://default.cdn.media.amplience.net/i/test/image?offers=241'
       );
     });
 
@@ -424,14 +426,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.parameter('offers ', '241 ');
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image?offers%20=241%20'
+        'https://default.cdn.media.amplience.net/i/test/image?offers%20=241%20'
       );
     });
   });
@@ -442,14 +444,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.quality(70);
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image?qlt=70'
+        'https://default.cdn.media.amplience.net/i/test/image?qlt=70'
       );
     });
   });
@@ -460,14 +462,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.sharpen(0, 1, 1, 0.05);
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image?unsharp=0,1,1,0.05'
+        'https://default.cdn.media.amplience.net/i/test/image?unsharp=0,1,1,0.05'
       );
     });
   });
@@ -478,14 +480,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.width(100);
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image?w=100'
+        'https://default.cdn.media.amplience.net/i/test/image?w=100'
       );
     });
   });
@@ -496,14 +498,14 @@ describe('ImageUrlBuilder', () => {
         {
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'cdn.media.amplience.net',
+          defaultHost: 'default.cdn.media.amplience.net',
         },
         config
       );
       const builder = new ImageUrlBuilder(image);
       builder.height(100);
       expect(builder.build()).to.eq(
-        'https://cdn.media.amplience.net/i/test/image?h=100'
+        'https://default.cdn.media.amplience.net/i/test/image?h=100'
       );
     });
   });
