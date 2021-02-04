@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.1](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.7.0...v0.7.1) (2021-02-04)
+
+
+### Features
+
+* **env:** updating i1, c1, default, and virtual-staging urls ([#31](https://github.com/amplience/dc-delivery-sdk-js/issues/31)) ([c0f6eaf](https://github.com/amplience/dc-delivery-sdk-js/commit/c0f6eaf011dfd7712c92ce59b9889eef0c4cb658))
+
+
+### Bug Fixes
+
+* **json walker:** updated to check that value is not null as null is an object ([642feb2](https://github.com/amplience/dc-delivery-sdk-js/commit/642feb2f22101a732ec794538983df6422cfaa40))
+
 ## [0.7.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.6.0...v0.7.0) (2020-10-05)
 
 
