@@ -189,7 +189,7 @@ describe('ContentMapper', () => {
           id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
           name: 'image',
           endpoint: 'test',
-          defaultHost: 'i1.adis.ws',
+          defaultHost: 'cdn.media.amplience.net',
         },
       });
       expect(result.image).to.be.instanceOf(Image);
@@ -207,7 +207,7 @@ describe('ContentMapper', () => {
             id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
             name: 'image',
             endpoint: 'test',
-            defaultHost: 'i1.adis.ws',
+            defaultHost: 'cdn.media.amplience.net',
           },
         });
         expect(result.image).to.be.instanceOf(Video);

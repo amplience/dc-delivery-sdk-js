@@ -11,7 +11,7 @@ export interface StagingEnvironmentFactoryConfig {
 
   /**
    * Override for the virtual staging API base URL.
-   * E.g. https://virtual-staging.adis.ws
+   * E.g. https://virtual-staging.amplience.net
    */
   baseUrl?: string;
 }

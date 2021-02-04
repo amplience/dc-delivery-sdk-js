@@ -15,7 +15,7 @@ describe('Image', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws',
+        defaultHost: 'cdn.media.amplience.net',
       };
 
       const content = new Image(json, config);
@@ -33,12 +33,12 @@ describe('Image', () => {
         id: 'ddf4eac9-7822-401c-97d6-b1be985e421c',
         name: 'image',
         endpoint: 'test',
-        defaultHost: 'i1.adis.ws',
+        defaultHost: 'cdn.media.amplience.net',
       };
 
       const content = new Image(json, config);
       const url = content.url().build();
-      expect(url).to.eq('https://i1.adis.ws/i/test/image');
+      expect(url).to.eq('https://cdn.media.amplience.net/i/test/image');
     });
   });
 });

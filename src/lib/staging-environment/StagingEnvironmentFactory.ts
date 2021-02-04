@@ -7,7 +7,7 @@ import { GenerateDomainOptions } from './GenerateDomainOptions';
  * Default StagingEnvironmentFactoryConfig values
  */
 const DefaultStagingEnvironmentFactoryConfig: StagingEnvironmentFactoryConfig = {
-  baseUrl: 'https://virtual-staging.adis.ws',
+  baseUrl: 'https://virtual-staging.amplience.net',
 };
 
 /**
