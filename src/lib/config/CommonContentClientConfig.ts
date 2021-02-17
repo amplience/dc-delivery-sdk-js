@@ -40,4 +40,10 @@ export interface CommonContentClientConfig {
    * update the baseUrl to load content from the virtual staging environment.
    */
   baseUrl?: string;
+
+  /**
+   * If set, requests made will timeout after the number of milliseconds specified in this field.
+   * Set to 0 to disable timeout. Defaults to 0.
+   */
+  timeout?: number;
 }
