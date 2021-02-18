@@ -14,8 +14,10 @@ export * from './lib/content/model/ContentItem';
 export * from './lib/content/model/ContentLifecycle';
 export * from './lib/content/model/ContentReference';
 export * from './lib/content/model/ContentMeta';
+export * from './lib/content/model/ContentNotFoundError';
 export * from './lib/content/model/Edition';
 export * from './lib/content/model/FragmentMeta';
+export * from './lib/content/model/HttpError';
 
 export * from './lib/media/Media';
 export * from './lib/media/MediaMeta';
