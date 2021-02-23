@@ -428,7 +428,7 @@ If you need help using the sdk please reach out using one of the following chann
 
 This software is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0),
 
-Copyright 2019 Amplience
+Copyright 2019-2021 Amplience
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
