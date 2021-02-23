@@ -7,6 +7,8 @@ import { ContentMapper } from '../mapper/ContentMapper';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
 import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
+import { HttpError } from '../model/HttpError';
+import { ContentNotFoundError } from '../model/ContentNotFoundError';
 
 /**
  * @hidden
@@ -53,8 +55,12 @@ export class GetContentItemV2Impl
     try {
       response = await this.contentClient.get(url);
     } catch (err) {
-      if (err.response && err.response.status === 404) {
-        throw new Error(`Content item "${value}" was not found`);
+      if (err.response) {
+        if (err.response.status === 404) {
+          throw new ContentNotFoundError(value);
+        } else {
+          throw new HttpError(err.response.status, err.response.data);
+        }
       }
 
       throw err;

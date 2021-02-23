@@ -7,6 +7,8 @@ import { ContentMapper } from '../mapper/ContentMapper';
 import { createContentClient } from '../../client/createContentClient';
 import { GetContentItemById } from './GetContentItemById';
 import { ContentClientConfigV1 } from '../../config/ContentClientConfigV1';
+import { ContentNotFoundError } from '../model/ContentNotFoundError';
+import { HttpError } from '../model/HttpError';
 
 /**
  * @hidden
@@ -46,27 +48,34 @@ export class GetContentItemV1Impl implements GetContentItemById {
     return this.getContentItemById(id);
   }
 
-  getContentItemById<T extends ContentBody>(
+  async getContentItemById<T extends ContentBody>(
     id: string
   ): Promise<ContentItem<T>> {
     const url = this.getUrl({
       'sys.iri': `http://content.cms.amplience.com/${id}`,
     });
 
-    return this.contentClient.get(url).then((response) => {
+    try {
+      const response = await this.contentClient.get(url);
       const contentItems = this.processResponse(response.data);
 
       if (contentItems.length === 0) {
-        return Promise.reject(`Content item "${id}" was not found`);
+        throw new ContentNotFoundError(id);
       }
 
       const item = contentItems.find((x) => x._meta.deliveryId === id);
       if (!item) {
-        return Promise.reject(`Content item "${id}" was not found`);
+        throw new ContentNotFoundError(id);
       }
 
-      return Promise.resolve(this.hydrateContentItem<T>(item));
-    });
+      return this.hydrateContentItem<T>(item);
+    } catch (err) {
+      if (err.response) {
+        throw new HttpError(err.response.status, err.response.data);
+      }
+
+      throw err;
+    }
   }
 
   getUrl(query: any): string {

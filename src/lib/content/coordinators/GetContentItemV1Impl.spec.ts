@@ -12,6 +12,7 @@ import * as SINGLE_CONTENT_REFERENCE from './__fixtures__/v1/SINGLE_CONTENT_REFE
 import * as NESTED_CONTENT from './__fixtures__/v1/NESTED_CONTENT.json';
 import { ContentMapper } from '../mapper/ContentMapper';
 import { ContentMeta } from '../model/ContentMeta';
+import { ContentNotFoundError } from '../model/ContentNotFoundError';
 
 function createCoordinator(
   accountName: string,
@@ -243,9 +244,9 @@ describe('GetContentItemV1Impl', () => {
           '/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
         )
         .reply(200, NO_RESULTS);
-      expect(
-        coordinator.getContentItem('2c7efa09-7e31-4503-8d00-5a150ff82f17')
-      ).to.eventually.rejected.and.notify(done);
+      expect(coordinator.getContentItem('2c7efa09-7e31-4503-8d00-5a150ff82f17'))
+        .to.eventually.rejectedWith(ContentNotFoundError)
+        .and.notify(done);
     });
 
     it('should resolve if content item is found', async () => {
