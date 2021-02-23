@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.1](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.8.0...v0.8.1) (2021-02-23)
+
+
+### Bug Fixes
+
+* **docs:** url to push docs too ([360b46c](https://www.github.com/amplience/dc-delivery-sdk-js/commit/360b46cc83c7e2e979d29cd335722f8aa4e4a0b7))
+
 ## [0.8.0](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.7.1...v0.8.0) (2021-02-23)
 
 
