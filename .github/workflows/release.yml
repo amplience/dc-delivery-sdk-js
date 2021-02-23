@@ -32,7 +32,7 @@ jobs:
 
       - run: |
           npm run doc:html
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com:amplience/dc-delivery-sdk-js.git
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/amplience/dc-delivery-sdk-js.git
           npx gh-pages --silent --message "[ci skip] Updates" --dist build/docs --user "Github Actions <github-actions@amplience.com>"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
