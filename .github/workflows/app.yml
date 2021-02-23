@@ -1,0 +1,46 @@
+name: App
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get npm cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: npm install, build, and test
+        run: |
+          npm ci
+          npm run build
+          npm test
+          npm run cov:check
+        env:
+          CI: true
+
+      - if: matrix.node-version == '12.x'
+        continue-on-error: true
+        name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@8cbef1dea373ebce56de0a14c68d6267baa10b44 #v1.1.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: './coverage/lcov.info'
