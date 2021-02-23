@@ -47,4 +47,27 @@ describe('createContentClient', () => {
       expect(response).to.deep.eq({ data: 'response' });
     });
   });
+
+  it('should pass the timeout to the adaptor if provided', () => {
+    let adaptorTimeout = -1;
+
+    const client = createContentClient(
+      {
+        adaptor: (config) => {
+          adaptorTimeout = config.timeout;
+
+          return Promise.resolve<any>({
+            data: 'response',
+          });
+        },
+        timeout: 1234,
+      },
+      'https://example.com'
+    );
+
+    return client.get('/test').then((response) => {
+      expect(response).to.deep.eq({ data: 'response' });
+      expect(adaptorTimeout).to.eq(1234);
+    });
+  });
 });

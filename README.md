@@ -93,6 +93,7 @@ If you need to support old browsers a legacy version of the bundle is provided, 
 | secureMediaHost    | Allows users with custom hostnames to override the hostname used when constructing secure media URLs.   |
 | baseUrl            | Override for the content delivery API base URL                                                          |
 | adaptor            | Allows custom handling of requests which makes testing and supporting non-standard environments easier. |
+| timeout            | If set, requests made will timeout after the number of milliseconds specified.                          |
 
 **Note**: In order to use the client must be configure it with either `account` or `hubName`. If both are supplied the SDK will use the Content Delivery 2 API over the Content Delivery 1 API.
 

@@ -12,6 +12,7 @@ export function createContentClient(
 ): AxiosInstance {
   const client = Axios.create({
     adapter: config.adaptor,
+    timeout: config.timeout || 0,
   });
 
   if (config.stagingEnvironment) {
