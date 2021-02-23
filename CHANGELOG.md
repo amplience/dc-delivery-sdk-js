@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.7.1...v0.8.0) (2021-02-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* add custom error tyoes for http errors and empty content responses (#35)
+
+### Features
+
+* add custom error tyoes for http errors and empty content responses ([#35](https://www.github.com/amplience/dc-delivery-sdk-js/issues/35)) ([73856a0](https://www.github.com/amplience/dc-delivery-sdk-js/commit/73856a01b99a851f01d41630cdbf28c609c8ef8b))
+* add timeout option for the content client ([#34](https://www.github.com/amplience/dc-delivery-sdk-js/issues/34)) ([8bc7fec](https://www.github.com/amplience/dc-delivery-sdk-js/commit/8bc7fecae593449d2581dcbb3bfc411ee2177024))
+* **automated releases:** migrated from travis to github actions using release-please ([51a2a5e](https://www.github.com/amplience/dc-delivery-sdk-js/commit/51a2a5e2096bc8963a369d858c2cb6710918250f))
+
 ### [0.7.1](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.7.0...v0.7.1) (2021-02-04)
 
 
