@@ -7,6 +7,8 @@ import * as NO_RESULTS from './__fixtures__/v2/NO_RESULTS.json';
 import * as RESULT from './__fixtures__/v2/RESULT.json';
 import { ContentMeta } from '../model/ContentMeta';
 import { Image } from '../../media/Image';
+import { HttpError } from '../model/HttpError';
+import { ContentNotFoundError } from '../model/ContentNotFoundError';
 
 use(chaiAsPromised);
 
@@ -32,7 +34,12 @@ describe('GetContentItemV2Impl', () => {
         .reply(404, NO_RESULTS);
       expect(
         coordinator.getContentItemById('2c7efa09-7e31-4503-8d00-5a150ff82f17')
-      ).to.eventually.rejected.and.notify(done);
+      )
+        .to.eventually.rejectedWith(
+          ContentNotFoundError,
+          'Content item "2c7efa09-7e31-4503-8d00-5a150ff82f17" was not found'
+        )
+        .and.notify(done);
     });
 
     it('should resolve if content item is found', async () => {
@@ -90,9 +97,24 @@ describe('GetContentItemV2Impl', () => {
           'https://test.cdn.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US'
         )
         .reply(404, NO_RESULTS);
-      expect(
-        coordinator.getContentItemByKey('a-delivery-key')
-      ).to.eventually.rejected.and.notify(done);
+      expect(coordinator.getContentItemByKey('a-delivery-key'))
+        .to.eventually.rejectedWith(
+          ContentNotFoundError,
+          'Content item "a-delivery-key" was not found'
+        )
+        .and.notify(done);
+    });
+
+    it('should reject if request fails', (done) => {
+      const [mocks, coordinator] = createCoordinator('test', 'en_US');
+      mocks
+        .onGet(
+          'https://test.cdn.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US'
+        )
+        .reply(500, 'Internal Server Error');
+      expect(coordinator.getContentItemByKey('a-delivery-key'))
+        .to.eventually.rejectedWith(HttpError, 'Internal Server Error')
+        .and.notify(done);
     });
 
     it('should resolve if content item is found', async () => {
