@@ -71,8 +71,7 @@
 				<blockquote>
 					<p>Official Javascript SDK for the Amplience Dynamic Content Delivery API</p>
 				</blockquote>
-				<p><a href="https://travis-ci.org/amplience/dc-delivery-sdk-js"><img src="https://travis-ci.org/amplience/dc-delivery-sdk-js.svg?branch=master" alt="Build Status"></a>
-				<a href="https://badge.fury.io/js/dc-delivery-sdk-js"><img src="https://badge.fury.io/js/dc-delivery-sdk-js.svg" alt="npm version"></a></p>
+				<p><a href="https://badge.fury.io/js/dc-delivery-sdk-js"><img src="https://badge.fury.io/js/dc-delivery-sdk-js.svg" alt="npm version"></a></p>
 				<p>This sdk is designed to help build client side and server side content managed applications.</p>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>Features</h2>
@@ -163,6 +162,10 @@
 						<tr>
 							<td>adaptor</td>
 							<td>Allows custom handling of requests which makes testing and supporting non-standard environments easier.</td>
+						</tr>
+						<tr>
+							<td>timeout</td>
+							<td>If set, requests made will timeout after the number of milliseconds specified.</td>
 						</tr>
 				</tbody></table>
 				<p><strong>Note</strong>: In order to use the client must be configure it with either <code>account</code> or <code>hubName</code>. If both are supplied the SDK will use the Content Delivery 2 API over the Content Delivery 1 API.</p>
@@ -433,7 +436,7 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 					<h2>License</h2>
 				</a>
 				<p>This software is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>,</p>
-				<p>Copyright 2019 Amplience</p>
+				<p>Copyright 2019-2021 Amplience</p>
 				<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 					you may not use this file except in compliance with the License.
 				You may obtain a copy of the License at</p>
@@ -470,6 +473,9 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 						<a href="classes/contentmeta.html" class="tsd-kind-icon">Content<wbr>Meta</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/contentnotfounderror.html" class="tsd-kind-icon">Content<wbr>Not<wbr>Found<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/contentreference.html" class="tsd-kind-icon">Content<wbr>Reference</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -477,6 +483,9 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/edition.html" class="tsd-kind-icon">Edition</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/httperror.html" class="tsd-kind-icon">Http<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/image.html" class="tsd-kind-icon">Image</a>
@@ -535,6 +544,9 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a>
 					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#datatomessage" class="tsd-kind-icon">data<wbr>ToMessage</a>
+					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#defaultstagingenvironmentfactoryconfig" class="tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</a>
 					</li>
@@ -564,6 +576,9 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
 			</ul>
 		</div>
 	</div>

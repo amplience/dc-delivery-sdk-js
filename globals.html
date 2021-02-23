@@ -80,9 +80,11 @@
 								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/contentitem.html" class="tsd-kind-icon">Content<wbr>Item</a></li>
 								<li class="tsd-kind-class"><a href="classes/contentlifecycle.html" class="tsd-kind-icon">Content<wbr>Lifecycle</a></li>
 								<li class="tsd-kind-class"><a href="classes/contentmeta.html" class="tsd-kind-icon">Content<wbr>Meta</a></li>
+								<li class="tsd-kind-class"><a href="classes/contentnotfounderror.html" class="tsd-kind-icon">Content<wbr>Not<wbr>Found<wbr>Error</a></li>
 								<li class="tsd-kind-class"><a href="classes/contentreference.html" class="tsd-kind-icon">Content<wbr>Reference</a></li>
 								<li class="tsd-kind-class"><a href="classes/contentreferencemeta.html" class="tsd-kind-icon">Content<wbr>Reference<wbr>Meta</a></li>
 								<li class="tsd-kind-class"><a href="classes/edition.html" class="tsd-kind-icon">Edition</a></li>
+								<li class="tsd-kind-class"><a href="classes/httperror.html" class="tsd-kind-icon">Http<wbr>Error</a></li>
 								<li class="tsd-kind-class"><a href="classes/image.html" class="tsd-kind-icon">Image</a></li>
 								<li class="tsd-kind-class"><a href="classes/imagemeta.html" class="tsd-kind-icon">Image<wbr>Meta</a></li>
 								<li class="tsd-kind-class"><a href="classes/imageurlbuilder.html" class="tsd-kind-icon">Image<wbr>Url<wbr>Builder</a></li>
@@ -115,6 +117,12 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function"><a href="globals.html#datatomessage" class="tsd-kind-icon">data<wbr>ToMessage</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Object literals</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-object-literal"><a href="globals.html#defaultstagingenvironmentfactoryconfig" class="tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</a></li>
@@ -131,7 +139,7 @@
 					<div class="tsd-signature tsd-kind-icon">Content<wbr>Client<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="interfaces/contentclientconfigv1.html" class="tsd-signature-type">ContentClientConfigV1</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/7496c87/src/lib/ContentClientConfig.ts#L6">lib/ContentClientConfig.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/ContentClientConfig.ts#L6">src/lib/ContentClientConfig.ts:6</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -148,7 +156,7 @@
 					<div class="tsd-signature tsd-kind-icon">Requried<wbr>Content<wbr>Reference&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>_meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>contentType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/7496c87/src/lib/content/model/ContentReference.ts#L7">lib/content/model/ContentReference.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/content/model/ContentReference.ts#L7">src/lib/content/model/ContentReference.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -165,6 +173,32 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="datatomessage" class="tsd-anchor"></a>
+					<h3>data<wbr>ToMessage</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">data<wbr>ToMessage<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/content/model/HttpError.ts#L1">src/lib/content/model/HttpError.ts:1</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>data: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Object literals</h2>
 				<section class="tsd-panel tsd-member tsd-kind-object-literal">
 					<a name="defaultstagingenvironmentfactoryconfig" class="tsd-anchor"></a>
@@ -172,7 +206,7 @@
 					<div class="tsd-signature tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/7496c87/src/lib/staging-environment/StagingEnvironmentFactory.ts#L9">lib/staging-environment/StagingEnvironmentFactory.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/staging-environment/StagingEnvironmentFactory.ts#L9">src/lib/staging-environment/StagingEnvironmentFactory.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -186,7 +220,7 @@
 						<div class="tsd-signature tsd-kind-icon">base<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;https://virtual-staging.amplience.net&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/7496c87/src/lib/staging-environment/StagingEnvironmentFactory.ts#L10">lib/staging-environment/StagingEnvironmentFactory.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/staging-environment/StagingEnvironmentFactory.ts#L10">src/lib/staging-environment/StagingEnvironmentFactory.ts:10</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -219,6 +253,9 @@
 						<a href="classes/contentmeta.html" class="tsd-kind-icon">Content<wbr>Meta</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/contentnotfounderror.html" class="tsd-kind-icon">Content<wbr>Not<wbr>Found<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/contentreference.html" class="tsd-kind-icon">Content<wbr>Reference</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -226,6 +263,9 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/edition.html" class="tsd-kind-icon">Edition</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/httperror.html" class="tsd-kind-icon">Http<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/image.html" class="tsd-kind-icon">Image</a>
@@ -284,6 +324,9 @@
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a>
 					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#datatomessage" class="tsd-kind-icon">data<wbr>ToMessage</a>
+					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#defaultstagingenvironmentfactoryconfig" class="tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</a>
 					</li>
@@ -313,6 +356,9 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
 			</ul>
 		</div>
 	</div>

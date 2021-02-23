@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>RenderedContentItem | dc-delivery-sdk-js</title>
+	<title>HttpError | dc-delivery-sdk-js</title>
 	<meta name="description" content="Documentation for dc-delivery-sdk-js">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,29 +56,26 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="renderedcontentitem.html">RenderedContentItem</a>
+					<a href="httperror.html">HttpError</a>
 				</li>
 			</ul>
-			<h1>Class RenderedContentItem</h1>
+			<h1>Class HttpError</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Class representing the response from the <a href="https://docs.amplience.net/integration/contentrenderingservice.html?h=rendering%20service">Content Rendering Service</a>.
-						Rendered content is the output of converting the JSON body of a content item using a template.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">RenderedContentItem</span>
+						<a href="contentnotfounderror.html#error" class="tsd-signature-type">Error</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">HttpError</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -87,65 +84,121 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="httperror.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="renderedcontentitem.html#body" class="tsd-kind-icon">body</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="renderedcontentitem.html#edition" class="tsd-kind-icon">edition</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="renderedcontentitem.html#lifecycle" class="tsd-kind-icon">lifecycle</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="httperror.html#data" class="tsd-kind-icon">data</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="httperror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="httperror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="httperror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="httperror.html#status" class="tsd-kind-icon">status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="httperror.html#error" class="tsd-kind-icon">Error</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Http<wbr>Error<span class="tsd-signature-symbol">(</span>status<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="httperror.html" class="tsd-signature-type">HttpError</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/content/model/HttpError.ts#L12">src/lib/content/model/HttpError.ts:12</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>status: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>data: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> message: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="httperror.html" class="tsd-signature-type">HttpError</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="body" class="tsd-anchor"></a>
-					<h3>body</h3>
-					<div class="tsd-signature tsd-kind-icon">body<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="data" class="tsd-anchor"></a>
+					<h3>data</h3>
+					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/rendering/model/RenderedContentItem.ts#L12">src/lib/rendering/model/RenderedContentItem.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/content/model/HttpError.ts#L14">src/lib/content/model/HttpError.ts:14</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Rendered output produced by the template</p>
-						</div>
-					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="message" class="tsd-anchor"></a>
+					<h3>message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="contentnotfounderror.html">ContentNotFoundError</a>.<a href="contentnotfounderror.html#message">message</a></p>
+						<ul>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:974</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+					<a name="name" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"HTTP_ERROR"</span><span class="tsd-signature-symbol"> = &quot;HTTP_ERROR&quot;</span></div>
+					<aside class="tsd-sources">
+						<p>Overrides Error.name</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/content/model/HttpError.ts#L12">src/lib/content/model/HttpError.ts:12</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="stack" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
+					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="contentnotfounderror.html">ContentNotFoundError</a>.<a href="contentnotfounderror.html#stack">stack</a></p>
+						<ul>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:975</li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="edition" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> edition</h3>
-					<div class="tsd-signature tsd-kind-icon">edition<span class="tsd-signature-symbol">:</span> <a href="edition.html" class="tsd-signature-type">Edition</a></div>
+					<a name="status" class="tsd-anchor"></a>
+					<h3>status</h3>
+					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/rendering/model/RenderedContentItem.ts#L18">src/lib/rendering/model/RenderedContentItem.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/content/model/HttpError.ts#L14">src/lib/content/model/HttpError.ts:14</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Metadata related to the edition that published this content item. If the content was not published using
-							an edition this will be undefined.</p>
-						</div>
-					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="lifecycle" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> lifecycle</h3>
-					<div class="tsd-signature tsd-kind-icon">lifecycle<span class="tsd-signature-symbol">:</span> <a href="contentlifecycle.html" class="tsd-signature-type">ContentLifecycle</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="error" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Error</h3>
+					<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ErrorConstructor</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/c230957/src/lib/rendering/model/RenderedContentItem.ts#L25">src/lib/rendering/model/RenderedContentItem.ts:25</a></li>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:984</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Metadata related to the lifecycle status of this content item, by default this is undefined.
-								Business users can flag content to expire at a certain time. If this option is chosen this property
-							will be set with the chosen expiry time.</p>
-						</div>
-					</div>
 				</section>
 			</section>
 		</div>
@@ -186,9 +239,36 @@
 					<li class=" tsd-kind-class">
 						<a href="edition.html" class="tsd-kind-icon">Edition</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="httperror.html" class="tsd-kind-icon">Http<wbr>Error</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="httperror.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="httperror.html#data" class="tsd-kind-icon">data</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="httperror.html#message" class="tsd-kind-icon">message</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="httperror.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="httperror.html#stack" class="tsd-kind-icon">stack</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="httperror.html#status" class="tsd-kind-icon">status</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="httperror.html#error" class="tsd-kind-icon">Error</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="image.html" class="tsd-kind-icon">Image</a>
 					</li>
@@ -201,24 +281,9 @@
 					<li class=" tsd-kind-class">
 						<a href="mediameta.html" class="tsd-kind-icon">Media<wbr>Meta</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="renderedcontentitem.html" class="tsd-kind-icon">Rendered<wbr>Content<wbr>Item</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="renderedcontentitem.html#body" class="tsd-kind-icon">body</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="renderedcontentitem.html#edition" class="tsd-kind-icon">edition</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="renderedcontentitem.html#lifecycle" class="tsd-kind-icon">lifecycle</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="stagingenvironmentfactory.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory</a>
 					</li>
