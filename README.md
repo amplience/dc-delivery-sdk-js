@@ -147,7 +147,7 @@ Example:
 
 ### Fetch content by delivery key _(Content Delivery 2 only)_
 
-**Note:** Fetching content by delivery key via `getContentItemByKey()` in only supported when using [Content Delivery 2](#content-delivery-versions)
+**Note:** Fetching content by delivery key via `getContentItemByKey()` is only supported when using [Content Delivery 2](#content-delivery-versions)
 
 Once you have [set a delivery key for a slot or content item](https://docs.amplience.net/development/delivery-keys/readme.html), the content item must be published before it can be retrieved using this SDK.
 
