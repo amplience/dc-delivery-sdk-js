@@ -53,7 +53,7 @@ ES6:
 import { ContentClient } from 'dc-delivery-sdk-js';
 
 const client = new ContentClient({
-  // configuration options,  see below...
+  hubName: "myhub"
 });
 ```
 
@@ -63,7 +63,7 @@ CommonJS:
 const ContentClient = require('dc-delivery-sdk-js').ContentClient;
 
 const client = new ContentClient({
-  // configuration options,  see below...
+  hubName: "myhub"
 });
 ```
 
@@ -75,7 +75,7 @@ If your application does not use a package manager you can directly include the 
 
 ```js
 const client = new ampDynamicContent.ContentClient({
-  // configuration options,  see below...
+  hubName: "myhub"
 });
 ```
 
