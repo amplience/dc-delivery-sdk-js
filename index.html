@@ -107,18 +107,18 @@
 				<pre><code class="language-js"><span class="hljs-keyword">import</span> { ContentClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;dc-delivery-sdk-js&#x27;</span>;
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-  <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;myaccount&#x27;</span>
+  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&quot;myhub&quot;</span>
 });</code></pre>
 				<p>CommonJS:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> ContentClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;dc-delivery-sdk-js&#x27;</span>).ContentClient;
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-  <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;myaccount&#x27;</span>
+  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&quot;myhub&quot;</span>
 });</code></pre>
 				<p>If your application does not use a package manager you can directly include the pre-bundled version of the sdk and access the features using the global &quot;ampDynamicContent&quot;.</p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dc-delivery-sdk-js/dist/dynamicContent.browser.umd.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ampDynamicContent.ContentClient({
-  <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;myaccount&#x27;</span>
+  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&quot;myhub&quot;</span>
 });</code></pre>
 				<p>If you need to support old browsers a legacy version of the bundle is provided, however we strongly recommend using a tool like <a href="https://babeljs.io/">babel</a> in your project to compile the sdk to your exact browser requirements.</p>
 				<a href="#configuration-options" id="configuration-options" style="color: inherit; text-decoration: none;">
@@ -133,11 +133,11 @@
 					</thead>
 					<tbody><tr>
 							<td>account</td>
-							<td>Required (see Note below): Account to retrieve content from Content Delivery 1 API</td>
+							<td>Content Delivery 1 API - Required* - Account to retrieve content from</td>
 						</tr>
 						<tr>
 							<td>hubName</td>
-							<td>Required (see Note below): hubName to retrieve content from Content Delivery 2 API</td>
+							<td>Content Delivery 2 API - Required* - hubName to retrieve content from - <a href="https://docs.amplience.net/development/contentdelivery/readme.html#hubname">finding the hub name</a></td>
 						</tr>
 						<tr>
 							<td>stagingEnvironment</td>
@@ -168,7 +168,12 @@
 							<td>If set, requests made will timeout after the number of milliseconds specified.</td>
 						</tr>
 				</tbody></table>
-				<p><strong>Note</strong>: In order to use the client must be configure it with either <code>account</code> or <code>hubName</code>. If both are supplied the SDK will use the Content Delivery 2 API over the Content Delivery 1 API.</p>
+				<p>* see <a href="#content-delivery-versions">Content Delivery versions</a></p>
+				<a href="#content-delivery-versions" id="content-delivery-versions" style="color: inherit; text-decoration: none;">
+					<h3>Content Delivery versions</h3>
+				</a>
+				<p>In order to use the client, it must be configured with either <code>account</code> or <code>hubName</code>.</p>
+				<p>If <strong>account</strong> &amp; <strong>hubName</strong> are supplied, the SDK will only use the <strong>Content Delivery 2 API</strong>.</p>
 				<a href="#fetch-content-by-delivery-id" id="fetch-content-by-delivery-id" style="color: inherit; text-decoration: none;">
 					<h3>Fetch content by delivery ID</h3>
 				</a>
@@ -202,10 +207,10 @@ client
     }
   ]
 }</code></pre>
-				<a href="#fetch-content-by-delivery-key-via-content-delivery-2" id="fetch-content-by-delivery-key-via-content-delivery-2" style="color: inherit; text-decoration: none;">
-					<h3>Fetch content by delivery key (via Content Delivery 2)</h3>
+				<a href="#fetch-content-by-delivery-key-content-delivery-2-only" id="fetch-content-by-delivery-key-content-delivery-2-only" style="color: inherit; text-decoration: none;">
+					<h3>Fetch content by delivery key <em>(Content Delivery 2 only)</em></h3>
 				</a>
-				<p><strong>Note:</strong> In order to get content by its delivery key via <code>getContentItemByKey()</code>, you must supply the <code>hubName</code> option to the client, you <a href="https://docs.amplience.net/development/contentdelivery/readme.html#hubname">find your Hub name under the settings section in Dynamic Content</a>.</p>
+				<p><strong>Note:</strong> Fetching content by delivery key via <code>getContentItemByKey()</code> is only supported when using <a href="#content-delivery-versions">Content Delivery 2</a></p>
 				<p>Once you have <a href="https://docs.amplience.net/development/delivery-keys/readme.html">set a delivery key for a slot or content item</a>, the content item must be published before it can be retrieved using this SDK.</p>
 				<p>The <code>getContentItemByKey()</code> method will return a promise which will resolve to the JSON of your slot or content item. If no content is found with the provided key the promise will reject with an error.</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
@@ -221,8 +226,8 @@ client
   .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;content not found&#x27;</span>, error);
   });</code></pre>
-				<p>The format of the content object will be specific to your content types, which define the JSON structure of content items and slots, however a set of standard metadata is always included in a property called &quot;_meta&quot; along with the <code>deliveryKey</code> on content items that have it defined. </p>
-				<p>If the slot or content item requested returns a graph of content, for example a carousel may also return linked slides, these will be included inline in the JSON. </p>
+				<p>The format of the content object will be specific to your content types, which define the JSON structure of content items and slots, however a set of standard metadata is always included in a property called &quot;_meta&quot; along with the <code>deliveryKey</code> on content items that have it defined.</p>
+				<p>If the slot or content item requested returns a graph of content, for example a carousel may also return linked slides, these will be included inline in the JSON.</p>
 				<p>The delivery key</p>
 				<p>Example:</p>
 				<pre><code class="language-json">{
