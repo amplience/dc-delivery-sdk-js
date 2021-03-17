@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.8.1...v0.9.0) (2021-03-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **getContentItemById:** prefer cd2 over cd1 if both options are supplied (#40)
+
+### Bug Fixes
+
+* **getContentItemById:** prefer cd2 over cd1 if both options are supplied ([#40](https://www.github.com/amplience/dc-delivery-sdk-js/issues/40)) ([c9d6471](https://www.github.com/amplience/dc-delivery-sdk-js/commit/c9d647157f8f3d5c142eed373b5ab28a1df569e6))
+
 ### [0.8.1](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.8.0...v0.8.1) (2021-02-23)
 
 
