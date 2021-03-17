@@ -13,7 +13,7 @@ jobs:
       - uses: GoogleCloudPlatform/release-please-action@v2
         id: release
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_REPO_ACCESS }}
           release-type: node
           package-name: dc-delivery-sdk-js
           bump-minor-pre-major: true
