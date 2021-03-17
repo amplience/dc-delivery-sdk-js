@@ -3,6 +3,7 @@ build
 dist
 src/**.js
 .idea/*
+.vscode/*
 
 coverage
 .nyc_output

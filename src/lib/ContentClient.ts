@@ -110,13 +110,13 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   getContentItemById<T extends ContentBody = DefaultContentBody>(
     id: string
   ): Promise<ContentItem<T>> {
-    if (this.isContentClientConfigV1(this.config)) {
-      return new GetContentItemV1Impl(
+    if (this.isContentClientConfigV2(this.config)) {
+      return new GetContentItemV2Impl(
         this.config,
         this.contentMapper
       ).getContentItemById(id);
     }
-    return new GetContentItemV2Impl(
+    return new GetContentItemV1Impl(
       this.config,
       this.contentMapper
     ).getContentItemById(id);

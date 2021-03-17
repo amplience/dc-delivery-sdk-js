@@ -53,7 +53,7 @@ ES6:
 import { ContentClient } from 'dc-delivery-sdk-js';
 
 const client = new ContentClient({
-  account: 'myaccount'
+  hubName: "myhub"
 });
 ```
 
@@ -63,7 +63,7 @@ CommonJS:
 const ContentClient = require('dc-delivery-sdk-js').ContentClient;
 
 const client = new ContentClient({
-  account: 'myaccount'
+  hubName: "myhub"
 });
 ```
 
@@ -75,7 +75,7 @@ If your application does not use a package manager you can directly include the 
 
 ```js
 const client = new ampDynamicContent.ContentClient({
-  account: 'myaccount'
+  hubName: "myhub"
 });
 ```
 
@@ -83,19 +83,25 @@ If you need to support old browsers a legacy version of the bundle is provided, 
 
 ### Configuration options
 
-| Option             | Description                                                                                             |
-| ------------------ | ------------------------------------------------------------------------------------------------------- |
-| account            | Required (see Note below): Account to retrieve content from Content Delivery 1 API                      |
-| hubName            | Required (see Note below): hubName to retrieve content from Content Delivery 2 API                      |
-| stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.        |
-| locale             | If set, the SDK will request content using the locale settings provided.                                |
-| mediaHost          | Allows users with custom hostnames to override the hostname used when constructing media URLs.          |
-| secureMediaHost    | Allows users with custom hostnames to override the hostname used when constructing secure media URLs.   |
-| baseUrl            | Override for the content delivery API base URL                                                          |
-| adaptor            | Allows custom handling of requests which makes testing and supporting non-standard environments easier. |
-| timeout            | If set, requests made will timeout after the number of milliseconds specified.                          |
+| Option             | Description                                                                                                                                                                |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| account            | Content Delivery 1 API - Required* - Account to retrieve content from                                                                                                      |
+| hubName            | Content Delivery 2 API - Required* - hubName to retrieve content from - [finding the hub name](https://docs.amplience.net/development/contentdelivery/readme.html#hubname) |
+| stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.                                                                           |
+| locale             | If set, the SDK will request content using the locale settings provided.                                                                                                   |
+| mediaHost          | Allows users with custom hostnames to override the hostname used when constructing media URLs.                                                                             |
+| secureMediaHost    | Allows users with custom hostnames to override the hostname used when constructing secure media URLs.                                                                      |
+| baseUrl            | Override for the content delivery API base URL                                                                                                                             |
+| adaptor            | Allows custom handling of requests which makes testing and supporting non-standard environments easier.                                                                    |
+| timeout            | If set, requests made will timeout after the number of milliseconds specified.                                                                                             |
 
-**Note**: In order to use the client must be configure it with either `account` or `hubName`. If both are supplied the SDK will use the Content Delivery 2 API over the Content Delivery 1 API.
+\* see [Content Delivery versions](#content-delivery-versions)
+
+### Content Delivery versions
+
+In order to use the client, it must be configured with either `account` or `hubName`.
+
+If **account** & **hubName** are supplied, the SDK will only use the **Content Delivery 2 API**.
 
 ### Fetch content by delivery ID
 
@@ -139,9 +145,9 @@ Example:
 }
 ```
 
-### Fetch content by delivery key (via Content Delivery 2)
+### Fetch content by delivery key _(Content Delivery 2 only)_
 
-**Note:** In order to get content by its delivery key via `getContentItemByKey()`, you must supply the `hubName` option to the client, you [find your Hub name under the settings section in Dynamic Content](https://docs.amplience.net/development/contentdelivery/readme.html#hubname).
+**Note:** Fetching content by delivery key via `getContentItemByKey()` is only supported when using [Content Delivery 2](#content-delivery-versions)
 
 Once you have [set a delivery key for a slot or content item](https://docs.amplience.net/development/delivery-keys/readme.html), the content item must be published before it can be retrieved using this SDK.
 
@@ -163,9 +169,9 @@ client
   });
 ```
 
-The format of the content object will be specific to your content types, which define the JSON structure of content items and slots, however a set of standard metadata is always included in a property called "\_meta" along with the `deliveryKey` on content items that have it defined. 
+The format of the content object will be specific to your content types, which define the JSON structure of content items and slots, however a set of standard metadata is always included in a property called "\_meta" along with the `deliveryKey` on content items that have it defined.
 
-If the slot or content item requested returns a graph of content, for example a carousel may also return linked slides, these will be included inline in the JSON. 
+If the slot or content item requested returns a graph of content, for example a carousel may also return linked slides, these will be included inline in the JSON.
 
 The delivery key
 
