@@ -34,6 +34,7 @@ jobs:
           npm run build
           npm test
           npm run cov:check
+          npm run test:e2e
         env:
           CI: true
 
