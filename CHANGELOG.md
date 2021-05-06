@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.1](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.9.0...v0.9.1) (2021-05-06)
+
+
+### Bug Fixes
+
+* **deps:** bump axios from 0.19.2 to 0.21.1 ([#29](https://www.github.com/amplience/dc-delivery-sdk-js/issues/29)) ([e48fb27](https://www.github.com/amplience/dc-delivery-sdk-js/commit/e48fb27643b9ef37415ad4de9866f074bf81297a))
+
 ## [0.9.0](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.8.1...v0.9.0) (2021-03-17)
 
 
