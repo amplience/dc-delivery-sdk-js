@@ -5,6 +5,35 @@ import * as V1_SINGLE_RESULT from './content/coordinators/__fixtures__/v1/SINGLE
 import * as V2_SINGLE_RESULT from './content/coordinators/__fixtures__/v2/SINGLE_RESULT.json';
 import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
 
+const SINGLE_ITEM_RESPONSE = {
+  _meta: {
+    deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
+    name: 'name',
+    schema:
+      'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
+  },
+  string: 'value',
+  number: 123,
+  bool: true,
+  null: null,
+  object: {
+    string: 'value',
+    number: 123,
+    bool: true,
+    null: null,
+  },
+  array: [
+    {
+      object: {
+        string: 'value',
+        number: 123,
+        bool: true,
+        null: null,
+      },
+    },
+  ],
+};
+
 describe('ContentClient', () => {
   context('configuration', () => {
     it('should throw if config is not provided', () => {
@@ -57,14 +86,7 @@ describe('ContentClient', () => {
           '2c7efa09-7e31-4503-8d00-5a150ff82f17'
         );
 
-        expect(response.toJSON()).to.deep.eq({
-          _meta: {
-            deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
-            name: 'name',
-            schema:
-              'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
-          },
-        });
+        expect(response.toJSON()).to.deep.eq(SINGLE_ITEM_RESPONSE);
       });
     });
     context('ContentClientConfigV2', () => {
@@ -109,14 +131,7 @@ describe('ContentClient', () => {
           '2c7efa09-7e31-4503-8d00-5a150ff82f17'
         );
 
-        expect(response.toJSON()).to.deep.eq({
-          _meta: {
-            deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
-            name: 'name',
-            schema:
-              'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
-          },
-        });
+        expect(response.toJSON()).to.deep.eq(SINGLE_ITEM_RESPONSE);
       });
     });
     context('ContentClientConfigV2', () => {

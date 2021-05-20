@@ -25,6 +25,35 @@ function createCoordinator(
   return [mocks, client];
 }
 
+const SINGLE_ITEM_RESPONSE = {
+  _meta: {
+    deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
+    name: 'name',
+    schema:
+      'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
+  },
+  string: 'value',
+  number: 123,
+  bool: true,
+  null: null,
+  object: {
+    string: 'value',
+    number: 123,
+    bool: true,
+    null: null,
+  },
+  array: [
+    {
+      object: {
+        string: 'value',
+        number: 123,
+        bool: true,
+        null: null,
+      },
+    },
+  ],
+};
+
 describe('GetContentItemV1Impl', () => {
   context('getUrl', () => {
     it('should url encode account name', () => {
@@ -68,14 +97,7 @@ describe('GetContentItemV1Impl', () => {
     it('should return content item from results', () => {
       const contentItems = coordinator.processResponse(SINGLE_RESULT);
       expect(contentItems.length).to.eq(1);
-      expect(contentItems[0]).to.deep.eq({
-        _meta: {
-          deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
-          name: 'name',
-          schema:
-            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
-        },
-      });
+      expect(contentItems[0]).to.deep.eq(SINGLE_ITEM_RESPONSE);
     });
 
     it('should upgrade legacy content item', () => {
@@ -260,14 +282,7 @@ describe('GetContentItemV1Impl', () => {
         '2c7efa09-7e31-4503-8d00-5a150ff82f17'
       );
 
-      expect(response.toJSON()).to.deep.eq({
-        _meta: {
-          deliveryId: '2c7efa09-7e31-4503-8d00-5a150ff82f17',
-          name: 'name',
-          schema:
-            'https://raw.githubusercontent.com/techiedarren/dc-examples/master/content-types/containers/page.json',
-        },
-      });
+      expect(response.toJSON()).to.deep.eq(SINGLE_ITEM_RESPONSE);
     });
 
     it('should hydrate content items', () => {
