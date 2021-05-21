@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.2](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.9.1...v0.9.2) (2021-05-21)
+
+
+### Bug Fixes
+
+* **cd1:** tree walker is trying to walk null values which is resulting in an exception being thrown ([d73b651](https://www.github.com/amplience/dc-delivery-sdk-js/commit/d73b651462093947ebe9f017ea2ec0fbf74475a5))
+
 ### [0.9.1](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.9.0...v0.9.1) (2021-05-06)
 
 
