@@ -121,7 +121,7 @@ export class GetContentItemV1Impl implements GetContentItemById {
         // inline linked items
         result = walkAndReplace(result, {
           beforeWalk: (node) => {
-            if (typeof node === 'object') {
+            if (typeof node === 'object' && node !== null) {
               if (node[LD_ID]) {
                 node = graphChildrenById[node[LD_ID]];
               }
