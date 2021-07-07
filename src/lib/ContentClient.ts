@@ -1,6 +1,11 @@
 import { CommonContentClientConfig } from './config/CommonContentClientConfig';
 import { RenderedContentItem } from './rendering/model/RenderedContentItem';
 import { RenderContentItem } from './rendering/coordinators/RenderContentItem';
+import {
+  FilterBy,
+  FilterByRequest,
+  FilterByResponse,
+} from './content/coordinators/FilterBy';
 import { ContentItem } from './content/model/ContentItem';
 import { ContentBody, DefaultContentBody } from './content/model/ContentBody';
 import { GetContentItemV1Impl } from './content/coordinators/GetContentItemV1Impl';
@@ -157,6 +162,88 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     ).getContentItemByKey(key);
   }
 
+  /**
+   *
+   * @param filterBy - API options for `/content/filter` endpoint [docs](https://amplience.com/docs/development/contentdelivery/filterandsort.html)
+   * @returns
+   */
+  filterContentItems<Body = any>(
+    filterBy: FilterByRequest
+  ): Promise<FilterByResponse<Body>> {
+    if (!this.isContentClientConfigV2(this.config)) {
+      throw new Error(
+        'Not supported. You need to define "hubName" configuration property to use filterContentItems()'
+      );
+    }
+
+    return new FilterBy<Body>(this.config).__request(filterBy);
+  }
+
+  /**
+   *  This function will help construct requests for filtering Content Items or Slots
+   *
+   * @param path - json path to property you wish to filter by e.g `/_meta/schema`
+   * @param value - value you want to return matches for
+   *
+   * @returns `FilterBy<Body>`
+   */
+  filterBy<Body = any, Value = any>(
+    path: string,
+    value: Value
+  ): FilterBy<Body> {
+    if (!this.isContentClientConfigV2(this.config)) {
+      throw new Error(
+        'Not supported. You need to define "hubName" configuration property to use filterBy()'
+      );
+    }
+
+    return new FilterBy<Body>(this.config).filterBy<Value>(path, value);
+  }
+
+  /**
+   *
+   *  equivalent to:
+   *
+   * ```ts
+   *  client.filterBy('/_meta/schema', contentTypeUri)
+   * ```
+   *
+   * @param contentTypeUri - Content Type Uri you want to filter
+   *
+   * @returns `FilterBy<Body>`
+   */
+  filterByContentType<Body = any>(contentTypeUri: string): FilterBy<Body> {
+    if (!this.isContentClientConfigV2(this.config)) {
+      throw new Error(
+        'Not supported. You need to define "hubName" configuration property to use filterByContentType()'
+      );
+    }
+
+    return new FilterBy<Body>(this.config).filterByContentType(contentTypeUri);
+  }
+
+  /**
+   * Fetch content by parent id
+   *
+   * equivalent to:
+   *
+   * ```ts
+   *  client.filterBy('/_meta/parentId', id)
+   * ```
+   *
+   * @param id - ID of a Hierarchy Content Item
+   *
+   * @returns `FilterBy<Body>`
+   */
+  filterByParentId<Body = any>(id: string): FilterBy<Body> {
+    if (!this.isContentClientConfigV2(this.config)) {
+      throw new Error(
+        'Not supported. You need to define "hubName" configuration property to use filterByParentId()'
+      );
+    }
+
+    return new FilterBy<Body>(this.config).filterByParentId(id);
+  }
   /**
    * Converts a Content Item or Slot into a custom format (e.g. HTML / XML) by applying a template server side.
    * @param contentItemId Unique id of the Content Item or Slot to convert using the rendering service

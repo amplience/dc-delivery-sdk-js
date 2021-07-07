@@ -53,7 +53,7 @@ ES6:
 import { ContentClient } from 'dc-delivery-sdk-js';
 
 const client = new ContentClient({
-  hubName: "myhub"
+  hubName: 'myhub',
 });
 ```
 
@@ -63,7 +63,7 @@ CommonJS:
 const ContentClient = require('dc-delivery-sdk-js').ContentClient;
 
 const client = new ContentClient({
-  hubName: "myhub"
+  hubName: 'myhub',
 });
 ```
 
@@ -75,7 +75,7 @@ If your application does not use a package manager you can directly include the 
 
 ```js
 const client = new ampDynamicContent.ContentClient({
-  hubName: "myhub"
+  hubName: 'myhub',
 });
 ```
 
@@ -83,17 +83,17 @@ If you need to support old browsers a legacy version of the bundle is provided, 
 
 ### Configuration options
 
-| Option             | Description                                                                                                                                                                |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| account            | Content Delivery 1 API - Required* - Account to retrieve content from                                                                                                      |
-| hubName            | Content Delivery 2 API - Required* - hubName to retrieve content from - [finding the hub name](https://docs.amplience.net/development/contentdelivery/readme.html#hubname) |
-| stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.                                                                           |
-| locale             | If set, the SDK will request content using the locale settings provided.                                                                                                   |
-| mediaHost          | Allows users with custom hostnames to override the hostname used when constructing media URLs.                                                                             |
-| secureMediaHost    | Allows users with custom hostnames to override the hostname used when constructing secure media URLs.                                                                      |
-| baseUrl            | Override for the content delivery API base URL                                                                                                                             |
-| adaptor            | Allows custom handling of requests which makes testing and supporting non-standard environments easier.                                                                    |
-| timeout            | If set, requests made will timeout after the number of milliseconds specified.                                                                                             |
+| Option             | Description                                                                                                                                                                 |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| account            | Content Delivery 1 API - Required\* - Account to retrieve content from                                                                                                      |
+| hubName            | Content Delivery 2 API - Required\* - hubName to retrieve content from - [finding the hub name](https://docs.amplience.net/development/contentdelivery/readme.html#hubname) |
+| stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.                                                                            |
+| locale             | If set, the SDK will request content using the locale settings provided.                                                                                                    |
+| mediaHost          | Allows users with custom hostnames to override the hostname used when constructing media URLs.                                                                              |
+| secureMediaHost    | Allows users with custom hostnames to override the hostname used when constructing secure media URLs.                                                                       |
+| baseUrl            | Override for the content delivery API base URL                                                                                                                              |
+| adaptor            | Allows custom handling of requests which makes testing and supporting non-standard environments easier.                                                                     |
+| timeout            | If set, requests made will timeout after the number of milliseconds specified.                                                                                              |
 
 \* see [Content Delivery versions](#content-delivery-versions)
 
@@ -111,10 +111,10 @@ Once your client is created you can request content for a slot or content item i
 const slotId = 'cb671f37-0a66-46c3-a011-54ce3cdff241';
 client
   .getContentItemById(slotId)
-  .then(content => {
+  .then((content) => {
     console.log(content.body);
   })
-  .catch(error => {
+  .catch((error) => {
     console.log('content not found', error);
   });
 ```
@@ -155,16 +155,16 @@ The `getContentItemByKey()` method will return a promise which will resolve to t
 
 ```js
 const client = new ContentClient({
-  hubName: 'myhub'
+  hubName: 'myhub',
 });
 
 const slot = 'homepage-banner-slot';
 client
   .getContentItemByKey(slot)
-  .then(content => {
+  .then((content) => {
     console.log(content.body);
   })
-  .catch(error => {
+  .catch((error) => {
     console.log('content not found', error);
   });
 ```
@@ -198,6 +198,131 @@ Example:
 }
 ```
 
+### Filtering Content Items
+
+**Note:** Filtering content via `filterBy() | filterByContentType() | filterByParentId() | filterContentTypes()` is only supported when using [Content Delivery 2](#content-delivery-versions)
+
+Once you have [a schema set up for filtering](https://amplience.com/docs/development/contentdelivery/filterandsort.html), the content item must be published before it can be retrieved using this SDK.
+
+### Constructing a request
+
+The `filterBy() | filterByContentType() | filterByParentId() method will return a instance of the`FilterBy` class which has helper functions to construct a filterBy request.
+
+Calling `request` executes the request returning a `Promise` if no content is found an empty response object will be returned. If invalid options are provided it will reject with an error.
+
+```ts
+const client = new ContentClient({
+  hubName: 'myhub',
+});
+
+interface BlogPost {
+  title: string;
+  category: string;
+  date: string;
+  ranking: number;
+  description: string;
+  readTime: number;
+}
+
+const res = await client
+  .filterByContentType<BlogPost>(
+    'https://example.com/blog-post-filter-and-sort'
+  )
+  .filterBy('/category', 'Homewares')
+  .sortBy('readTime', 'DESC')
+  .page(2)
+  .request({
+    format: 'inlined',
+    depth: 'all',
+  });
+
+console.log(res);
+```
+
+The response from `filterBy() | filterByContentType() | filterByParentId() | filterContentTypes()` will match the API response but with an added helper function if the next page is available under `page.next`.
+
+```js
+{
+  responses: [
+    {
+      content: {
+        _meta: {
+          name: 'Homewares blog post',
+          schema: 'https://example.com/blog-post-filter-and-sort',
+          deliveryKey: 'new/homeware-collection/about',
+          deliveryId: '1024dc7a-f255-46a7-b374-be85081a562f',
+        },
+        title: 'All about our new homeware collection',
+        category: 'Homewares',
+        date: '2021-05-05',
+        ranking: 4,
+        description:
+          'Our new homeware has just landed. Find out how you can fill your home with some exciting designs.',
+        readTime: 5,
+      },
+    },
+    {
+      content: {
+        _meta: {
+          name: 'Summer collection blog',
+          schema: 'https://example.com/blog-post-filter-and-sort',
+          deliveryKey: 'new/summer-fashion/about',
+          deliveryId: 'fb466729-b604-496f-be36-521013a752d2',
+        },
+        title: 'Our new summer collection blog',
+        category: 'Homewares',
+        date: '2021-05-05',
+        ranking: 2,
+        description: 'A sneak peak at our new summer collection',
+        readTime: 4,
+      },
+    },
+  ],
+  page: {
+    responseCount: 2,
+    next: () => // next page
+    nextCursor:
+      'eyJzb3J0S2V5IjoiXCIgNUAmJTYwOTJiZjBhNGNlZGZkMDAwMWVhZTY3ZCIsIml0ZW1JZCI6ImFtcHByb2R1Y3QtZG9jOjg2Y2E2YjgxLTJkOGYtNDRiMi1iNGQ1LTFlZjU0MzgzMzMyMyJ9',
+  },
+}
+```
+
+#### Alternative constructing a filterBy request
+
+We also provide a way of requesting by a request object which is identical to the the request above
+
+```ts
+const client = new ContentClient({
+  hubName: 'myhub',
+});
+
+const res = await client.filterContentItems({
+  filterBy: [
+    {
+      path: '/_meta/schema',
+      value: 'https://example.com/blog-post-filter-and-sort',
+    },
+    {
+      path: '/category',
+      value: 'Homewares',
+    },
+  ],
+  sortBy: {
+    key: 'readTime',
+    order: 'DESC',
+  },
+  page: {
+    size: 2,
+  },
+  parameters: {
+    format: 'inlined',
+    depth: 'all',
+  },
+});
+
+console.log(res);
+```
+
 ### Preview staging content
 
 By default, the content client will request content from the production content delivery services. When a user wants to preview content before it is published you can re-point the client to a virtual staging environment (VSE):
@@ -205,7 +330,7 @@ By default, the content client will request content from the production content 
 ```js
 const client = new ContentClient({
   account: 'myaccount',
-  stagingEnvironment: 'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'
+  stagingEnvironment: 'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io',
 });
 ```
 
@@ -222,12 +347,12 @@ const factory = new StagingEnvironmentFactory(
   'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'
 );
 const stagingEnvironmentAtSnapshot = await factory.generateDomain({
-  snapshotId: 'abcdef123456'
+  snapshotId: 'abcdef123456',
 });
 
 const client = new ContentClient({
   account: 'myaccount',
-  stagingEnvironment: stagingEnvironmentAtSnapshot
+  stagingEnvironment: stagingEnvironmentAtSnapshot,
 });
 ```
 
@@ -238,12 +363,12 @@ const factory = new StagingEnvironmentFactory(
   'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io'
 );
 const stagingEnvironmentAtTimestamp = await factory.generateDomain({
-  timestamp: 1546264721816
+  timestamp: 1546264721816,
 });
 
 const client = new ContentClient({
   account: 'myaccount',
-  stagingEnvironment: stagingEnvironmentAtTimestamp
+  stagingEnvironment: stagingEnvironmentAtTimestamp,
 });
 ```
 
@@ -283,7 +408,7 @@ If desired, you can configure the sdk with a locale query. If set, the locale ma
 ```js
 const client = new ContentClient({
   account: 'myaccount',
-  locale: 'en-US,en-*'
+  locale: 'en-US,en-*',
 });
 ```
 
@@ -327,10 +452,10 @@ Using the [Content Rendering Service](https://docs.amplience.net/integration/con
 ```js
 client
   .renderContentItem('b322f84a-9719-42ff-a6a0-6e2924608d19', 'templateName')
-  .then(response => {
+  .then((response) => {
     console.log(response.body);
   })
-  .catch(error => {
+  .catch((error) => {
     console.log('unable to find content', error);
   });
 ```
@@ -409,7 +534,7 @@ If you have previously configured custom CNAMEs for your media hosting, you can 
 const client = new ContentClient({
   account: 'myaccount',
   mediaHost: 'images.mybrand.com',
-  secureMediaHost: 'images.mybrand.com'
+  secureMediaHost: 'images.mybrand.com',
 });
 ```
 
