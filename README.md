@@ -200,13 +200,25 @@ Example:
 
 ### Filtering Content Items
 
-**Note:** Filtering content via `filterBy() | filterByContentType() | filterByParentId() | filterContentTypes()` is only supported when using [Content Delivery 2](#content-delivery-versions)
+**Note:** Filtering content via `filterBy() | filterByContentType() | filterByParentId() | filterContentItems()` is only supported when using [Content Delivery 2](#content-delivery-versions)
 
-Once you have [a schema set up for filtering](https://amplience.com/docs/development/contentdelivery/filterandsort.html), the content item must be published before it can be retrieved using this SDK.
+Filtering by Content Type or Parent ID is enabled by default. You can also filter by any other field in your schema once [you enable it](https://amplience.com/docs/development/contentdelivery/filterandsort.html).
 
 ### Constructing a request
 
-The `filterBy() | filterByContentType() | filterByParentId() method will return a instance of the`FilterBy` class which has helper functions to construct a filterBy request.
+The `filterBy() | filterByContentType() | filterByParentId()` method will return a instance of the `FilterBy` class which has helper functions to construct a filterBy request.
+
+`filterByContentType() | filterByParentId()` are helper methods.
+
+```ts
+client.filterByContentType('https://bigcontent.io/blog.json');
+// is equivalent to this:
+client.filterBy('/_meta/schema', 'https://bigcontent.io/blog.json');
+
+client.filterByParentId('c6d9e038-591b-4ca2-874b-da354f5d6e61');
+// is equivalent to this:
+client.filterBy('/_meta/parentId', 'c6d9e038-591b-4ca2-874b-da354f5d6e61');
+```
 
 Calling `request` executes the request returning a `Promise` if no content is found an empty response object will be returned. If invalid options are provided it will reject with an error.
 
@@ -215,19 +227,8 @@ const client = new ContentClient({
   hubName: 'myhub',
 });
 
-interface BlogPost {
-  title: string;
-  category: string;
-  date: string;
-  ranking: number;
-  description: string;
-  readTime: number;
-}
-
 const res = await client
-  .filterByContentType<BlogPost>(
-    'https://example.com/blog-post-filter-and-sort'
-  )
+  .filterByContentType('https://example.com/blog-post-filter-and-sort')
   .filterBy('/category', 'Homewares')
   .sortBy('readTime', 'DESC')
   .page(2)
@@ -239,7 +240,7 @@ const res = await client
 console.log(res);
 ```
 
-The response from `filterBy() | filterByContentType() | filterByParentId() | filterContentTypes()` will match the API response but with an added helper function if the next page is available under `page.next`.
+The response from `filterBy() | filterByContentType() | filterByParentId() | filterContentItems()` will match the API response but with an added helper function if the next page is available under `page.next()`.
 
 ```js
 {
@@ -524,6 +525,25 @@ interface Banner extends ContentBody {
 }
 
 client.getContentItem<Banner>('ec5d12cc-b1bb-4df4-a7b3-fd7796326cfe');
+```
+
+```ts
+interface BlogPost {
+  title: string;
+  category: string;
+  date: string;
+  ranking: number;
+  description: string;
+  readTime: number;
+}
+
+const res = await client
+  .filterByContentType<BlogPost>(
+    'https://example.com/blog-post-filter-and-sort'
+  )
+  .request();
+
+console.log(res);
 ```
 
 ### Custom media CNAMEs

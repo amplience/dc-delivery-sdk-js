@@ -38,8 +38,8 @@ export interface ISortBy {
 }
 
 export interface RequestOptions {
-  depth: 'all' | 'root';
-  format: 'inlined' | 'linked';
+  depth?: 'all' | 'root';
+  format?: 'inlined' | 'linked';
   locale?: string;
 }
 
@@ -56,12 +56,13 @@ export interface FilterByRequest {
 }
 
 export class FilterBy<Body = any> {
+  static SCHEMA_PATH = '/_meta/schema';
+  static PARENT_PATH = '/_meta/parentId';
+
   private requestConfig: FilterByRequest = {
     filterBy: [],
   };
   private readonly contentClient: AxiosInstance;
-  private readonly SCHEMA_PATH = '/_meta/schema';
-  private readonly PARENT_PATH = '/_meta/parentId';
 
   constructor(private readonly config: ContentClientConfigV2) {
     this.contentClient = createContentClient(
@@ -100,7 +101,7 @@ export class FilterBy<Body = any> {
    * @returns `FilterBy<Body>`
    */
   filterByContentType(value: string): FilterBy<Body> {
-    return this.filterBy<string>(this.SCHEMA_PATH, value);
+    return this.filterBy<string>(FilterBy.SCHEMA_PATH, value);
   }
 
   /**
@@ -117,7 +118,7 @@ export class FilterBy<Body = any> {
    * @returns `FilterBy<Body>`
    */
   filterByParentId(value: string): FilterBy<Body> {
-    return this.filterBy<string>(this.PARENT_PATH, value);
+    return this.filterBy<string>(FilterBy.PARENT_PATH, value);
   }
 
   /**

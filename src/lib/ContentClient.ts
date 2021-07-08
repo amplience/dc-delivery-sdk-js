@@ -163,6 +163,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   }
 
   /**
+   * This function will help construct requests for filtering Content Items or Slots
    *
    * @param filterBy - API options for `/content/filter` endpoint [docs](https://amplience.com/docs/development/contentdelivery/filterandsort.html)
    * @returns
@@ -202,6 +203,8 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
 
   /**
    *
+   *  This function will help construct requests for filtering Content Items or Slots
+   *
    *  equivalent to:
    *
    * ```ts
@@ -223,7 +226,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   }
 
   /**
-   * Fetch content by parent id
+   *  This function will help construct requests for filtering Content Items or Slots
    *
    * equivalent to:
    *

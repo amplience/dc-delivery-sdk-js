@@ -9,14 +9,14 @@ import { FilterBy } from './FilterBy';
 
 use(chaiAsPromised);
 
-function createCoordinator(
+function createCoordinator<T = any>(
   hubName: string,
   locale?: string
-): [MockAdapter, FilterBy] {
+): [MockAdapter, FilterBy<T>] {
   const mocks = new MockAdapter(null);
 
   const config = { hubName, adaptor: mocks.adapter(), locale };
-  const client = new FilterBy(config);
+  const client = new FilterBy<T>(config);
   return [mocks, client];
 }
 
