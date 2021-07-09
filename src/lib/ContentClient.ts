@@ -1,11 +1,7 @@
 import { CommonContentClientConfig } from './config/CommonContentClientConfig';
 import { RenderedContentItem } from './rendering/model/RenderedContentItem';
 import { RenderContentItem } from './rendering/coordinators/RenderContentItem';
-import {
-  FilterBy,
-  FilterByRequest,
-  FilterByResponse,
-} from './content/coordinators/FilterBy';
+import { FilterBy } from './content/coordinators/FilterBy';
 import { ContentItem } from './content/model/ContentItem';
 import { ContentBody, DefaultContentBody } from './content/model/ContentBody';
 import { GetContentItemV1Impl } from './content/coordinators/GetContentItemV1Impl';
@@ -15,6 +11,8 @@ import { GetContentItemV2Impl } from './content/coordinators/GetContentItemV2Imp
 import { GetContentItemByKey } from './content/coordinators/GetContentItemByKey';
 import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
 import { ContentClientConfigV2 } from './config/ContentClientConfigV2';
+import { FilterByImpl } from './content/coordinators/FilterByImpl';
+import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
@@ -177,7 +175,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       );
     }
 
-    return new FilterBy<Body>(this.config).__request(filterBy);
+    return new FilterByImpl<Body>(this.config).fetch(filterBy);
   }
 
   /**

@@ -16,13 +16,14 @@ function createCoordinator<T = any>(
   const mocks = new MockAdapter(null);
 
   const config = { hubName, adaptor: mocks.adapter(), locale };
+
   const client = new FilterBy<T>(config);
   return [mocks, client];
 }
 
 describe('FilterBy', () => {
   it('should return no items response if no items found', async () => {
-    const [mocks, coordinator] = createCoordinator('test', 'en_US');
+    const [mocks, coordinator] = createCoordinator('test');
     mocks
       .onPost('https://test.cdn.content.amplience.net/content/filter', {
         filterBy: [
@@ -43,7 +44,7 @@ describe('FilterBy', () => {
   });
 
   it('should return no items response if no items found with filterByContentType helper method', async () => {
-    const [mocks, coordinator] = createCoordinator('test', 'en_US');
+    const [mocks, coordinator] = createCoordinator('test');
     mocks
       .onPost('https://test.cdn.content.amplience.net/content/filter', {
         filterBy: [
@@ -64,7 +65,7 @@ describe('FilterBy', () => {
   });
 
   it('should return no items response if no items found with filterByParentId helper method', async () => {
-    const [mocks, coordinator] = createCoordinator('test', 'en_US');
+    const [mocks, coordinator] = createCoordinator('test');
     mocks
       .onPost('https://test.cdn.content.amplience.net/content/filter', {
         filterBy: [
@@ -85,7 +86,7 @@ describe('FilterBy', () => {
   });
 
   it('should add all parameters to match request object', async () => {
-    const [mocks, coordinator] = createCoordinator('test', 'en_US');
+    const [mocks, coordinator] = createCoordinator('test');
     mocks
       .onPost('https://test.cdn.content.amplience.net/content/filter', {
         filterBy: [
@@ -128,7 +129,7 @@ describe('FilterBy', () => {
   });
 
   it('should add helper method to `page` when a cursor is returned', async () => {
-    const [mocks, coordinator] = createCoordinator('test', 'en_US');
+    const [mocks, coordinator] = createCoordinator('test');
     mocks
       .onPost('https://test.cdn.content.amplience.net/content/filter', {
         filterBy: [
@@ -171,7 +172,7 @@ describe('FilterBy', () => {
   });
 
   it('should pass cursor if two parameters are passed too `page`', async () => {
-    const [mocks, coordinator] = createCoordinator('test', 'en_US');
+    const [mocks, coordinator] = createCoordinator('test');
     mocks
       .onPost('https://test.cdn.content.amplience.net/content/filter', {
         filterBy: [
@@ -195,5 +196,106 @@ describe('FilterBy', () => {
     expect(request.responses).to.deep.equals(NO_RESULTS.responses);
     expect(request.page.responseCount).to.equals(0);
     expect(request.page.next).to.equals(undefined);
+  });
+
+  it('should set locale to global config', async () => {
+    const [mocks, coordinator] = createCoordinator('test', 'en-GB');
+    mocks
+      .onPost('https://test.cdn.content.amplience.net/content/filter', {
+        filterBy: [
+          {
+            path: '/_meta/schema',
+            value: 'https://filter-by-sort-by.com',
+          },
+        ],
+        parameters: {
+          locale: 'en-GB',
+        },
+      })
+      .reply(200, NO_RESULTS);
+
+    const request = await coordinator
+      .filterBy('/_meta/schema', 'https://filter-by-sort-by.com')
+      .request();
+
+    expect(request.responses).to.deep.equals(NO_RESULTS.responses);
+    expect(request.page.responseCount).to.equals(0);
+  });
+
+  it('should set locale to passed value', async () => {
+    const [mocks, coordinator] = createCoordinator('test', 'en-GB');
+    mocks
+      .onPost('https://test.cdn.content.amplience.net/content/filter', {
+        filterBy: [
+          {
+            path: '/_meta/schema',
+            value: 'https://filter-by-sort-by.com',
+          },
+        ],
+        parameters: {
+          locale: 'us-GB',
+        },
+      })
+      .reply(200, NO_RESULTS);
+
+    const request = await coordinator
+      .filterBy('/_meta/schema', 'https://filter-by-sort-by.com')
+      .request({ locale: 'us-GB' });
+
+    expect(request.responses).to.deep.equals(NO_RESULTS.responses);
+    expect(request.page.responseCount).to.equals(0);
+  });
+
+  it('should set cursor if string passed to page', async () => {
+    const [mocks, coordinator] = createCoordinator('test');
+    mocks
+      .onPost('https://test.cdn.content.amplience.net/content/filter', {
+        filterBy: [
+          {
+            path: '/_meta/schema',
+            value: 'https://filter-by-sort-by.com',
+          },
+        ],
+        page: {
+          cursor: 'cursor',
+        },
+      })
+      .reply(200, NO_RESULTS);
+
+    const request = await coordinator
+      .filterBy('/_meta/schema', 'https://filter-by-sort-by.com')
+      .page('cursor')
+      .request();
+
+    expect(request.responses).to.deep.equals(NO_RESULTS.responses);
+    expect(request.page.responseCount).to.equals(0);
+  });
+
+  it('should throw HttpError', async () => {
+    const error = {
+      error: {
+        type: 'REQUEST_PROPERTY_VALUE_INVALID',
+        message: 'Invalid property value in request body',
+        data: { key: 'depth', value: 'sasdsd' },
+      },
+    };
+
+    const [mocks, coordinator] = createCoordinator('test');
+    mocks
+      .onPost('https://test.cdn.content.amplience.net/content/filter', {
+        filterBy: [
+          {
+            path: '/_meta/schema',
+            value: 'https://filter-by-sort-by.com',
+          },
+        ],
+      })
+      .reply(400, error);
+
+    expect(
+      coordinator
+        .filterBy('/_meta/schema', 'https://filter-by-sort-by.com')
+        .request()
+    ).to.eventually.throw(`Invalid property value in request body`);
   });
 });

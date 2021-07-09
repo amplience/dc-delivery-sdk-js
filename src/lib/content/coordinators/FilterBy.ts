@@ -1,59 +1,12 @@
-import { AxiosInstance } from 'axios';
-import { createContentClient } from '../../client/createContentClient';
 import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
+import {
+  FilterByRequest,
+  FilterByResponse,
+  IOrder,
+  RequestOptions,
+} from '../model/FilterBy';
 
-export interface IPageResponse<Body> {
-  responseCount: number;
-  nextCursor?: string;
-  next?: () => Promise<FilterByResponse<Body>>;
-}
-
-export interface FilterByResponse<Body> {
-  responses: ContentItemResponse<Body>[];
-  page: IPageResponse<Body>;
-}
-
-export interface ContentItemResponse<Body = any> {
-  content: Body & {
-    _meta: {
-      name: string;
-      schema: string;
-      deliveryId: string;
-      deliveryKey?: string;
-      parentId?: string;
-    };
-  };
-}
-
-export interface IFilterBy {
-  path: string;
-  value: any;
-}
-
-export type IOrder = 'DESC' | 'ASC';
-
-export interface ISortBy {
-  key: string;
-  order: IOrder;
-}
-
-export interface RequestOptions {
-  depth?: 'all' | 'root';
-  format?: 'inlined' | 'linked';
-  locale?: string;
-}
-
-export interface IPage {
-  size: number;
-  cursor?: string;
-}
-
-export interface FilterByRequest {
-  filterBy: Array<IFilterBy>;
-  sortBy?: ISortBy;
-  page?: Partial<Omit<IPage, 'next'>>;
-  parameters?: RequestOptions;
-}
+import { FilterByImpl } from './FilterByImpl';
 
 export class FilterBy<Body = any> {
   static SCHEMA_PATH = '/_meta/schema';
@@ -62,14 +15,12 @@ export class FilterBy<Body = any> {
   private requestConfig: FilterByRequest = {
     filterBy: [],
   };
-  private readonly contentClient: AxiosInstance;
 
-  constructor(private readonly config: ContentClientConfigV2) {
-    this.contentClient = createContentClient(
-      this.config,
-      `https://${config.hubName}.cdn.content.amplience.net`
-    );
-  }
+  private readonly filterByService: FilterByImpl<Body> = new FilterByImpl(
+    this.config
+  );
+
+  constructor(private readonly config: ContentClientConfigV2) {}
 
   /**
    *  This function will help construct requests for filtering Content Items or Slots
@@ -186,32 +137,13 @@ export class FilterBy<Body = any> {
       this.requestConfig.parameters = parameters;
     }
 
-    return this.__request(this.requestConfig);
-  }
-
-  async __request(
-    requestConfig: FilterByRequest
-  ): Promise<FilterByResponse<Body>> {
-    const { data } = await this.contentClient.post<FilterByResponse<Body>>(
-      'content/filter',
-      requestConfig
-    );
-
-    if (data.page.nextCursor) {
-      const request = Object.assign(
+    if (!parameters?.locale && this.config?.locale) {
+      this.requestConfig.parameters = Object.assign(
         {},
-        {
-          ...requestConfig,
-          page: {
-            ...(requestConfig.page || {}),
-            cursor: data.page.nextCursor,
-          },
-        }
+        { ...(this.requestConfig.parameters || {}), locale: this.config.locale }
       );
-
-      data.page.next = () => this.__request(request);
     }
 
-    return data;
+    return this.filterByService.fetch(this.requestConfig);
   }
 }
