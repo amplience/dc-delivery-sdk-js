@@ -70,7 +70,7 @@ describe('FilterBy', () => {
       .onPost('https://test.cdn.content.amplience.net/content/filter', {
         filterBy: [
           {
-            path: '/_meta/parentId',
+            path: '/_meta/hierarchy/parentId',
             value: '121313-13131-131313',
           },
         ],

@@ -229,7 +229,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * equivalent to:
    *
    * ```ts
-   *  client.filterBy('/_meta/parentId', id)
+   *  client.filterBy('/_meta/hierarchy/parentId', id)
    * ```
    *
    * @param id - ID of a Hierarchy Content Item

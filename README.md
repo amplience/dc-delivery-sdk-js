@@ -217,7 +217,10 @@ client.filterBy('/_meta/schema', 'https://bigcontent.io/blog.json');
 
 client.filterByParentId('c6d9e038-591b-4ca2-874b-da354f5d6e61');
 // is equivalent to this:
-client.filterBy('/_meta/parentId', 'c6d9e038-591b-4ca2-874b-da354f5d6e61');
+client.filterBy(
+  '/_meta/hierarchy/parentId',
+  'c6d9e038-591b-4ca2-874b-da354f5d6e61'
+);
 ```
 
 Calling `request` executes the request returning a `Promise` if no content is found an empty response object will be returned. If invalid options are provided it will reject with an error.

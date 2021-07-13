@@ -10,7 +10,7 @@ import { FilterByImpl } from './FilterByImpl';
 
 export class FilterBy<Body = any> {
   static SCHEMA_PATH = '/_meta/schema';
-  static PARENT_PATH = '/_meta/parentId';
+  static PARENT_PATH = '/_meta/hierarchy/parentId';
 
   private requestConfig: FilterByRequest = {
     filterBy: [],
@@ -61,7 +61,7 @@ export class FilterBy<Body = any> {
    * equivalent to:
    *
    * ```ts
-   *  client.filterBy('/_meta/parentId', id)
+   *  client.filterBy('/_meta/hierarchy/parentId', id)
    * ```
    *
    * @param id - ID of a Hierarchy Content Item
