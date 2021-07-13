@@ -3,7 +3,9 @@ import { ContentClient } from '../index';
 import MockAdapter from 'axios-mock-adapter';
 import * as V1_SINGLE_RESULT from './content/coordinators/__fixtures__/v1/SINGLE_RESULT.json';
 import * as V2_SINGLE_RESULT from './content/coordinators/__fixtures__/v2/SINGLE_RESULT.json';
+import * as NO_RESULTS from './content/coordinators/__fixtures__/filterBy/NO_RESULTS.json';
 import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
+import { FilterBy } from './content/coordinators/FilterBy';
 
 const SINGLE_ITEM_RESPONSE = {
   _meta: {
@@ -208,6 +210,124 @@ describe('ContentClient', () => {
 
         expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
       });
+    });
+  });
+
+  context('filterBy', () => {
+    it('`filterBy` should throw if no cdv2 configuration', () => {
+      const client = new ContentClient({
+        account: 'test',
+      });
+
+      expect(() =>
+        client.filterBy('something', 'http://bigcontent.io/schema').request()
+      ).to.throw(
+        'Not supported. You need to define "hubName" configuration property to use filterBy()'
+      );
+    });
+
+    it('`filterByContentType` should throw if no cdv2 configuration', () => {
+      const client = new ContentClient({
+        account: 'test',
+      });
+
+      expect(() =>
+        client.filterByContentType('http://bigcontent.io/schema').request()
+      ).to.throw(
+        'Not supported. You need to define "hubName" configuration property to use filterByContentType()'
+      );
+    });
+
+    it('`filterByContentType` should throw if no cdv2 configuration', () => {
+      const client = new ContentClient({
+        account: 'test',
+      });
+
+      expect(() =>
+        client.filterContentItems({
+          filterBy: [],
+        })
+      ).to.throw(
+        'Not supported. You need to define "hubName" configuration property to use filterContentItems()'
+      );
+    });
+
+    it('`filterByParentId` should throw if no cdv2 configuration', () => {
+      const client = new ContentClient({
+        account: 'test',
+      });
+
+      expect(() =>
+        client.filterByParentId('1213123-12312-31231231').request()
+      ).to.throw(
+        'Not supported. You need to define "hubName" configuration property to use filterByParentId()'
+      );
+    });
+
+    it('`filterBy` should return `FilterBy` class if valid configuration', () => {
+      const client = new ContentClient({
+        account: 'test',
+        hubName: 'test',
+      });
+
+      expect(
+        client.filterBy('something', 'http://bigcontent.io/schema')
+      ).to.instanceOf(FilterBy);
+    });
+
+    it('`filterByContentType`  should return `FilterBy` class if valid configuration', () => {
+      const client = new ContentClient({
+        hubName: 'test',
+        account: 'test',
+      });
+
+      expect(
+        client.filterByContentType('http://bigcontent.io/schema')
+      ).to.be.instanceOf(FilterBy);
+    });
+
+    it('`filterByParentId`  should return `FilterBy` class if valid configuration', () => {
+      const client = new ContentClient({
+        account: 'test',
+        hubName: 'test',
+      });
+
+      expect(
+        client.filterByParentId('1213123-12312-31231231')
+      ).to.be.instanceOf(FilterBy);
+    });
+
+    it('`filterByContentType` should throw if no cdv2 configuration', async () => {
+      const mocks = new MockAdapter(null);
+
+      mocks
+        .onPost('https://test.cdn.content.amplience.net/content/filter', {
+          filterBy: [
+            {
+              path: '/_meta/schema',
+              value: 'https://filter-by-sort-by.com',
+            },
+          ],
+        })
+        .reply(200, NO_RESULTS);
+
+      const client = new ContentClient({
+        account: 'test',
+        hubName: 'test',
+        adaptor: mocks.adapter(),
+      });
+
+      const request = await client.filterContentItems({
+        filterBy: [
+          {
+            path: '/_meta/schema',
+            value: 'https://filter-by-sort-by.com',
+          },
+        ],
+      });
+
+      expect(request.responses).to.deep.equals(NO_RESULTS.responses);
+      expect(request.page.responseCount).to.equals(0);
     });
   });
 });
