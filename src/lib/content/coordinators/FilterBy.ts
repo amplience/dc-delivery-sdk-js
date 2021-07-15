@@ -137,13 +137,6 @@ export class FilterBy<Body = any> {
       this.requestConfig.parameters = parameters;
     }
 
-    if (!parameters?.locale && this.config?.locale) {
-      this.requestConfig.parameters = Object.assign(
-        {},
-        { ...(this.requestConfig.parameters || {}), locale: this.config.locale }
-      );
-    }
-
     return this.filterByService.fetch(this.requestConfig);
   }
 }

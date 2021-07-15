@@ -15,6 +15,7 @@ This sdk is designed to help build client side and server side content managed a
 - Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service)
 - Localize content
 - Transform images on the fly using the [Dynamic Media Service](http://playground.amplience.com/di/app/#/intro)
+- Filter Content Items using the [FilterBy](https://amplience.com/docs/development/contentdelivery/filterandsort.html) endpoint
 
 So we can have nice things:
 

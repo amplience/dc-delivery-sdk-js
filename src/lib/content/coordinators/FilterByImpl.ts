@@ -16,6 +16,16 @@ export class FilterByImpl<Body = any> {
 
   async fetch(requestConfig: FilterByRequest): Promise<FilterByResponse<Body>> {
     try {
+      if (!requestConfig.parameters?.locale && this.config?.locale) {
+        requestConfig.parameters = Object.assign(
+          {},
+          {
+            ...(requestConfig.parameters || {}),
+            locale: this.config.locale,
+          }
+        );
+      }
+
       const { data } = await this.contentClient.post<FilterByResponse<Body>>(
         'content/filter',
         requestConfig
