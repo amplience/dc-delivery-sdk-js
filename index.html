@@ -82,6 +82,7 @@
 					<li>Transform content using the <a href="https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service">Content Rendering Service</a></li>
 					<li>Localize content</li>
 					<li>Transform images on the fly using the <a href="http://playground.amplience.com/di/app/#/intro">Dynamic Media Service</a></li>
+					<li>Filter Content Items using the <a href="https://amplience.com/docs/development/contentdelivery/filterandsort.html">FilterBy</a> endpoint</li>
 				</ul>
 				<p>So we can have nice things:</p>
 				<ul>
@@ -107,18 +108,18 @@
 				<pre><code class="language-js"><span class="hljs-keyword">import</span> { ContentClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;dc-delivery-sdk-js&#x27;</span>;
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&quot;myhub&quot;</span>
+  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&#x27;myhub&#x27;</span>,
 });</code></pre>
 				<p>CommonJS:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> ContentClient = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;dc-delivery-sdk-js&#x27;</span>).ContentClient;
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&quot;myhub&quot;</span>
+  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&#x27;myhub&#x27;</span>,
 });</code></pre>
 				<p>If your application does not use a package manager you can directly include the pre-bundled version of the sdk and access the features using the global &quot;ampDynamicContent&quot;.</p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dc-delivery-sdk-js/dist/dynamicContent.browser.umd.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ampDynamicContent.ContentClient({
-  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&quot;myhub&quot;</span>
+  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&#x27;myhub&#x27;</span>,
 });</code></pre>
 				<p>If you need to support old browsers a legacy version of the bundle is provided, however we strongly recommend using a tool like <a href="https://babeljs.io/">babel</a> in your project to compile the sdk to your exact browser requirements.</p>
 				<a href="#configuration-options" id="configuration-options" style="color: inherit; text-decoration: none;">
@@ -181,10 +182,10 @@
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> slotId = <span class="hljs-string">&#x27;cb671f37-0a66-46c3-a011-54ce3cdff241&#x27;</span>;
 client
   .getContentItemById(slotId)
-  .then(<span class="hljs-function"><span class="hljs-params">content</span> =&gt;</span> {
+  .then(<span class="hljs-function">(<span class="hljs-params">content</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(content.body);
   })
-  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+  .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;content not found&#x27;</span>, error);
   });</code></pre>
 				<p>The format of the content object will be specific to your content types, which define the JSON structure of content items and slots, however a set of standard metadata is always included in a property called &quot;_meta&quot;.</p>
@@ -214,16 +215,16 @@ client
 				<p>Once you have <a href="https://docs.amplience.net/development/delivery-keys/readme.html">set a delivery key for a slot or content item</a>, the content item must be published before it can be retrieved using this SDK.</p>
 				<p>The <code>getContentItemByKey()</code> method will return a promise which will resolve to the JSON of your slot or content item. If no content is found with the provided key the promise will reject with an error.</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&#x27;myhub&#x27;</span>
+  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&#x27;myhub&#x27;</span>,
 });
 
 <span class="hljs-keyword">const</span> slot = <span class="hljs-string">&#x27;homepage-banner-slot&#x27;</span>;
 client
   .getContentItemByKey(slot)
-  .then(<span class="hljs-function"><span class="hljs-params">content</span> =&gt;</span> {
+  .then(<span class="hljs-function">(<span class="hljs-params">content</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(content.body);
   })
-  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+  .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;content not found&#x27;</span>, error);
   });</code></pre>
 				<p>The format of the content object will be specific to your content types, which define the JSON structure of content items and slots, however a set of standard metadata is always included in a property called &quot;_meta&quot; along with the <code>deliveryKey</code> on content items that have it defined.</p>
@@ -248,13 +249,126 @@ client
     }
   ]
 }</code></pre>
+				<a href="#filtering-content-items" id="filtering-content-items" style="color: inherit; text-decoration: none;">
+					<h3>Filtering Content Items</h3>
+				</a>
+				<p><strong>Note:</strong> Filtering content via <code>filterBy() | filterByContentType() | filterByParentId() | filterContentItems()</code> is only supported when using <a href="#content-delivery-versions">Content Delivery 2</a></p>
+				<p>Filtering by Content Type or Parent ID is enabled by default. You can also filter by any other field in your schema once <a href="https://amplience.com/docs/development/contentdelivery/filterandsort.html">you enable it</a>.</p>
+				<a href="#constructing-a-request" id="constructing-a-request" style="color: inherit; text-decoration: none;">
+					<h3>Constructing a request</h3>
+				</a>
+				<p>The <code>filterBy() | filterByContentType() | filterByParentId()</code> method will return a instance of the <code>FilterBy</code> class which has helper functions to construct a filterBy request.</p>
+				<p><code>filterByContentType() | filterByParentId()</code> are helper methods.</p>
+				<pre><code class="language-ts">client.filterByContentType(<span class="hljs-string">&#x27;https://bigcontent.io/blog.json&#x27;</span>);
+<span class="hljs-comment">// is equivalent to this:</span>
+client.filterBy(<span class="hljs-string">&#x27;/_meta/schema&#x27;</span>, <span class="hljs-string">&#x27;https://bigcontent.io/blog.json&#x27;</span>);
+
+client.filterByParentId(<span class="hljs-string">&#x27;c6d9e038-591b-4ca2-874b-da354f5d6e61&#x27;</span>);
+<span class="hljs-comment">// is equivalent to this:</span>
+client.filterBy(
+  <span class="hljs-string">&#x27;/_meta/hierarchy/parentId&#x27;</span>,
+  <span class="hljs-string">&#x27;c6d9e038-591b-4ca2-874b-da354f5d6e61&#x27;</span>
+);</code></pre>
+				<p>Calling <code>request</code> executes the request returning a <code>Promise</code> if no content is found an empty response object will be returned. If invalid options are provided it will reject with an error.</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
+  hubName: <span class="hljs-string">&#x27;myhub&#x27;</span>,
+});
+
+<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> client
+  .filterByContentType(<span class="hljs-string">&#x27;https://example.com/blog-post-filter-and-sort&#x27;</span>)
+  .filterBy(<span class="hljs-string">&#x27;/category&#x27;</span>, <span class="hljs-string">&#x27;Homewares&#x27;</span>)
+  .sortBy(<span class="hljs-string">&#x27;readTime&#x27;</span>, <span class="hljs-string">&#x27;DESC&#x27;</span>)
+  .page(<span class="hljs-number">2</span>)
+  .request({
+    format: <span class="hljs-string">&#x27;inlined&#x27;</span>,
+    depth: <span class="hljs-string">&#x27;all&#x27;</span>,
+  });
+
+<span class="hljs-built_in">console</span>.log(res);</code></pre>
+				<p>The response from <code>filterBy() | filterByContentType() | filterByParentId() | filterContentItems()</code> will match the API response but with an added helper function if the next page is available under <code>page.next()</code>.</p>
+				<pre><code class="language-js">{
+  <span class="hljs-attr">responses</span>: [
+    {
+      <span class="hljs-attr">content</span>: {
+        <span class="hljs-attr">_meta</span>: {
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Homewares blog post&#x27;</span>,
+          <span class="hljs-attr">schema</span>: <span class="hljs-string">&#x27;https://example.com/blog-post-filter-and-sort&#x27;</span>,
+          <span class="hljs-attr">deliveryKey</span>: <span class="hljs-string">&#x27;new/homeware-collection/about&#x27;</span>,
+          <span class="hljs-attr">deliveryId</span>: <span class="hljs-string">&#x27;1024dc7a-f255-46a7-b374-be85081a562f&#x27;</span>,
+        },
+        <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;All about our new homeware collection&#x27;</span>,
+        <span class="hljs-attr">category</span>: <span class="hljs-string">&#x27;Homewares&#x27;</span>,
+        <span class="hljs-attr">date</span>: <span class="hljs-string">&#x27;2021-05-05&#x27;</span>,
+        <span class="hljs-attr">ranking</span>: <span class="hljs-number">4</span>,
+        <span class="hljs-attr">description</span>:
+          <span class="hljs-string">&#x27;Our new homeware has just landed. Find out how you can fill your home with some exciting designs.&#x27;</span>,
+        <span class="hljs-attr">readTime</span>: <span class="hljs-number">5</span>,
+      },
+    },
+    {
+      <span class="hljs-attr">content</span>: {
+        <span class="hljs-attr">_meta</span>: {
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Summer collection blog&#x27;</span>,
+          <span class="hljs-attr">schema</span>: <span class="hljs-string">&#x27;https://example.com/blog-post-filter-and-sort&#x27;</span>,
+          <span class="hljs-attr">deliveryKey</span>: <span class="hljs-string">&#x27;new/summer-fashion/about&#x27;</span>,
+          <span class="hljs-attr">deliveryId</span>: <span class="hljs-string">&#x27;fb466729-b604-496f-be36-521013a752d2&#x27;</span>,
+        },
+        <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Our new summer collection blog&#x27;</span>,
+        <span class="hljs-attr">category</span>: <span class="hljs-string">&#x27;Homewares&#x27;</span>,
+        <span class="hljs-attr">date</span>: <span class="hljs-string">&#x27;2021-05-05&#x27;</span>,
+        <span class="hljs-attr">ranking</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;A sneak peak at our new summer collection&#x27;</span>,
+        <span class="hljs-attr">readTime</span>: <span class="hljs-number">4</span>,
+      },
+    },
+  ],
+  <span class="hljs-attr">page</span>: {
+    <span class="hljs-attr">responseCount</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-attr">next</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-comment">// next page</span>
+    nextCursor:
+      <span class="hljs-string">&#x27;eyJzb3J0S2V5IjoiXCIgNUAmJTYwOTJiZjBhNGNlZGZkMDAwMWVhZTY3ZCIsIml0ZW1JZCI6ImFtcHByb2R1Y3QtZG9jOjg2Y2E2YjgxLTJkOGYtNDRiMi1iNGQ1LTFlZjU0MzgzMzMyMyJ9&#x27;</span>,
+  },
+}</code></pre>
+				<a href="#alternative-constructing-a-filterby-request" id="alternative-constructing-a-filterby-request" style="color: inherit; text-decoration: none;">
+					<h4>Alternative constructing a filterBy request</h4>
+				</a>
+				<p>We also provide a way of requesting by a request object which is identical to the the request above</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
+  hubName: <span class="hljs-string">&#x27;myhub&#x27;</span>,
+});
+
+<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> client.filterContentItems({
+  filterBy: [
+    {
+      path: <span class="hljs-string">&#x27;/_meta/schema&#x27;</span>,
+      value: <span class="hljs-string">&#x27;https://example.com/blog-post-filter-and-sort&#x27;</span>,
+    },
+    {
+      path: <span class="hljs-string">&#x27;/category&#x27;</span>,
+      value: <span class="hljs-string">&#x27;Homewares&#x27;</span>,
+    },
+  ],
+  sortBy: {
+    key: <span class="hljs-string">&#x27;readTime&#x27;</span>,
+    order: <span class="hljs-string">&#x27;DESC&#x27;</span>,
+  },
+  page: {
+    size: <span class="hljs-number">2</span>,
+  },
+  parameters: {
+    format: <span class="hljs-string">&#x27;inlined&#x27;</span>,
+    depth: <span class="hljs-string">&#x27;all&#x27;</span>,
+  },
+});
+
+<span class="hljs-built_in">console</span>.log(res);</code></pre>
 				<a href="#preview-staging-content" id="preview-staging-content" style="color: inherit; text-decoration: none;">
 					<h3>Preview staging content</h3>
 				</a>
 				<p>By default, the content client will request content from the production content delivery services. When a user wants to preview content before it is published you can re-point the client to a virtual staging environment (VSE):</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
   <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;myaccount&#x27;</span>,
-  <span class="hljs-attr">stagingEnvironment</span>: <span class="hljs-string">&#x27;fhboh562c3tx1844c2ycknz96.staging.bigcontent.io&#x27;</span>
+  <span class="hljs-attr">stagingEnvironment</span>: <span class="hljs-string">&#x27;fhboh562c3tx1844c2ycknz96.staging.bigcontent.io&#x27;</span>,
 });</code></pre>
 				<p>Dynamic Content generates a VSE for each user and typically passes the &quot;stagingEnvironment&quot; value into your application using a URL parameter. This allows each user to effectively have their own staging environment which allows content producers to work in parallel.</p>
 				<a href="#previewing-staging-content-for-a-given-snapshot-or-at-a-given-point-in-time-time-machine" id="previewing-staging-content-for-a-given-snapshot-or-at-a-given-point-in-time-time-machine" style="color: inherit; text-decoration: none;">
@@ -266,24 +380,24 @@ client
   <span class="hljs-string">&#x27;fhboh562c3tx1844c2ycknz96.staging.bigcontent.io&#x27;</span>
 );
 <span class="hljs-keyword">const</span> stagingEnvironmentAtSnapshot = <span class="hljs-keyword">await</span> factory.generateDomain({
-  <span class="hljs-attr">snapshotId</span>: <span class="hljs-string">&#x27;abcdef123456&#x27;</span>
+  <span class="hljs-attr">snapshotId</span>: <span class="hljs-string">&#x27;abcdef123456&#x27;</span>,
 });
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
   <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;myaccount&#x27;</span>,
-  <span class="hljs-attr">stagingEnvironment</span>: stagingEnvironmentAtSnapshot
+  <span class="hljs-attr">stagingEnvironment</span>: stagingEnvironmentAtSnapshot,
 });</code></pre>
 				<p>Previewing content at a given timestamp (epoch milliseconds):</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> factory = <span class="hljs-keyword">new</span> StagingEnvironmentFactory(
   <span class="hljs-string">&#x27;fhboh562c3tx1844c2ycknz96.staging.bigcontent.io&#x27;</span>
 );
 <span class="hljs-keyword">const</span> stagingEnvironmentAtTimestamp = <span class="hljs-keyword">await</span> factory.generateDomain({
-  <span class="hljs-attr">timestamp</span>: <span class="hljs-number">1546264721816</span>
+  <span class="hljs-attr">timestamp</span>: <span class="hljs-number">1546264721816</span>,
 });
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
   <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;myaccount&#x27;</span>,
-  <span class="hljs-attr">stagingEnvironment</span>: stagingEnvironmentAtTimestamp
+  <span class="hljs-attr">stagingEnvironment</span>: stagingEnvironmentAtTimestamp,
 });</code></pre>
 				<a href="#localize-content" id="localize-content" style="color: inherit; text-decoration: none;">
 					<h3>Localize content</h3>
@@ -315,7 +429,7 @@ client
 				<p>If desired, you can configure the sdk with a locale query. If set, the locale matching is performed server side and only a single value will be returned.</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
   <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;myaccount&#x27;</span>,
-  <span class="hljs-attr">locale</span>: <span class="hljs-string">&#x27;en-US,en-*&#x27;</span>
+  <span class="hljs-attr">locale</span>: <span class="hljs-string">&#x27;en-US,en-*&#x27;</span>,
 });</code></pre>
 				<p>Returns</p>
 				<pre><code class="language-json">{
@@ -347,10 +461,10 @@ client
 				<p>Using the <a href="https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service">Content Rendering Service</a>, you can convert the JSON content into any format you choose by applying a template previously setup in the back-office. This is typically used to convert content into fragments of HTML, XML or even rewrite the JSON.</p>
 				<pre><code class="language-js">client
   .renderContentItem(<span class="hljs-string">&#x27;b322f84a-9719-42ff-a6a0-6e2924608d19&#x27;</span>, <span class="hljs-string">&#x27;templateName&#x27;</span>)
-  .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+  .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(response.body);
   })
-  .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+  .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;unable to find content&#x27;</span>, error);
   });</code></pre>
 				<a href="#advanced" id="advanced" style="color: inherit; text-decoration: none;">
@@ -409,6 +523,22 @@ client
 }
 
 client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1bb-4df4-a7b3-fd7796326cfe&#x27;</span>);</code></pre>
+				<pre><code class="language-ts"><span class="hljs-keyword">interface</span> BlogPost {
+  title: <span class="hljs-built_in">string</span>;
+  category: <span class="hljs-built_in">string</span>;
+  date: <span class="hljs-built_in">string</span>;
+  ranking: <span class="hljs-built_in">number</span>;
+  description: <span class="hljs-built_in">string</span>;
+  readTime: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> client
+  .filterByContentType&lt;BlogPost&gt;(
+    <span class="hljs-string">&#x27;https://example.com/blog-post-filter-and-sort&#x27;</span>
+  )
+  .request();
+
+<span class="hljs-built_in">console</span>.log(res);</code></pre>
 				<a href="#custom-media-cnames" id="custom-media-cnames" style="color: inherit; text-decoration: none;">
 					<h3>Custom media CNAMEs</h3>
 				</a>
@@ -416,7 +546,7 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
   <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;myaccount&#x27;</span>,
   <span class="hljs-attr">mediaHost</span>: <span class="hljs-string">&#x27;images.mybrand.com&#x27;</span>,
-  <span class="hljs-attr">secureMediaHost</span>: <span class="hljs-string">&#x27;images.mybrand.com&#x27;</span>
+  <span class="hljs-attr">secureMediaHost</span>: <span class="hljs-string">&#x27;images.mybrand.com&#x27;</span>,
 });</code></pre>
 				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
 					<h2>Documentation</h2>
@@ -489,6 +619,12 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 					<li class=" tsd-kind-class">
 						<a href="classes/edition.html" class="tsd-kind-icon">Edition</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/filterby.html" class="tsd-kind-icon">Filter<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/filterbyimpl.html" class="tsd-kind-icon">Filter<wbr>ByImpl</a>
+					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/httperror.html" class="tsd-kind-icon">Http<wbr>Error</a>
 					</li>
@@ -528,6 +664,15 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/contentclientconfigv2.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/contentitemresponse.html" class="tsd-kind-icon">Content<wbr>Item<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/filterbyrequest.html" class="tsd-kind-icon">Filter<wbr>ByRequest</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/filterbyresponse.html" class="tsd-kind-icon">Filter<wbr>ByResponse</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/generatedomainoptions.html" class="tsd-kind-icon">Generate<wbr>Domain<wbr>Options</a>
 					</li>
@@ -541,10 +686,31 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 						<a href="interfaces/hierarchy.html" class="tsd-kind-icon">Hierarchy</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/icontentmeta.html" class="tsd-kind-icon">IContent<wbr>Meta</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ifilterby.html" class="tsd-kind-icon">IFilter<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ipage.html" class="tsd-kind-icon">IPage</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/ipageresponse.html" class="tsd-kind-icon">IPage<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/isortby.html" class="tsd-kind-icon">ISort<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/requestoptions.html" class="tsd-kind-icon">Request<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/stagingenvironmentfactoryconfig.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#contentclientconfig" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#iorder" class="tsd-kind-icon">IOrder</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a>

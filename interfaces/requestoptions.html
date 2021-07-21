@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ContentBody | dc-delivery-sdk-js</title>
+	<title>RequestOptions | dc-delivery-sdk-js</title>
 	<meta name="description" content="Documentation for dc-delivery-sdk-js">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,29 +56,21 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="contentbody.html">ContentBody</a>
+					<a href="requestoptions.html">RequestOptions</a>
 				</li>
 			</ul>
-			<h1>Interface ContentBody</h1>
+			<h1>Interface RequestOptions</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>JSON body of a Content Item. This object will contain the fields specified by the
-						JSON schema content type.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ContentBody</span>
+						<span class="target">RequestOptions</span>
 					</li>
 				</ul>
 			</section>
@@ -89,7 +81,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contentbody.html#_meta" class="tsd-kind-icon">_meta</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#depth" class="tsd-kind-icon">depth</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#format" class="tsd-kind-icon">format</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#locale" class="tsd-kind-icon">locale</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,19 +92,34 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="_meta" class="tsd-anchor"></a>
-					<h3>_meta</h3>
-					<div class="tsd-signature tsd-kind-icon">_meta<span class="tsd-signature-symbol">:</span> <a href="../classes/contentmeta.html" class="tsd-signature-type">ContentMeta</a></div>
+					<a name="depth" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> depth</h3>
+					<div class="tsd-signature tsd-kind-icon">depth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"all"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"root"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/ContentBody.ts#L18">src/lib/content/model/ContentBody.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L32">src/lib/content/model/FilterBy.ts:32</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Metadata about the ContentItem.</p>
-						</div>
-					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="format" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> format</h3>
+					<div class="tsd-signature tsd-kind-icon">format<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"inlined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"linked"</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L33">src/lib/content/model/FilterBy.ts:33</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="locale" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> locale</h3>
+					<div class="tsd-signature tsd-kind-icon">locale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L34">src/lib/content/model/FilterBy.ts:34</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -127,10 +136,16 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="contentbody.html" class="tsd-kind-icon">Content<wbr>Body</a>
+						<a href="requestoptions.html" class="tsd-kind-icon">Request<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="contentbody.html#_meta" class="tsd-kind-icon">_meta</a>
+								<a href="requestoptions.html#depth" class="tsd-kind-icon">depth</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="requestoptions.html#format" class="tsd-kind-icon">format</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="requestoptions.html#locale" class="tsd-kind-icon">locale</a>
 							</li>
 						</ul>
 					</li>

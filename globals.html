@@ -84,6 +84,8 @@
 								<li class="tsd-kind-class"><a href="classes/contentreference.html" class="tsd-kind-icon">Content<wbr>Reference</a></li>
 								<li class="tsd-kind-class"><a href="classes/contentreferencemeta.html" class="tsd-kind-icon">Content<wbr>Reference<wbr>Meta</a></li>
 								<li class="tsd-kind-class"><a href="classes/edition.html" class="tsd-kind-icon">Edition</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/filterby.html" class="tsd-kind-icon">Filter<wbr>By</a></li>
+								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/filterbyimpl.html" class="tsd-kind-icon">Filter<wbr>ByImpl</a></li>
 								<li class="tsd-kind-class"><a href="classes/httperror.html" class="tsd-kind-icon">Http<wbr>Error</a></li>
 								<li class="tsd-kind-class"><a href="classes/image.html" class="tsd-kind-icon">Image</a></li>
 								<li class="tsd-kind-class"><a href="classes/imagemeta.html" class="tsd-kind-icon">Image<wbr>Meta</a></li>
@@ -102,10 +104,19 @@
 								<li class="tsd-kind-interface"><a href="interfaces/contentbody.html" class="tsd-kind-icon">Content<wbr>Body</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/contentclientconfigv1.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V1</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/contentclientconfigv2.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2</a></li>
+								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/contentitemresponse.html" class="tsd-kind-icon">Content<wbr>Item<wbr>Response</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/filterbyrequest.html" class="tsd-kind-icon">Filter<wbr>ByRequest</a></li>
+								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/filterbyresponse.html" class="tsd-kind-icon">Filter<wbr>ByResponse</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/generatedomainoptions.html" class="tsd-kind-icon">Generate<wbr>Domain<wbr>Options</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/getcontentitembyid.html" class="tsd-kind-icon">Get<wbr>Content<wbr>Item<wbr>ById</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/getcontentitembykey.html" class="tsd-kind-icon">Get<wbr>Content<wbr>Item<wbr>ByKey</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/hierarchy.html" class="tsd-kind-icon">Hierarchy</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/icontentmeta.html" class="tsd-kind-icon">IContent<wbr>Meta</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/ifilterby.html" class="tsd-kind-icon">IFilter<wbr>By</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/ipage.html" class="tsd-kind-icon">IPage</a></li>
+								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/ipageresponse.html" class="tsd-kind-icon">IPage<wbr>Response</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/isortby.html" class="tsd-kind-icon">ISort<wbr>By</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/requestoptions.html" class="tsd-kind-icon">Request<wbr>Options</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/stagingenvironmentfactoryconfig.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory<wbr>Config</a></li>
 							</ul>
 						</section>
@@ -113,6 +124,7 @@
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias"><a href="globals.html#contentclientconfig" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a></li>
+								<li class="tsd-kind-type-alias"><a href="globals.html#iorder" class="tsd-kind-icon">IOrder</a></li>
 								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a></li>
 							</ul>
 						</section>
@@ -139,7 +151,7 @@
 					<div class="tsd-signature tsd-kind-icon">Content<wbr>Client<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="interfaces/contentclientconfigv1.html" class="tsd-signature-type">ContentClientConfigV1</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/38e1d91/src/lib/ContentClientConfig.ts#L6">src/lib/ContentClientConfig.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClientConfig.ts#L6">src/lib/ContentClientConfig.ts:6</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -150,13 +162,23 @@
 						</dl>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="iorder" class="tsd-anchor"></a>
+					<h3>IOrder</h3>
+					<div class="tsd-signature tsd-kind-icon">IOrder<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"DESC"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ASC"</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L24">src/lib/content/model/FilterBy.ts:24</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
 					<a name="requriedcontentreference" class="tsd-anchor"></a>
 					<h3>Requried<wbr>Content<wbr>Reference</h3>
 					<div class="tsd-signature tsd-kind-icon">Requried<wbr>Content<wbr>Reference&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>_meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>contentType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/38e1d91/src/lib/content/model/ContentReference.ts#L7">src/lib/content/model/ContentReference.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/ContentReference.ts#L7">src/lib/content/model/ContentReference.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -184,7 +206,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/38e1d91/src/lib/content/model/HttpError.ts#L1">src/lib/content/model/HttpError.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/HttpError.ts#L1">src/lib/content/model/HttpError.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -206,7 +228,7 @@
 					<div class="tsd-signature tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/38e1d91/src/lib/staging-environment/StagingEnvironmentFactory.ts#L9">src/lib/staging-environment/StagingEnvironmentFactory.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/staging-environment/StagingEnvironmentFactory.ts#L9">src/lib/staging-environment/StagingEnvironmentFactory.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -220,7 +242,7 @@
 						<div class="tsd-signature tsd-kind-icon">base<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;https://virtual-staging.amplience.net&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/38e1d91/src/lib/staging-environment/StagingEnvironmentFactory.ts#L10">src/lib/staging-environment/StagingEnvironmentFactory.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/staging-environment/StagingEnvironmentFactory.ts#L10">src/lib/staging-environment/StagingEnvironmentFactory.ts:10</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -264,6 +286,12 @@
 					<li class=" tsd-kind-class">
 						<a href="classes/edition.html" class="tsd-kind-icon">Edition</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/filterby.html" class="tsd-kind-icon">Filter<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/filterbyimpl.html" class="tsd-kind-icon">Filter<wbr>ByImpl</a>
+					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/httperror.html" class="tsd-kind-icon">Http<wbr>Error</a>
 					</li>
@@ -303,6 +331,15 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/contentclientconfigv2.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/contentitemresponse.html" class="tsd-kind-icon">Content<wbr>Item<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/filterbyrequest.html" class="tsd-kind-icon">Filter<wbr>ByRequest</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/filterbyresponse.html" class="tsd-kind-icon">Filter<wbr>ByResponse</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/generatedomainoptions.html" class="tsd-kind-icon">Generate<wbr>Domain<wbr>Options</a>
 					</li>
@@ -316,10 +353,31 @@
 						<a href="interfaces/hierarchy.html" class="tsd-kind-icon">Hierarchy</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/icontentmeta.html" class="tsd-kind-icon">IContent<wbr>Meta</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ifilterby.html" class="tsd-kind-icon">IFilter<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ipage.html" class="tsd-kind-icon">IPage</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/ipageresponse.html" class="tsd-kind-icon">IPage<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/isortby.html" class="tsd-kind-icon">ISort<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/requestoptions.html" class="tsd-kind-icon">Request<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/stagingenvironmentfactoryconfig.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#contentclientconfig" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#iorder" class="tsd-kind-icon">IOrder</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a>

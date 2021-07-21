@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ContentBody | dc-delivery-sdk-js</title>
+	<title>ContentItemResponse | dc-delivery-sdk-js</title>
 	<meta name="description" content="Documentation for dc-delivery-sdk-js">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,29 +56,29 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="contentbody.html">ContentBody</a>
+					<a href="contentitemresponse.html">ContentItemResponse</a>
 				</li>
 			</ul>
-			<h1>Interface ContentBody</h1>
+			<h1>Interface ContentItemResponse&lt;Body&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>JSON body of a Content Item. This object will contain the fields specified by the
-						JSON schema content type.</p>
-					</div>
-				</div>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>Body</h4>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ContentBody</span>
+						<span class="target">ContentItemResponse</span>
 					</li>
 				</ul>
 			</section>
@@ -89,7 +89,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contentbody.html#_meta" class="tsd-kind-icon">_meta</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contentitemresponse.html#content" class="tsd-kind-icon">content</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contentitemresponse.html#linkedcontent" class="tsd-kind-icon">linked<wbr>Content</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,19 +99,24 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="_meta" class="tsd-anchor"></a>
-					<h3>_meta</h3>
-					<div class="tsd-signature tsd-kind-icon">_meta<span class="tsd-signature-symbol">:</span> <a href="../classes/contentmeta.html" class="tsd-signature-type">ContentMeta</a></div>
+					<a name="content" class="tsd-anchor"></a>
+					<h3>content</h3>
+					<div class="tsd-signature tsd-kind-icon">content<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol"> &amp; </span><a href="icontentmeta.html" class="tsd-signature-type">IContentMeta</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/ContentBody.ts#L18">src/lib/content/model/ContentBody.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L15">src/lib/content/model/FilterBy.ts:15</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Metadata about the ContentItem.</p>
-						</div>
-					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="linkedcontent" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> linked<wbr>Content</h3>
+					<div class="tsd-signature tsd-kind-icon">linked<wbr>Content<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="icontentmeta.html" class="tsd-signature-type">IContentMeta</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L16">src/lib/content/model/FilterBy.ts:16</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -126,11 +132,14 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="contentbody.html" class="tsd-kind-icon">Content<wbr>Body</a>
+					<li class="current tsd-kind-interface tsd-has-type-parameter">
+						<a href="contentitemresponse.html" class="tsd-kind-icon">Content<wbr>Item<wbr>Response</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="contentbody.html#_meta" class="tsd-kind-icon">_meta</a>
+								<a href="contentitemresponse.html#content" class="tsd-kind-icon">content</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="contentitemresponse.html#linkedcontent" class="tsd-kind-icon">linked<wbr>Content</a>
 							</li>
 						</ul>
 					</li>

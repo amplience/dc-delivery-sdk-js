@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ContentBody | dc-delivery-sdk-js</title>
+	<title>FilterByRequest | dc-delivery-sdk-js</title>
 	<meta name="description" content="Documentation for dc-delivery-sdk-js">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,29 +56,21 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="contentbody.html">ContentBody</a>
+					<a href="filterbyrequest.html">FilterByRequest</a>
 				</li>
 			</ul>
-			<h1>Interface ContentBody</h1>
+			<h1>Interface FilterByRequest</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>JSON body of a Content Item. This object will contain the fields specified by the
-						JSON schema content type.</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ContentBody</span>
+						<span class="target">FilterByRequest</span>
 					</li>
 				</ul>
 			</section>
@@ -89,7 +81,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contentbody.html#_meta" class="tsd-kind-icon">_meta</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="filterbyrequest.html#filterby" class="tsd-kind-icon">filter<wbr>By</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="filterbyrequest.html#page" class="tsd-kind-icon">page</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="filterbyrequest.html#parameters" class="tsd-kind-icon">parameters</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="filterbyrequest.html#sortby" class="tsd-kind-icon">sort<wbr>By</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,19 +93,44 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="_meta" class="tsd-anchor"></a>
-					<h3>_meta</h3>
-					<div class="tsd-signature tsd-kind-icon">_meta<span class="tsd-signature-symbol">:</span> <a href="../classes/contentmeta.html" class="tsd-signature-type">ContentMeta</a></div>
+					<a name="filterby" class="tsd-anchor"></a>
+					<h3>filter<wbr>By</h3>
+					<div class="tsd-signature tsd-kind-icon">filter<wbr>By<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="ifilterby.html" class="tsd-signature-type">IFilterBy</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/ContentBody.ts#L18">src/lib/content/model/ContentBody.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L43">src/lib/content/model/FilterBy.ts:43</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Metadata about the ContentItem.</p>
-						</div>
-					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="page" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> page</h3>
+					<div class="tsd-signature tsd-kind-icon">page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="ipage.html" class="tsd-signature-type">IPage</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"next"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L45">src/lib/content/model/FilterBy.ts:45</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="parameters" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> parameters</h3>
+					<div class="tsd-signature tsd-kind-icon">parameters<span class="tsd-signature-symbol">:</span> <a href="requestoptions.html" class="tsd-signature-type">RequestOptions</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L46">src/lib/content/model/FilterBy.ts:46</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="sortby" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>By</h3>
+					<div class="tsd-signature tsd-kind-icon">sort<wbr>By<span class="tsd-signature-symbol">:</span> <a href="isortby.html" class="tsd-signature-type">ISortBy</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L44">src/lib/content/model/FilterBy.ts:44</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -127,10 +147,19 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="contentbody.html" class="tsd-kind-icon">Content<wbr>Body</a>
+						<a href="filterbyrequest.html" class="tsd-kind-icon">Filter<wbr>ByRequest</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="contentbody.html#_meta" class="tsd-kind-icon">_meta</a>
+								<a href="filterbyrequest.html#filterby" class="tsd-kind-icon">filter<wbr>By</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="filterbyrequest.html#page" class="tsd-kind-icon">page</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="filterbyrequest.html#parameters" class="tsd-kind-icon">parameters</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="filterbyrequest.html#sortby" class="tsd-kind-icon">sort<wbr>By</a>
 							</li>
 						</ul>
 					</li>
