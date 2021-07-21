@@ -12,6 +12,41 @@ export class ContentReferenceMeta extends FragmentMeta {
   }
 }
 
+export interface IContentMeta {
+  /**
+   * Metadata related to the edition that published this content item. If the content was not published using
+   * an edition this will be undefined.
+   */
+  edition?: Edition;
+
+  /**
+   * Delivery ID of the content item
+   */
+  deliveryId: string;
+
+  /**
+   * Delivery Key of the content item
+   */
+  deliveryKey?: string;
+
+  /**
+   * Metadata related to the lifecycle status of this content item, by default this is undefined.
+   * Business users can flag content to expire at a certain time. If this option is chosen this property
+   * will be set with the chosen expiry time.
+   */
+  lifecycle?: ContentLifecycle;
+
+  /**
+   * Name of the content item
+   */
+  name: string;
+
+  /**
+   * Metadata related to hierarchies
+   */
+  hierarchy?: Hierarchy;
+}
+
 /**
  * Class providing meta data about a content item with helper functions.
  */

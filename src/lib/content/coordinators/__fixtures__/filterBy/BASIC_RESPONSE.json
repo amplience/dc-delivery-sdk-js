@@ -1,0 +1,18 @@
+{
+  "responses": [
+    {
+      "content": {
+        "_meta": {
+          "name": "filter-by-sort-by",
+          "schema": "https://filter-by-sort-by.com",
+          "deliveryId": "c6d9e038-591b-4ca2-874b-da354f5d6e61"
+        },
+        "category": "Red",
+        "title": "tada 2"
+      }
+    }
+  ],
+  "page": {
+    "responseCount": 1
+  }
+}
