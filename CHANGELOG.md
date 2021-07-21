@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.10.0](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.9.2...v0.10.0) (2021-07-21)
+
+
+### Features
+
+* adding helper functions for constructing filterBy requests. added tests and documentation. ([5ef12c6](https://www.github.com/amplience/dc-delivery-sdk-js/commit/5ef12c6c365069a6a7b323029f38cda32d179203))
+
 ### [0.9.2](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.9.1...v0.9.2) (2021-05-21)
 
 
