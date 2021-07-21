@@ -9,13 +9,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 * adding helper functions for constructing filterBy requests. added tests and documentation. ([5ef12c6](https://www.github.com/amplience/dc-delivery-sdk-js/commit/5ef12c6c365069a6a7b323029f38cda32d179203))
 
-
-### Bug Fixes
-
-* fix:  ([4ca5649](https://www.github.com/amplience/dc-delivery-sdk-js/commit/4ca564905fb90c3ca11ece308939ddee5f179b3d))
-* added correct path for parent id ([303f7f8](https://www.github.com/amplience/dc-delivery-sdk-js/commit/303f7f8aa8fd3588a236181e0539024389ad8d52))
-* moved setting global locale to request method & added filterBy to features array ([8b07060](https://www.github.com/amplience/dc-delivery-sdk-js/commit/8b070609ba2c63dc0edc0d6150c51c00d653cc94))
-
 ### [0.9.2](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.9.1...v0.9.2) (2021-05-21)
 
 
