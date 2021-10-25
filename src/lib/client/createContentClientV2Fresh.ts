@@ -17,7 +17,7 @@ const DEFAULT_RETRY_CONFIG: IContentClientRetryConfig = {
  * @param config
  * @hidden
  */
-export function createContentClientConfigV2Fresh(
+export function createContentClientV2Fresh(
   config: ContentClientConfigV2Fresh,
   defaultHost
 ): AxiosInstance {

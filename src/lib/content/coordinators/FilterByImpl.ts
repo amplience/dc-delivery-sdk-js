@@ -1,7 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { createContentClient } from '../../client/createContentClient';
-import { createContentClientConfigV2Fresh } from '../../client/createContentClientV2Fresh';
-import { isContentClientConfigV2Fresh } from '../../config';
+import { createContentClientV2 } from '../../client/createContentClientV2';
 import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
 import { FilterByRequest, FilterByResponse } from '../model/FilterBy';
 import { HttpError } from '../model/HttpError';
@@ -10,17 +8,7 @@ export class FilterByImpl<Body = any> {
   private readonly contentClient: AxiosInstance;
 
   constructor(private readonly config: ContentClientConfigV2) {
-    if (isContentClientConfigV2Fresh(this.config)) {
-      this.contentClient = createContentClientConfigV2Fresh(
-        this.config,
-        `https://${this.config.hubName}.fresh.content.amplience.net`
-      );
-    } else {
-      this.contentClient = createContentClient(
-        this.config,
-        `https://${this.config.hubName}.cdn.content.amplience.net`
-      );
-    }
+    this.contentClient = createContentClientV2(this.config);
   }
 
   async fetch(requestConfig: FilterByRequest): Promise<FilterByResponse<Body>> {
