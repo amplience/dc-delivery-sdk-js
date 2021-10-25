@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { createContentClient } from '../../client/createContentClient';
-import { createContentClientConfigV2FreshClient } from '../../client/createContentClientV2Fresh';
+import { createContentClientConfigV2Fresh } from '../../client/createContentClientV2Fresh';
 import { isContentClientConfigV2Fresh } from '../../config';
 import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
 import { FilterByRequest, FilterByResponse } from '../model/FilterBy';
@@ -11,7 +11,7 @@ export class FilterByImpl<Body = any> {
 
   constructor(private readonly config: ContentClientConfigV2) {
     if (isContentClientConfigV2Fresh(this.config)) {
-      this.contentClient = createContentClientConfigV2FreshClient(
+      this.contentClient = createContentClientConfigV2Fresh(
         this.config,
         `https://${this.config.hubName}.fresh.content.amplience.net`
       );
