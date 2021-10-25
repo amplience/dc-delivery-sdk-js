@@ -55,7 +55,8 @@
     "node": ">=12"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "axios-retry": "^3.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",

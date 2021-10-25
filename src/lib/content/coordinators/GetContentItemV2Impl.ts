@@ -6,9 +6,13 @@ import { createContentClient } from '../../client/createContentClient';
 import { ContentMapper } from '../mapper/ContentMapper';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
-import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
 import { HttpError } from '../model/HttpError';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
+import {
+  isContentClientConfigV2Fresh,
+  ContentClientConfigV2,
+} from '../../config';
+import { createContentClientConfigV2FreshClient } from '../../client/createContentClientV2Fresh';
 
 /**
  * @hidden
@@ -21,10 +25,17 @@ export class GetContentItemV2Impl
     private readonly config: ContentClientConfigV2,
     private readonly mapper: ContentMapper
   ) {
-    this.contentClient = createContentClient(
-      this.config,
-      `https://${config.hubName}.cdn.content.amplience.net`
-    );
+    if (isContentClientConfigV2Fresh(this.config)) {
+      this.contentClient = createContentClientConfigV2FreshClient(
+        this.config,
+        `https://${this.config.hubName}.fresh.content.amplience.net`
+      );
+    } else {
+      this.contentClient = createContentClient(
+        this.config,
+        `https://${this.config.hubName}.cdn.content.amplience.net`
+      );
+    }
   }
 
   getContentItemByKey<T extends ContentBody>(

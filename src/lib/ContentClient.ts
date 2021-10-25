@@ -1,4 +1,11 @@
-import { CommonContentClientConfig } from './config/CommonContentClientConfig';
+import {
+  CommonContentClientConfig,
+  ContentClientConfig,
+  ContentClientConfigV1,
+  ContentClientConfigV2,
+  isContentClientConfigV1,
+  isContentClientConfigV2,
+} from './config';
 import { RenderedContentItem } from './rendering/model/RenderedContentItem';
 import { RenderContentItem } from './rendering/coordinators/RenderContentItem';
 import { FilterBy } from './content/coordinators/FilterBy';
@@ -9,8 +16,6 @@ import { ContentMapper } from './content/mapper/ContentMapper';
 import { GetContentItemById } from './content/coordinators/GetContentItemById';
 import { GetContentItemV2Impl } from './content/coordinators/GetContentItemV2Impl';
 import { GetContentItemByKey } from './content/coordinators/GetContentItemByKey';
-import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
-import { ContentClientConfigV2 } from './config/ContentClientConfigV2';
 import { FilterByImpl } from './content/coordinators/FilterByImpl';
 import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
 
@@ -38,9 +43,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * Creates a Delivery API Client instance. You must provide a configuration object with the account you wish to fetch content from.
    * @param config Client configuration options
    */
-  constructor(
-    private readonly config: ContentClientConfigV1 | ContentClientConfigV2
-  ) {
+  constructor(private readonly config: ContentClientConfig) {
     if (!config) {
       throw new TypeError('Parameter "config" is required');
     }
@@ -64,24 +67,6 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     }
 
     this.contentMapper = this.createContentMapper(config);
-  }
-
-  /**
-   * @hidden
-   */
-  private isContentClientConfigV1(
-    config: ContentClientConfigV1 | ContentClientConfigV2
-  ): config is ContentClientConfigV1 {
-    return (config as ContentClientConfigV1).account !== undefined;
-  }
-
-  /**
-   * @hidden
-   */
-  private isContentClientConfigV2(
-    config: ContentClientConfigV1 | ContentClientConfigV2
-  ): config is ContentClientConfigV2 {
-    return (config as ContentClientConfigV2).hubName !== undefined;
   }
 
   /**
@@ -113,7 +98,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   getContentItemById<T extends ContentBody = DefaultContentBody>(
     id: string
   ): Promise<ContentItem<T>> {
-    if (this.isContentClientConfigV2(this.config)) {
+    if (isContentClientConfigV2(this.config)) {
       return new GetContentItemV2Impl(
         this.config,
         this.contentMapper
@@ -148,7 +133,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   getContentItemByKey<T extends ContentBody = DefaultContentBody>(
     key: string
   ): Promise<ContentItem<T>> {
-    if (!this.isContentClientConfigV2(this.config)) {
+    if (!isContentClientConfigV2(this.config)) {
       throw new Error(
         'Not supported. You need to define "hubName" configuration property to use getContentItemByKey()'
       );
@@ -169,7 +154,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   filterContentItems<Body = any>(
     filterBy: FilterByRequest
   ): Promise<FilterByResponse<Body>> {
-    if (!this.isContentClientConfigV2(this.config)) {
+    if (!isContentClientConfigV2(this.config)) {
       throw new Error(
         'Not supported. You need to define "hubName" configuration property to use filterContentItems()'
       );
@@ -190,7 +175,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     path: string,
     value: Value
   ): FilterBy<Body> {
-    if (!this.isContentClientConfigV2(this.config)) {
+    if (!isContentClientConfigV2(this.config)) {
       throw new Error(
         'Not supported. You need to define "hubName" configuration property to use filterBy()'
       );
@@ -214,7 +199,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @returns `FilterBy<Body>`
    */
   filterByContentType<Body = any>(contentTypeUri: string): FilterBy<Body> {
-    if (!this.isContentClientConfigV2(this.config)) {
+    if (!isContentClientConfigV2(this.config)) {
       throw new Error(
         'Not supported. You need to define "hubName" configuration property to use filterByContentType()'
       );
@@ -237,7 +222,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @returns `FilterBy<Body>`
    */
   filterByParentId<Body = any>(id: string): FilterBy<Body> {
-    if (!this.isContentClientConfigV2(this.config)) {
+    if (!isContentClientConfigV2(this.config)) {
       throw new Error(
         'Not supported. You need to define "hubName" configuration property to use filterByParentId()'
       );
@@ -256,7 +241,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     templateName: string,
     customParameters?: { [id: string]: string }
   ): Promise<RenderedContentItem> {
-    if (!this.isContentClientConfigV1(this.config)) {
+    if (!isContentClientConfigV1(this.config)) {
       throw new Error(
         'Not supported. You need to define "account" configuration property to use renderContentItem()'
       );
