@@ -1,7 +1,11 @@
 import { createContentClient } from './createContentClient';
 import { AxiosInstance } from 'axios';
 
-import { ContentClientConfigV2, isContentClientConfigV2Fresh } from '../config';
+import {
+  ContentClientConfigV2,
+  ContentClientConfigV2Fresh,
+  isContentClientConfigV2Fresh,
+} from '../config';
 import { createContentClientV2Fresh } from './createContentClientV2Fresh';
 
 /**
@@ -10,7 +14,7 @@ import { createContentClientV2Fresh } from './createContentClientV2Fresh';
  * @hidden
  */
 export function createContentClientV2(
-  config: ContentClientConfigV2
+  config: ContentClientConfigV2 | ContentClientConfigV2Fresh
 ): AxiosInstance {
   if (isContentClientConfigV2Fresh(config)) {
     return createContentClientV2Fresh(
