@@ -2,17 +2,14 @@ import { GetContentItemById } from './GetContentItemById';
 import { GetContentItemByKey } from './GetContentItemByKey';
 import { ContentBody } from '../model/ContentBody';
 import { ContentItem } from '../model/ContentItem';
-import { createContentClient } from '../../client/createContentClient';
+
 import { ContentMapper } from '../mapper/ContentMapper';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
 import { HttpError } from '../model/HttpError';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
-import {
-  isContentClientConfigV2Fresh,
-  ContentClientConfigV2,
-} from '../../config';
-import { createContentClientConfigV2FreshClient } from '../../client/createContentClientV2Fresh';
+import { ContentClientConfigV2 } from '../../config';
+import { createContentClientV2 } from '../../client/createContentClientV2';
 
 /**
  * @hidden
@@ -25,17 +22,7 @@ export class GetContentItemV2Impl
     private readonly config: ContentClientConfigV2,
     private readonly mapper: ContentMapper
   ) {
-    if (isContentClientConfigV2Fresh(this.config)) {
-      this.contentClient = createContentClientConfigV2FreshClient(
-        this.config,
-        `https://${this.config.hubName}.fresh.content.amplience.net`
-      );
-    } else {
-      this.contentClient = createContentClient(
-        this.config,
-        `https://${this.config.hubName}.cdn.content.amplience.net`
-      );
-    }
+    this.contentClient = createContentClientV2(this.config);
   }
 
   getContentItemByKey<T extends ContentBody>(
