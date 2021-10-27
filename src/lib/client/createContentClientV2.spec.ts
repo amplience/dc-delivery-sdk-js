@@ -9,6 +9,7 @@ describe('createContentClientV2', () => {
     expect(client.defaults.baseURL).to.eq(
       'https://hub.cdn.content.amplience.net'
     );
+    expect(client.defaults.headers.common['X-API-Key']).to.be.undefined;
   });
 
   it('should create a v2 fresh client', () => {
@@ -17,5 +18,6 @@ describe('createContentClientV2', () => {
     expect(client.defaults.baseURL).to.eq(
       'https://hub.fresh.content.amplience.net'
     );
+    expect(client.defaults.headers.common['X-API-Key']).to.eq('key');
   });
 });
