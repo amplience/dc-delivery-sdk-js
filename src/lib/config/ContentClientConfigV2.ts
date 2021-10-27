@@ -10,4 +10,9 @@ export interface ContentClientConfigV2 extends CommonContentClientConfig {
    * Example: <hubName>.cdn.content.amplience.net or <hubName>.fresh.content.amplience.net
    */
   hubName: string;
+
+  /**
+   * Token used for using Conten Delivery 2 Fresh
+   */
+  token?: string;
 }

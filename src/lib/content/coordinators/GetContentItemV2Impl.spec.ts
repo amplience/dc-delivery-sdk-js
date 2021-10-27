@@ -89,6 +89,71 @@ describe('GetContentItemV2Impl', () => {
     });
   });
 
+  context('getContentItembyId fresh', () => {
+    it('should reject if content item not found', (done) => {
+      const [mocks, coordinator] = createCoordinator('test', 'en_US');
+      mocks
+        .onGet(
+          'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
+        )
+        .reply(404, NO_RESULTS);
+      expect(
+        coordinator.getContentItemById('2c7efa09-7e31-4503-8d00-5a150ff82f17')
+      )
+        .to.eventually.rejectedWith(
+          ContentNotFoundError,
+          'Content item "2c7efa09-7e31-4503-8d00-5a150ff82f17" was not found'
+        )
+        .and.notify(done);
+    });
+
+    it('should resolve if content item is found', async () => {
+      const [mocks, coordinator] = createCoordinator('test', 'en_US');
+      mocks
+        .onGet(
+          'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
+        )
+        .reply(200, RESULT);
+
+      const response = await coordinator.getContentItemById(
+        '2c7efa09-7e31-4503-8d00-5a150ff82f17'
+      );
+
+      expect(response.toJSON()).to.deep.eq(RESULT['content']);
+      expect(response.body._meta).to.be.instanceOf(ContentMeta);
+    });
+
+    it('should use hubName as the subdomain in the hostname', async () => {
+      const [mocks, coordinator] = createCoordinator('another-hub');
+      mocks
+        .onGet(
+          'https://another-hub.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined'
+        )
+        .reply(200, RESULT);
+
+      const response = await coordinator.getContentItemById(
+        '2c7efa09-7e31-4503-8d00-5a150ff82f17'
+      );
+
+      expect(response.toJSON()).to.deep.eq(RESULT['content']);
+    });
+
+    it('should use locale as the subdomain in the hostname', async () => {
+      const [mocks, coordinator] = createCoordinator('test', 'fr_FR');
+      mocks
+        .onGet(
+          'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=fr_FR'
+        )
+        .reply(200, RESULT);
+
+      const response = await coordinator.getContentItemById(
+        '2c7efa09-7e31-4503-8d00-5a150ff82f17'
+      );
+
+      expect(response.toJSON()).to.deep.eq(RESULT['content']);
+    });
+  });
+
   context('getContentItemByKey', () => {
     it('should reject if content item not found', (done) => {
       const [mocks, coordinator] = createCoordinator('test', 'en_US');
