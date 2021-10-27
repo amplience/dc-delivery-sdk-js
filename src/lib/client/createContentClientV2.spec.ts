@@ -12,7 +12,7 @@ describe('createContentClientV2', () => {
   });
 
   it('should create a v2 fresh client', () => {
-    const client = createContentClientV2({ hubName: 'hub', token: 'token' });
+    const client = createContentClientV2({ hubName: 'hub', apiKey: 'key' });
 
     expect(client.defaults.baseURL).to.eq(
       'https://hub.fresh.content.amplience.net'

@@ -1,8 +1,8 @@
 import {
   CommonContentClientConfig,
-  ContentClientConfig,
   ContentClientConfigV1,
   ContentClientConfigV2,
+  ContentClientConfigV2Fresh,
   isContentClientConfigV1,
   isContentClientConfigV2,
 } from './config';
@@ -43,7 +43,12 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * Creates a Delivery API Client instance. You must provide a configuration object with the account you wish to fetch content from.
    * @param config Client configuration options
    */
-  constructor(private readonly config: ContentClientConfig) {
+  constructor(
+    private readonly config:
+      | ContentClientConfigV1
+      | ContentClientConfigV2
+      | ContentClientConfigV2Fresh
+  ) {
     if (!config) {
       throw new TypeError('Parameter "config" is required');
     }

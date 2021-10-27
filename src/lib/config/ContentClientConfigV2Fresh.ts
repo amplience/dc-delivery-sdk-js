@@ -9,10 +9,11 @@ export interface IContentClientRetryConfig {
   retries?: number;
   /**
    * A callback to further control if a request should be retried. By default, it retries if the response.status is 429
+   * default: () => response.status === 429
    */
   retryCondition?: (error: AxiosError) => boolean | Promise<boolean>;
   /**
-   * A callback to further control the delay between retry requests. By default it is an exponential delay with jitter.
+   * A callback to further control the delay between retry requests. By default it is an exponential delay
    */
   retryDelay?: (retryCount: number, error: AxiosError) => number;
 }
@@ -20,8 +21,13 @@ export interface IContentClientRetryConfig {
 /**
  * Configuration settings for Content Delivery V2 Fresh API.
  */
-
 export interface ContentClientConfigV2Fresh extends ContentClientConfigV2 {
-  token?: string;
+  /**
+   * The Fresh API key
+   */
+  apiKey?: string;
+  /**
+   * Override default retry configuration
+   */
   retryConfig?: IContentClientRetryConfig;
 }

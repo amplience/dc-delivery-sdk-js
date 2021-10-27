@@ -5,14 +5,14 @@ import {
 } from './createContentClientV2Fresh';
 
 describe('createContentClientV2Fresh', () => {
-  it('should add the token to the client as an X-API-Key header', () => {
+  it('should add the apiKey to the client as an X-API-Key header', () => {
     const client = createContentClientV2Fresh(
-      { hubName: 'hub', token: 'my-token' },
+      { hubName: 'hub', apiKey: 'api-key' },
       'https://example.com'
     );
 
     expect(client.defaults.baseURL).to.eq('https://example.com');
-    expect(client.defaults.headers.common['X-API-Key']).to.eq('my-token');
+    expect(client.defaults.headers.common['X-API-Key']).to.eq('api-key');
   });
 
   it('should return default retry config', () => {
@@ -29,26 +29,16 @@ describe('createContentClientV2Fresh', () => {
       retryDelay: (count) => count * 10000,
       retryCondition: () => false,
     });
+    const mockError = {
+      isAxiosError: true,
+      name: '',
+      message: '',
+      config: {},
+      toJSON: () => ({}),
+    };
 
     expect(retryConfig.retries).to.eq(10);
-    expect(
-      retryConfig.retryDelay(1, {
-        isAxiosError: true,
-        name: '',
-        message: '',
-        config: {},
-        toJSON: () => ({}),
-      })
-    ).to.eq(10000);
-
-    expect(
-      retryConfig.retryCondition({
-        isAxiosError: true,
-        name: '',
-        message: '',
-        config: {},
-        toJSON: () => ({}),
-      })
-    ).to.eq(false);
+    expect(retryConfig.retryDelay(1, mockError)).to.eq(10000);
+    expect(retryConfig.retryCondition(mockError)).to.eq(false);
   });
 });
