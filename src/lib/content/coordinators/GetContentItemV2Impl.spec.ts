@@ -14,11 +14,12 @@ use(chaiAsPromised);
 
 function createCoordinator(
   hubName: string,
-  locale?: string
+  locale?: string,
+  token?: string
 ): [MockAdapter, GetContentItemV2Impl] {
   const mocks = new MockAdapter(null);
 
-  const config = { hubName, adaptor: mocks.adapter(), locale };
+  const config = { hubName, adaptor: mocks.adapter(), locale, token };
   const client = new GetContentItemV2Impl(config, new ContentMapper(config));
   return [mocks, client];
 }
@@ -91,7 +92,7 @@ describe('GetContentItemV2Impl', () => {
 
   context('getContentItembyId fresh', () => {
     it('should reject if content item not found', (done) => {
-      const [mocks, coordinator] = createCoordinator('test', 'en_US');
+      const [mocks, coordinator] = createCoordinator('test', 'en_US', 'test');
       mocks
         .onGet(
           'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
@@ -108,7 +109,7 @@ describe('GetContentItemV2Impl', () => {
     });
 
     it('should resolve if content item is found', async () => {
-      const [mocks, coordinator] = createCoordinator('test', 'en_US');
+      const [mocks, coordinator] = createCoordinator('test', 'en_US', 'test');
       mocks
         .onGet(
           'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
@@ -124,7 +125,11 @@ describe('GetContentItemV2Impl', () => {
     });
 
     it('should use hubName as the subdomain in the hostname', async () => {
-      const [mocks, coordinator] = createCoordinator('another-hub');
+      const [mocks, coordinator] = createCoordinator(
+        'another-hub',
+        null,
+        'test'
+      );
       mocks
         .onGet(
           'https://another-hub.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined'
@@ -139,7 +144,7 @@ describe('GetContentItemV2Impl', () => {
     });
 
     it('should use locale as the subdomain in the hostname', async () => {
-      const [mocks, coordinator] = createCoordinator('test', 'fr_FR');
+      const [mocks, coordinator] = createCoordinator('test', 'fr_FR', 'test');
       mocks
         .onGet(
           'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=fr_FR'
