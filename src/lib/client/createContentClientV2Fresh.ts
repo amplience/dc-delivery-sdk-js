@@ -9,7 +9,7 @@ import {
 const DEFAULT_RETRY_CONFIG: IContentClientRetryConfig = {
   retries: 3,
   retryDelay: axiosRetry.exponentialDelay,
-  retryCondition: (error) => error?.code === '429',
+  retryCondition: (error) => error?.response?.status === 429,
 };
 
 /**

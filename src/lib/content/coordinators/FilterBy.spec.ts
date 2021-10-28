@@ -15,24 +15,25 @@ function createCoordinator<T = any>(config: any): [MockAdapter, FilterBy<T>] {
   return [mocks, client];
 }
 
-const runs = [
-  {
-    type: 'cdn',
-    endpoint: 'https://test.cdn.content.amplience.net/content/filter',
-  },
-  {
-    type: 'fresh',
-    endpoint: 'https://test.fresh.content.amplience.net/content/filter',
-    config: { apiKey: 'key' },
-  },
-];
+const cd2RunConfig = {
+  type: 'cdn',
+  endpoint: 'https://hub.cdn.content.amplience.net/content/filter',
+  config: { hubName: 'hub' },
+};
+
+const freshRunConfig = {
+  type: 'fresh',
+  endpoint: 'https://hub.fresh.content.amplience.net/content/filter',
+  config: { hubName: 'hub', apiKey: 'key' },
+};
+
+const runs = [cd2RunConfig, freshRunConfig];
 
 describe(`FilterBy`, () => {
   runs.forEach(({ type, endpoint, config }) => {
-    describe(` - ${type}`, () => {
+    describe(`${type}`, () => {
       it('should return no items response if no items found', async () => {
         const [mocks, coordinator] = createCoordinator({
-          hubName: 'test',
           ...config,
         });
         mocks
@@ -56,7 +57,6 @@ describe(`FilterBy`, () => {
 
       it('should return no items response if no items found with filterByContentType helper method', async () => {
         const [mocks, coordinator] = createCoordinator({
-          hubName: 'test',
           ...config,
         });
         mocks
@@ -80,7 +80,6 @@ describe(`FilterBy`, () => {
 
       it('should return no items response if no items found with filterByParentId helper method', async () => {
         const [mocks, coordinator] = createCoordinator({
-          hubName: 'test',
           ...config,
         });
         mocks
@@ -104,7 +103,6 @@ describe(`FilterBy`, () => {
 
       it('should add all parameters to match request object', async () => {
         const [mocks, coordinator] = createCoordinator({
-          hubName: 'test',
           ...config,
         });
         mocks
@@ -150,7 +148,6 @@ describe(`FilterBy`, () => {
 
       it('should add helper method to `page` when a cursor is returned', async () => {
         const [mocks, coordinator] = createCoordinator({
-          hubName: 'test',
           ...config,
         });
         mocks
@@ -196,7 +193,6 @@ describe(`FilterBy`, () => {
 
       it('should pass cursor if two parameters are passed too `page`', async () => {
         const [mocks, coordinator] = createCoordinator({
-          hubName: 'test',
           ...config,
         });
         mocks
@@ -226,7 +222,6 @@ describe(`FilterBy`, () => {
 
       it('should set locale to global config', async () => {
         const [mocks, coordinator] = createCoordinator({
-          hubName: 'test',
           locale: 'en-GB',
           ...config,
         });
@@ -254,7 +249,6 @@ describe(`FilterBy`, () => {
 
       it('should set locale to passed value', async () => {
         const [mocks, coordinator] = createCoordinator({
-          hubName: 'test',
           locale: 'en-GB',
           ...config,
         });
@@ -282,7 +276,6 @@ describe(`FilterBy`, () => {
 
       it('should set cursor if string passed to page', async () => {
         const [mocks, coordinator] = createCoordinator({
-          hubName: 'test',
           ...config,
         });
         mocks
