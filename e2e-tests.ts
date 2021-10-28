@@ -12,7 +12,7 @@ const cd2Client = new ContentClient({
 
 const cd2FreshClient = new ContentClient({
   hubName: 'productblog',
-  apiKey: 'yM5M07leUg9WqGS0kD0BS1hLDReWYqP09dTglXcB',
+  apiKey: 'aEoErhSGEj736mbMl6bd98lzNjk8HweV6jVskqE0',
 });
 
 function assertContentItemStructure(contentItem) {

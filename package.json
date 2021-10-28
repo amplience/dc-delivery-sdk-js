@@ -20,7 +20,7 @@
     "build-dist:dev": "NODE_ENV=development webpack",
     "build-dist:prod": "NODE_ENV=production webpack",
     "test": "run-s build test-lint test-node",
-    "test:e2e": "npm run build && ts-node e2e-tests.ts",
+    "test:e2e": "npm run build && ts-node e2e-tests.ts --project tsconfig.e2e.json",
     "test-lint": "eslint \"src/**/*.ts\" && prettier \"src/**/*.ts\" --list-different",
     "fix": "eslint \"src/**/*.ts\" --fix && prettier \"src/**/*.{ts,js,json}\"  --write",
     "test-node": "nyc --silent mocha 'build/main/**/*.spec.js'",
@@ -55,6 +55,7 @@
     "node": ">=12"
   },
   "dependencies": {
+    "@types/node": "^16.11.6",
     "axios": "^0.21.4",
     "axios-retry": "^3.2.3"
   },
