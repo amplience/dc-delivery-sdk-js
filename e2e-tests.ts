@@ -10,6 +10,11 @@ const cd2Client = new ContentClient({
   hubName: 'productblog',
 });
 
+const cd2FreshClient = new ContentClient({
+  hubName: 'productblog',
+  apiKey: 'aEoErhSGEj736mbMl6bd98lzNjk8HweV6jVskqE0',
+});
+
 function assertContentItemStructure(contentItem) {
   const allKeysPresent = EXPECTED_KEYS.every(
     (key) =>
@@ -24,11 +29,19 @@ function assertContentItemStructure(contentItem) {
   const cd1ContentById = await cd1Client.getContentItemById(CONTENT_ID);
   const cd2ContentById = await cd2Client.getContentItemById(CONTENT_ID);
   const cd2ContentByKey = await cd2Client.getContentItemByKey(CONTENT_KEY);
+  const cd2FreshContentById = await cd2FreshClient.getContentItemById(
+    CONTENT_ID
+  );
+  const cd2FreshContentByKey = await cd2FreshClient.getContentItemByKey(
+    CONTENT_KEY
+  );
 
   try {
     assertContentItemStructure(cd1ContentById.toJSON());
     assertContentItemStructure(cd2ContentById.toJSON());
     assertContentItemStructure(cd2ContentByKey.toJSON());
+    assertContentItemStructure(cd2FreshContentById.toJSON());
+    assertContentItemStructure(cd2FreshContentByKey.toJSON());
   } catch (e) {
     console.error(e);
     process.exit(1);

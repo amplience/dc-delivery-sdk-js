@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "lib": ["es2017", "DOM"]
+  },
+  "include": ["e2e-tests.ts"]
+}

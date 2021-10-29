@@ -9,7 +9,7 @@ import {
 const DEFAULT_RETRY_CONFIG: IContentClientRetryConfig = {
   retries: 3,
   retryDelay: axiosRetry.exponentialDelay,
-  retryCondition: (error) => error?.code === '429',
+  retryCondition: (error) => error?.response?.status === 429,
 };
 
 /**
@@ -38,7 +38,7 @@ export function createContentClientV2Fresh(
   defaultHost
 ): AxiosInstance {
   const client = createContentClient(config, defaultHost);
-  client.defaults.headers.common['X-API-Key'] = config.token;
+  client.defaults.headers.common['X-API-Key'] = config.apiKey;
   axiosRetry(client, getRetryConfig(config.retryConfig));
   return client;
 }

@@ -10,7 +10,7 @@ export {
   ContentClientConfigV2Fresh,
 };
 
-export type ContentClientConfig =
+type ContentClientConfig =
   | ContentClientConfigV1
   | ContentClientConfigV2
   | ContentClientConfigV2Fresh;
@@ -32,6 +32,6 @@ export function isContentClientConfigV2Fresh(
 ): config is ContentClientConfigV2Fresh {
   return (
     isContentClientConfigV2(config) &&
-    (config as ContentClientConfigV2Fresh).token !== undefined
+    (config as ContentClientConfigV2Fresh).apiKey !== undefined
   );
 }
