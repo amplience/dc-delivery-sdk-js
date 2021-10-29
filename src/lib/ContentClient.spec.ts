@@ -178,7 +178,7 @@ describe('ContentClient', () => {
         expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
       });
 
-      it('should resolve use fresh if token was supplied', async () => {
+      it('should resolve use fresh if apiKey was supplied', async () => {
         const mocks = new MockAdapter(null);
         mocks
           .onGet(
@@ -188,7 +188,7 @@ describe('ContentClient', () => {
 
         const client = new ContentClient({
           hubName: 'test',
-          token: 'test',
+          apiKey: 'test',
           adaptor: mocks.adapter(),
         });
 

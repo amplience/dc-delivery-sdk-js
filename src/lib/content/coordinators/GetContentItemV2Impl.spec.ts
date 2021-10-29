@@ -15,11 +15,18 @@ use(chaiAsPromised);
 function createCoordinator(
   hubName: string,
   locale?: string,
-  token?: string
+  apiKey?: string,
+  retryConfig?: Record<string, unknown>
 ): [MockAdapter, GetContentItemV2Impl] {
   const mocks = new MockAdapter(null);
 
-  const config = { hubName, adaptor: mocks.adapter(), locale, token };
+  const config = {
+    hubName,
+    adaptor: mocks.adapter(),
+    locale,
+    apiKey,
+    retryConfig,
+  };
   const client = new GetContentItemV2Impl(config, new ContentMapper(config));
   return [mocks, client];
 }
@@ -156,6 +163,41 @@ describe('GetContentItemV2Impl', () => {
       );
 
       expect(response.toJSON()).to.deep.eq(RESULT['content']);
+    });
+
+    it('should throw "Exceeded rate limit" if retries failed', async () => {
+      const [mocks, coordinator] = createCoordinator('test', 'en_US', 'test', {
+        retryDelay: () => 0,
+      });
+
+      const data = {
+        error: {
+          type: 'THROTTLED_REQUEST',
+          message: 'Exceeded rate limit',
+        },
+      };
+
+      mocks
+        .onGet(
+          'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
+        )
+        .replyOnce(429, data)
+        .onGet(
+          'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
+        )
+        .replyOnce(429, data)
+        .onGet(
+          'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
+        )
+        .replyOnce(429, data)
+        .onGet(
+          'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
+        )
+        .replyOnce(429, data);
+
+      expect(
+        coordinator.getContentItemById('2c7efa09-7e31-4503-8d00-5a150ff82f17')
+      ).to.be.rejectedWith('Exceeded rate limit');
     });
   });
 
