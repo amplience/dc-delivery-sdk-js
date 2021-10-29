@@ -6,6 +6,7 @@ import * as NO_RESULTS from './__fixtures__/filterBy/NO_RESULTS.json';
 import * as PAGED_RESPONSE from './__fixtures__/filterBy/PAGED_RESPONSE.json';
 
 import { FilterBy } from './FilterBy';
+import { HttpError } from '../model/HttpError';
 
 use(chaiAsPromised);
 
@@ -33,9 +34,7 @@ describe(`FilterBy`, () => {
   runs.forEach(({ type, endpoint, config }) => {
     describe(`${type}`, () => {
       it('should return no items response if no items found', async () => {
-        const [mocks, coordinator] = createCoordinator({
-          ...config,
-        });
+        const [mocks, coordinator] = createCoordinator(config);
         mocks
           .onPost(endpoint, {
             filterBy: [
@@ -56,9 +55,7 @@ describe(`FilterBy`, () => {
       });
 
       it('should return no items response if no items found with filterByContentType helper method', async () => {
-        const [mocks, coordinator] = createCoordinator({
-          ...config,
-        });
+        const [mocks, coordinator] = createCoordinator(config);
         mocks
           .onPost(endpoint, {
             filterBy: [
@@ -79,9 +76,7 @@ describe(`FilterBy`, () => {
       });
 
       it('should return no items response if no items found with filterByParentId helper method', async () => {
-        const [mocks, coordinator] = createCoordinator({
-          ...config,
-        });
+        const [mocks, coordinator] = createCoordinator(config);
         mocks
           .onPost(endpoint, {
             filterBy: [
@@ -102,9 +97,7 @@ describe(`FilterBy`, () => {
       });
 
       it('should add all parameters to match request object', async () => {
-        const [mocks, coordinator] = createCoordinator({
-          ...config,
-        });
+        const [mocks, coordinator] = createCoordinator(config);
         mocks
           .onPost(endpoint, {
             filterBy: [
@@ -147,9 +140,7 @@ describe(`FilterBy`, () => {
       });
 
       it('should add helper method to `page` when a cursor is returned', async () => {
-        const [mocks, coordinator] = createCoordinator({
-          ...config,
-        });
+        const [mocks, coordinator] = createCoordinator(config);
         mocks
           .onPost(endpoint, {
             filterBy: [
@@ -192,9 +183,7 @@ describe(`FilterBy`, () => {
       });
 
       it('should pass cursor if two parameters are passed too `page`', async () => {
-        const [mocks, coordinator] = createCoordinator({
-          ...config,
-        });
+        const [mocks, coordinator] = createCoordinator(config);
         mocks
           .onPost(endpoint, {
             filterBy: [
@@ -275,9 +264,7 @@ describe(`FilterBy`, () => {
       });
 
       it('should set cursor if string passed to page', async () => {
-        const [mocks, coordinator] = createCoordinator({
-          ...config,
-        });
+        const [mocks, coordinator] = createCoordinator(config);
         mocks
           .onPost(endpoint, {
             filterBy: [
@@ -302,18 +289,14 @@ describe(`FilterBy`, () => {
       });
 
       it('should throw HttpError', async () => {
-        const error = {
+        const data = {
           error: {
             type: 'REQUEST_PROPERTY_VALUE_INVALID',
             message: 'Invalid property value in request body',
             data: { key: 'depth', value: 'sasdsd' },
           },
         };
-
-        const [mocks, coordinator] = createCoordinator({
-          hubName: 'test',
-          ...config,
-        });
+        const [mocks, coordinator] = createCoordinator(config);
         mocks
           .onPost(endpoint, {
             filterBy: [
@@ -323,14 +306,94 @@ describe(`FilterBy`, () => {
               },
             ],
           })
-          .reply(400, error);
+          .replyOnce(400, data);
 
-        expect(
+        await expect(
           coordinator
             .filterBy('/_meta/schema', 'https://filter-by-sort-by.com')
             .request()
-        ).to.eventually.throw(`Invalid property value in request body`);
+        ).to.be.rejectedWith(
+          HttpError,
+          'Invalid property value in request body'
+        );
       });
+
+      if (type === freshRunConfig.type) {
+        it('should throw "Exceeded rate limit" if retries failed', async () => {
+          const [mocks, coordinator] = createCoordinator({
+            ...config,
+            retryConfig: { retryDelay: () => 0 },
+          });
+
+          const body = {
+            filterBy: [
+              {
+                path: '/_meta/schema',
+                value: 'https://filter-by-sort-by.com',
+              },
+            ],
+          };
+
+          const data = {
+            error: {
+              type: 'THROTTLED_REQUEST',
+              message: 'Exceeded rate limit',
+            },
+          };
+
+          mocks
+            .onPost(endpoint, body)
+            .replyOnce(429, data)
+            .onPost(endpoint, body)
+            .replyOnce(429, data)
+            .onPost(endpoint, body)
+            .replyOnce(429, data)
+            .onPost(endpoint, body)
+            .replyOnce(429, data);
+
+          await expect(
+            coordinator
+              .filterBy('/_meta/schema', 'https://filter-by-sort-by.com')
+              .request()
+          ).to.be.rejectedWith('Exceeded rate limit');
+        });
+
+        it('should return response on second retry', async () => {
+          const [mocks, coordinator] = createCoordinator({
+            ...config,
+            retryConfig: { retryDelay: () => 0 },
+          });
+
+          const data = {
+            error: {
+              type: 'THROTTLED_REQUEST',
+              message: 'Exceeded rate limit',
+            },
+          };
+
+          const body = {
+            filterBy: [
+              {
+                path: '/_meta/hierarchy/parentId',
+                value: '121313-13131-131313',
+              },
+            ],
+          };
+
+          mocks
+            .onPost(endpoint, body)
+            .replyOnce(429, data)
+            .onPost(endpoint, body)
+            .reply(200, NO_RESULTS);
+
+          const request = await coordinator
+            .filterByParentId('121313-13131-131313')
+            .request();
+
+          expect(request.responses).to.deep.equals(NO_RESULTS.responses);
+          expect(request.page.responseCount).to.equals(0);
+        });
+      }
     });
   });
 });
