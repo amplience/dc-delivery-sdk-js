@@ -6,10 +6,11 @@ import {
   IContentClientRetryConfig,
 } from '../config/ContentClientConfigV2Fresh';
 
+const isThrottled = (error) => error?.response?.status === 429;
 const DEFAULT_RETRY_CONFIG: IContentClientRetryConfig = {
   retries: 3,
   retryDelay: axiosRetry.exponentialDelay,
-  retryCondition: (error) => error?.response?.status === 429,
+  retryCondition: isThrottled,
 };
 
 /**

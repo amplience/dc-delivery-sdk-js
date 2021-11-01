@@ -8,14 +8,14 @@ export interface IContentClientRetryConfig {
    */
   retries?: number;
   /**
-   * A callback to further control if a request should be retried. By default, it retries if the response.status is 429
-   * default: () => response.status === 429
-   */
-  retryCondition?: (error: AxiosError) => boolean | Promise<boolean>;
-  /**
-   * A callback to further control the delay between retry requests. By default it is an exponential delay
+   * A callback to further control the delay between retry requests. By default it is set to an exponential backoff delay
    */
   retryDelay?: (retryCount: number, error: AxiosError) => number;
+  /**
+   * A callback to further control if a request should be retried. By default, it retries if the response.status is 429
+   * default: (error) => error?.response?.status === 429
+   */
+  retryCondition?: (error: AxiosError) => boolean | Promise<boolean>;
 }
 
 /**

@@ -9,7 +9,7 @@ import {
 import { createContentClientV2Fresh } from './createContentClientV2Fresh';
 
 /**
- * Create network client to make requests to the content delivery service
+ * Create network client to make requests to the content delivery v2 or fresh service
  * @param config
  * @hidden
  */

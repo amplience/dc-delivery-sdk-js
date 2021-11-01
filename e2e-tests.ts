@@ -6,6 +6,7 @@ const EXPECTED_KEYS = ['schema', 'deliveryId', 'deliveryKey'] as const;
 const cd1Client = new ContentClient({
   account: 'ampproduct',
 });
+
 const cd2Client = new ContentClient({
   hubName: 'productblog',
 });

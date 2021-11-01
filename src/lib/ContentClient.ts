@@ -24,8 +24,7 @@ import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
  *
  * This client is intended to be used by end user applications to fetch content so that it can be displayed to users.
  *
- * You must provide some basic account information in order to create an instance of ContentClient.
- *
+ * You must provide some configuration options in order to create an instance of ContentClient.
  * Example:
  *
  * ```typescript
@@ -40,7 +39,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   private readonly contentMapper: ContentMapper;
 
   /**
-   * Creates a Delivery API Client instance. You must provide a configuration object with the account you wish to fetch content from.
+   * Creates a Delivery API Client instance. You must provide a configuration object  you wish to fetch content from.
    * @param config Client configuration options
    */
   constructor(

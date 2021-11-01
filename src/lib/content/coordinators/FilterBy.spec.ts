@@ -17,12 +17,14 @@ function createCoordinator<T = any>(config: any): [MockAdapter, FilterBy<T>] {
 }
 
 const cd2RunConfig = {
+  name: 'cdv2',
   type: 'cdn',
   endpoint: 'https://hub.cdn.content.amplience.net/content/filter',
   config: { hubName: 'hub' },
 };
 
 const freshRunConfig = {
+  name: 'fresh',
   type: 'fresh',
   endpoint: 'https://hub.fresh.content.amplience.net/content/filter',
   config: { hubName: 'hub', apiKey: 'key' },
@@ -31,8 +33,8 @@ const freshRunConfig = {
 const runs = [cd2RunConfig, freshRunConfig];
 
 describe(`FilterBy`, () => {
-  runs.forEach(({ type, endpoint, config }) => {
-    describe(`${type}`, () => {
+  runs.forEach(({ name, type, endpoint, config }) => {
+    describe(`${name}`, () => {
       it('should return no items response if no items found', async () => {
         const [mocks, coordinator] = createCoordinator(config);
         mocks
