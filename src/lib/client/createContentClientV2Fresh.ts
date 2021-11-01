@@ -30,7 +30,7 @@ export function getRetryConfig(
 }
 
 /**
- * Create network client to make requests to the content delivery 2 fresh service
+ * Create network client to make requests to the Fresh API service
  * @param config
  * @hidden
  */
