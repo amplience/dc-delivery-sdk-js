@@ -2,6 +2,13 @@ import { expect } from 'chai';
 import { createContentClient } from './createContentClient';
 
 describe('createContentClient', () => {
+  it('should create a v1 client', () => {
+    const client = createContentClient({ account: 'company' });
+
+    expect(client.defaults.baseURL).to.eq('https://cdn.c1.amplience.net');
+    expect(client.defaults.headers.common['X-API-Key']).to.be.undefined;
+  });
+
   it('should create a v2 client', () => {
     const client = createContentClient({ hubName: 'hub' });
 
