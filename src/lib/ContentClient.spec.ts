@@ -112,7 +112,7 @@ describe('ContentClient', () => {
         expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
       });
     });
-    context('ContentClientConfigV2 fresh', () => {
+    context('ContentClientConfigV2Fresh', () => {
       it('should resolve if content item is found', async () => {
         const mocks = new MockAdapter(null);
         mocks
@@ -200,7 +200,7 @@ describe('ContentClient', () => {
         expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
       });
     });
-    context('ContentClientConfigV2 fresh', () => {
+    context('ContentClientConfigV2Fresh', () => {
       it('should resolve use v2 if account was supplied', async () => {
         const mocks = new MockAdapter(null);
         mocks
@@ -276,7 +276,7 @@ describe('ContentClient', () => {
         expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
       });
     });
-    context('ContentClientConfigV2 fresh', () => {
+    context('ContentClientConfigV2Fresh', () => {
       it('should resolve if content item is found', async () => {
         const mocks = new MockAdapter(null);
         mocks
