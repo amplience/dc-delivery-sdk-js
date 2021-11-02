@@ -10,25 +10,25 @@ export {
   ContentClientConfigV2Fresh,
 };
 
-type ContentClientConfig =
+export type ContentClientConfigOptions =
   | ContentClientConfigV1
   | ContentClientConfigV2
   | ContentClientConfigV2Fresh;
 
 export function isContentClientConfigV1(
-  config: ContentClientConfig
+  config: ContentClientConfigOptions
 ): config is ContentClientConfigV1 {
   return (config as ContentClientConfigV1).account !== undefined;
 }
 
 export function isContentClientConfigV2(
-  config: ContentClientConfig
+  config: ContentClientConfigOptions
 ): config is ContentClientConfigV2 {
   return (config as ContentClientConfigV2).hubName !== undefined;
 }
 
 export function isContentClientConfigV2Fresh(
-  config: ContentClientConfig
+  config: ContentClientConfigOptions
 ): config is ContentClientConfigV2Fresh {
   return (
     isContentClientConfigV2(config) &&

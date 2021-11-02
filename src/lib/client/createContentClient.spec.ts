@@ -2,72 +2,21 @@ import { expect } from 'chai';
 import { createContentClient } from './createContentClient';
 
 describe('createContentClient', () => {
-  it('should default the base url', () => {
-    const client = createContentClient({}, 'https://example.com');
-
-    expect(client.defaults.baseURL).to.eq('https://example.com');
-  });
-
-  it('should use the override base url if provided', () => {
-    const client = createContentClient(
-      {
-        baseUrl: 'http://localhost:3000',
-      },
-      'https://example.com'
-    );
-    expect(client.defaults.baseURL).to.eq('http://localhost:3000');
-  });
-
-  it('should use the staging environment url if provided', () => {
-    const client = createContentClient(
-      {
-        baseUrl: 'http://localhost:3000',
-        stagingEnvironment:
-          'fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io',
-      },
-      'https://example.com'
-    );
+  it('should create a v2 client', () => {
+    const client = createContentClient({ hubName: 'hub' });
 
     expect(client.defaults.baseURL).to.eq(
-      'https://fhboh562c3tx1844c2ycknz96-gvzrfgnzc-1546264721816.staging.bigcontent.io'
+      'https://hub.cdn.content.amplience.net'
     );
+    expect(client.defaults.headers.common['X-API-Key']).to.be.undefined;
   });
 
-  it('should use the provided adaptor to send requests', () => {
-    const client = createContentClient(
-      {
-        adaptor: () =>
-          Promise.resolve<any>({
-            data: 'response',
-          }),
-      },
-      'https://example.com'
+  it('should create a v2 fresh client', () => {
+    const client = createContentClient({ hubName: 'hub', apiKey: 'key' });
+
+    expect(client.defaults.baseURL).to.eq(
+      'https://hub.fresh.content.amplience.net'
     );
-    return client.get('/test').then((response) => {
-      expect(response).to.deep.eq({ data: 'response' });
-    });
-  });
-
-  it('should pass the timeout to the adaptor if provided', () => {
-    let adaptorTimeout = -1;
-
-    const client = createContentClient(
-      {
-        adaptor: (config) => {
-          adaptorTimeout = config.timeout;
-
-          return Promise.resolve<any>({
-            data: 'response',
-          });
-        },
-        timeout: 1234,
-      },
-      'https://example.com'
-    );
-
-    return client.get('/test').then((response) => {
-      expect(response).to.deep.eq({ data: 'response' });
-      expect(adaptorTimeout).to.eq(1234);
-    });
+    expect(client.defaults.headers.common['X-API-Key']).to.eq('key');
   });
 });

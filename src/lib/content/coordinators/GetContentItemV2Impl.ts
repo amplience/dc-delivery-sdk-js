@@ -9,21 +9,17 @@ import { encodeQueryString } from '../../utils/Url';
 import { HttpError } from '../model/HttpError';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
 import { ContentClientConfigV2 } from '../../config';
-import { createContentClientV2 } from '../../client/createContentClientV2';
 
 /**
  * @hidden
  */
 export class GetContentItemV2Impl
   implements GetContentItemById, GetContentItemByKey {
-  private readonly contentClient: AxiosInstance;
-
   constructor(
     private readonly config: ContentClientConfigV2,
+    private readonly contentClient: AxiosInstance,
     private readonly mapper: ContentMapper
-  ) {
-    this.contentClient = createContentClientV2(this.config);
-  }
+  ) {}
 
   getContentItemByKey<T extends ContentBody>(
     key: string

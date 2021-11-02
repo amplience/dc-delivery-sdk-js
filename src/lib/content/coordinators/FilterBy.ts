@@ -1,3 +1,4 @@
+import { AxiosInstance } from 'axios';
 import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
 import {
   FilterByRequest,
@@ -17,10 +18,14 @@ export class FilterBy<Body = any> {
   };
 
   private readonly filterByService: FilterByImpl<Body> = new FilterByImpl(
-    this.config
+    this.config,
+    this.contentClient
   );
 
-  constructor(private readonly config: ContentClientConfigV2) {}
+  constructor(
+    private readonly config: ContentClientConfigV2,
+    private readonly contentClient: AxiosInstance
+  ) {}
 
   /**
    *  This function will help construct requests for filtering Content Items or Slots

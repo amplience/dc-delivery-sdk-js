@@ -4,7 +4,7 @@ import { walkAndReplace } from '../../utils/JsonWalker';
 import { ContentItem } from '../model/ContentItem';
 import { ContentBody } from '../model/ContentBody';
 import { ContentMapper } from '../mapper/ContentMapper';
-import { createContentClient } from '../../client/createContentClient';
+
 import { GetContentItemById } from './GetContentItemById';
 import { ContentClientConfigV1 } from '../../config/ContentClientConfigV1';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
@@ -29,17 +29,11 @@ const LD_GRAPH = '@graph';
  * @hidden
  */
 export class GetContentItemV1Impl implements GetContentItemById {
-  private readonly contentClient: AxiosInstance;
-
   constructor(
     private readonly config: ContentClientConfigV1,
+    private readonly contentClient: AxiosInstance,
     private readonly mapper: ContentMapper
-  ) {
-    this.contentClient = createContentClient(
-      this.config,
-      'https://cdn.c1.amplience.net'
-    );
-  }
+  ) {}
 
   /**
    * @deprecated use getContentItemById

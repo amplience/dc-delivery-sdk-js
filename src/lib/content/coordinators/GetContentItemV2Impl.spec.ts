@@ -9,6 +9,7 @@ import { ContentMeta } from '../model/ContentMeta';
 import { Image } from '../../media/Image';
 import { HttpError } from '../model/HttpError';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
+import { createContentClient } from '../../client/createContentClient';
 
 use(chaiAsPromised);
 
@@ -19,8 +20,13 @@ function createCoordinator(
   const mocks = new MockAdapter(null);
 
   const config = { hubName, adaptor: mocks.adapter(), locale };
-  const client = new GetContentItemV2Impl(config, new ContentMapper(config));
-  return [mocks, client];
+  const client = createContentClient(config);
+  const coordinator = new GetContentItemV2Impl(
+    config,
+    client,
+    new ContentMapper(config)
+  );
+  return [mocks, coordinator];
 }
 
 describe('GetContentItemV2Impl', () => {

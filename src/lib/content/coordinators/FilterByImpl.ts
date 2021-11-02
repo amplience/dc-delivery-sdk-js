@@ -1,15 +1,13 @@
 import { AxiosInstance } from 'axios';
-import { createContentClientV2 } from '../../client/createContentClientV2';
 import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
 import { FilterByRequest, FilterByResponse } from '../model/FilterBy';
 import { HttpError } from '../model/HttpError';
 
 export class FilterByImpl<Body = any> {
-  private readonly contentClient: AxiosInstance;
-
-  constructor(private readonly config: ContentClientConfigV2) {
-    this.contentClient = createContentClientV2(this.config);
-  }
+  constructor(
+    private readonly config: ContentClientConfigV2,
+    private readonly contentClient: AxiosInstance
+  ) {}
 
   async fetch(requestConfig: FilterByRequest): Promise<FilterByResponse<Body>> {
     try {

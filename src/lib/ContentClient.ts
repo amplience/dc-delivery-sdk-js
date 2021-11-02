@@ -1,8 +1,8 @@
 import {
   CommonContentClientConfig,
+  ContentClientConfigOptions,
   ContentClientConfigV1,
   ContentClientConfigV2,
-  ContentClientConfigV2Fresh,
   isContentClientConfigV1,
   isContentClientConfigV2,
 } from './config';
@@ -18,6 +18,8 @@ import { GetContentItemV2Impl } from './content/coordinators/GetContentItemV2Imp
 import { GetContentItemByKey } from './content/coordinators/GetContentItemByKey';
 import { FilterByImpl } from './content/coordinators/FilterByImpl';
 import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
+import { AxiosInstance } from 'axios';
+import { createContentClient } from './client/createContentClient';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
@@ -37,17 +39,13 @@ import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
  */
 export class ContentClient implements GetContentItemById, GetContentItemByKey {
   private readonly contentMapper: ContentMapper;
+  private readonly contentClient: AxiosInstance;
 
   /**
    * Creates a Delivery API Client instance. You must provide a configuration object with the required details for the particular client you wish to fetch content from.
    * @param config Client configuration options
    */
-  constructor(
-    private readonly config:
-      | ContentClientConfigV1
-      | ContentClientConfigV2
-      | ContentClientConfigV2Fresh
-  ) {
+  constructor(private readonly config: ContentClientConfigOptions) {
     if (!config) {
       throw new TypeError('Parameter "config" is required');
     }
@@ -71,6 +69,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     }
 
     this.contentMapper = this.createContentMapper(config);
+    this.contentClient = createContentClient(config);
   }
 
   /**
@@ -105,11 +104,13 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     if (isContentClientConfigV2(this.config)) {
       return new GetContentItemV2Impl(
         this.config,
+        this.contentClient,
         this.contentMapper
       ).getContentItemById(id);
     }
     return new GetContentItemV1Impl(
       this.config,
+      this.contentClient,
       this.contentMapper
     ).getContentItemById(id);
   }
@@ -145,6 +146,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
 
     return new GetContentItemV2Impl(
       this.config,
+      this.contentClient,
       this.contentMapper
     ).getContentItemByKey(key);
   }
@@ -164,7 +166,9 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       );
     }
 
-    return new FilterByImpl<Body>(this.config).fetch(filterBy);
+    return new FilterByImpl<Body>(this.config, this.contentClient).fetch(
+      filterBy
+    );
   }
 
   /**
@@ -185,7 +189,10 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       );
     }
 
-    return new FilterBy<Body>(this.config).filterBy<Value>(path, value);
+    return new FilterBy<Body>(this.config, this.contentClient).filterBy<Value>(
+      path,
+      value
+    );
   }
 
   /**
@@ -209,7 +216,10 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       );
     }
 
-    return new FilterBy<Body>(this.config).filterByContentType(contentTypeUri);
+    return new FilterBy<Body>(
+      this.config,
+      this.contentClient
+    ).filterByContentType(contentTypeUri);
   }
 
   /**
@@ -232,7 +242,9 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       );
     }
 
-    return new FilterBy<Body>(this.config).filterByParentId(id);
+    return new FilterBy<Body>(this.config, this.contentClient).filterByParentId(
+      id
+    );
   }
   /**
    * Converts a Content Item or Slot into a custom format (e.g. HTML / XML) by applying a template server side.
@@ -251,11 +263,10 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       );
     }
 
-    return new RenderContentItem(this.config).renderContentItem(
-      contentItemId,
-      templateName,
-      customParameters
-    );
+    return new RenderContentItem(
+      this.config,
+      this.contentClient
+    ).renderContentItem(contentItemId, templateName, customParameters);
   }
 
   /**

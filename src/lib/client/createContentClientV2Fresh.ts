@@ -1,10 +1,10 @@
 import axiosRetry from 'axios-retry';
-import { createContentClient } from './createContentClient';
 import { AxiosInstance } from 'axios';
 import {
   ContentClientConfigV2Fresh,
   IContentClientRetryConfig,
 } from '../config/ContentClientConfigV2Fresh';
+import { createBaseContentClient } from './createBaseContentClient';
 
 const isThrottled = (error) => error?.response?.status === 429;
 const DEFAULT_RETRY_CONFIG: IContentClientRetryConfig = {
@@ -38,7 +38,7 @@ export function createContentClientV2Fresh(
   config: ContentClientConfigV2Fresh,
   defaultHost
 ): AxiosInstance {
-  const client = createContentClient(config, defaultHost);
+  const client = createBaseContentClient(config, defaultHost);
   client.defaults.headers.common['X-API-Key'] = config.apiKey;
   axiosRetry(client, getRetryConfig(config.retryConfig));
   return client;

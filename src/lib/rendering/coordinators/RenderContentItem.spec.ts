@@ -1,6 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import { expect, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
+import { createContentClient } from '../../client/createContentClient';
 use(chaiAsPromised);
 
 import { RenderContentItem } from './RenderContentItem';
@@ -16,8 +17,9 @@ function createCoordinator(
     adaptor: mocks.adapter(),
     locale: locale,
   };
-  const client = new RenderContentItem(config);
-  return [mocks, client];
+  const client = createContentClient(config);
+  const coordinator = new RenderContentItem(config, client);
+  return [mocks, coordinator];
 }
 
 describe('RenderContentItem', () => {
