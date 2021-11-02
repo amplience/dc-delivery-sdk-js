@@ -22,7 +22,7 @@ function createCoordinator(config: {
 }): [MockAdapter, GetContentItemV2Impl] {
   const mocks = new MockAdapter(null);
   const mergedConfig = { adaptor: mocks.adapter(), ...config };
-  const client = createContentClient(config);
+  const client = createContentClient(mergedConfig);
 
   const coordinator = new GetContentItemV2Impl(
     mergedConfig,
@@ -55,8 +55,8 @@ const freshRunConfig = {
 const runs = [cd2RunConfig, freshRunConfig];
 
 describe('GetContentItemV2Impl', () => {
-  runs.forEach(({ type, config, host }) => {
-    describe(`${type}`, () => {
+  runs.forEach(({ name, type, config, host }) => {
+    describe(`${name}`, () => {
       context('getContentItemById', () => {
         it('should reject if content item not found', (done) => {
           const [mocks, coordinator] = createCoordinator({
