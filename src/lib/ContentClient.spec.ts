@@ -112,6 +112,28 @@ describe('ContentClient', () => {
         expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
       });
     });
+    context('ContentClientConfigV2Fresh', () => {
+      it('should resolve if content item is found', async () => {
+        const mocks = new MockAdapter(null);
+        mocks
+          .onGet(
+            'https://test.fresh.content.amplience.net/content/id/0bf85aa1-9386-4068-adad-6b9a813f5ddb?depth=all&format=inlined'
+          )
+          .reply(200, V2_SINGLE_RESULT);
+
+        const client = new ContentClient({
+          hubName: 'test',
+          apiKey: 'test-key',
+          adaptor: mocks.adapter(),
+        });
+
+        const response = await client.getContentItem(
+          '0bf85aa1-9386-4068-adad-6b9a813f5ddb'
+        );
+
+        expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
+      });
+    });
   });
 
   context('getContentItemById', () => {
@@ -178,6 +200,49 @@ describe('ContentClient', () => {
         expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
       });
     });
+    context('ContentClientConfigV2Fresh', () => {
+      it('should resolve use v2 if account was supplied', async () => {
+        const mocks = new MockAdapter(null);
+        mocks
+          .onGet(
+            'https://test.fresh.content.amplience.net/content/id/0bf85aa1-9386-4068-adad-6b9a813f5ddb?depth=all&format=inlined'
+          )
+          .reply(200, V2_SINGLE_RESULT);
+
+        const client = new ContentClient({
+          hubName: 'test',
+          account: 'test',
+          apiKey: 'test-key',
+          adaptor: mocks.adapter(),
+        });
+
+        const response = await client.getContentItemById(
+          '0bf85aa1-9386-4068-adad-6b9a813f5ddb'
+        );
+
+        expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
+      });
+      it('should resolve if content item is found', async () => {
+        const mocks = new MockAdapter(null);
+        mocks
+          .onGet(
+            'https://test.fresh.content.amplience.net/content/id/0bf85aa1-9386-4068-adad-6b9a813f5ddb?depth=all&format=inlined'
+          )
+          .reply(200, V2_SINGLE_RESULT);
+
+        const client = new ContentClient({
+          hubName: 'test',
+          apiKey: 'test-key',
+          adaptor: mocks.adapter(),
+        });
+
+        const response = await client.getContentItemById(
+          '0bf85aa1-9386-4068-adad-6b9a813f5ddb'
+        );
+
+        expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
+      });
+    });
   });
 
   context('getContentItemByKey', () => {
@@ -203,6 +268,26 @@ describe('ContentClient', () => {
 
         const client = new ContentClient({
           hubName: 'test',
+          adaptor: mocks.adapter(),
+        });
+
+        const response = await client.getContentItemByKey('welcome-para-1');
+
+        expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
+      });
+    });
+    context('ContentClientConfigV2Fresh', () => {
+      it('should resolve if content item is found', async () => {
+        const mocks = new MockAdapter(null);
+        mocks
+          .onGet(
+            'https://test.fresh.content.amplience.net/content/key/welcome-para-1?depth=all&format=inlined'
+          )
+          .reply(200, V2_SINGLE_RESULT);
+
+        const client = new ContentClient({
+          hubName: 'test',
+          apiKey: 'test-key',
           adaptor: mocks.adapter(),
         });
 
