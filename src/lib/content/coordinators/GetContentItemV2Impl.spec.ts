@@ -9,58 +9,59 @@ import { ContentMeta } from '../model/ContentMeta';
 import { Image } from '../../media/Image';
 import { HttpError } from '../model/HttpError';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
+import { IContentClientRetryConfig } from '../../config/ContentClientConfigV2Fresh';
 
 use(chaiAsPromised);
 
-function createCoordinator(
-  hubName: string,
-  locale?: string,
-  apiKey?: string,
-  retryConfig?: Record<string, unknown>
-): [MockAdapter, GetContentItemV2Impl] {
+function createCoordinator(config: {
+  hubName: string;
+  locale?: string;
+  apiKey?: string;
+  retryConfig?: IContentClientRetryConfig;
+}): [MockAdapter, GetContentItemV2Impl] {
   const mocks = new MockAdapter(null);
-
-  const config = {
-    hubName,
-    adaptor: mocks.adapter(),
-    locale,
-    apiKey,
-    retryConfig,
-  };
-  const client = new GetContentItemV2Impl(config, new ContentMapper(config));
+  const mergedConfig = { adaptor: mocks.adapter(), ...config };
+  const client = new GetContentItemV2Impl(
+    mergedConfig,
+    new ContentMapper(mergedConfig)
+  );
   return [mocks, client];
 }
 
 const cd2RunConfig = {
+  name: 'cdv2',
   type: 'cdn',
-  endpoint: 'https://hub.cdn.content.amplience.net/content/filter',
+  host: 'https://hub.cdn.content.amplience.net',
   config: { hubName: 'hub' },
 };
 
 const freshRunConfig = {
+  name: 'fresh',
   type: 'fresh',
-  endpoint: 'https://hub.fresh.content.amplience.net/content/filter',
-  config: { hubName: 'hub', apiKey: 'key' },
+  host: 'https://hub.fresh.content.amplience.net',
+  config: {
+    hubName: 'hub',
+    apiKey: 'apiKey',
+    retryConfig: {
+      retryDelay: () => 0,
+    },
+  },
 };
 
 const runs = [cd2RunConfig, freshRunConfig];
 
 describe('GetContentItemV2Impl', () => {
-  runs.forEach(({ type }) => {
+  runs.forEach(({ type, config, host }) => {
     describe(`${type}`, () => {
       context('getContentItemById', () => {
         it('should reject if content item not found', (done) => {
-          let [mocks, coordinator] = createCoordinator('test', 'en_US');
-          if (type === freshRunConfig.type) {
-            [mocks, coordinator] = createCoordinator(
-              'test',
-              'en_US',
-              'test-key'
-            );
-          }
+          const [mocks, coordinator] = createCoordinator({
+            ...config,
+            locale: 'en_US',
+          });
           mocks
             .onGet(
-              `https://test.${type}.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US`
+              `${host}/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US`
             )
             .reply(404, NO_RESULTS);
           expect(
@@ -76,18 +77,13 @@ describe('GetContentItemV2Impl', () => {
         });
 
         it('should resolve if content item is found', async () => {
-          let [mocks, coordinator] = createCoordinator('test', 'en_US');
-          if (type === freshRunConfig.type) {
-            [mocks, coordinator] = createCoordinator(
-              'test',
-              'en_US',
-              'test-key'
-            );
-          }
-
+          const [mocks, coordinator] = createCoordinator({
+            ...config,
+            locale: 'en_US',
+          });
           mocks
             .onGet(
-              `https://test.${type}.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US`
+              `${host}/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US`
             )
             .reply(200, RESULT);
 
@@ -100,18 +96,10 @@ describe('GetContentItemV2Impl', () => {
         });
 
         it('should use hubName as the subdomain in the hostname', async () => {
-          let [mocks, coordinator] = createCoordinator('another-hub');
-          if (type === freshRunConfig.type) {
-            [mocks, coordinator] = createCoordinator(
-              'another-hub',
-              null,
-              'test-key'
-            );
-          }
-
+          const [mocks, coordinator] = createCoordinator(config);
           mocks
             .onGet(
-              `https://another-hub.${type}.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined`
+              `${host}/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined`
             )
             .reply(200, RESULT);
 
@@ -123,18 +111,13 @@ describe('GetContentItemV2Impl', () => {
         });
 
         it('should use locale as the subdomain in the hostname', async () => {
-          let [mocks, coordinator] = createCoordinator('test', 'fr_FR');
-          if (type === freshRunConfig.type) {
-            [mocks, coordinator] = createCoordinator(
-              'test',
-              'fr_FR',
-              'test-key'
-            );
-          }
-
+          const [mocks, coordinator] = createCoordinator({
+            ...config,
+            locale: 'fr_FR',
+          });
           mocks
             .onGet(
-              `https://test.${type}.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=fr_FR`
+              `${host}/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=fr_FR`
             )
             .reply(200, RESULT);
 
@@ -147,14 +130,10 @@ describe('GetContentItemV2Impl', () => {
 
         if (type === freshRunConfig.type) {
           it('should throw "Exceeded rate limit" if retries failed', async () => {
-            const [mocks, coordinator] = createCoordinator(
-              'test',
-              'en_US',
-              'test',
-              {
-                retryDelay: () => 0,
-              }
-            );
+            const [mocks, coordinator] = createCoordinator({
+              ...config,
+              locale: 'en_US',
+            });
 
             const data = {
               error: {
@@ -165,19 +144,19 @@ describe('GetContentItemV2Impl', () => {
 
             mocks
               .onGet(
-                'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
+                `${host}/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US`
               )
               .replyOnce(429, data)
               .onGet(
-                'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
+                `${host}/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US`
               )
               .replyOnce(429, data)
               .onGet(
-                'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
+                `${host}/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US`
               )
               .replyOnce(429, data)
               .onGet(
-                'https://test.fresh.content.amplience.net/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US'
+                `${host}/content/id/2c7efa09-7e31-4503-8d00-5a150ff82f17?depth=all&format=inlined&locale=en_US`
               )
               .replyOnce(429, data);
 
@@ -192,17 +171,13 @@ describe('GetContentItemV2Impl', () => {
 
       context('getContentItemByKey', () => {
         it('should reject if content item not found', (done) => {
-          let [mocks, coordinator] = createCoordinator('test', 'en_US');
-          if (type === freshRunConfig.type) {
-            [mocks, coordinator] = createCoordinator(
-              'test',
-              'en_US',
-              'test-key'
-            );
-          }
+          const [mocks, coordinator] = createCoordinator({
+            ...config,
+            locale: 'en_US',
+          });
           mocks
             .onGet(
-              `https://test.${type}.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US`
+              `${host}/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US`
             )
             .reply(404, NO_RESULTS);
           expect(coordinator.getContentItemByKey('a-delivery-key'))
@@ -214,17 +189,13 @@ describe('GetContentItemV2Impl', () => {
         });
 
         it('should reject if request fails', (done) => {
-          let [mocks, coordinator] = createCoordinator('test', 'en_US');
-          if (type === freshRunConfig.type) {
-            [mocks, coordinator] = createCoordinator(
-              'test',
-              'en_US',
-              'test-key'
-            );
-          }
+          const [mocks, coordinator] = createCoordinator({
+            ...config,
+            locale: 'en_US',
+          });
           mocks
             .onGet(
-              `https://test.${type}.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US`
+              `${host}/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US`
             )
             .reply(500, 'Internal Server Error');
           expect(coordinator.getContentItemByKey('a-delivery-key'))
@@ -233,17 +204,13 @@ describe('GetContentItemV2Impl', () => {
         });
 
         it('should resolve if content item is found', async () => {
-          let [mocks, coordinator] = createCoordinator('test', 'en_US');
-          if (type === freshRunConfig.type) {
-            [mocks, coordinator] = createCoordinator(
-              'test',
-              'en_US',
-              'test-key'
-            );
-          }
+          const [mocks, coordinator] = createCoordinator({
+            ...config,
+            locale: 'en_US',
+          });
           mocks
             .onGet(
-              `https://test.${type}.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US`
+              `${host}/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US`
             )
             .reply(200, RESULT);
 
@@ -260,17 +227,10 @@ describe('GetContentItemV2Impl', () => {
         });
 
         it('should use hubName as the subdomain in the hostname', async () => {
-          let [mocks, coordinator] = createCoordinator('another-hub');
-          if (type === freshRunConfig.type) {
-            [mocks, coordinator] = createCoordinator(
-              'another-hub',
-              null,
-              'test-key'
-            );
-          }
+          const [mocks, coordinator] = createCoordinator(config);
           mocks
             .onGet(
-              `https://another-hub.${type}.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined`
+              `${host}/content/key/a-delivery-key?depth=all&format=inlined`
             )
             .reply(200, RESULT);
 
@@ -282,17 +242,13 @@ describe('GetContentItemV2Impl', () => {
         });
 
         it('should use locale as the subdomain in the hostname', async () => {
-          let [mocks, coordinator] = createCoordinator('test', 'fr_FR');
-          if (type === freshRunConfig.type) {
-            [mocks, coordinator] = createCoordinator(
-              'test',
-              'fr_FR',
-              'test-key'
-            );
-          }
+          const [mocks, coordinator] = createCoordinator({
+            ...config,
+            locale: 'fr_FR',
+          });
           mocks
             .onGet(
-              `https://test.${type}.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined&locale=fr_FR`
+              `${host}/content/key/a-delivery-key?depth=all&format=inlined&locale=fr_FR`
             )
             .reply(200, RESULT);
 
@@ -304,14 +260,10 @@ describe('GetContentItemV2Impl', () => {
         });
         if (type === freshRunConfig.type) {
           it('should throw "Exceeded rate limit" if retries failed', async () => {
-            const [mocks, coordinator] = createCoordinator(
-              'test',
-              'en_US',
-              'test',
-              {
-                retryDelay: () => 0,
-              }
-            );
+            const [mocks, coordinator] = createCoordinator({
+              ...config,
+              locale: 'en_US',
+            });
 
             const data = {
               error: {
@@ -322,19 +274,19 @@ describe('GetContentItemV2Impl', () => {
 
             mocks
               .onGet(
-                'https://test.fresh.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US'
+                `${host}/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US`
               )
               .replyOnce(429, data)
               .onGet(
-                'https://test.fresh.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US'
+                `${host}/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US`
               )
               .replyOnce(429, data)
               .onGet(
-                'https://test.fresh.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US'
+                `${host}/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US`
               )
               .replyOnce(429, data)
               .onGet(
-                'https://test.fresh.content.amplience.net/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US'
+                `${host}/content/key/a-delivery-key?depth=all&format=inlined&locale=en_US`
               )
               .replyOnce(429, data);
 
