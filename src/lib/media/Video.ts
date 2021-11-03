@@ -3,6 +3,7 @@ import { FragmentMeta } from '../content/model/FragmentMeta';
 import { ImageUrlBuilder } from './ImageUrlBuilder';
 import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
 import { VideoMeta } from './MediaMeta';
+import { RequriedContentReference } from '../..';
 
 /**
  * Class representing a Video resource with helper functions.s
@@ -17,7 +18,7 @@ export class Video extends Media {
    * Creates a new Video instance.
    * @param data JSON data from delivery API
    */
-  constructor(data: any, config: CommonContentClientConfig) {
+  constructor(data: Record<string, any>, config: CommonContentClientConfig) {
     super(data, config);
     if (data && data._meta) {
       this._meta = new VideoMeta(data._meta);
@@ -52,7 +53,9 @@ export class Video extends Media {
    * Returns true if the provided fragment is a video
    * @param fragment
    */
-  public static isVideo(fragment: any): boolean {
+  public static isVideo(
+    fragment: RequriedContentReference<Record<string, unknown>>
+  ): boolean {
     return (
       FragmentMeta.isFragment(fragment) &&
       fragment._meta.schema ===

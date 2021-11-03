@@ -3,6 +3,7 @@ import { ImageMeta } from './MediaMeta';
 import { FragmentMeta } from '../content/model/FragmentMeta';
 import { ImageUrlBuilder } from './ImageUrlBuilder';
 import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
+import { RequriedContentReference } from '../..';
 
 /**
  * Class representing an Image resource with helper functions.
@@ -14,7 +15,7 @@ export class Image extends Media {
    * @param data JSON data from delivery API
    * @param config Client configuration
    */
-  constructor(data: any, config: CommonContentClientConfig) {
+  constructor(data: Record<string, any>, config: CommonContentClientConfig) {
     super(data, config);
     if (data && data._meta) {
       this._meta = new ImageMeta(data._meta);
@@ -49,7 +50,9 @@ export class Image extends Media {
    * Returns true if the provided fragment is an image
    * @param fragment
    */
-  public static isImage(fragment: any): boolean {
+  public static isImage(
+    fragment: RequriedContentReference<Record<string, unknown>>
+  ): boolean {
     return (
       FragmentMeta.isFragment(fragment) &&
       fragment._meta.schema ===

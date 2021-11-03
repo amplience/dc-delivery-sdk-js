@@ -4,7 +4,7 @@ import { FragmentMeta } from '../content/model/FragmentMeta';
  * Class providing meta data about a Media resource.
  */
 export abstract class MediaMeta extends FragmentMeta {
-  constructor(data?: any) {
+  constructor(data?: Record<string, any>) {
     super(data);
   }
 }
@@ -13,7 +13,7 @@ export abstract class MediaMeta extends FragmentMeta {
  * Class providing meta data about an Image resource.
  */
 export class ImageMeta extends MediaMeta {
-  constructor(data?: any) {
+  constructor(data?: Record<string, any>) {
     super(data);
   }
 }
@@ -22,7 +22,7 @@ export class ImageMeta extends MediaMeta {
  * Class providing meta data about a Video resource.
  */
 export class VideoMeta extends MediaMeta {
-  constructor(data?: any) {
+  constructor(data?: Record<string, any>) {
     super(data);
   }
 }

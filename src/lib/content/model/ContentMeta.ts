@@ -7,7 +7,7 @@ import { Hierarchy } from './Hierarchy';
  * Class providing meta data about an Content Reference resource.
  */
 export class ContentReferenceMeta extends FragmentMeta {
-  constructor(data?: any) {
+  constructor(data?: Record<string, any>) {
     super(data);
   }
 }
@@ -88,7 +88,7 @@ export class ContentMeta extends FragmentMeta {
    * Creates a new ContentMeta instance.
    * @param data JSON representation of the ContentMeta model
    */
-  constructor(data?: any) {
+  constructor(data?: Record<string, any>) {
     super(data);
 
     if (data) {
@@ -140,7 +140,7 @@ export class ContentMeta extends FragmentMeta {
    * Returns true if the provided node is a content item meta data object
    * @param node JSON node to test
    */
-  public static isContentMeta(node: any): boolean {
+  public static isContentMeta(node: Record<string, any>): boolean {
     return (
       node != null &&
       node.schema != null &&
@@ -153,7 +153,7 @@ export class ContentMeta extends FragmentMeta {
    * Returns true if the provided node is a content body object
    * @param node JSON node to test
    */
-  public static isContentBody(node: any): boolean {
+  public static isContentBody(node: Record<string, any>): boolean {
     return node != null && this.isContentMeta(node._meta);
   }
 }

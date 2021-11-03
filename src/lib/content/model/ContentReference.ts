@@ -59,7 +59,9 @@ export class ContentReference {
    * Returns true if the provided fragment is an content reference
    * @param fragment
    */
-  public static isContentReference(fragment: any): boolean {
+  public static isContentReference(
+    fragment: RequriedContentReference<Record<string, unknown>>
+  ): boolean {
     return (
       FragmentMeta.isFragment(fragment) &&
       fragment._meta.schema ===

@@ -1,7 +1,7 @@
 /**
  * @hidden
  */
-export function encodeQueryString(queryParameters: string[][]) {
+export function encodeQueryString(queryParameters: string[][]): string {
   const components = [];
   for (const keyValuePair of queryParameters) {
     const key = keyValuePair[0];

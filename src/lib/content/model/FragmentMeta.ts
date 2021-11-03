@@ -12,7 +12,7 @@ export class FragmentMeta {
    * Creates a new FragmentMeta instance.
    * @param data JSON representation of the FragmentMeta model
    */
-  constructor(data?: any) {
+  constructor(data?: Record<string, any>) {
     if (data) {
       Object.assign(this, data);
     }
@@ -32,7 +32,7 @@ export class FragmentMeta {
    * Returns true if the provided node contains meta data to self-describe the JSON schema it was created against.
    * @param node JSON node to test
    */
-  public static isFragment(node: any): boolean {
+  public static isFragment(node: Record<string, any>): boolean {
     return node != null && node._meta != null && node._meta.schema != null;
   }
 }
