@@ -16,7 +16,7 @@ export class ContentItem<T extends ContentBody = DefaultContentBody> {
    * Returns a plain JSON version of the content body, removing helper properties and functions.
    * This should be used if your application needs to serialize the content body, e.g. in an API response.
    */
-  toJSON() {
+  toJSON(): any {
     return JSON.parse(JSON.stringify(this.body));
   }
 }
