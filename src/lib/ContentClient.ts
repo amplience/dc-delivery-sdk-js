@@ -42,7 +42,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   private readonly contentClient: AxiosInstance;
 
   /**
-   * Creates a Delivery API Client instance. You must provide a configuration object with the required details for the particular client you wish to fetch content from.
+   * Creates a Delivery API Client instance. You must provide a configuration object with the required details for the particular service you wish to fetch content from.
    * @param config Client configuration options
    */
   constructor(private readonly config: ContentClientConfigOptions) {
