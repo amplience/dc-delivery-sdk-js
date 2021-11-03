@@ -72,7 +72,7 @@ export class GetContentItemV1Impl implements GetContentItemById {
     }
   }
 
-  getUrl(query: any): string {
+  getUrl(query: Record<string, string>): string {
     const args = [
       ['query', JSON.stringify(query)],
       ['fullBodyObject', 'true'],
@@ -90,7 +90,9 @@ export class GetContentItemV1Impl implements GetContentItemById {
    * Convert plain content JSON into ContentItem instamce
    * @param content
    */
-  hydrateContentItem<T extends ContentBody>(content: any): ContentItem<T> {
+  hydrateContentItem<T extends ContentBody>(
+    content: Record<string, any>
+  ): ContentItem<T> {
     const contentItem = new ContentItem<T>();
     contentItem.body = this.mapper.toMappedContent(content);
     return contentItem;
@@ -101,7 +103,7 @@ export class GetContentItemV1Impl implements GetContentItemById {
    * with all linked content items inlined.
    * @param data Response from content query API
    */
-  processResponse(data: any): any[] {
+  processResponse(data: Record<string, any>): any[] {
     if (!data.result || !data[LD_GRAPH] || !Array.isArray(data.result)) {
       return [];
     } else {
@@ -143,7 +145,7 @@ export class GetContentItemV1Impl implements GetContentItemById {
    * Content produced by older versions do not include _meta.schema.
    * This function inserts those values to normalize the output
    */
-  upgradeLegacyContent(node: any): any {
+  upgradeLegacyContent(node: Record<string, any>): any {
     if (!node) {
       return node;
     }
@@ -181,7 +183,7 @@ export class GetContentItemV1Impl implements GetContentItemById {
    * Injects additional meta data which is lost by removing
    * the JSON-LD properties
    */
-  injectMetaData(node: any): any {
+  injectMetaData(node: Record<string, any>): any {
     if (node) {
       const id = node[LD_ID];
       if (id) {
@@ -202,7 +204,7 @@ export class GetContentItemV1Impl implements GetContentItemById {
   /**
    * JSON-LD keywords are just for delivery payload
    */
-  removeJsonLD(node: any): any {
+  removeJsonLD(node: Record<string, any>): any {
     if (node) {
       delete node[LD_TYPE];
       delete node[LD_ID];
