@@ -10,7 +10,8 @@ This SDK is designed to help build client side and server side content managed a
 
 ## Features
 
-- Fetch content and slots using the [Content Delivery 1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) and/or [Content Delivery 2](https://docs.amplience.net/development/contentdelivery/readme.html) or fetch fresh content and slots for use with SSG build tools using [Fresh API](https://amplience.com/docs/development/freshapi/fresh-api.html)
+- Fetch content and slots using the [Content Delivery 1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) or [Content Delivery 2](https://docs.amplience.net/development/contentdelivery/readme.html)
+- Fetch fresh content and slots for use with SSG build tools using the [Fresh API](https://amplience.com/docs/development/freshapi/fresh-api.html)
 - Fetch preview content using Virtual Staging
 - Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service)
 - Localize content
@@ -89,7 +90,7 @@ If you need to support old browsers a legacy version of the bundle is provided, 
 | account            | Content Delivery 1 API - Required\* - Account to retrieve content from                                                                                                      |
 | hubName            | Content Delivery 2 API - Required\* - hubName to retrieve content from - [finding the hub name](https://docs.amplience.net/development/contentdelivery/readme.html#hubname) |
 | apiKey             | Fresh API - Required\* - API key required for use with the Fresh API service. `hubName` must also be set                                                                    |
-| retryConfig        | Allows override of the default [retry configuration](#override-fresh-api-retry-configuration) used by a the Fresh API client                                                |
+| retryConfig        | Allows override of the default [retry configuration](#override-fresh-api-retry-configuration) used by the Fresh API client                                                  |
 | stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.                                                                            |
 | locale             | If set, the SDK will request content using the locale settings provided.                                                                                                    |
 | mediaHost          | Allows users with custom hostnames to override the hostname used when constructing media URLs.                                                                              |
