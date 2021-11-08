@@ -1,0 +1,24 @@
+{
+  "responses": [
+    {
+      "error": {
+        "type": "CONTENT_NOT_FOUND",
+        "message": "Not found",
+        "data": {
+          "deliveryKey": "test"
+        }
+      }
+    },
+    {
+      "content": {
+        "_meta": {
+          "name": "fetch",
+          "schema": "https://fetch.com",
+          "deliveryId": "c6d9e038-591b-4ca2-874b-da354f5d6e61"
+        },
+        "category": "Red",
+        "title": "Red 2"
+      }
+    }
+  ]
+}

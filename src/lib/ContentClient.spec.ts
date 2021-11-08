@@ -3,7 +3,7 @@ import { ContentClient } from '../index';
 import MockAdapter from 'axios-mock-adapter';
 import * as V1_SINGLE_RESULT from './content/coordinators/__fixtures__/v1/SINGLE_RESULT.json';
 import * as V2_SINGLE_RESULT from './content/coordinators/__fixtures__/v2/SINGLE_RESULT.json';
-import * as NO_RESULTS from './content/coordinators/__fixtures__/filterBy/NO_RESULTS.json';
+import * as NO_RESULTS from './content/coordinators/__fixtures__/v2/filterBy/NO_RESULTS.json';
 import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
 import { FilterBy } from './content/coordinators/FilterBy';
 

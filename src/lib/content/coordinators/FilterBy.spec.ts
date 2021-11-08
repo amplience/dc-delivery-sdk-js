@@ -2,8 +2,8 @@ import MockAdapter from 'axios-mock-adapter';
 import { expect, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 
-import * as NO_RESULTS from './__fixtures__/filterBy/NO_RESULTS.json';
-import * as PAGED_RESPONSE from './__fixtures__/filterBy/PAGED_RESPONSE.json';
+import * as NO_RESULTS from './__fixtures__/v2/filterBy/NO_RESULTS.json';
+import * as PAGED_RESPONSE from './__fixtures__/v2/filterBy/PAGED_RESPONSE.json';
 
 import { FilterBy } from './FilterBy';
 import { HttpError } from '../model/HttpError';
