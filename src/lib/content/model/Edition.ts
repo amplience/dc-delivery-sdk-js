@@ -22,7 +22,7 @@ export class Edition {
    * Creates a new Edition instance.
    * @param data JSON representation of the Edition model
    */
-  constructor(data?: Record<string, any>) {
+  constructor(data?: any) {
     if (data) {
       Object.assign(this, data);
     }

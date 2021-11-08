@@ -11,11 +11,7 @@ function dataToMessage(data: any): string {
 export class HttpError extends Error {
   public readonly name = 'HTTP_ERROR';
 
-  constructor(
-    public status: number,
-    public data: Record<string, any> | string,
-    message?: string
-  ) {
+  constructor(public status: number, public data: any, message?: string) {
     super(message || dataToMessage(data));
     Object.setPrototypeOf(this, new.target.prototype);
   }

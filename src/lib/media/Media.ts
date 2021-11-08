@@ -32,10 +32,7 @@ export abstract class Media {
    */
   id: string;
 
-  constructor(
-    data: Record<string, any>,
-    protected config: CommonContentClientConfig
-  ) {
+  constructor(data: any, protected config: CommonContentClientConfig) {
     Object.assign(this, data);
   }
 

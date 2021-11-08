@@ -10,7 +10,7 @@ interface WalkAndReplaceOptions {
  * @hidden
  */
 export function walkAndReplace(
-  value: Record<string, any>,
+  value: any,
   options: WalkAndReplaceOptions,
   pointer: string[] = []
 ): Record<string, any> {

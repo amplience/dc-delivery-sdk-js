@@ -60,7 +60,7 @@ export class ContentMapper {
    * Converts the provided content into hydrated model classes
    * @param content Content to convert
    */
-  toMappedContent(content: Record<string, any>): any {
+  toMappedContent(content: any): any {
     return walkAndReplace(content, {
       afterWalk: (node) => {
         if (FragmentMeta.isFragment(node)) {

@@ -15,7 +15,7 @@ export class Image extends Media {
    * @param data JSON data from delivery API
    * @param config Client configuration
    */
-  constructor(data: Record<string, any>, config: CommonContentClientConfig) {
+  constructor(data: any, config: CommonContentClientConfig) {
     super(data, config);
     if (data && data._meta) {
       this._meta = new ImageMeta(data._meta);

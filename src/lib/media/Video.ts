@@ -18,7 +18,7 @@ export class Video extends Media {
    * Creates a new Video instance.
    * @param data JSON data from delivery API
    */
-  constructor(data: Record<string, any>, config: CommonContentClientConfig) {
+  constructor(data: any, config: CommonContentClientConfig) {
     super(data, config);
     if (data && data._meta) {
       this._meta = new VideoMeta(data._meta);
