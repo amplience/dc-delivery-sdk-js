@@ -71,7 +71,7 @@ describe('GetContentItemsV2Impl', () => {
           expect(response).to.deep.eq(RESULT);
         });
 
-        it('should override default parameters with passed in parameters', async () => {
+        it('should merge default parameters with passed in parameters', async () => {
           const [mocks, coordinator] = createCoordinator({
             ...config,
           });
@@ -79,7 +79,7 @@ describe('GetContentItemsV2Impl', () => {
           mocks
             .onPost(`${host}/content/fetch`, {
               parameters: {
-                depth: 'root',
+                depth: 'all',
                 format: 'linked',
               },
               requests: [
@@ -92,7 +92,6 @@ describe('GetContentItemsV2Impl', () => {
 
           const response = await coordinator.fetchContentItems({
             parameters: {
-              depth: 'root',
               format: 'linked',
             },
             requests: [{ id: '1' }],
