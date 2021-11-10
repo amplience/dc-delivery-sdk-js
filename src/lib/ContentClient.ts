@@ -20,6 +20,10 @@ import { FilterByImpl } from './content/coordinators/FilterByImpl';
 import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
 import { AxiosInstance } from 'axios';
 import { createContentClient } from './client/createContentClient';
+import {
+  v1NotSupportedError,
+  v2NotSupportedError,
+} from './content/model/NotSupportedError';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
@@ -139,9 +143,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     key: string
   ): Promise<ContentItem<T>> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "hubName" configuration property to use getContentItemByKey()'
-      );
+      throw v2NotSupportedError('getContentItemByKey');
     }
 
     return new GetContentItemV2Impl(
@@ -161,9 +163,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     filterBy: FilterByRequest
   ): Promise<FilterByResponse<Body>> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "hubName" configuration property to use filterContentItems()'
-      );
+      throw v2NotSupportedError('filterContentItems');
     }
 
     return new FilterByImpl<Body>(this.config, this.contentClient).fetch(
@@ -184,9 +184,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     value: Value
   ): FilterBy<Body> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "hubName" configuration property to use filterBy()'
-      );
+      throw v2NotSupportedError('filterBy');
     }
 
     return new FilterBy<Body>(this.config, this.contentClient).filterBy<Value>(
@@ -211,9 +209,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    */
   filterByContentType<Body = any>(contentTypeUri: string): FilterBy<Body> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "hubName" configuration property to use filterByContentType()'
-      );
+      throw v2NotSupportedError('filterByContentType');
     }
 
     return new FilterBy<Body>(
@@ -237,9 +233,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    */
   filterByParentId<Body = any>(id: string): FilterBy<Body> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "hubName" configuration property to use filterByParentId()'
-      );
+      throw v2NotSupportedError('filterByParentId');
     }
 
     return new FilterBy<Body>(this.config, this.contentClient).filterByParentId(
@@ -258,9 +252,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     customParameters?: { [id: string]: string }
   ): Promise<RenderedContentItem> {
     if (!isContentClientConfigV1(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "account" configuration property to use renderContentItem()'
-      );
+      throw v1NotSupportedError('renderContentItem');
     }
 
     return new RenderContentItem(
