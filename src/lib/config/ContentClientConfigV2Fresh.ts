@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { ContentClientConfigV2 } from './ContentClientConfigV2';
 
-export interface IContentClientRetryConfig {
+export interface ContentClientRetryConfig {
   /**
    * The number of times to retry before failing
    * default: 3
@@ -29,5 +29,5 @@ export interface ContentClientConfigV2Fresh extends ContentClientConfigV2 {
   /**
    * Override default retry configuration
    */
-  retryConfig?: IContentClientRetryConfig;
+  retryConfig?: ContentClientRetryConfig;
 }

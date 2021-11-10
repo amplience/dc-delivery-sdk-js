@@ -10,7 +10,7 @@ import { Image } from '../../media/Image';
 import { HttpError } from '../model/HttpError';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
 import { createContentClient } from '../../client/createContentClient';
-import { IContentClientRetryConfig } from '../../config/ContentClientConfigV2Fresh';
+import { ContentClientRetryConfig } from '../../config/ContentClientConfigV2Fresh';
 
 use(chaiAsPromised);
 
@@ -18,7 +18,7 @@ function createCoordinator(config: {
   hubName: string;
   locale?: string;
   apiKey?: string;
-  retryConfig?: IContentClientRetryConfig;
+  retryConfig?: ContentClientRetryConfig;
 }): [MockAdapter, GetContentItemV2Impl] {
   const mocks = new MockAdapter(null);
   const mergedConfig = { adaptor: mocks.adapter(), ...config };

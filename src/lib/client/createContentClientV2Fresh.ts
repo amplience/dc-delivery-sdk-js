@@ -2,12 +2,12 @@ import axiosRetry from 'axios-retry';
 import { AxiosInstance } from 'axios';
 import {
   ContentClientConfigV2Fresh,
-  IContentClientRetryConfig,
+  ContentClientRetryConfig,
 } from '../config/ContentClientConfigV2Fresh';
 import { createBaseContentClient } from './createBaseContentClient';
 
 const isThrottled = (error) => error?.response?.status === 429;
-const DEFAULT_RETRY_CONFIG: IContentClientRetryConfig = {
+const DEFAULT_RETRY_CONFIG: ContentClientRetryConfig = {
   retries: 3,
   retryDelay: axiosRetry.exponentialDelay,
   retryCondition: isThrottled,
@@ -19,8 +19,8 @@ const DEFAULT_RETRY_CONFIG: IContentClientRetryConfig = {
  * @hidden
  */
 export function getRetryConfig(
-  retryConfig?: IContentClientRetryConfig
-): IContentClientRetryConfig {
+  retryConfig?: ContentClientRetryConfig
+): ContentClientRetryConfig {
   return {
     retries: retryConfig?.retries ?? DEFAULT_RETRY_CONFIG.retries,
     retryDelay: retryConfig?.retryDelay ?? DEFAULT_RETRY_CONFIG.retryDelay,
