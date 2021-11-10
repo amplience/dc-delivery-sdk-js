@@ -10,7 +10,7 @@ This SDK is designed to help build client side and server side content managed a
 
 ## Features
 
-- Fetch content and slots using the [Content Delivery 1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) or [Content Delivery 2](https://docs.amplience.net/development/contentdelivery/readme.html)
+- Fetch content and slots using [Content Delivery 1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) or [Content Delivery 2](https://docs.amplience.net/development/contentdelivery/readme.html)
 - Fetch fresh content and slots for use with SSG build tools using the [Fresh API](https://amplience.com/docs/development/freshapi/fresh-api.html)
 - Fetch preview content using Virtual Staging
 - Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service)
@@ -332,6 +332,56 @@ const res = await client.filterContentItems({
 });
 
 console.log(res);
+```
+
+### Fetching multiple Content Items or Slots in a single request
+
+**Note:** Fetching content via `getContentItemsById() | getContentItemsByKey() | getContentItems() | fetchContentItems()` is only supported when using [Content Delivery 2 or Fresh API](#content-delivery-versions).
+
+Wraps [`/content/fetch`](https://amplience.com/docs/api/dynamic-content/delivery/content-delivery-2/index.html#operation/multiGetContent) endpoint. [Additional documentation](https://amplience.com/docs/development/contentdelivery/readme.html#multipleitems).
+
+#### Get content items by delivery ID
+
+Fetch multiple by delivery id e.g.,
+
+```ts
+client.getContentItemsById([
+  'd6ccc158-6ab7-48d0-aa85-d9fbf2aef000',
+  'b322f84a-9719-42ff-a6a0-6e2924608d19',
+]);
+```
+
+#### Get content items by key
+
+Fetch multiple by delivery key e.g.,
+
+```ts
+client.getContentItemsByKey(['blog/article-1', 'blog/article-2']);
+```
+
+#### Get content items
+
+Less verbose version of `fetchContentItems` but still allows for a mix of delivery keys and ids to be requested as well as per request parameter overrides
+
+```ts
+client.getContentItems([{
+  key: 'blog/article-1', overrides: {locale: 'en-US'}
+  key: 'blog/article-2'
+}], {locale: 'en'});
+```
+
+#### Fetch content items
+
+Allows full construction of the request body.
+
+```ts
+client.fetchContentItems({
+  requests: [{
+    key: 'blog/article-1', overrides: {locale: 'en'}
+    key: 'blog/article-2'
+  }],
+  parameters: {depth: 'root'}
+});
 ```
 
 ### Preview staging content
