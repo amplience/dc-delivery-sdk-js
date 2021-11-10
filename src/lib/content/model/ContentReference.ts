@@ -4,7 +4,7 @@ import { ContentReferenceMeta } from './ContentMeta';
 /**
  * Required params for creating an content reference
  */
-export type RequriedContentReference<
+export type RequiredContentReference<
   T extends Record<string, unknown> = Record<string, unknown>
 > = T & {
   id: string;
@@ -22,7 +22,7 @@ export class ContentReference {
   contentType: string;
   _meta: ContentReferenceMeta;
 
-  constructor(data: RequriedContentReference) {
+  constructor(data: RequiredContentReference) {
     Object.assign(this, data);
 
     if (data && data._meta) {
@@ -39,7 +39,7 @@ export class ContentReference {
    */
   toJSON(): any {
     const { id } = this;
-    const result: RequriedContentReference = {
+    const result: RequiredContentReference = {
       id,
     };
 
@@ -60,7 +60,7 @@ export class ContentReference {
    * @param fragment
    */
   public static isContentReference(
-    fragment: RequriedContentReference<Record<string, unknown>>
+    fragment: RequiredContentReference<Record<string, unknown>>
   ): boolean {
     return (
       FragmentMeta.isFragment(fragment) &&
