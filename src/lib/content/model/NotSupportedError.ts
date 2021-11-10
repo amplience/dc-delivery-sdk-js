@@ -1,7 +1,10 @@
+/**
+ * @hidden
+ */
 export class NotSupportedError extends Error {
   public readonly name:
-    | 'V1_NOT_SUPPORTED'
-    | 'V2_NOT_SUPPORTED'
+    | 'NOT_SUPPORTED_V1'
+    | 'NOT_SUPPORTED_V2'
     | 'NOT_SUPPORTED' = 'NOT_SUPPORTED';
 
   constructor(public property: string, public method: string) {
@@ -12,20 +15,19 @@ export class NotSupportedError extends Error {
   }
 }
 
-export class V2NotSupportedError extends NotSupportedError {
-  public readonly name = 'V2_NOT_SUPPORTED';
-
-  constructor(public method: string) {
-    super('hubName', method);
-    Object.setPrototypeOf(this, new.target.prototype);
-  }
-}
-
-export class V1NotSupportedError extends NotSupportedError {
-  public readonly name = 'V1_NOT_SUPPORTED';
+export class NotSupportedV1Error extends NotSupportedError {
+  public readonly name = 'NOT_SUPPORTED_V1';
 
   constructor(public method: string) {
     super('account', method);
+    Object.setPrototypeOf(this, new.target.prototype);
+  }
+}
+export class NotSupportedV2Error extends NotSupportedError {
+  public readonly name = 'NOT_SUPPORTED_V2';
+
+  constructor(public method: string) {
+    super('hubName', method);
     Object.setPrototypeOf(this, new.target.prototype);
   }
 }

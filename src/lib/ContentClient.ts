@@ -21,10 +21,10 @@ import { FilterByImpl } from './content/coordinators/FilterByImpl';
 import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
 import { AxiosInstance } from 'axios';
 import { createContentClient } from './client/createContentClient';
-import { FetchRequestBody, FetchResponse } from './content/model/Fetch';
+import { FetchRequest, FetchResponse } from './content/model/Fetch';
 import {
-  V2NotSupportedError,
-  V1NotSupportedError,
+  NotSupportedV2Error,
+  NotSupportedV1Error,
 } from './content/model/NotSupportedError';
 
 /**
@@ -145,7 +145,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     key: string
   ): Promise<ContentItem<T>> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new V2NotSupportedError('getContentItemByKey');
+      throw new NotSupportedV2Error('getContentItemByKey');
     }
 
     return new GetContentItemV2Impl(
@@ -165,7 +165,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     filterBy: FilterByRequest
   ): Promise<FilterByResponse<Body>> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new V2NotSupportedError('filterContentItems');
+      throw new NotSupportedV2Error('filterContentItems');
     }
 
     return new FilterByImpl<Body>(this.config, this.contentClient).fetch(
@@ -186,7 +186,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     value: Value
   ): FilterBy<Body> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new V2NotSupportedError('filterBy');
+      throw new NotSupportedV2Error('filterBy');
     }
 
     return new FilterBy<Body>(this.config, this.contentClient).filterBy<Value>(
@@ -211,7 +211,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    */
   filterByContentType<Body = any>(contentTypeUri: string): FilterBy<Body> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new V2NotSupportedError('filterByContentType');
+      throw new NotSupportedV2Error('filterByContentType');
     }
 
     return new FilterBy<Body>(
@@ -235,7 +235,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    */
   filterByParentId<Body = any>(id: string): FilterBy<Body> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new V2NotSupportedError('filterByParentId');
+      throw new NotSupportedV2Error('filterByParentId');
     }
 
     return new FilterBy<Body>(this.config, this.contentClient).filterByParentId(
@@ -268,7 +268,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     ids: Array<string>
   ): Promise<FetchResponse<Body>> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new V2NotSupportedError('getContentItemsById');
+      throw new NotSupportedV2Error('getContentItemsById');
     }
     return new GetContentItemsV2Impl(
       this.config,
@@ -301,7 +301,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     keys: Array<string>
   ): Promise<FetchResponse<Body>> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new V2NotSupportedError('getContentItemsByKey');
+      throw new NotSupportedV2Error('getContentItemsByKey');
     }
     return new GetContentItemsV2Impl(
       this.config,
@@ -332,11 +332,11 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @returns `Promise<FetchResponse<Body>>`
    */
   async getContentItems<Body = any>(
-    requests: FetchRequestBody['requests'],
-    parameters?: FetchRequestBody['parameters']
+    requests: FetchRequest['requests'],
+    parameters?: FetchRequest['parameters']
   ): Promise<FetchResponse<Body>> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new V2NotSupportedError('getContentItems');
+      throw new NotSupportedV2Error('getContentItems');
     }
     return new GetContentItemsV2Impl(
       this.config,
@@ -353,10 +353,10 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @returns `Promise<FetchResponse<Body>>`
    */
   async fetchContentItems<Body = any>(
-    body: FetchRequestBody
+    body: FetchRequest
   ): Promise<FetchResponse<Body>> {
     if (!isContentClientConfigV2(this.config)) {
-      throw new V2NotSupportedError('fetchContentItems');
+      throw new NotSupportedV2Error('fetchContentItems');
     }
     return new GetContentItemsV2Impl(
       this.config,
@@ -376,7 +376,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     customParameters?: { [id: string]: string }
   ): Promise<RenderedContentItem> {
     if (!isContentClientConfigV1(this.config)) {
-      throw new V1NotSupportedError('renderContentItem');
+      throw new NotSupportedV1Error('renderContentItem');
     }
 
     return new RenderContentItem(

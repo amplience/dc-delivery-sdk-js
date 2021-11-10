@@ -1,17 +1,20 @@
 import { ContentNotFoundError } from './ContentNotFoundError';
 import { ContentItemResponse, RequestOptions } from './FilterBy';
 
-export type FetchRequestBodyWithId = {
+type FetchRequestWithId = {
   id: string;
 };
 
-export type FetchRequestBodyWithKey = {
+type FetchRequestWithKey = {
   key: string;
 };
 
-export type FetchRequestBodyType =
-  | keyof FetchRequestBodyWithId
-  | keyof FetchRequestBodyWithKey;
+/**
+ * @hidden
+ */
+export type FetchRequestType =
+  | keyof FetchRequestWithId
+  | keyof FetchRequestWithKey;
 
 export type FetchResponse<Body> = {
   responses: Array<
@@ -22,7 +25,7 @@ export type FetchResponse<Body> = {
   >;
 };
 
-export type FetchRequestBody = {
-  requests: Array<FetchRequestBodyWithId | FetchRequestBodyWithKey>;
+export type FetchRequest = {
+  requests: Array<FetchRequestWithId | FetchRequestWithKey>;
   parameters?: RequestOptions;
 };

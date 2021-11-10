@@ -4,28 +4,24 @@ import { HttpError } from '../model/HttpError';
 
 import { ContentClientConfigV2 } from '../../config';
 
-import {
-  FetchRequestBody,
-  FetchRequestBodyType,
-  FetchResponse,
-} from '../model/Fetch';
+import { FetchRequest, FetchRequestType, FetchResponse } from '../model/Fetch';
 
 /**
  * Utility that maps an array of ids or keys into the expected format of a `content/fetch` request body
- * @param property FetchRequestBodyType
- * @param values Array<any>
+ * @param property id or key
+ * @param values array of ids or keys
  * @hidden
  */
 function mapToRequests(
-  property: FetchRequestBodyType,
+  property: FetchRequestType,
   values: Array<any>
-): FetchRequestBody['requests'] {
+): FetchRequest['requests'] {
   if (!Array.isArray(values)) {
     throw new TypeError('Expecting an array');
   }
   return values.map(
     (value: any) =>
-      ({ [property]: String(value) } as Record<FetchRequestBodyType, string>)
+      ({ [property]: String(value) } as Record<FetchRequestType, string>)
   );
 }
 
@@ -52,8 +48,8 @@ export class GetContentItemsV2Impl {
   }
 
   async getContentItems<Body>(
-    requests: FetchRequestBody['requests'],
-    parameters?: FetchRequestBody['parameters']
+    requests: FetchRequest['requests'],
+    parameters?: FetchRequest['parameters']
   ): Promise<FetchResponse<Body>> {
     return this.fetchContentItems({
       parameters,
@@ -64,8 +60,8 @@ export class GetContentItemsV2Impl {
   async fetchContentItems<Body>({
     requests,
     parameters,
-  }: FetchRequestBody): Promise<FetchResponse<Body>> {
-    const defaultParameters: FetchRequestBody['parameters'] = {
+  }: FetchRequest): Promise<FetchResponse<Body>> {
+    const defaultParameters: FetchRequest['parameters'] = {
       depth: 'all',
       format: 'inlined',
     };
