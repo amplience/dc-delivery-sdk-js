@@ -3,7 +3,6 @@ import { ImageMeta } from './MediaMeta';
 import { FragmentMeta } from '../content/model/FragmentMeta';
 import { ImageUrlBuilder } from './ImageUrlBuilder';
 import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
-import { RequriedContentReference } from '../..';
 
 /**
  * Class representing an Image resource with helper functions.
@@ -33,7 +32,6 @@ export class Image extends Media {
   url(): ImageUrlBuilder {
     return new ImageUrlBuilder(this);
   }
-
   /**
    * Export Image to JSON
    */
@@ -50,9 +48,7 @@ export class Image extends Media {
    * Returns true if the provided fragment is an image
    * @param fragment
    */
-  public static isImage(
-    fragment: RequriedContentReference<Record<string, unknown>>
-  ): boolean {
+  public static isImage(fragment: any): boolean {
     return (
       FragmentMeta.isFragment(fragment) &&
       fragment._meta.schema ===

@@ -3,7 +3,6 @@ import { FragmentMeta } from '../content/model/FragmentMeta';
 import { ImageUrlBuilder } from './ImageUrlBuilder';
 import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
 import { VideoMeta } from './MediaMeta';
-import { RequriedContentReference } from '../..';
 
 /**
  * Class representing a Video resource with helper functions.s
@@ -53,9 +52,7 @@ export class Video extends Media {
    * Returns true if the provided fragment is a video
    * @param fragment
    */
-  public static isVideo(
-    fragment: RequriedContentReference<Record<string, unknown>>
-  ): boolean {
+  public static isVideo(fragment: any): boolean {
     return (
       FragmentMeta.isFragment(fragment) &&
       fragment._meta.schema ===

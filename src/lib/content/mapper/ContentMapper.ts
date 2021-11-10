@@ -5,7 +5,6 @@ import { CommonContentClientConfig } from '../../config/CommonContentClientConfi
 import { Image } from '../../media/Image';
 import { Video } from '../../media/Video';
 import { ContentReference } from '../model/ContentReference';
-import { RequriedContentReference } from '../../content/model/ContentReference';
 
 /**
  * @hidden
@@ -75,9 +74,7 @@ export class ContentMapper {
    * Converts a single fragment using the registered mappers
    * @param fragment Fragment to convert
    */
-  protected mapFragment(
-    fragment: RequriedContentReference<Record<string, unknown>>
-  ): any {
+  protected mapFragment(fragment: any): any {
     for (const mapper of this.mappers) {
       const result = mapper(fragment);
       if (result) {
@@ -101,9 +98,7 @@ export class ContentMapper {
    * Converts _meta inside Content Items into a ContentMeta instance
    * @param fragment
    */
-  protected convertContentMeta(
-    fragment: RequriedContentReference<Record<string, unknown>>
-  ): any {
+  protected convertContentMeta(fragment: any): any {
     if (ContentMeta.isContentBody(fragment)) {
       return {
         ...fragment,
@@ -116,9 +111,7 @@ export class ContentMapper {
    * Converts content-link into an Content reference class instance
    * @param fragment
    */
-  protected convertContentReference(
-    fragment: RequriedContentReference<Record<string, unknown>>
-  ): any {
+  protected convertContentReference(fragment: any): any {
     if (ContentReference.isContentReference(fragment)) {
       const result = new ContentReference(fragment);
       return result;
@@ -129,9 +122,7 @@ export class ContentMapper {
    * Converts image-link into an Image class instance
    * @param fragment
    */
-  protected convertImage(
-    fragment: RequriedContentReference<Record<string, unknown>>
-  ): any {
+  protected convertImage(fragment: any): any {
     if (Image.isImage(fragment)) {
       const result = new Image(fragment, this.config);
       return result;
@@ -142,9 +133,7 @@ export class ContentMapper {
    * Converts image-link into an Image class instance
    * @param fragment
    */
-  protected convertVideo(
-    fragment: RequriedContentReference<Record<string, unknown>>
-  ): any {
+  protected convertVideo(fragment: any): any {
     if (Video.isVideo(fragment)) {
       const result = new Video(fragment, this.config);
       return result;
