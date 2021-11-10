@@ -15,7 +15,7 @@
       "content": {
         "_meta": {
           "name": "fetch",
-          "schema": "https://fetch.com",
+          "schema": "https://fetch-another.com",
           "deliveryId": "6cd4de36-591b-4ca2-874b-1dec7b681d7e"
         },
         "propertyName1": "Red"

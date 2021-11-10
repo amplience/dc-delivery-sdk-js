@@ -15,11 +15,13 @@ import { GetContentItemV1Impl } from './content/coordinators/GetContentItemV1Imp
 import { ContentMapper } from './content/mapper/ContentMapper';
 import { GetContentItemById } from './content/coordinators/GetContentItemById';
 import { GetContentItemV2Impl } from './content/coordinators/GetContentItemV2Impl';
+import { GetContentItemsV2Impl } from './content/coordinators/GetContentItemsV2Impl';
 import { GetContentItemByKey } from './content/coordinators/GetContentItemByKey';
 import { FilterByImpl } from './content/coordinators/FilterByImpl';
 import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
 import { AxiosInstance } from 'axios';
 import { createContentClient } from './client/createContentClient';
+import { FetchRequestBody, FetchResponse } from './content/model/Fetch';
 import {
   v1NotSupportedError,
   v2NotSupportedError,
@@ -240,6 +242,128 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       id
     );
   }
+
+  /**
+   * This function will help construct requests for fetching multiple Content Items or Slots by delivery ID
+   * and is equivalent to:
+   *
+   * ```ts
+   *  client.fetchContentItems({
+   *    parameters: {
+   *      depth: 'all',
+   *      format: 'inlined'
+   *    },
+   *    requests: [
+   *      { id: '6cd4de36-591b-4ca2-874b-1dec7b681d7e' },
+   *      { id: 'c6d9e038-591b-4ca2-874b-da354f5d6e61' },
+   *    ],
+   *  });
+   * ```
+   *
+   * @param keys An array of Delivery IDs of the content you wish to fetch
+   * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
+   * @returns `Promise<FetchResponse<Body>>`
+   */
+  async getContentItemsById<Body = any>(
+    ids: Array<string>
+  ): Promise<FetchResponse<Body>> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw v2NotSupportedError('getContentItemsById');
+    }
+    return new GetContentItemsV2Impl(
+      this.config,
+      this.contentClient
+    ).getContentItemsById(ids);
+  }
+
+  /**
+   * This function will help construct requests for fetching multiple Content Items or Slots by delivery key
+   * and is equivalent to:
+   *
+   * ```ts
+   *  client.fetchContentItems({
+   *    parameters: {
+   *      depth: 'all',
+   *      format: 'inlined'
+   *    },
+   *    requests: [
+   *      { key: 'blog/article-1' },
+   *      { key: 'blog/article-2' },
+   *    ],
+   *  });
+   * ```
+   *
+   * @param keys An array of delivery IDs of the content you wish to fetch
+   * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
+   * @returns `Promise<FetchResponse<Body>>`
+   */
+  async getContentItemsByKey<Body = any>(
+    keys: Array<string>
+  ): Promise<FetchResponse<Body>> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw v2NotSupportedError('getContentItemsByKey');
+    }
+    return new GetContentItemsV2Impl(
+      this.config,
+      this.contentClient
+    ).getContentItemsByKey(keys);
+  }
+
+  /**
+   * This function will help construct requests for fetching multiple Content Items or Slots by delivery key and/or id
+   * and is equivalent to:
+   *
+   * ```ts
+   *  client.fetchContentItems({
+   *    parameters: {
+   *      depth: 'all',
+   *      format: 'inlined'
+   *    },
+   *    requests: [
+   *      { id: '6cd4de36-591b-4ca2-874b-1dec7b681d7e' },
+   *      { key: 'blog/article-1' },
+   *    ],
+   *  });
+   * ```
+   *
+   * @param requests An array of delivery IDs of the content you wish to fetch
+   * @param parameters Optional override of default parameters
+   * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
+   * @returns `Promise<FetchResponse<Body>>`
+   */
+  async getContentItems<Body = any>(
+    requests: FetchRequestBody['requests'],
+    parameters?: FetchRequestBody['parameters']
+  ): Promise<FetchResponse<Body>> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw v2NotSupportedError('getContentItems');
+    }
+    return new GetContentItemsV2Impl(
+      this.config,
+      this.contentClient
+    ).getContentItems(requests, parameters);
+  }
+
+  /**
+   * This function will help construct requests for fetching multiple Content Items or Slots by delivery key or ID. Wraps [`/content/fetch`](https://amplience.com/docs/api/dynamic-content/delivery/content-delivery-2/index.html#operation/multiGetContent) endpoint.
+   * [Additional documentation](https://amplience.com/docs/development/contentdelivery/readme.html#multipleitems)
+   *
+   * @param body The request body. Can include per
+   * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
+   * @returns `Promise<FetchResponse<Body>>`
+   */
+  async fetchContentItems<Body = any>(
+    body: FetchRequestBody
+  ): Promise<FetchResponse<Body>> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw v2NotSupportedError('fetchContentItems');
+    }
+    return new GetContentItemsV2Impl(
+      this.config,
+      this.contentClient
+    ).fetchContentItems(body);
+  }
+
   /**
    * Converts a Content Item or Slot into a custom format (e.g. HTML / XML) by applying a template server side.
    * @param contentItemId Unique id of the Content Item or Slot to convert using the rendering service
