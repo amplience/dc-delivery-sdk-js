@@ -8,7 +8,7 @@ import Axios, { AxiosInstance } from 'axios';
  */
 export function createBaseContentClient(
   config: CommonContentClientConfig,
-  defaultHost
+  defaultHost: string
 ): AxiosInstance {
   const client = Axios.create({
     adapter: config.adaptor,

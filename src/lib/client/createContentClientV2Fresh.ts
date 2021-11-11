@@ -36,7 +36,7 @@ export function getRetryConfig(
  */
 export function createContentClientV2Fresh(
   config: ContentClientConfigV2Fresh,
-  defaultHost
+  defaultHost: string
 ): AxiosInstance {
   const client = createBaseContentClient(config, defaultHost);
   client.defaults.headers.common['X-API-Key'] = config.apiKey;

@@ -13,7 +13,7 @@ export function walkAndReplace(
   value: any,
   options: WalkAndReplaceOptions,
   pointer: string[] = []
-) {
+): any {
   if (options.beforeWalk) {
     value = options.beforeWalk(value, pointer);
   }

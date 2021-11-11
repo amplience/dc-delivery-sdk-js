@@ -23,7 +23,7 @@ export class ContentLifecycle {
    * Returns a boolean to indicate if the content should no longer be displayed by your application.
    * @param currentTime Optional date to override the current time.
    */
-  isExpired(currentTime?: Date) {
+  isExpired(currentTime?: Date): boolean {
     currentTime = currentTime || new Date();
     return (
       this.expiryTime !== undefined &&
