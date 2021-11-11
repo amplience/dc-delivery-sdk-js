@@ -361,7 +361,7 @@ client.getContentItemsByKey(['blog/article-1', 'blog/article-2']);
 
 #### Get content items
 
-Less verbose version of `fetchContentItems` but still allows for a mix of delivery keys and ids to be requested as well as per request parameter overrides
+Less verbose version of `fetchContentItems` allowing fetching of content by both delivery keys and ids as well as per request parameters and global parameter overrides
 
 ```ts
 client.getContentItems([{

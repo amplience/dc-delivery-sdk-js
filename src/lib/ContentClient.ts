@@ -260,11 +260,11 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    *  });
    * ```
    *
-   * @param keys An array of Delivery IDs of the content you wish to fetch
+   * @param keys An array of Delivery keys of the content you wish to fetch
    * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
    * @returns `Promise<FetchResponse<Body>>`
    */
-  async getContentItemsById<Body = any>(
+  getContentItemsById<Body = any>(
     ids: Array<string>
   ): Promise<FetchResponse<Body>> {
     if (!isContentClientConfigV2(this.config)) {
@@ -297,7 +297,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
    * @returns `Promise<FetchResponse<Body>>`
    */
-  async getContentItemsByKey<Body = any>(
+  getContentItemsByKey<Body = any>(
     keys: Array<string>
   ): Promise<FetchResponse<Body>> {
     if (!isContentClientConfigV2(this.config)) {
@@ -331,7 +331,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
    * @returns `Promise<FetchResponse<Body>>`
    */
-  async getContentItems<Body = any>(
+  getContentItems<Body = any>(
     requests: FetchRequest['requests'],
     parameters?: FetchRequest['parameters']
   ): Promise<FetchResponse<Body>> {
@@ -352,7 +352,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
    * @returns `Promise<FetchResponse<Body>>`
    */
-  async fetchContentItems<Body = any>(
+  fetchContentItems<Body = any>(
     body: FetchRequest
   ): Promise<FetchResponse<Body>> {
     if (!isContentClientConfigV2(this.config)) {
