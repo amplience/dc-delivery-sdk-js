@@ -20,7 +20,7 @@
     "build-dist:dev": "NODE_ENV=development webpack",
     "build-dist:prod": "NODE_ENV=production webpack",
     "test": "run-s build test-lint test-node",
-    "test:e2e": "npm run build && ts-node e2e-tests.ts",
+    "test:e2e": "npm run build && ts-node e2e-tests.ts -p tsconfig.e2e-tests.json",
     "test-lint": "eslint \"src/**/*.ts\" && prettier \"src/**/*.ts\" --list-different",
     "fix": "eslint \"src/**/*.ts\" --fix && prettier \"src/**/*.{ts,js,json}\"  --write",
     "test-node": "nyc --silent mocha 'build/main/**/*.spec.js'",
@@ -55,7 +55,8 @@
     "node": ">=12"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.4",
+    "axios-retry": "^3.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -67,14 +68,15 @@
     "@types/chai": "^4.2.11",
     "@types/chai-as-promised": "^7.1.2",
     "@types/mocha": "^7.0.2",
+    "@types/node": "^16.11.6",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
-    "ava": "^3.9.0",
+    "ava": "^3.15.0",
     "axios-mock-adapter": "^1.18.1",
     "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "codecov": "^3.7.0",
+    "codecov": "^3.8.2",
     "core-js": "^3.6.5",
     "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.2.0",

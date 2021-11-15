@@ -3,21 +3,17 @@ import { encodeQueryString } from '../../utils/Url';
 import { RenderedContentItem } from '../model/RenderedContentItem';
 import { Edition } from '../../content/model/Edition';
 import { ContentLifecycle } from '../../content/model/ContentLifecycle';
-import { createContentClient } from '../../client/createContentClient';
+
 import { ContentClientConfigV1 } from '../../config/ContentClientConfigV1';
 
 /**
  * @hidden
  */
 export class RenderContentItem {
-  private readonly contentClient: AxiosInstance;
-
-  constructor(private readonly config: ContentClientConfigV1) {
-    this.contentClient = createContentClient(
-      this.config,
-      'https://cdn.c1.amplience.net'
-    );
-  }
+  constructor(
+    private readonly config: ContentClientConfigV1,
+    private readonly contentClient: AxiosInstance
+  ) {}
 
   renderContentItem(
     contentItemId: string,

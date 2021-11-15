@@ -1,5 +1,11 @@
-import { CommonContentClientConfig } from '../config/CommonContentClientConfig';
-import Axios, { AxiosInstance } from 'axios';
+import { AxiosInstance } from 'axios';
+import {
+  ContentClientConfigOptions,
+  isContentClientConfigV2,
+  isContentClientConfigV2Fresh,
+} from '../config';
+import { createContentClientV2Fresh } from './createContentClientV2Fresh';
+import { createBaseContentClient } from './createBaseContentClient';
 
 /**
  * Create network client to make requests to the content delivery service
@@ -7,18 +13,21 @@ import Axios, { AxiosInstance } from 'axios';
  * @hidden
  */
 export function createContentClient(
-  config: CommonContentClientConfig,
-  defaultHost
+  config: ContentClientConfigOptions
 ): AxiosInstance {
-  const client = Axios.create({
-    adapter: config.adaptor,
-    timeout: config.timeout || 0,
-  });
-
-  if (config.stagingEnvironment) {
-    client.defaults.baseURL = `https://${config.stagingEnvironment}`;
-  } else {
-    client.defaults.baseURL = config.baseUrl || defaultHost;
+  if (isContentClientConfigV2Fresh(config)) {
+    return createContentClientV2Fresh(
+      config,
+      `https://${config.hubName}.fresh.content.amplience.net`
+    );
   }
-  return client;
+
+  if (isContentClientConfigV2(config)) {
+    return createBaseContentClient(
+      config,
+      `https://${config.hubName}.cdn.content.amplience.net`
+    );
+  }
+
+  return createBaseContentClient(config, 'https://cdn.c1.amplience.net');
 }

@@ -6,11 +6,12 @@
 
 [![npm version](https://badge.fury.io/js/dc-delivery-sdk-js.svg)](https://badge.fury.io/js/dc-delivery-sdk-js)
 
-This sdk is designed to help build client side and server side content managed applications.
+This SDK is designed to help build client side and server side content managed applications.
 
 ## Features
 
-- Fetch content and slots using the [Content Delivery 1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) and/or [Content Delivery 2](https://docs.amplience.net/development/contentdelivery/readme.html)
+- Fetch content and slots using [Content Delivery 1](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api) or [Content Delivery 2](https://docs.amplience.net/development/contentdelivery/readme.html)
+- Fetch fresh content and slots for use with SSG build tools using the [Fresh API](https://amplience.com/docs/development/freshapi/fresh-api.html)
 - Fetch preview content using Virtual Staging
 - Transform content using the [Content Rendering Service](https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service)
 - Localize content
@@ -46,7 +47,7 @@ for legacy browsers:
 
 ## Usage
 
-This sdk supports browser and node.js applications using ES6 or CommonJS style imports.
+This SDK supports browser and Node.js applications using ES6 or CommonJS style imports.
 
 ES6:
 
@@ -68,7 +69,7 @@ const client = new ContentClient({
 });
 ```
 
-If your application does not use a package manager you can directly include the pre-bundled version of the sdk and access the features using the global "ampDynamicContent".
+If your application does not use a package manager you can directly include the pre-bundled version of the SDK and access the features using the global "ampDynamicContent".
 
 ```html
 <script src="https://unpkg.com/dc-delivery-sdk-js/dist/dynamicContent.browser.umd.min.js"></script>
@@ -80,7 +81,7 @@ const client = new ampDynamicContent.ContentClient({
 });
 ```
 
-If you need to support old browsers a legacy version of the bundle is provided, however we strongly recommend using a tool like [babel](https://babeljs.io/) in your project to compile the sdk to your exact browser requirements.
+If you need to support old browsers a legacy version of the bundle is provided, however we strongly recommend using a tool like [babel](https://babeljs.io/) in your project to compile the SDK to your exact browser requirements.
 
 ### Configuration options
 
@@ -88,6 +89,8 @@ If you need to support old browsers a legacy version of the bundle is provided, 
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | account            | Content Delivery 1 API - Required\* - Account to retrieve content from                                                                                                      |
 | hubName            | Content Delivery 2 API - Required\* - hubName to retrieve content from - [finding the hub name](https://docs.amplience.net/development/contentdelivery/readme.html#hubname) |
+| apiKey             | Fresh API - Required\* - API key required for use with the Fresh API service. `hubName` must also be set                                                                    |
+| retryConfig        | Allows override of the default [retry configuration](#override-fresh-api-retry-configuration) used by the Fresh API client                                                  |
 | stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.                                                                            |
 | locale             | If set, the SDK will request content using the locale settings provided.                                                                                                    |
 | mediaHost          | Allows users with custom hostnames to override the hostname used when constructing media URLs.                                                                              |
@@ -100,9 +103,12 @@ If you need to support old browsers a legacy version of the bundle is provided, 
 
 ### Content Delivery versions
 
-In order to use the client, it must be configured with either `account` or `hubName`.
+In order to use the client, it must be configured with either `account` or `hubName`. If `apiKey` is set a Fresh API client will be created.
 
 If **account** & **hubName** are supplied, the SDK will only use the **Content Delivery 2 API**.
+If **hubName** and **apiKey** are supplied, the SDK will only use the **Fresh API**.
+
+To create a Fresh API client both `hubName` and `apiToken` must be specified
 
 ### Fetch content by delivery ID
 
@@ -146,9 +152,9 @@ Example:
 }
 ```
 
-### Fetch content by delivery key _(Content Delivery 2 only)_
+### Fetch content by delivery key _(Content Delivery 2 and Fresh API only)_
 
-**Note:** Fetching content by delivery key via `getContentItemByKey()` is only supported when using [Content Delivery 2](#content-delivery-versions)
+**Note:** Fetching content by delivery key via `getContentItemByKey()` is only supported when using [Content Delivery 2 or Fresh API](#content-delivery-versions)
 
 Once you have [set a delivery key for a slot or content item](https://docs.amplience.net/development/delivery-keys/readme.html), the content item must be published before it can be retrieved using this SDK.
 
@@ -201,11 +207,11 @@ Example:
 
 ### Filtering Content Items
 
-**Note:** Filtering content via `filterBy() | filterByContentType() | filterByParentId() | filterContentItems()` is only supported when using [Content Delivery 2](#content-delivery-versions)
+**Note:** Filtering content via `filterBy() | filterByContentType() | filterByParentId() | filterContentItems()` is only supported when using [Content Delivery 2 or Fresh API](#content-delivery-versions).
 
 Filtering by Content Type or Parent ID is enabled by default. You can also filter by any other field in your schema once [you enable it](https://amplience.com/docs/development/contentdelivery/filterandsort.html).
 
-### Constructing a request
+#### Constructing a request
 
 The `filterBy() | filterByContentType() | filterByParentId()` method will return a instance of the `FilterBy` class which has helper functions to construct a filterBy request.
 
@@ -328,6 +334,56 @@ const res = await client.filterContentItems({
 console.log(res);
 ```
 
+### Fetching multiple Content Items or Slots in a single request
+
+**Note:** Fetching content via `getContentItemsById() | getContentItemsByKey() | getContentItems() | fetchContentItems()` is only supported when using [Content Delivery 2 or Fresh API](#content-delivery-versions).
+
+Wraps [`/content/fetch`](https://amplience.com/docs/api/dynamic-content/delivery/content-delivery-2/index.html#operation/multiGetContent) endpoint. [Additional documentation](https://amplience.com/docs/development/contentdelivery/readme.html#multipleitems).
+
+#### Get content items by delivery ID
+
+Fetch multiple by delivery id e.g.,
+
+```ts
+client.getContentItemsById([
+  'd6ccc158-6ab7-48d0-aa85-d9fbf2aef000',
+  'b322f84a-9719-42ff-a6a0-6e2924608d19',
+]);
+```
+
+#### Get content items by key
+
+Fetch multiple by delivery key e.g.,
+
+```ts
+client.getContentItemsByKey(['blog/article-1', 'blog/article-2']);
+```
+
+#### Get content items
+
+Less verbose version of `fetchContentItems` allowing fetching of content by both delivery keys and ids as well as per request parameters and global parameter overrides
+
+```ts
+client.getContentItems([{
+  key: 'blog/article-1', overrides: {locale: 'en-US'}
+  key: 'blog/article-2'
+}], {locale: 'en'});
+```
+
+#### Fetch content items
+
+Allows full construction of the request body.
+
+```ts
+client.fetchContentItems({
+  requests: [{
+    key: 'blog/article-1', overrides: {locale: 'en'}
+    key: 'blog/article-2'
+  }],
+  parameters: {depth: 'root'}
+});
+```
+
 ### Preview staging content
 
 By default, the content client will request content from the production content delivery services. When a user wants to preview content before it is published you can re-point the client to a virtual staging environment (VSE):
@@ -408,7 +464,7 @@ By default, every locale value will be returned in the content object:
 }
 ```
 
-If desired, you can configure the sdk with a locale query. If set, the locale matching is performed server side and only a single value will be returned.
+If desired, you can configure the SDK with a locale query. If set, the locale matching is performed server side and only a single value will be returned.
 
 ```js
 const client = new ContentClient({
@@ -434,7 +490,7 @@ Returns
 
 In addition to serving image and Video content, Dynamic Content can also transform media on the fly allowing you to target multiple channels and deliver just the pixels required from a single master asset.
 
-The sdk attaches helper functions to Image and Video properties to simplify constructing Dynamic Media URLs:
+The SDK attaches helper functions to Image and Video properties to simplify constructing Dynamic Media URLs:
 
 ```js
 const ImageFormat = require('dc-delivery-sdk-js').ImageFormat;
@@ -448,7 +504,7 @@ const imageUrl = content.body.imageProperty
   .build();
 ```
 
-See the sdk [reference documentation](https://amplience.github.io/dc-delivery-sdk-js/) for further details.
+See the SDK [reference documentation](https://amplience.github.io/dc-delivery-sdk-js/) for further details.
 
 ### Transform content
 
@@ -466,6 +522,16 @@ client
 ```
 
 ## Advanced
+
+### Override Fresh API retry configuration
+
+By default, if a 429 status code is received the SDK will retry up to 3 more times using exponential backoff. The configuration options below may be overridden.
+
+| Name           | Type       | Default            | Description                                                                                                                                                                                                                                                                                              |
+| -------------- | ---------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| retries        | `Number`   | `3`                | The number of times to retry before failing.                                                                                                                                                                                                                                                             |
+| retryDelay     | `Function` | `exponentialDelay` | A callback to further control the delay in milliseconds between retried requests. By default there is an exponential delay between retries ([Exponential Backoff](https://developers.google.com/analytics/devguides/reporting/core/v3/errors#backoff)). The function is passed `retryCount` and `error`. |
+| retryCondition | `Function` | `isThrottled`      | A callback to further control if a request should be retried. By default, it retries if the response status is 429.                                                                                                                                                                                      |
 
 ### Detecting content types
 
@@ -552,7 +618,7 @@ console.log(res);
 
 ### Custom media CNAMEs
 
-If you have previously configured custom CNAMEs for your media hosting, you can override the hostname used by the sdk when constructing image URLs as shown below:
+If you have previously configured custom CNAMEs for your media hosting, you can override the hostname used by the SDK when constructing image URLs as shown below:
 
 ```js
 const client = new ContentClient({
@@ -568,11 +634,13 @@ Please use the following documentation resources to assist building your applica
 
 - Dynamic Content SDK [Reference documentation](https://amplience.github.io/dc-delivery-sdk-js/)
 - Dynamic Content Delivery API [Reference documentation](https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api)
+- Dynamic Content Delivery API 2 [Reference documentation](https://amplience.com/docs/development/contentdelivery/readme.html)
+- Dynamic Content Fresh API [Reference documentation](https://amplience.com/docs/development/contentdelivery/filterapiintro.html)
 - Dynamic Content [User guide](https://docs.amplience.net/)
 
 ## Getting Help
 
-If you need help using the sdk please reach out using one of the following channels:
+If you need help using the SDK please reach out using one of the following channels:
 
 - Ask a question on [StackOverflow](https://stackoverflow.com/) using the tag `amplience-dynamic-content`
 - Open a support ticket with [Amplience Support](https://support.amplience.com/)

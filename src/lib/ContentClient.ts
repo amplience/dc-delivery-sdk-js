@@ -1,4 +1,11 @@
-import { CommonContentClientConfig } from './config/CommonContentClientConfig';
+import {
+  CommonContentClientConfig,
+  ContentClientConfigOptions,
+  ContentClientConfigV1,
+  ContentClientConfigV2,
+  isContentClientConfigV1,
+  isContentClientConfigV2,
+} from './config';
 import { RenderedContentItem } from './rendering/model/RenderedContentItem';
 import { RenderContentItem } from './rendering/coordinators/RenderContentItem';
 import { FilterBy } from './content/coordinators/FilterBy';
@@ -8,19 +15,24 @@ import { GetContentItemV1Impl } from './content/coordinators/GetContentItemV1Imp
 import { ContentMapper } from './content/mapper/ContentMapper';
 import { GetContentItemById } from './content/coordinators/GetContentItemById';
 import { GetContentItemV2Impl } from './content/coordinators/GetContentItemV2Impl';
+import { GetContentItemsV2Impl } from './content/coordinators/GetContentItemsV2Impl';
 import { GetContentItemByKey } from './content/coordinators/GetContentItemByKey';
-import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
-import { ContentClientConfigV2 } from './config/ContentClientConfigV2';
 import { FilterByImpl } from './content/coordinators/FilterByImpl';
 import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
+import { AxiosInstance } from 'axios';
+import { createContentClient } from './client/createContentClient';
+import { FetchRequest, FetchResponse } from './content/model/Fetch';
+import {
+  NotSupportedV2Error,
+  NotSupportedV1Error,
+} from './content/model/NotSupportedError';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
  *
  * This client is intended to be used by end user applications to fetch content so that it can be displayed to users.
  *
- * You must provide some basic account information in order to create an instance of ContentClient.
- *
+ * You must provide some configuration options in order to create an instance of ContentClient.
  * Example:
  *
  * ```typescript
@@ -33,14 +45,13 @@ import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
  */
 export class ContentClient implements GetContentItemById, GetContentItemByKey {
   private readonly contentMapper: ContentMapper;
+  private readonly contentClient: AxiosInstance;
 
   /**
-   * Creates a Delivery API Client instance. You must provide a configuration object with the account you wish to fetch content from.
+   * Creates a Delivery API Client instance. You must provide a configuration object with the required details for the particular service you wish to fetch content from.
    * @param config Client configuration options
    */
-  constructor(
-    private readonly config: ContentClientConfigV1 | ContentClientConfigV2
-  ) {
+  constructor(private readonly config: ContentClientConfigOptions) {
     if (!config) {
       throw new TypeError('Parameter "config" is required');
     }
@@ -64,24 +75,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     }
 
     this.contentMapper = this.createContentMapper(config);
-  }
-
-  /**
-   * @hidden
-   */
-  private isContentClientConfigV1(
-    config: ContentClientConfigV1 | ContentClientConfigV2
-  ): config is ContentClientConfigV1 {
-    return (config as ContentClientConfigV1).account !== undefined;
-  }
-
-  /**
-   * @hidden
-   */
-  private isContentClientConfigV2(
-    config: ContentClientConfigV1 | ContentClientConfigV2
-  ): config is ContentClientConfigV2 {
-    return (config as ContentClientConfigV2).hubName !== undefined;
+    this.contentClient = createContentClient(config);
   }
 
   /**
@@ -113,14 +107,16 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   getContentItemById<T extends ContentBody = DefaultContentBody>(
     id: string
   ): Promise<ContentItem<T>> {
-    if (this.isContentClientConfigV2(this.config)) {
+    if (isContentClientConfigV2(this.config)) {
       return new GetContentItemV2Impl(
         this.config,
+        this.contentClient,
         this.contentMapper
       ).getContentItemById(id);
     }
     return new GetContentItemV1Impl(
       this.config,
+      this.contentClient,
       this.contentMapper
     ).getContentItemById(id);
   }
@@ -148,14 +144,13 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   getContentItemByKey<T extends ContentBody = DefaultContentBody>(
     key: string
   ): Promise<ContentItem<T>> {
-    if (!this.isContentClientConfigV2(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "hubName" configuration property to use getContentItemByKey()'
-      );
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('getContentItemByKey');
     }
 
     return new GetContentItemV2Impl(
       this.config,
+      this.contentClient,
       this.contentMapper
     ).getContentItemByKey(key);
   }
@@ -169,13 +164,13 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   filterContentItems<Body = any>(
     filterBy: FilterByRequest
   ): Promise<FilterByResponse<Body>> {
-    if (!this.isContentClientConfigV2(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "hubName" configuration property to use filterContentItems()'
-      );
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('filterContentItems');
     }
 
-    return new FilterByImpl<Body>(this.config).fetch(filterBy);
+    return new FilterByImpl<Body>(this.config, this.contentClient).fetch(
+      filterBy
+    );
   }
 
   /**
@@ -190,13 +185,14 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     path: string,
     value: Value
   ): FilterBy<Body> {
-    if (!this.isContentClientConfigV2(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "hubName" configuration property to use filterBy()'
-      );
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('filterBy');
     }
 
-    return new FilterBy<Body>(this.config).filterBy<Value>(path, value);
+    return new FilterBy<Body>(this.config, this.contentClient).filterBy<Value>(
+      path,
+      value
+    );
   }
 
   /**
@@ -214,13 +210,14 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @returns `FilterBy<Body>`
    */
   filterByContentType<Body = any>(contentTypeUri: string): FilterBy<Body> {
-    if (!this.isContentClientConfigV2(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "hubName" configuration property to use filterByContentType()'
-      );
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('filterByContentType');
     }
 
-    return new FilterBy<Body>(this.config).filterByContentType(contentTypeUri);
+    return new FilterBy<Body>(
+      this.config,
+      this.contentClient
+    ).filterByContentType(contentTypeUri);
   }
 
   /**
@@ -237,14 +234,136 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @returns `FilterBy<Body>`
    */
   filterByParentId<Body = any>(id: string): FilterBy<Body> {
-    if (!this.isContentClientConfigV2(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "hubName" configuration property to use filterByParentId()'
-      );
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('filterByParentId');
     }
 
-    return new FilterBy<Body>(this.config).filterByParentId(id);
+    return new FilterBy<Body>(this.config, this.contentClient).filterByParentId(
+      id
+    );
   }
+
+  /**
+   * This function will help construct requests for fetching multiple Content Items or Slots by delivery ID
+   * and is equivalent to:
+   *
+   * ```ts
+   *  client.fetchContentItems({
+   *    parameters: {
+   *      depth: 'all',
+   *      format: 'inlined'
+   *    },
+   *    requests: [
+   *      { id: '6cd4de36-591b-4ca2-874b-1dec7b681d7e' },
+   *      { id: 'c6d9e038-591b-4ca2-874b-da354f5d6e61' },
+   *    ],
+   *  });
+   * ```
+   *
+   * @param keys An array of Delivery keys of the content you wish to fetch
+   * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
+   * @returns `Promise<FetchResponse<Body>>`
+   */
+  getContentItemsById<Body = any>(
+    ids: Array<string>
+  ): Promise<FetchResponse<Body>> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('getContentItemsById');
+    }
+    return new GetContentItemsV2Impl(
+      this.config,
+      this.contentClient
+    ).getContentItemsById(ids);
+  }
+
+  /**
+   * This function will help construct requests for fetching multiple Content Items or Slots by delivery key
+   * and is equivalent to:
+   *
+   * ```ts
+   *  client.fetchContentItems({
+   *    parameters: {
+   *      depth: 'all',
+   *      format: 'inlined'
+   *    },
+   *    requests: [
+   *      { key: 'blog/article-1' },
+   *      { key: 'blog/article-2' },
+   *    ],
+   *  });
+   * ```
+   *
+   * @param keys An array of delivery IDs of the content you wish to fetch
+   * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
+   * @returns `Promise<FetchResponse<Body>>`
+   */
+  getContentItemsByKey<Body = any>(
+    keys: Array<string>
+  ): Promise<FetchResponse<Body>> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('getContentItemsByKey');
+    }
+    return new GetContentItemsV2Impl(
+      this.config,
+      this.contentClient
+    ).getContentItemsByKey(keys);
+  }
+
+  /**
+   * This function will help construct requests for fetching multiple Content Items or Slots by delivery key and/or id
+   * and is equivalent to:
+   *
+   * ```ts
+   *  client.fetchContentItems({
+   *    parameters: {
+   *      depth: 'all',
+   *      format: 'inlined'
+   *    },
+   *    requests: [
+   *      { id: '6cd4de36-591b-4ca2-874b-1dec7b681d7e' },
+   *      { key: 'blog/article-1' },
+   *    ],
+   *  });
+   * ```
+   *
+   * @param requests An array of delivery IDs of the content you wish to fetch
+   * @param parameters Optional override of default parameters
+   * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
+   * @returns `Promise<FetchResponse<Body>>`
+   */
+  getContentItems<Body = any>(
+    requests: FetchRequest['requests'],
+    parameters?: FetchRequest['parameters']
+  ): Promise<FetchResponse<Body>> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('getContentItems');
+    }
+    return new GetContentItemsV2Impl(
+      this.config,
+      this.contentClient
+    ).getContentItems(requests, parameters);
+  }
+
+  /**
+   * This function will help construct requests for fetching multiple Content Items or Slots by delivery key or ID. Wraps [`/content/fetch`](https://amplience.com/docs/api/dynamic-content/delivery/content-delivery-2/index.html#operation/multiGetContent) endpoint.
+   * [Additional documentation](https://amplience.com/docs/development/contentdelivery/readme.html#multipleitems)
+   *
+   * @param body The request body. Can include per item parameters as well as global parameters
+   * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
+   * @returns `Promise<FetchResponse<Body>>`
+   */
+  fetchContentItems<Body = any>(
+    body: FetchRequest
+  ): Promise<FetchResponse<Body>> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('fetchContentItems');
+    }
+    return new GetContentItemsV2Impl(
+      this.config,
+      this.contentClient
+    ).fetchContentItems(body);
+  }
+
   /**
    * Converts a Content Item or Slot into a custom format (e.g. HTML / XML) by applying a template server side.
    * @param contentItemId Unique id of the Content Item or Slot to convert using the rendering service
@@ -256,17 +375,14 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     templateName: string,
     customParameters?: { [id: string]: string }
   ): Promise<RenderedContentItem> {
-    if (!this.isContentClientConfigV1(this.config)) {
-      throw new Error(
-        'Not supported. You need to define "account" configuration property to use renderContentItem()'
-      );
+    if (!isContentClientConfigV1(this.config)) {
+      throw new NotSupportedV1Error('renderContentItem');
     }
 
-    return new RenderContentItem(this.config).renderContentItem(
-      contentItemId,
-      templateName,
-      customParameters
-    );
+    return new RenderContentItem(
+      this.config,
+      this.contentClient
+    ).renderContentItem(contentItemId, templateName, customParameters);
   }
 
   /**

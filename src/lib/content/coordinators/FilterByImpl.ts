@@ -1,18 +1,13 @@
 import { AxiosInstance } from 'axios';
-import { createContentClient } from '../../client/createContentClient';
 import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
 import { FilterByRequest, FilterByResponse } from '../model/FilterBy';
 import { HttpError } from '../model/HttpError';
 
 export class FilterByImpl<Body = any> {
-  private readonly contentClient: AxiosInstance;
-
-  constructor(private readonly config: ContentClientConfigV2) {
-    this.contentClient = createContentClient(
-      this.config,
-      `https://${config.hubName}.cdn.content.amplience.net`
-    );
-  }
+  constructor(
+    private readonly config: ContentClientConfigV2,
+    private readonly contentClient: AxiosInstance
+  ) {}
 
   async fetch(requestConfig: FilterByRequest): Promise<FilterByResponse<Body>> {
     try {

@@ -13,6 +13,7 @@ import * as NESTED_CONTENT from './__fixtures__/v1/NESTED_CONTENT.json';
 import { ContentMapper } from '../mapper/ContentMapper';
 import { ContentMeta } from '../model/ContentMeta';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
+import { createContentClient } from '../../client/createContentClient';
 
 function createCoordinator(
   accountName: string,
@@ -20,9 +21,13 @@ function createCoordinator(
 ): [MockAdapter, GetContentItemV1Impl] {
   const mocks = new MockAdapter(null);
   const config = { account: accountName, adaptor: mocks.adapter(), locale };
-
-  const client = new GetContentItemV1Impl(config, new ContentMapper(config));
-  return [mocks, client];
+  const client = createContentClient(config);
+  const coordinator = new GetContentItemV1Impl(
+    config,
+    client,
+    new ContentMapper(config)
+  );
+  return [mocks, coordinator];
 }
 
 const SINGLE_ITEM_RESPONSE = {

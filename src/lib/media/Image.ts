@@ -32,7 +32,6 @@ export class Image extends Media {
   url(): ImageUrlBuilder {
     return new ImageUrlBuilder(this);
   }
-
   /**
    * Export Image to JSON
    */

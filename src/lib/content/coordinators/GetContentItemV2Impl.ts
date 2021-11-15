@@ -2,30 +2,24 @@ import { GetContentItemById } from './GetContentItemById';
 import { GetContentItemByKey } from './GetContentItemByKey';
 import { ContentBody } from '../model/ContentBody';
 import { ContentItem } from '../model/ContentItem';
-import { createContentClient } from '../../client/createContentClient';
+
 import { ContentMapper } from '../mapper/ContentMapper';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { encodeQueryString } from '../../utils/Url';
-import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
 import { HttpError } from '../model/HttpError';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
+import { ContentClientConfigV2 } from '../../config';
 
 /**
  * @hidden
  */
 export class GetContentItemV2Impl
   implements GetContentItemById, GetContentItemByKey {
-  private readonly contentClient: AxiosInstance;
-
   constructor(
     private readonly config: ContentClientConfigV2,
+    private readonly contentClient: AxiosInstance,
     private readonly mapper: ContentMapper
-  ) {
-    this.contentClient = createContentClient(
-      this.config,
-      `https://${config.hubName}.cdn.content.amplience.net`
-    );
-  }
+  ) {}
 
   getContentItemByKey<T extends ContentBody>(
     key: string

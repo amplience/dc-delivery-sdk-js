@@ -1,0 +1,25 @@
+{
+  "responses": [
+    {
+      "content": {
+        "_meta": {
+          "name": "fetch",
+          "schema": "https://fetch.com",
+          "deliveryId": "c6d9e038-591b-4ca2-874b-da354f5d6e61"
+        },
+        "category": "Red",
+        "title": "tada 2"
+      }
+    },
+    {
+      "content": {
+        "_meta": {
+          "name": "fetch",
+          "schema": "https://fetch-another.com",
+          "deliveryId": "6cd4de36-591b-4ca2-874b-1dec7b681d7e"
+        },
+        "propertyName1": "Red"
+      }
+    }
+  ]
+}
