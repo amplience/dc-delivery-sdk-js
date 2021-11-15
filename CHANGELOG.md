@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.11.0](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.10.0...v0.11.0) (2021-11-15)
+
+
+### Features
+
+* adds Fresh API and fetch multiple content items support ([#58](https://www.github.com/amplience/dc-delivery-sdk-js/issues/58)) ([323736b](https://www.github.com/amplience/dc-delivery-sdk-js/commit/323736b8a50e41c98db870d10648041c2aa19330))
+
 ## [0.10.0](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.9.2...v0.10.0) (2021-07-21)
 
 
