@@ -348,7 +348,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * This function will help construct requests for fetching multiple Content Items or Slots by delivery key or ID. Wraps [`/content/fetch`](https://amplience.com/docs/api/dynamic-content/delivery/content-delivery-2/index.html#operation/multiGetContent) endpoint.
    * [Additional documentation](https://amplience.com/docs/development/contentdelivery/readme.html#multipleitems)
    *
-   * @param body The request body. Can include per
+   * @param body The request body. Can include per item parameters as well as global parameters
    * @typeparam Body The type of content returned. This is optional and by default the content returned is assumed to be “any”.
    * @returns `Promise<FetchResponse<Body>>`
    */
