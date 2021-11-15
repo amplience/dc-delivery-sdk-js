@@ -76,11 +76,11 @@
 					which will return a new domain that can be used in the ContentClient.</p>
 					<p>Example:</p>
 					<pre><code class="language-typescript"><span class="hljs-keyword">const</span> factory = <span class="hljs-keyword">new</span> StagingEnvironmentFactory(<span class="hljs-string">&#x27;11122222gggg232gg32g32g.staging.bigcontent.io&#x27;</span>);
-<span class="hljs-keyword">const</span> stagingEnvironmentWithSnapshot = <span class="hljs-keyword">await</span> factory.generateDomain({snapshotId: <span class="hljs-string">&#x27;abcdef123456&#x27;</span>});
+<span class="hljs-keyword">const</span> stagingEnvironmentWithSnapshot = <span class="hljs-keyword">await</span> factory.generateDomain({<span class="hljs-attr">snapshotId</span>: <span class="hljs-string">&#x27;abcdef123456&#x27;</span>});
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-  account: <span class="hljs-string">&#x27;test&#x27;</span>,
-  stagingEnvironment: stagingEnvironmentWithSnapshot
+  <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;test&#x27;</span>,
+  <span class="hljs-attr">stagingEnvironment</span>: stagingEnvironmentWithSnapshot
 });
 </code></pre>
 					<p>You may override other settings when constructing the client but if no additional configuration is provided sensible defaults will be used.</p>
@@ -134,7 +134,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/staging-environment/StagingEnvironmentFactory.ts#L37">src/lib/staging-environment/StagingEnvironmentFactory.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/staging-environment/StagingEnvironmentFactory.ts#L37">src/lib/staging-environment/StagingEnvironmentFactory.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -169,7 +169,7 @@
 					<div class="tsd-signature tsd-kind-icon">client<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AxiosInstance</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/staging-environment/StagingEnvironmentFactory.ts#L37">src/lib/staging-environment/StagingEnvironmentFactory.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/staging-environment/StagingEnvironmentFactory.ts#L37">src/lib/staging-environment/StagingEnvironmentFactory.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -179,7 +179,7 @@
 					<div class="tsd-signature tsd-kind-icon">staging<wbr>Environment<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/staging-environment/StagingEnvironmentFactory.ts#L45">src/lib/staging-environment/StagingEnvironmentFactory.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/staging-environment/StagingEnvironmentFactory.ts#L45">src/lib/staging-environment/StagingEnvironmentFactory.ts:45</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -196,7 +196,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/staging-environment/StagingEnvironmentFactory.ts#L76">src/lib/staging-environment/StagingEnvironmentFactory.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/staging-environment/StagingEnvironmentFactory.ts#L76">src/lib/staging-environment/StagingEnvironmentFactory.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -227,7 +227,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/staging-environment/StagingEnvironmentFactory.ts#L89">src/lib/staging-environment/StagingEnvironmentFactory.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/staging-environment/StagingEnvironmentFactory.ts#L89">src/lib/staging-environment/StagingEnvironmentFactory.ts:89</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -257,7 +257,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/staging-environment/StagingEnvironmentFactory.ts#L58">src/lib/staging-environment/StagingEnvironmentFactory.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/staging-environment/StagingEnvironmentFactory.ts#L58">src/lib/staging-environment/StagingEnvironmentFactory.ts:58</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

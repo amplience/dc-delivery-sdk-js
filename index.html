@@ -72,12 +72,13 @@
 					<p>Official Javascript SDK for the Amplience Dynamic Content Delivery API</p>
 				</blockquote>
 				<p><a href="https://badge.fury.io/js/dc-delivery-sdk-js"><img src="https://badge.fury.io/js/dc-delivery-sdk-js.svg" alt="npm version"></a></p>
-				<p>This sdk is designed to help build client side and server side content managed applications.</p>
+				<p>This SDK is designed to help build client side and server side content managed applications.</p>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>Features</h2>
 				</a>
 				<ul>
-					<li>Fetch content and slots using the <a href="https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api">Content Delivery 1</a> and/or <a href="https://docs.amplience.net/development/contentdelivery/readme.html">Content Delivery 2</a></li>
+					<li>Fetch content and slots using <a href="https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api">Content Delivery 1</a> or <a href="https://docs.amplience.net/development/contentdelivery/readme.html">Content Delivery 2</a></li>
+					<li>Fetch fresh content and slots for use with SSG build tools using the <a href="https://amplience.com/docs/development/freshapi/fresh-api.html">Fresh API</a></li>
 					<li>Fetch preview content using Virtual Staging</li>
 					<li>Transform content using the <a href="https://docs.amplience.net/integration/contentrenderingservice.html#the-content-rendering-service">Content Rendering Service</a></li>
 					<li>Localize content</li>
@@ -103,7 +104,7 @@
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
-				<p>This sdk supports browser and node.js applications using ES6 or CommonJS style imports.</p>
+				<p>This SDK supports browser and Node.js applications using ES6 or CommonJS style imports.</p>
 				<p>ES6:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">import</span> { ContentClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;dc-delivery-sdk-js&#x27;</span>;
 
@@ -116,12 +117,12 @@
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
   <span class="hljs-attr">hubName</span>: <span class="hljs-string">&#x27;myhub&#x27;</span>,
 });</code></pre>
-				<p>If your application does not use a package manager you can directly include the pre-bundled version of the sdk and access the features using the global &quot;ampDynamicContent&quot;.</p>
+				<p>If your application does not use a package manager you can directly include the pre-bundled version of the SDK and access the features using the global &quot;ampDynamicContent&quot;.</p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dc-delivery-sdk-js/dist/dynamicContent.browser.umd.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ampDynamicContent.ContentClient({
   <span class="hljs-attr">hubName</span>: <span class="hljs-string">&#x27;myhub&#x27;</span>,
 });</code></pre>
-				<p>If you need to support old browsers a legacy version of the bundle is provided, however we strongly recommend using a tool like <a href="https://babeljs.io/">babel</a> in your project to compile the sdk to your exact browser requirements.</p>
+				<p>If you need to support old browsers a legacy version of the bundle is provided, however we strongly recommend using a tool like <a href="https://babeljs.io/">babel</a> in your project to compile the SDK to your exact browser requirements.</p>
 				<a href="#configuration-options" id="configuration-options" style="color: inherit; text-decoration: none;">
 					<h3>Configuration options</h3>
 				</a>
@@ -139,6 +140,14 @@
 						<tr>
 							<td>hubName</td>
 							<td>Content Delivery 2 API - Required* - hubName to retrieve content from - <a href="https://docs.amplience.net/development/contentdelivery/readme.html#hubname">finding the hub name</a></td>
+						</tr>
+						<tr>
+							<td>apiKey</td>
+							<td>Fresh API - Required* - API key required for use with the Fresh API service. <code>hubName</code> must also be set</td>
+						</tr>
+						<tr>
+							<td>retryConfig</td>
+							<td>Allows override of the default <a href="#override-fresh-api-retry-configuration">retry configuration</a> used by the Fresh API client</td>
 						</tr>
 						<tr>
 							<td>stagingEnvironment</td>
@@ -173,8 +182,10 @@
 				<a href="#content-delivery-versions" id="content-delivery-versions" style="color: inherit; text-decoration: none;">
 					<h3>Content Delivery versions</h3>
 				</a>
-				<p>In order to use the client, it must be configured with either <code>account</code> or <code>hubName</code>.</p>
-				<p>If <strong>account</strong> &amp; <strong>hubName</strong> are supplied, the SDK will only use the <strong>Content Delivery 2 API</strong>.</p>
+				<p>In order to use the client, it must be configured with either <code>account</code> or <code>hubName</code>. If <code>apiKey</code> is set a Fresh API client will be created.</p>
+				<p>If <strong>account</strong> &amp; <strong>hubName</strong> are supplied, the SDK will only use the <strong>Content Delivery 2 API</strong>.
+				If <strong>hubName</strong> and <strong>apiKey</strong> are supplied, the SDK will only use the <strong>Fresh API</strong>.</p>
+				<p>To create a Fresh API client both <code>hubName</code> and <code>apiToken</code> must be specified</p>
 				<a href="#fetch-content-by-delivery-id" id="fetch-content-by-delivery-id" style="color: inherit; text-decoration: none;">
 					<h3>Fetch content by delivery ID</h3>
 				</a>
@@ -208,10 +219,10 @@ client
     }
   ]
 }</code></pre>
-				<a href="#fetch-content-by-delivery-key-content-delivery-2-only" id="fetch-content-by-delivery-key-content-delivery-2-only" style="color: inherit; text-decoration: none;">
-					<h3>Fetch content by delivery key <em>(Content Delivery 2 only)</em></h3>
+				<a href="#fetch-content-by-delivery-key-content-delivery-2-and-fresh-api-only" id="fetch-content-by-delivery-key-content-delivery-2-and-fresh-api-only" style="color: inherit; text-decoration: none;">
+					<h3>Fetch content by delivery key <em>(Content Delivery 2 and Fresh API only)</em></h3>
 				</a>
-				<p><strong>Note:</strong> Fetching content by delivery key via <code>getContentItemByKey()</code> is only supported when using <a href="#content-delivery-versions">Content Delivery 2</a></p>
+				<p><strong>Note:</strong> Fetching content by delivery key via <code>getContentItemByKey()</code> is only supported when using <a href="#content-delivery-versions">Content Delivery 2 or Fresh API</a></p>
 				<p>Once you have <a href="https://docs.amplience.net/development/delivery-keys/readme.html">set a delivery key for a slot or content item</a>, the content item must be published before it can be retrieved using this SDK.</p>
 				<p>The <code>getContentItemByKey()</code> method will return a promise which will resolve to the JSON of your slot or content item. If no content is found with the provided key the promise will reject with an error.</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
@@ -252,10 +263,10 @@ client
 				<a href="#filtering-content-items" id="filtering-content-items" style="color: inherit; text-decoration: none;">
 					<h3>Filtering Content Items</h3>
 				</a>
-				<p><strong>Note:</strong> Filtering content via <code>filterBy() | filterByContentType() | filterByParentId() | filterContentItems()</code> is only supported when using <a href="#content-delivery-versions">Content Delivery 2</a></p>
+				<p><strong>Note:</strong> Filtering content via <code>filterBy() | filterByContentType() | filterByParentId() | filterContentItems()</code> is only supported when using <a href="#content-delivery-versions">Content Delivery 2 or Fresh API</a>.</p>
 				<p>Filtering by Content Type or Parent ID is enabled by default. You can also filter by any other field in your schema once <a href="https://amplience.com/docs/development/contentdelivery/filterandsort.html">you enable it</a>.</p>
 				<a href="#constructing-a-request" id="constructing-a-request" style="color: inherit; text-decoration: none;">
-					<h3>Constructing a request</h3>
+					<h4>Constructing a request</h4>
 				</a>
 				<p>The <code>filterBy() | filterByContentType() | filterByParentId()</code> method will return a instance of the <code>FilterBy</code> class which has helper functions to construct a filterBy request.</p>
 				<p><code>filterByContentType() | filterByParentId()</code> are helper methods.</p>
@@ -271,7 +282,7 @@ client.filterBy(
 );</code></pre>
 				<p>Calling <code>request</code> executes the request returning a <code>Promise</code> if no content is found an empty response object will be returned. If invalid options are provided it will reject with an error.</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-  hubName: <span class="hljs-string">&#x27;myhub&#x27;</span>,
+  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&#x27;myhub&#x27;</span>,
 });
 
 <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> client
@@ -280,8 +291,8 @@ client.filterBy(
   .sortBy(<span class="hljs-string">&#x27;readTime&#x27;</span>, <span class="hljs-string">&#x27;DESC&#x27;</span>)
   .page(<span class="hljs-number">2</span>)
   .request({
-    format: <span class="hljs-string">&#x27;inlined&#x27;</span>,
-    depth: <span class="hljs-string">&#x27;all&#x27;</span>,
+    <span class="hljs-attr">format</span>: <span class="hljs-string">&#x27;inlined&#x27;</span>,
+    <span class="hljs-attr">depth</span>: <span class="hljs-string">&#x27;all&#x27;</span>,
   });
 
 <span class="hljs-built_in">console</span>.log(res);</code></pre>
@@ -334,34 +345,71 @@ client.filterBy(
 				</a>
 				<p>We also provide a way of requesting by a request object which is identical to the the request above</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-  hubName: <span class="hljs-string">&#x27;myhub&#x27;</span>,
+  <span class="hljs-attr">hubName</span>: <span class="hljs-string">&#x27;myhub&#x27;</span>,
 });
 
 <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> client.filterContentItems({
-  filterBy: [
+  <span class="hljs-attr">filterBy</span>: [
     {
-      path: <span class="hljs-string">&#x27;/_meta/schema&#x27;</span>,
-      value: <span class="hljs-string">&#x27;https://example.com/blog-post-filter-and-sort&#x27;</span>,
+      <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/_meta/schema&#x27;</span>,
+      <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;https://example.com/blog-post-filter-and-sort&#x27;</span>,
     },
     {
-      path: <span class="hljs-string">&#x27;/category&#x27;</span>,
-      value: <span class="hljs-string">&#x27;Homewares&#x27;</span>,
+      <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/category&#x27;</span>,
+      <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;Homewares&#x27;</span>,
     },
   ],
-  sortBy: {
-    key: <span class="hljs-string">&#x27;readTime&#x27;</span>,
-    order: <span class="hljs-string">&#x27;DESC&#x27;</span>,
+  <span class="hljs-attr">sortBy</span>: {
+    <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;readTime&#x27;</span>,
+    <span class="hljs-attr">order</span>: <span class="hljs-string">&#x27;DESC&#x27;</span>,
   },
-  page: {
-    size: <span class="hljs-number">2</span>,
+  <span class="hljs-attr">page</span>: {
+    <span class="hljs-attr">size</span>: <span class="hljs-number">2</span>,
   },
-  parameters: {
-    format: <span class="hljs-string">&#x27;inlined&#x27;</span>,
-    depth: <span class="hljs-string">&#x27;all&#x27;</span>,
+  <span class="hljs-attr">parameters</span>: {
+    <span class="hljs-attr">format</span>: <span class="hljs-string">&#x27;inlined&#x27;</span>,
+    <span class="hljs-attr">depth</span>: <span class="hljs-string">&#x27;all&#x27;</span>,
   },
 });
 
 <span class="hljs-built_in">console</span>.log(res);</code></pre>
+				<a href="#fetching-multiple-content-items-or-slots-in-a-single-request" id="fetching-multiple-content-items-or-slots-in-a-single-request" style="color: inherit; text-decoration: none;">
+					<h3>Fetching multiple Content Items or Slots in a single request</h3>
+				</a>
+				<p><strong>Note:</strong> Fetching content via <code>getContentItemsById() | getContentItemsByKey() | getContentItems() | fetchContentItems()</code> is only supported when using <a href="#content-delivery-versions">Content Delivery 2 or Fresh API</a>.</p>
+				<p>Wraps <a href="https://amplience.com/docs/api/dynamic-content/delivery/content-delivery-2/index.html#operation/multiGetContent"><code>/content/fetch</code></a> endpoint. <a href="https://amplience.com/docs/development/contentdelivery/readme.html#multipleitems">Additional documentation</a>.</p>
+				<a href="#get-content-items-by-delivery-id" id="get-content-items-by-delivery-id" style="color: inherit; text-decoration: none;">
+					<h4>Get content items by delivery ID</h4>
+				</a>
+				<p>Fetch multiple by delivery id e.g.,</p>
+				<pre><code class="language-ts">client.getContentItemsById([
+  <span class="hljs-string">&#x27;d6ccc158-6ab7-48d0-aa85-d9fbf2aef000&#x27;</span>,
+  <span class="hljs-string">&#x27;b322f84a-9719-42ff-a6a0-6e2924608d19&#x27;</span>,
+]);</code></pre>
+				<a href="#get-content-items-by-key" id="get-content-items-by-key" style="color: inherit; text-decoration: none;">
+					<h4>Get content items by key</h4>
+				</a>
+				<p>Fetch multiple by delivery key e.g.,</p>
+				<pre><code class="language-ts">client.getContentItemsByKey([<span class="hljs-string">&#x27;blog/article-1&#x27;</span>, <span class="hljs-string">&#x27;blog/article-2&#x27;</span>]);</code></pre>
+				<a href="#get-content-items" id="get-content-items" style="color: inherit; text-decoration: none;">
+					<h4>Get content items</h4>
+				</a>
+				<p>Less verbose version of <code>fetchContentItems</code> allowing fetching of content by both delivery keys and ids as well as per request parameters and global parameter overrides</p>
+				<pre><code class="language-ts">client.getContentItems([{
+  <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;blog/article-1&#x27;</span>, <span class="hljs-attr">overrides</span>: {<span class="hljs-attr">locale</span>: <span class="hljs-string">&#x27;en-US&#x27;</span>}
+  <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;blog/article-2&#x27;</span>
+}], {<span class="hljs-attr">locale</span>: <span class="hljs-string">&#x27;en&#x27;</span>});</code></pre>
+				<a href="#fetch-content-items" id="fetch-content-items" style="color: inherit; text-decoration: none;">
+					<h4>Fetch content items</h4>
+				</a>
+				<p>Allows full construction of the request body.</p>
+				<pre><code class="language-ts">client.fetchContentItems({
+  <span class="hljs-attr">requests</span>: [{
+    <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;blog/article-1&#x27;</span>, <span class="hljs-attr">overrides</span>: {<span class="hljs-attr">locale</span>: <span class="hljs-string">&#x27;en&#x27;</span>}
+    <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;blog/article-2&#x27;</span>
+  }],
+  <span class="hljs-attr">parameters</span>: {<span class="hljs-attr">depth</span>: <span class="hljs-string">&#x27;root&#x27;</span>}
+});</code></pre>
 				<a href="#preview-staging-content" id="preview-staging-content" style="color: inherit; text-decoration: none;">
 					<h3>Preview staging content</h3>
 				</a>
@@ -426,7 +474,7 @@ client.filterBy(
     ]
   }
 }</code></pre>
-				<p>If desired, you can configure the sdk with a locale query. If set, the locale matching is performed server side and only a single value will be returned.</p>
+				<p>If desired, you can configure the SDK with a locale query. If set, the locale matching is performed server side and only a single value will be returned.</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
   <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;myaccount&#x27;</span>,
   <span class="hljs-attr">locale</span>: <span class="hljs-string">&#x27;en-US,en-*&#x27;</span>,
@@ -444,7 +492,7 @@ client.filterBy(
 					<h3>Transform images</h3>
 				</a>
 				<p>In addition to serving image and Video content, Dynamic Content can also transform media on the fly allowing you to target multiple channels and deliver just the pixels required from a single master asset.</p>
-				<p>The sdk attaches helper functions to Image and Video properties to simplify constructing Dynamic Media URLs:</p>
+				<p>The SDK attaches helper functions to Image and Video properties to simplify constructing Dynamic Media URLs:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> ImageFormat = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;dc-delivery-sdk-js&#x27;</span>).ImageFormat;
 
 <span class="hljs-keyword">const</span> imageUrl = content.body.imageProperty
@@ -454,7 +502,7 @@ client.filterBy(
   .sharpen()
   .format(ImageFormat.WEBP)
   .build();</code></pre>
-				<p>See the sdk <a href="https://amplience.github.io/dc-delivery-sdk-js/">reference documentation</a> for further details.</p>
+				<p>See the SDK <a href="https://amplience.github.io/dc-delivery-sdk-js/">reference documentation</a> for further details.</p>
 				<a href="#transform-content" id="transform-content" style="color: inherit; text-decoration: none;">
 					<h3>Transform content</h3>
 				</a>
@@ -470,6 +518,38 @@ client.filterBy(
 				<a href="#advanced" id="advanced" style="color: inherit; text-decoration: none;">
 					<h2>Advanced</h2>
 				</a>
+				<a href="#override-fresh-api-retry-configuration" id="override-fresh-api-retry-configuration" style="color: inherit; text-decoration: none;">
+					<h3>Override Fresh API retry configuration</h3>
+				</a>
+				<p>By default, if a 429 status code is received the SDK will retry up to 3 more times using exponential backoff. The configuration options below may be overridden.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>retries</td>
+							<td><code>Number</code></td>
+							<td><code>3</code></td>
+							<td>The number of times to retry before failing.</td>
+						</tr>
+						<tr>
+							<td>retryDelay</td>
+							<td><code>Function</code></td>
+							<td><code>exponentialDelay</code></td>
+							<td>A callback to further control the delay in milliseconds between retried requests. By default there is an exponential delay between retries (<a href="https://developers.google.com/analytics/devguides/reporting/core/v3/errors#backoff">Exponential Backoff</a>). The function is passed <code>retryCount</code> and <code>error</code>.</td>
+						</tr>
+						<tr>
+							<td>retryCondition</td>
+							<td><code>Function</code></td>
+							<td><code>isThrottled</code></td>
+							<td>A callback to further control if a request should be retried. By default, it retries if the response status is 429.</td>
+						</tr>
+				</tbody></table>
 				<a href="#detecting-content-types" id="detecting-content-types" style="color: inherit; text-decoration: none;">
 					<h3>Detecting content types</h3>
 				</a>
@@ -497,7 +577,7 @@ client.filterBy(
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   <span class="hljs-comment">//...</span>
 
-  getComponentForContentType(contentItem) {
+  <span class="hljs-function"><span class="hljs-title">getComponentForContentType</span>(<span class="hljs-params">contentItem</span>)</span> {
     <span class="hljs-keyword">switch</span> (contentItem._meta.schema) {
       <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;https://www.anyafinn.online/content-types/banner.json&#x27;</span>:
         <span class="hljs-keyword">return</span> Banner;
@@ -508,7 +588,7 @@ client.filterBy(
     }
   }
 
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">const</span> slotContent = <span class="hljs-built_in">this</span>.props.content.slotContent;
     <span class="hljs-keyword">const</span> TagName = <span class="hljs-built_in">this</span>.getComponentForContentType(slotContent);
     <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TagName</span> <span class="hljs-attr">content</span>=<span class="hljs-string">{slotContent}</span> /&gt;</span></span>;
@@ -519,12 +599,12 @@ client.filterBy(
 				</a>
 				<p>Applications that support TypeScript can optionally create interfaces to represent content types within the code. This can be passed as a generic parameter when loading content which will result in a typed content body.</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">interface</span> Banner <span class="hljs-keyword">extends</span> ContentBody {
-  heading: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">heading</span>: <span class="hljs-built_in">string</span>;
 }
 
 client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1bb-4df4-a7b3-fd7796326cfe&#x27;</span>);</code></pre>
 				<pre><code class="language-ts"><span class="hljs-keyword">interface</span> BlogPost {
-  title: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
   category: <span class="hljs-built_in">string</span>;
   date: <span class="hljs-built_in">string</span>;
   ranking: <span class="hljs-built_in">number</span>;
@@ -542,7 +622,7 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 				<a href="#custom-media-cnames" id="custom-media-cnames" style="color: inherit; text-decoration: none;">
 					<h3>Custom media CNAMEs</h3>
 				</a>
-				<p>If you have previously configured custom CNAMEs for your media hosting, you can override the hostname used by the sdk when constructing image URLs as shown below:</p>
+				<p>If you have previously configured custom CNAMEs for your media hosting, you can override the hostname used by the SDK when constructing image URLs as shown below:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
   <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;myaccount&#x27;</span>,
   <span class="hljs-attr">mediaHost</span>: <span class="hljs-string">&#x27;images.mybrand.com&#x27;</span>,
@@ -555,12 +635,14 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 				<ul>
 					<li>Dynamic Content SDK <a href="https://amplience.github.io/dc-delivery-sdk-js/">Reference documentation</a></li>
 					<li>Dynamic Content Delivery API <a href="https://docs.amplience.net/integration/deliveryapi.html#the-content-delivery-api">Reference documentation</a></li>
+					<li>Dynamic Content Delivery API 2 <a href="https://amplience.com/docs/development/contentdelivery/readme.html">Reference documentation</a></li>
+					<li>Dynamic Content Fresh API <a href="https://amplience.com/docs/development/contentdelivery/filterapiintro.html">Reference documentation</a></li>
 					<li>Dynamic Content <a href="https://docs.amplience.net/">User guide</a></li>
 				</ul>
 				<a href="#getting-help" id="getting-help" style="color: inherit; text-decoration: none;">
 					<h2>Getting Help</h2>
 				</a>
-				<p>If you need help using the sdk please reach out using one of the following channels:</p>
+				<p>If you need help using the SDK please reach out using one of the following channels:</p>
 				<ul>
 					<li>Ask a question on <a href="https://stackoverflow.com/">StackOverflow</a> using the tag <code>amplience-dynamic-content</code></li>
 					<li>Open a support ticket with <a href="https://support.amplience.com/">Amplience Support</a></li>
@@ -641,6 +723,12 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 						<a href="classes/mediameta.html" class="tsd-kind-icon">Media<wbr>Meta</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/notsupportedv1error.html" class="tsd-kind-icon">Not<wbr>Supported<wbr>V1Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/notsupportedv2error.html" class="tsd-kind-icon">Not<wbr>Supported<wbr>V2Error</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/renderedcontentitem.html" class="tsd-kind-icon">Rendered<wbr>Content<wbr>Item</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -663,6 +751,12 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/contentclientconfigv2.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/contentclientconfigv2fresh.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2Fresh</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/contentclientretryconfig.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Retry<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="interfaces/contentitemresponse.html" class="tsd-kind-icon">Content<wbr>Item<wbr>Response</a>
@@ -710,13 +804,31 @@ client.getContentItem&lt;Banner&gt;(<span class="hljs-string">&#x27;ec5d12cc-b1b
 						<a href="globals.html#contentclientconfig" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#fetchrequest" class="tsd-kind-icon">Fetch<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#fetchrequestwithid" class="tsd-kind-icon">Fetch<wbr>Request<wbr>With<wbr>Id</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#fetchrequestwithkey" class="tsd-kind-icon">Fetch<wbr>Request<wbr>With<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#fetchresponse" class="tsd-kind-icon">Fetch<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#iorder" class="tsd-kind-icon">IOrder</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a>
+						<a href="globals.html#requiredcontentreference" class="tsd-kind-icon">Required<wbr>Content<wbr>Reference</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#datatomessage" class="tsd-kind-icon">data<wbr>ToMessage</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isthrottled" class="tsd-kind-icon">is<wbr>Throttled</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#default_retry_config" class="tsd-kind-icon">DEFAULT_<wbr>RETRY_<wbr>CONFIG</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#defaultstagingenvironmentfactoryconfig" class="tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</a>

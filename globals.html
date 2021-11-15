@@ -91,6 +91,8 @@
 								<li class="tsd-kind-class"><a href="classes/imagemeta.html" class="tsd-kind-icon">Image<wbr>Meta</a></li>
 								<li class="tsd-kind-class"><a href="classes/imageurlbuilder.html" class="tsd-kind-icon">Image<wbr>Url<wbr>Builder</a></li>
 								<li class="tsd-kind-class"><a href="classes/mediameta.html" class="tsd-kind-icon">Media<wbr>Meta</a></li>
+								<li class="tsd-kind-class"><a href="classes/notsupportedv1error.html" class="tsd-kind-icon">Not<wbr>Supported<wbr>V1Error</a></li>
+								<li class="tsd-kind-class"><a href="classes/notsupportedv2error.html" class="tsd-kind-icon">Not<wbr>Supported<wbr>V2Error</a></li>
 								<li class="tsd-kind-class"><a href="classes/renderedcontentitem.html" class="tsd-kind-icon">Rendered<wbr>Content<wbr>Item</a></li>
 								<li class="tsd-kind-class"><a href="classes/stagingenvironmentfactory.html" class="tsd-kind-icon">Staging<wbr>Environment<wbr>Factory</a></li>
 								<li class="tsd-kind-class"><a href="classes/video.html" class="tsd-kind-icon">Video</a></li>
@@ -104,6 +106,8 @@
 								<li class="tsd-kind-interface"><a href="interfaces/contentbody.html" class="tsd-kind-icon">Content<wbr>Body</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/contentclientconfigv1.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V1</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/contentclientconfigv2.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/contentclientconfigv2fresh.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2Fresh</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/contentclientretryconfig.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Retry<wbr>Config</a></li>
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/contentitemresponse.html" class="tsd-kind-icon">Content<wbr>Item<wbr>Response</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/filterbyrequest.html" class="tsd-kind-icon">Filter<wbr>ByRequest</a></li>
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/filterbyresponse.html" class="tsd-kind-icon">Filter<wbr>ByResponse</a></li>
@@ -124,19 +128,25 @@
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias"><a href="globals.html#contentclientconfig" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a></li>
+								<li class="tsd-kind-type-alias"><a href="globals.html#fetchrequest" class="tsd-kind-icon">Fetch<wbr>Request</a></li>
+								<li class="tsd-kind-type-alias"><a href="globals.html#fetchrequestwithid" class="tsd-kind-icon">Fetch<wbr>Request<wbr>With<wbr>Id</a></li>
+								<li class="tsd-kind-type-alias"><a href="globals.html#fetchrequestwithkey" class="tsd-kind-icon">Fetch<wbr>Request<wbr>With<wbr>Key</a></li>
+								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#fetchresponse" class="tsd-kind-icon">Fetch<wbr>Response</a></li>
 								<li class="tsd-kind-type-alias"><a href="globals.html#iorder" class="tsd-kind-icon">IOrder</a></li>
-								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a></li>
+								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#requiredcontentreference" class="tsd-kind-icon">Required<wbr>Content<wbr>Reference</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="globals.html#datatomessage" class="tsd-kind-icon">data<wbr>ToMessage</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#isthrottled" class="tsd-kind-icon">is<wbr>Throttled</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Object literals</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal"><a href="globals.html#default_retry_config" class="tsd-kind-icon">DEFAULT_<wbr>RETRY_<wbr>CONFIG</a></li>
 								<li class="tsd-kind-object-literal"><a href="globals.html#defaultstagingenvironmentfactoryconfig" class="tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</a></li>
 							</ul>
 						</section>
@@ -151,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">Content<wbr>Client<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="interfaces/contentclientconfigv1.html" class="tsd-signature-type">ContentClientConfigV1</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClientConfig.ts#L6">src/lib/ContentClientConfig.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClientConfig.ts#L6">src/lib/ContentClientConfig.ts:6</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -163,22 +173,103 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="fetchrequest" class="tsd-anchor"></a>
+					<h3>Fetch<wbr>Request</h3>
+					<div class="tsd-signature tsd-kind-icon">Fetch<wbr>Request<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>parameters<span class="tsd-signature-symbol">?: </span><a href="interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">; </span>requests<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="globals.html#fetchrequestwithid" class="tsd-signature-type">FetchRequestWithId</a><span class="tsd-signature-symbol"> | </span><a href="globals.html#fetchrequestwithkey" class="tsd-signature-type">FetchRequestWithKey</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/content/model/Fetch.ts#L28">src/lib/content/model/Fetch.ts:28</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> parameters<span class="tsd-signature-symbol">?: </span><a href="interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>requests<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="globals.html#fetchrequestwithid" class="tsd-signature-type">FetchRequestWithId</a><span class="tsd-signature-symbol"> | </span><a href="globals.html#fetchrequestwithkey" class="tsd-signature-type">FetchRequestWithKey</a><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="fetchrequestwithid" class="tsd-anchor"></a>
+					<h3>Fetch<wbr>Request<wbr>With<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">Fetch<wbr>Request<wbr>With<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/content/model/Fetch.ts#L4">src/lib/content/model/Fetch.ts:4</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="fetchrequestwithkey" class="tsd-anchor"></a>
+					<h3>Fetch<wbr>Request<wbr>With<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">Fetch<wbr>Request<wbr>With<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/content/model/Fetch.ts#L8">src/lib/content/model/Fetch.ts:8</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
+					<a name="fetchresponse" class="tsd-anchor"></a>
+					<h3>Fetch<wbr>Response</h3>
+					<div class="tsd-signature tsd-kind-icon">Fetch<wbr>Response&lt;Body&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>responses<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/contentitemresponse.html" class="tsd-signature-type">ContentItemResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>error<span class="tsd-signature-symbol">: </span><a href="classes/contentnotfounderror.html" class="tsd-signature-type">ContentNotFoundError</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/content/model/Fetch.ts#L19">src/lib/content/model/Fetch.ts:19</a></li>
+						</ul>
+					</aside>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>Body</h4>
+						</li>
+					</ul>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>responses<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/contentitemresponse.html" class="tsd-signature-type">ContentItemResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>error<span class="tsd-signature-symbol">: </span><a href="classes/contentnotfounderror.html" class="tsd-signature-type">ContentNotFoundError</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="iorder" class="tsd-anchor"></a>
 					<h3>IOrder</h3>
 					<div class="tsd-signature tsd-kind-icon">IOrder<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"DESC"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ASC"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/FilterBy.ts#L24">src/lib/content/model/FilterBy.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/content/model/FilterBy.ts#L24">src/lib/content/model/FilterBy.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
-					<a name="requriedcontentreference" class="tsd-anchor"></a>
-					<h3>Requried<wbr>Content<wbr>Reference</h3>
-					<div class="tsd-signature tsd-kind-icon">Requried<wbr>Content<wbr>Reference&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>_meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>contentType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
+					<a name="requiredcontentreference" class="tsd-anchor"></a>
+					<h3>Required<wbr>Content<wbr>Reference</h3>
+					<div class="tsd-signature tsd-kind-icon">Required<wbr>Content<wbr>Reference&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>_meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>contentType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/ContentReference.ts#L7">src/lib/content/model/ContentReference.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/content/model/ContentReference.ts#L7">src/lib/content/model/ContentReference.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -206,7 +297,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/content/model/HttpError.ts#L1">src/lib/content/model/HttpError.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/content/model/HttpError.ts#L1">src/lib/content/model/HttpError.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -219,16 +310,79 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isthrottled" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Throttled</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Throttled<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/client/createContentClientV2Fresh.ts#L9">src/lib/client/createContentClientV2Fresh.ts:9</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>error: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal">
+					<a name="default_retry_config" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> DEFAULT_<wbr>RETRY_<wbr>CONFIG</h3>
+					<div class="tsd-signature tsd-kind-icon">DEFAULT_<wbr>RETRY_<wbr>CONFIG<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/client/createContentClientV2Fresh.ts#L10">src/lib/client/createContentClientV2Fresh.ts:10</a></li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="default_retry_config.retries" class="tsd-anchor"></a>
+						<h3>retries</h3>
+						<div class="tsd-signature tsd-kind-icon">retries<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 3</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/client/createContentClientV2Fresh.ts#L11">src/lib/client/createContentClientV2Fresh.ts:11</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="default_retry_config.retrycondition" class="tsd-anchor"></a>
+						<h3>retry<wbr>Condition</h3>
+						<div class="tsd-signature tsd-kind-icon">retry<wbr>Condition<span class="tsd-signature-symbol">:</span> <a href="globals.html#isthrottled" class="tsd-signature-type">isThrottled</a><span class="tsd-signature-symbol"> = isThrottled</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/client/createContentClientV2Fresh.ts#L13">src/lib/client/createContentClientV2Fresh.ts:13</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="default_retry_config.retrydelay" class="tsd-anchor"></a>
+						<h3>retry<wbr>Delay</h3>
+						<div class="tsd-signature tsd-kind-icon">retry<wbr>Delay<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">exponentialDelay</span><span class="tsd-signature-symbol"> = axiosRetry.exponentialDelay</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/client/createContentClientV2Fresh.ts#L12">src/lib/client/createContentClientV2Fresh.ts:12</a></li>
+							</ul>
+						</aside>
+					</section>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-object-literal">
 					<a name="defaultstagingenvironmentfactoryconfig" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</h3>
 					<div class="tsd-signature tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/staging-environment/StagingEnvironmentFactory.ts#L9">src/lib/staging-environment/StagingEnvironmentFactory.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/staging-environment/StagingEnvironmentFactory.ts#L9">src/lib/staging-environment/StagingEnvironmentFactory.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -242,7 +396,7 @@
 						<div class="tsd-signature tsd-kind-icon">base<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;https://virtual-staging.amplience.net&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/staging-environment/StagingEnvironmentFactory.ts#L10">src/lib/staging-environment/StagingEnvironmentFactory.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/staging-environment/StagingEnvironmentFactory.ts#L10">src/lib/staging-environment/StagingEnvironmentFactory.ts:10</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -308,6 +462,12 @@
 						<a href="classes/mediameta.html" class="tsd-kind-icon">Media<wbr>Meta</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/notsupportedv1error.html" class="tsd-kind-icon">Not<wbr>Supported<wbr>V1Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/notsupportedv2error.html" class="tsd-kind-icon">Not<wbr>Supported<wbr>V2Error</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/renderedcontentitem.html" class="tsd-kind-icon">Rendered<wbr>Content<wbr>Item</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -330,6 +490,12 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/contentclientconfigv2.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/contentclientconfigv2fresh.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Config<wbr>V2Fresh</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/contentclientretryconfig.html" class="tsd-kind-icon">Content<wbr>Client<wbr>Retry<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="interfaces/contentitemresponse.html" class="tsd-kind-icon">Content<wbr>Item<wbr>Response</a>
@@ -377,13 +543,31 @@
 						<a href="globals.html#contentclientconfig" class="tsd-kind-icon">Content<wbr>Client<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#fetchrequest" class="tsd-kind-icon">Fetch<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#fetchrequestwithid" class="tsd-kind-icon">Fetch<wbr>Request<wbr>With<wbr>Id</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#fetchrequestwithkey" class="tsd-kind-icon">Fetch<wbr>Request<wbr>With<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="globals.html#fetchresponse" class="tsd-kind-icon">Fetch<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#iorder" class="tsd-kind-icon">IOrder</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#requriedcontentreference" class="tsd-kind-icon">Requried<wbr>Content<wbr>Reference</a>
+						<a href="globals.html#requiredcontentreference" class="tsd-kind-icon">Required<wbr>Content<wbr>Reference</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#datatomessage" class="tsd-kind-icon">data<wbr>ToMessage</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isthrottled" class="tsd-kind-icon">is<wbr>Throttled</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#default_retry_config" class="tsd-kind-icon">DEFAULT_<wbr>RETRY_<wbr>CONFIG</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#defaultstagingenvironmentfactoryconfig" class="tsd-kind-icon">Default<wbr>Staging<wbr>Environment<wbr>Factory<wbr>Config</a>

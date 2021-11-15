@@ -72,10 +72,10 @@
 						<p>Amplience <a href="https://docs.amplience.net/integration/deliveryapi.html?h=delivery">Content Delivery API</a> client.</p>
 					</div>
 					<p>This client is intended to be used by end user applications to fetch content so that it can be displayed to users.</p>
-					<p>You must provide some basic account information in order to create an instance of ContentClient.</p>
-					<p>Example:</p>
+					<p>You must provide some configuration options in order to create an instance of ContentClient.
+					Example:</p>
 					<pre><code class="language-typescript"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ContentClient({
-   account: <span class="hljs-string">&#x27;test&#x27;</span>
+   <span class="hljs-attr">account</span>: <span class="hljs-string">&#x27;test&#x27;</span>
 });</code></pre>
 					<p>You may override other settings when constructing the client but if no additional configuration is provided sensible defaults will be used.</p>
 				</div>
@@ -109,12 +109,14 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="contentclient.html#config" class="tsd-kind-icon">config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="contentclient.html#contentclient-1" class="tsd-kind-icon">content<wbr>Client</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="contentclient.html#contentmapper" class="tsd-kind-icon">content<wbr>Mapper</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#fetchcontentitems" class="tsd-kind-icon">fetch<wbr>Content<wbr>Items</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#filterby" class="tsd-kind-icon">filter<wbr>By</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#filterbycontenttype" class="tsd-kind-icon">filter<wbr>ByContent<wbr>Type</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#filterbyparentid" class="tsd-kind-icon">filter<wbr>ByParent<wbr>Id</a></li>
@@ -122,6 +124,9 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#getcontentitem" class="tsd-kind-icon">get<wbr>Content<wbr>Item</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#getcontentitembyid" class="tsd-kind-icon">get<wbr>Content<wbr>Item<wbr>ById</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#getcontentitembykey" class="tsd-kind-icon">get<wbr>Content<wbr>Item<wbr>ByKey</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#getcontentitems" class="tsd-kind-icon">get<wbr>Content<wbr>Items</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#getcontentitemsbyid" class="tsd-kind-icon">get<wbr>Content<wbr>Items<wbr>ById</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="contentclient.html#getcontentitemsbykey" class="tsd-kind-icon">get<wbr>Content<wbr>Items<wbr>ByKey</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="contentclient.html#rendercontentitem" class="tsd-kind-icon">render<wbr>Content<wbr>Item</a></li>
 							</ul>
 						</section>
@@ -134,24 +139,24 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Content<wbr>Client<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/contentclientconfigv1.html" class="tsd-signature-type">ContentClientConfigV1</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/contentclientconfigv2.html" class="tsd-signature-type">ContentClientConfigV2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="contentclient.html" class="tsd-signature-type">ContentClient</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Content<wbr>Client<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ContentClientConfigOptions</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="contentclient.html" class="tsd-signature-type">ContentClient</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L35">src/lib/ContentClient.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L48">src/lib/ContentClient.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates a Delivery API Client instance. You must provide a configuration object with the account you wish to fetch content from.</p>
+									<p>Creates a Delivery API Client instance. You must provide a configuration object with the required details for the particular service you wish to fetch content from.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/contentclientconfigv1.html" class="tsd-signature-type">ContentClientConfigV1</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/contentclientconfigv2.html" class="tsd-signature-type">ContentClientConfigV2</a></h5>
+									<h5>config: <span class="tsd-signature-type">ContentClientConfigOptions</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>Client configuration options</p>
@@ -169,10 +174,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="config" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> config</h3>
-					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <a href="../interfaces/contentclientconfigv1.html" class="tsd-signature-type">ContentClientConfigV1</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/contentclientconfigv2.html" class="tsd-signature-type">ContentClientConfigV2</a></div>
+					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ContentClientConfigOptions</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L42">src/lib/ContentClient.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L54">src/lib/ContentClient.ts:54</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -182,18 +187,70 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="contentclient-1" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> content<wbr>Client</h3>
+					<div class="tsd-signature tsd-kind-icon">content<wbr>Client<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AxiosInstance</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L48">src/lib/ContentClient.ts:48</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="contentmapper" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> content<wbr>Mapper</h3>
 					<div class="tsd-signature tsd-kind-icon">content<wbr>Mapper<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ContentMapper</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L35">src/lib/ContentClient.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L47">src/lib/ContentClient.ts:47</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="fetchcontentitems" class="tsd-anchor"></a>
+					<h3>fetch<wbr>Content<wbr>Items</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">fetch<wbr>Content<wbr>Items&lt;Body&gt;<span class="tsd-signature-symbol">(</span>body<span class="tsd-signature-symbol">: </span><a href="../globals.html#fetchrequest" class="tsd-signature-type">FetchRequest</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#fetchresponse" class="tsd-signature-type">FetchResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L355">src/lib/ContentClient.ts:355</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function will help construct requests for fetching multiple Content Items or Slots by delivery key or ID. Wraps <a href="https://amplience.com/docs/api/dynamic-content/delivery/content-delivery-2/index.html#operation/multiGetContent"><code>/content/fetch</code></a> endpoint.
+									<a href="https://amplience.com/docs/development/contentdelivery/readme.html#multipleitems">Additional documentation</a></p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Body</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>The type of content returned. This is optional and by default the content returned is assumed to be “any”.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>body: <a href="../globals.html#fetchrequest" class="tsd-signature-type">FetchRequest</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The request body. Can include per item parameters as well as global parameters</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#fetchresponse" class="tsd-signature-type">FetchResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p><code>Promise&lt;FetchResponse&lt;Body&gt;&gt;</code></p>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a name="filterby" class="tsd-anchor"></a>
 					<h3>filter<wbr>By</h3>
@@ -204,7 +261,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L189">src/lib/ContentClient.ts:189</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L184">src/lib/ContentClient.ts:184</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -251,7 +308,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L216">src/lib/ContentClient.ts:216</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L212">src/lib/ContentClient.ts:212</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -291,7 +348,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L239">src/lib/ContentClient.ts:239</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L236">src/lib/ContentClient.ts:236</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -331,7 +388,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L169">src/lib/ContentClient.ts:169</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L164">src/lib/ContentClient.ts:164</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -368,7 +425,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L90">src/lib/ContentClient.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L84">src/lib/ContentClient.ts:84</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -405,7 +462,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/getcontentitembyid.html">GetContentItemById</a>.<a href="../interfaces/getcontentitembyid.html#getcontentitembyid-1">getContentItemById</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L113">src/lib/ContentClient.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L107">src/lib/ContentClient.ts:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -456,7 +513,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/getcontentitembykey.html">GetContentItemByKey</a>.<a href="../interfaces/getcontentitembykey.html#getcontentitembykey-1">getContentItemByKey</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L148">src/lib/ContentClient.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L144">src/lib/ContentClient.ts:144</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -495,6 +552,165 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="getcontentitems" class="tsd-anchor"></a>
+					<h3>get<wbr>Content<wbr>Items</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Content<wbr>Items&lt;Body&gt;<span class="tsd-signature-symbol">(</span>requests<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FetchRequest</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"requests"</span><span class="tsd-signature-symbol">]</span>, parameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">FetchRequest</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"parameters"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#fetchresponse" class="tsd-signature-type">FetchResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L334">src/lib/ContentClient.ts:334</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function will help construct requests for fetching multiple Content Items or Slots by delivery key and/or id
+									and is equivalent to:</p>
+								</div>
+								<pre><code class="language-ts"> client.fetchContentItems({
+   <span class="hljs-attr">parameters</span>: {
+     <span class="hljs-attr">depth</span>: <span class="hljs-string">&#x27;all&#x27;</span>,
+     <span class="hljs-attr">format</span>: <span class="hljs-string">&#x27;inlined&#x27;</span>
+   },
+   <span class="hljs-attr">requests</span>: [
+     { <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;6cd4de36-591b-4ca2-874b-1dec7b681d7e&#x27;</span> },
+     { <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;blog/article-1&#x27;</span> },
+   ],
+ });</code></pre>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Body</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>The type of content returned. This is optional and by default the content returned is assumed to be “any”.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>requests: <span class="tsd-signature-type">FetchRequest</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"requests"</span><span class="tsd-signature-symbol">]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An array of delivery IDs of the content you wish to fetch</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> parameters: <span class="tsd-signature-type">FetchRequest</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"parameters"</span><span class="tsd-signature-symbol">]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Optional override of default parameters</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#fetchresponse" class="tsd-signature-type">FetchResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p><code>Promise&lt;FetchResponse&lt;Body&gt;&gt;</code></p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="getcontentitemsbyid" class="tsd-anchor"></a>
+					<h3>get<wbr>Content<wbr>Items<wbr>ById</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Content<wbr>Items<wbr>ById&lt;Body&gt;<span class="tsd-signature-symbol">(</span>ids<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#fetchresponse" class="tsd-signature-type">FetchResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L267">src/lib/ContentClient.ts:267</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function will help construct requests for fetching multiple Content Items or Slots by delivery ID
+									and is equivalent to:</p>
+								</div>
+								<pre><code class="language-ts"> client.fetchContentItems({
+   <span class="hljs-attr">parameters</span>: {
+     <span class="hljs-attr">depth</span>: <span class="hljs-string">&#x27;all&#x27;</span>,
+     <span class="hljs-attr">format</span>: <span class="hljs-string">&#x27;inlined&#x27;</span>
+   },
+   <span class="hljs-attr">requests</span>: [
+     { <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;6cd4de36-591b-4ca2-874b-1dec7b681d7e&#x27;</span> },
+     { <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;c6d9e038-591b-4ca2-874b-da354f5d6e61&#x27;</span> },
+   ],
+ });</code></pre>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Body</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>The type of content returned. This is optional and by default the content returned is assumed to be “any”.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>ids: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#fetchresponse" class="tsd-signature-type">FetchResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p><code>Promise&lt;FetchResponse&lt;Body&gt;&gt;</code></p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="getcontentitemsbykey" class="tsd-anchor"></a>
+					<h3>get<wbr>Content<wbr>Items<wbr>ByKey</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Content<wbr>Items<wbr>ByKey&lt;Body&gt;<span class="tsd-signature-symbol">(</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#fetchresponse" class="tsd-signature-type">FetchResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L300">src/lib/ContentClient.ts:300</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function will help construct requests for fetching multiple Content Items or Slots by delivery key
+									and is equivalent to:</p>
+								</div>
+								<pre><code class="language-ts"> client.fetchContentItems({
+   <span class="hljs-attr">parameters</span>: {
+     <span class="hljs-attr">depth</span>: <span class="hljs-string">&#x27;all&#x27;</span>,
+     <span class="hljs-attr">format</span>: <span class="hljs-string">&#x27;inlined&#x27;</span>
+   },
+   <span class="hljs-attr">requests</span>: [
+     { <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;blog/article-1&#x27;</span> },
+     { <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;blog/article-2&#x27;</span> },
+   ],
+ });</code></pre>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Body</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>The type of content returned. This is optional and by default the content returned is assumed to be “any”.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>keys: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An array of delivery IDs of the content you wish to fetch</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#fetchresponse" class="tsd-signature-type">FetchResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p><code>Promise&lt;FetchResponse&lt;Body&gt;&gt;</code></p>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="rendercontentitem" class="tsd-anchor"></a>
 					<h3>render<wbr>Content<wbr>Item</h3>
@@ -505,7 +721,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/37012f3/src/lib/ContentClient.ts#L254">src/lib/ContentClient.ts:254</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/0507832/src/lib/ContentClient.ts#L373">src/lib/ContentClient.ts:373</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -567,7 +783,13 @@
 								<a href="contentclient.html#config" class="tsd-kind-icon">config</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="contentclient.html#contentclient-1" class="tsd-kind-icon">content<wbr>Client</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="contentclient.html#contentmapper" class="tsd-kind-icon">content<wbr>Mapper</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="contentclient.html#fetchcontentitems" class="tsd-kind-icon">fetch<wbr>Content<wbr>Items</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="contentclient.html#filterby" class="tsd-kind-icon">filter<wbr>By</a>
@@ -589,6 +811,15 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="contentclient.html#getcontentitembykey" class="tsd-kind-icon">get<wbr>Content<wbr>Item<wbr>ByKey</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="contentclient.html#getcontentitems" class="tsd-kind-icon">get<wbr>Content<wbr>Items</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="contentclient.html#getcontentitemsbyid" class="tsd-kind-icon">get<wbr>Content<wbr>Items<wbr>ById</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="contentclient.html#getcontentitemsbykey" class="tsd-kind-icon">get<wbr>Content<wbr>Items<wbr>ByKey</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="contentclient.html#rendercontentitem" class="tsd-kind-icon">render<wbr>Content<wbr>Item</a>
