@@ -1,3 +1,8 @@
+interface IFragmentMeta {
+  schema: string;
+  name?: string;
+}
+
 /**
  * @hidden
  * Class providing meta data about a fragment of content with helper functions.
@@ -7,6 +12,11 @@ export class FragmentMeta {
    * URI of the JSON-schema used to create this fragment of content
    */
   schema: string;
+
+  /**
+   * Name
+   */
+  name?: string;
 
   /**
    * Creates a new FragmentMeta instance.
@@ -22,9 +32,15 @@ export class FragmentMeta {
    * Export to JSON
    */
   toJSON(): any {
-    return {
+    const result: IFragmentMeta = {
       schema: this.schema,
     };
+
+    if (this.name) {
+      result.name = this.name;
+    }
+
+    return result;
   }
 
   /**

@@ -25,6 +25,20 @@ describe('FragmentMeta', () => {
           'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
       });
     });
+
+    it('should attach name if present', () => {
+      const meta = new FragmentMeta({
+        name: 'Optional',
+        schema:
+          'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
+      });
+
+      expect(JSON.parse(JSON.stringify(meta))).to.deep.eq({
+        name: 'Optional',
+        schema:
+          'http://bigcontent.io/cms/schema/v1/core#/definitions/image-link',
+      });
+    });
   });
 
   context('isFragment', () => {

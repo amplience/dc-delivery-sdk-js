@@ -1,6 +1,4 @@
 import { FragmentMeta } from './FragmentMeta';
-import { ContentReferenceMeta } from './ContentMeta';
-
 /**
  * Required params for creating an content reference
  */
@@ -13,6 +11,16 @@ export type RequiredContentReference<
     schema: string;
   };
 };
+
+/**
+ * Class providing meta data about an Content Reference resource.
+ * @deprecated use FragmentMeta
+ */
+export class ContentReferenceMeta extends FragmentMeta {
+  constructor(data?: any) {
+    super(data);
+  }
+}
 
 /**
  * Class representing an Content Reference.
