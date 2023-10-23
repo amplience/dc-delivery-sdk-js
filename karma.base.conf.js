@@ -58,7 +58,7 @@ module.exports = {
           options: {
             presets: [
               [
-                '@babel/preset-env', 
+                '@babel/preset-env',
                 {
                   targets: {
                     browsers: ['last 2 versions', 'not dead']
