@@ -11,7 +11,7 @@ export class NotSupportedError extends Error {
     super(
       `Not supported. You need to define "${property}" configuration property to use ${method}()`
     );
-    Object.setPrototypeOf(this, new.target.prototype);
+    Object.setPrototypeOf(this, NotSupportedError.prototype);
   }
 }
 
