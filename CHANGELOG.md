@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.12.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.11.0...v0.12.0) (2023-10-27)
+
+
+### Features
+
+* remove Amplience DC header logo from README ([ab94334](https://github.com/amplience/dc-delivery-sdk-js/commit/ab9433464476ff248e0e46b7b543a94095c5138f))
+* remove DC header asset ([911c8de](https://github.com/amplience/dc-delivery-sdk-js/commit/911c8dedc9e33d03a1ff03aa071029f5f72d330b))
+* support nodejs 16, 18 & 20 ([#95](https://github.com/amplience/dc-delivery-sdk-js/issues/95)) ([84fef32](https://github.com/amplience/dc-delivery-sdk-js/commit/84fef32f2c7d87acc9756f8ad2362841434d60fb))
+
+
+### Bug Fixes
+
+* **meta fragment:** include optional name ([#96](https://github.com/amplience/dc-delivery-sdk-js/issues/96)) ([2056d2d](https://github.com/amplience/dc-delivery-sdk-js/commit/2056d2dfb29f976bdbdb296d92eb347a4c84f765))
+
 ## [0.11.0](https://www.github.com/amplience/dc-delivery-sdk-js/compare/v0.10.0...v0.11.0) (2021-11-15)
 
 
