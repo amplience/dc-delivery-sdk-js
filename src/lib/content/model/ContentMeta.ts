@@ -3,15 +3,6 @@ import { ContentLifecycle } from './ContentLifecycle';
 import { FragmentMeta } from './FragmentMeta';
 import { Hierarchy } from './Hierarchy';
 
-/**
- * Class providing meta data about an Content Reference resource.
- */
-export class ContentReferenceMeta extends FragmentMeta {
-  constructor(data?: any) {
-    super(data);
-  }
-}
-
 export interface IContentMeta {
   /**
    * Metadata related to the edition that published this content item. If the content was not published using

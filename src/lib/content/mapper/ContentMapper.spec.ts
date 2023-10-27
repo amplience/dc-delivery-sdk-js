@@ -1,9 +1,12 @@
 import { expect } from 'chai';
 import { ContentMapper } from './ContentMapper';
-import { ContentMeta, ContentReferenceMeta } from '../model/ContentMeta';
+import { ContentMeta } from '../model/ContentMeta';
 import { Image } from '../../media/Image';
 import { Video } from '../../media/Video';
-import { ContentReference } from '../model/ContentReference';
+import {
+  ContentReference,
+  ContentReferenceMeta,
+} from '../model/ContentReference';
 import { CommonContentClientConfig } from '../../config/CommonContentClientConfig';
 
 const config: CommonContentClientConfig = {};
