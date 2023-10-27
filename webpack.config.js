@@ -3,12 +3,14 @@ const path = require('path');
 
 function bundleConfig(name) {
   const isLegacy = name.indexOf('legacy') !== -1;
-  const browserTargets = isLegacy ? ['last 5 versions', 'ie >= 10'] : ['last 2 versions', 'not dead'];
-  
+  const browserTargets = isLegacy
+    ? ['last 5 versions', 'ie >= 10']
+    : ['last 2 versions', 'not dead'];
+
   const config = {
     entry: path.resolve(__dirname, 'build/module/index.js'),
     resolve: {
-      extensions: [ '.js' ]
+      extensions: ['.js'],
     },
     module: {
       rules: [
@@ -19,44 +21,44 @@ function bundleConfig(name) {
           options: {
             presets: [
               [
-                '@babel/preset-env', 
+                '@babel/preset-env',
                 {
                   targets: {
-                    browsers: browserTargets
+                    browsers: browserTargets,
                   },
                   useBuiltIns: 'usage',
-                  corejs: { version: 3, proposals: true }
-                }
-              ]
+                  corejs: { version: 3, proposals: true },
+                },
+              ],
             ],
             plugins: [
-              ["@babel/plugin-transform-for-of", {
-                assumeArray: true
-              }],
-              ["@babel/plugin-transform-classes", {
-                loose: true
-              }]
-            ]
-          }
-        }
-      ]
+              [
+                '@babel/plugin-transform-for-of',
+                {
+                  assumeArray: true,
+                },
+              ],
+              [
+                '@babel/plugin-transform-classes',
+                {
+                  loose: true,
+                },
+              ],
+            ],
+          },
+        },
+      ],
     },
     output: {
       filename: `${name}.js`,
       path: path.resolve(__dirname, 'dist'),
       sourceMapFilename: `${name}.map`,
       libraryTarget: 'umd',
-      library: 'ampDynamicContent'
+      library: 'ampDynamicContent',
     },
-    devtool: 'source-map'
+    devtool: 'source-map',
   };
 
-  config.plugins = [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    })
-  ];
-  
   if (name.indexOf('min') !== -1) {
     config.mode = 'production';
   } else {
@@ -67,8 +69,8 @@ function bundleConfig(name) {
 }
 
 module.exports = [
-  bundleConfig('dynamicContent.browser.umd'),
-  bundleConfig('dynamicContent.browser.umd.min'),
-  bundleConfig('dynamicContent.browser.umd.legacy'),
-  bundleConfig('dynamicContent.browser.umd.legacy.min')
-];
+  'dynamicContent.browser.umd',
+  'dynamicContent.browser.umd.legacy',
+]
+  .map((name) => (process.env.NODE_ENV === 'production' ? name + '.min' : name))
+  .map((name) => bundleConfig(name));
