@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.12.1](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.12.0...v0.12.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* **release:** set registry-url for setup-node ([#98](https://github.com/amplience/dc-delivery-sdk-js/issues/98)) ([ed924a0](https://github.com/amplience/dc-delivery-sdk-js/commit/ed924a0a4d18f0f51c297ed4e5c190a3c79867ce))
+
 ## [0.12.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.11.0...v0.12.0) (2023-10-27)
 
 
