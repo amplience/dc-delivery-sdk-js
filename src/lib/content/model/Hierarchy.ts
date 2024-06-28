@@ -7,7 +7,7 @@ export interface Hierarchy {
    */
   root: boolean;
   /**
-   * Parent ID of a Hierarcy
+   * Parent ID of a Hierarchy
    */
   parentId?: string;
 }

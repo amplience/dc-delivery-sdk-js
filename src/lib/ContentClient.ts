@@ -26,6 +26,8 @@ import {
   NotSupportedV2Error,
   NotSupportedV1Error,
 } from './content/model/NotSupportedError';
+import { HierarchyDescendantsService } from './content/coordinators/HierarchyDescendantsService';
+import { HierarchyDescendantsResponse } from './content/model/HierarchyDescendents';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
@@ -362,6 +364,22 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       this.config,
       this.contentClient
     ).fetchContentItems(body);
+  }
+
+  /**
+   * Retrieve the tree for a hierarchy.
+   *
+   * @param id Unique id of the content item hierarchy node
+   */
+  hierarchyDescendantsById<Body = any>(
+    id: string
+  ): Promise<HierarchyDescendantsResponse<Body>> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('getContentItemsByKey');
+    }
+    return new HierarchyDescendantsService(this.contentClient).get({
+      id,
+    });
   }
 
   /**

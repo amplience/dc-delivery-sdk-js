@@ -39,6 +39,27 @@ export interface IContentMeta {
 }
 
 /**
+ * Children of a hierarchy content item. Each child has a reference to its
+ * parent in the hierarchy.
+ */
+export interface IHierarchyChildContentMeta extends IContentMeta {
+  /**
+   * Metadata related to hierarchies
+   */
+  hierarchy: Hierarchy & {
+    /**
+     * ID of the item's parent in the Hierarchy
+     */
+    parentId: string;
+
+    /**
+     * Always false for Hierarchy Children
+     */
+    root: false;
+  };
+}
+
+/**
  * Class providing meta data about a content item with helper functions.
  */
 export class ContentMeta extends FragmentMeta {
