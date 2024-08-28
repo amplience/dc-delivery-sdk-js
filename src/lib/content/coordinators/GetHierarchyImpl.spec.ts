@@ -4,6 +4,8 @@ import { expect, use } from 'chai';
 import * as ROOT from './__fixtures__/v2/hierarchies/ROOT.json';
 import * as SINGLE_LAYER_RESPONSE from './__fixtures__/v2/hierarchies/SINGLE_LAYER_RESPONSE.json';
 import * as SINGLE_LAYER_RESULT from './__fixtures__/v2/hierarchies/SINGLE_LAYER_RESULT.json';
+import * as MULTI_LAYER_RESPONSE from './__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE.json';
+import * as MULTI_LAYER_RESULT from './__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT.json';
 import chaiAsPromised from 'chai-as-promised';
 import { ContentItem } from '../model/ContentItem';
 import { ContentBody, DefaultContentBody } from '../model/ContentBody';
@@ -130,6 +132,29 @@ describe('getByHierarchies', () => {
         );
         expect(result.content).to.deep.eq(SINGLE_LAYER_RESULT.content);
         expect(result.children).to.deep.eq(SINGLE_LAYER_RESULT.children);
+      });
+    });
+  });
+  describe('Should correctly retrieve and build multi-layer hierarchies from delivery', () => {
+    runs.forEach(({ name, config, host }) => {
+      it(`${name}`, async () => {
+        const [mocks, coordinator] = createCoordinator({
+          ...config,
+        });
+        mocks
+          .onGet(
+            host +
+              HierarchyURLBuilder.HIERARCHY_URL +
+              contentRoot.body._meta.deliveryId
+          )
+          .replyOnce(200, MULTI_LAYER_RESPONSE);
+
+        const result = await coordinator.getHierarchyByRoot(
+          { rootId: contentRoot.body._meta.deliveryId },
+          contentRoot
+        );
+        expect(result.content).to.deep.eq(MULTI_LAYER_RESULT.content);
+        expect(result.children).to.deep.eq(MULTI_LAYER_RESULT.children);
       });
     });
   });
