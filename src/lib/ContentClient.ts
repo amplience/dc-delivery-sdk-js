@@ -26,6 +26,8 @@ import {
   NotSupportedV2Error,
   NotSupportedV1Error,
 } from './content/model/NotSupportedError';
+import { HierachyContentItem } from './content/model/ByHierachy';
+import { GetHierarchyImpl } from './content/coordinators/GetHierarchyImpl';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
@@ -240,6 +242,30 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
 
     return new FilterBy<Body>(this.config, this.contentClient).filterByParentId(
       id
+    );
+  }
+  /** This function will load a hierarchy and return the root item, with any children attached
+   *  as a promise
+   * */
+  async getByHierarchy<Body extends ContentBody = DefaultContentBody>(
+    rootId: string,
+    depth: number,
+    pageSize: number,
+    rootItem?: ContentItem
+  ): Promise<HierachyContentItem<Body>> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('getByHierarchy');
+    }
+    if (rootItem == undefined) {
+      rootItem = await this.getContentItemById(rootId);
+    }
+    return new GetHierarchyImpl(this.contentClient).getHierarchyByRoot(
+      {
+        rootId: rootItem.body._meta.deliveryId,
+        maximumDepth: depth,
+        maximumPageSize: pageSize,
+      },
+      rootItem
     );
   }
 
