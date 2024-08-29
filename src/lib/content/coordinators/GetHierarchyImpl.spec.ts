@@ -5,6 +5,8 @@ import * as ROOT from './__fixtures__/v2/hierarchies/ROOT.json';
 import * as SINGLE_LAYER_RESPONSE from './__fixtures__/v2/hierarchies/SINGLE_LAYER_RESPONSE.json';
 import * as SINGLE_LAYER_RESULT from './__fixtures__/v2/hierarchies/SINGLE_LAYER_RESULT.json';
 import * as MULTI_LAYER_RESPONSE from './__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE.json';
+import * as MULTI_LAYER_RESPONSE_P1 from './__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE_P1.json';
+import * as MULTI_LAYER_RESPONSE_P2 from './__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE_P2.json';
 import * as MULTI_LAYER_RESULT from './__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT.json';
 import chaiAsPromised from 'chai-as-promised';
 import { ContentItem } from '../model/ContentItem';
@@ -15,6 +17,8 @@ import { GetHierarchyImpl } from './GetHierarchyImpl';
 
 use(chaiAsPromised);
 const contentRoot: ContentItem = new ContentItem<DefaultContentBody>();
+const urlBuilder: HierarchyURLBuilder = new HierarchyURLBuilder();
+
 contentRoot.body = JSON.parse(JSON.stringify(ROOT.content));
 
 const cd2RunConfig = {
@@ -63,13 +67,13 @@ describe('getByHierarchies', () => {
         '/content/hierarchies/descendants/id/testId?hierarchyDepth=3&maxPageSize=5'
       );
     }),
-      it('Url should be constructed properly with LE key', () => {
+      it('Url should be constructed properly with cursor key', () => {
         const hierachyURL: HierarchyURLBuilder = new HierarchyURLBuilder();
         const request: HierarchyRequest = {
           rootId: 'testId',
           maximumPageSize: 5,
           maximumDepth: 3,
-          lastEvalKey: 'LEKEY',
+          pageCursor: 'LEKEY',
         };
         const result = hierachyURL.buildUrl(request);
         expect(result).to.deep.eq(
@@ -99,11 +103,11 @@ describe('getByHierarchies', () => {
           '/content/hierarchies/descendants/id/testId?hierarchyDepth=5'
         );
       }),
-      it('Url should be constructed properly with just LE key', () => {
+      it('Url should be constructed properly with just cursor', () => {
         const hierachyURL: HierarchyURLBuilder = new HierarchyURLBuilder();
         const request: HierarchyRequest = {
           rootId: 'testId',
-          lastEvalKey: 'LEKEY',
+          pageCursor: 'LEKEY',
         };
         const result = hierachyURL.buildUrl(request);
         expect(result).to.deep.eq(
@@ -112,7 +116,7 @@ describe('getByHierarchies', () => {
       });
   });
 
-  describe('Should correctly retrieve and build flat hierarchies from delivery', () => {
+  describe('Should correctly retrieve and build flat hierarchies', () => {
     runs.forEach(({ name, config, host }) => {
       it(`${name}`, async () => {
         const [mocks, coordinator] = createCoordinator({
@@ -135,7 +139,7 @@ describe('getByHierarchies', () => {
       });
     });
   });
-  describe('Should correctly retrieve and build multi-layer hierarchies from delivery', () => {
+  describe('Should correctly retrieve and build multi-layer hierarchies', () => {
     runs.forEach(({ name, config, host }) => {
       it(`${name}`, async () => {
         const [mocks, coordinator] = createCoordinator({
@@ -148,6 +152,40 @@ describe('getByHierarchies', () => {
               contentRoot.body._meta.deliveryId
           )
           .replyOnce(200, MULTI_LAYER_RESPONSE);
+
+        const result = await coordinator.getHierarchyByRoot(
+          { rootId: contentRoot.body._meta.deliveryId },
+          contentRoot
+        );
+        expect(result.content).to.deep.eq(MULTI_LAYER_RESULT.content);
+        expect(result.children).to.deep.eq(MULTI_LAYER_RESULT.children);
+      });
+    });
+  });
+  describe('Should correctly retrieve and build multi-layer hierarchies over multiple pages', () => {
+    runs.forEach(({ name, config, host }) => {
+      it(`${name}`, async () => {
+        const [mocks, coordinator] = createCoordinator({
+          ...config,
+        });
+        mocks
+          .onGet(
+            host +
+              urlBuilder.buildUrl({
+                rootId: contentRoot.body._meta.deliveryId,
+              })
+          )
+          .replyOnce(200, MULTI_LAYER_RESPONSE_P1);
+
+        mocks
+          .onGet(
+            host +
+              urlBuilder.buildUrl({
+                rootId: contentRoot.body._meta.deliveryId,
+                pageCursor: 'testCursor',
+              })
+          )
+          .replyOnce(200, MULTI_LAYER_RESPONSE_P2);
 
         const result = await coordinator.getHierarchyByRoot(
           { rootId: contentRoot.body._meta.deliveryId },

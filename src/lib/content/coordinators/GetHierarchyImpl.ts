@@ -28,8 +28,8 @@ export class GetHierarchyImpl<Body extends ContentBody>
       );
 
       content.push(...data.responses);
-      if (data.page.nextCursor != undefined) {
-        request.lastEvalKey = data.page.nextCursor;
+      if (data.page.cursor != undefined) {
+        request.pageCursor = data.page.cursor;
         content.push(...(await this.getByHierarchy(request)));
       }
       return new Promise((resolve) => {

@@ -5,11 +5,11 @@ export interface HierarchyRequest {
   rootId: string;
   maximumDepth?: number;
   maximumPageSize?: number;
-  lastEvalKey?: string;
+  pageCursor?: string;
 }
 
 export interface HierarchyPage {
-  nextCursor: string;
+  cursor: string;
   responseCount: number;
 }
 

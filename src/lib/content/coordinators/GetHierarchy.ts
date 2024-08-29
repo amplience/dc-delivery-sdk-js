@@ -18,7 +18,7 @@ export class HierarchyURLBuilder {
     if (
       request.maximumDepth != undefined ||
       request.maximumPageSize != undefined ||
-      request.lastEvalKey != undefined
+      request.pageCursor != undefined
     ) {
       url += '?';
       let paramSet = false;
@@ -38,12 +38,12 @@ export class HierarchyURLBuilder {
           request.maximumPageSize;
         paramSet = true;
       }
-      if (request.lastEvalKey != undefined) {
+      if (request.pageCursor != undefined) {
         if (paramSet) {
           url += '&';
         }
         url +=
-          HierarchyURLBuilder.LAST_EVALUATED_PARAM + '=' + request.lastEvalKey;
+          HierarchyURLBuilder.LAST_EVALUATED_PARAM + '=' + request.pageCursor;
       }
     }
     return url;
