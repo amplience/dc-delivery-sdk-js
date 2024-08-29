@@ -1,8 +1,4 @@
-import {
-  HierachyContentItem,
-  HierarchyContentResponse,
-  HierarchyRequest,
-} from '../model/ByHierachy';
+import { HierachyContentItem, HierarchyRequest } from '../model/ByHierachy';
 import { ContentItem } from '../model/ContentItem';
 import { ContentBody } from '../model/ContentBody';
 
@@ -55,11 +51,4 @@ export interface GetHierarchy<Body extends ContentBody> {
     request: HierarchyRequest,
     rootItem: ContentItem
   ): Promise<HierachyContentItem<Body>>;
-  assembleHierarchy(
-    rootItem: ContentItem,
-    content: HierarchyContentResponse<Body>[]
-  ): Promise<HierachyContentItem<Body>>;
-  getByHierarchy(
-    request: HierarchyRequest
-  ): Promise<HierarchyContentResponse<Body>[]>;
 }

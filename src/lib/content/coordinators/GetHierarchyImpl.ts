@@ -18,7 +18,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
     this.hierarchyUrlBuilder = new HierarchyURLBuilder();
   }
 
-  async getByHierarchy(
+  private async getByHierarchy(
     request: HierarchyRequest
   ): Promise<HierarchyContentResponse<Body>[]> {
     const content: HierarchyContentResponse<Body>[] = [];
@@ -44,7 +44,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
     }
   }
 
-  assembleHierarchy(
+  private assembleHierarchy(
     rootItem: ContentItem,
     content: HierarchyContentResponse<Body>[]
   ): Promise<HierachyContentItem<Body>> {
@@ -89,7 +89,11 @@ export class GetHierarchyImpl<Body extends ContentBody>
         })
     );
   }
-
+  /**
+   * Retrieve the hierarchy by its root item, then return the root item with its children attached
+   * @param request the request data structure providing the rootID and optional parameters for the query
+   * @param rootItem the root item's content body so that
+   */
   async getHierarchyByRoot(
     request: HierarchyRequest,
     rootItem: ContentItem
