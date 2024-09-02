@@ -244,13 +244,20 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       id
     );
   }
-  /** This function will load a hierarchy and return the root item, with any children attached
-   *  as a promise
+
+  /** This function will load a hierarchy and return the root item, with any children attached,
+   * it will also fetch the root item if needed.
+   *  @param rootId the content item id of the root item
+   *  @param rootItem an optional param to pass the root item if it has already been fetched
+   *  @param depth specifies the maximum depth of the hierarchy query
+   *  @param pageSize specifies the maximum page size for each page of the hierarchy,
+   *  note: this does not override the limit applied by the delivery service
+   *
    * */
   async getByHierarchy<Body extends ContentBody = DefaultContentBody>(
     rootId: string,
-    depth: number,
-    pageSize: number,
+    depth?: number,
+    pageSize?: number,
     rootItem?: ContentItem
   ): Promise<HierachyContentItem<Body>> {
     if (!isContentClientConfigV2(this.config)) {

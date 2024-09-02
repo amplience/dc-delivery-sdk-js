@@ -415,4 +415,16 @@ describe('ContentClient', () => {
       expect(request.page.responseCount).to.equals(0);
     });
   });
+
+  it('`getByHierarchy` should throw if no cdv2 configuration', async () => {
+    const client = new ContentClient({
+      account: 'test',
+    });
+
+    await client.getByHierarchy('ffff').catch((reason) => {
+      expect(reason.message).to.deep.eq(
+        'Not supported. You need to define "hubName" configuration property to use getByHierarchy()'
+      );
+    });
+  });
 });
