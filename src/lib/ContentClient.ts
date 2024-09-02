@@ -26,7 +26,7 @@ import {
   NotSupportedV2Error,
   NotSupportedV1Error,
 } from './content/model/NotSupportedError';
-import { HierachyContentItem } from './content/model/ByHierachy';
+import { HierarchyContentItem } from './content/model/ByHierachy';
 import { GetHierarchyImpl } from './content/coordinators/GetHierarchyImpl';
 
 /**
@@ -259,7 +259,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     depth?: number,
     pageSize?: number,
     rootItem?: ContentItem
-  ): Promise<HierachyContentItem<Body>> {
+  ): Promise<HierarchyContentItem<Body>> {
     if (!isContentClientConfigV2(this.config)) {
       throw new NotSupportedV2Error('getByHierarchy');
     }

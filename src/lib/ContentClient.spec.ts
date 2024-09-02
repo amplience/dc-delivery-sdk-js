@@ -1,11 +1,22 @@
 import { expect } from 'chai';
-import { ContentClient } from '../index';
+import {
+  ContentClient,
+  ContentClientConfigV2,
+  ContentMeta,
+  DefaultContentBody,
+  HierarchyContentItem,
+} from '../index';
 import MockAdapter from 'axios-mock-adapter';
 import * as V1_SINGLE_RESULT from './content/coordinators/__fixtures__/v1/SINGLE_RESULT.json';
 import * as V2_SINGLE_RESULT from './content/coordinators/__fixtures__/v2/SINGLE_RESULT.json';
 import * as NO_RESULTS from './content/coordinators/__fixtures__/v2/filterBy/NO_RESULTS.json';
+import * as MULTI_LAYER_RESPONSE from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE.json';
+import * as MULTI_LAYER_RESULT from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT.json';
+import * as ROOT from './content/coordinators/__fixtures__/v2/hierarchies/ROOT.json';
+
 import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
 import { FilterBy } from './content/coordinators/FilterBy';
+import { HierarchyURLBuilder } from './content/coordinators/GetHierarchy';
 
 const SINGLE_ITEM_RESPONSE = {
   _meta: {
@@ -384,7 +395,6 @@ describe('ContentClient', () => {
 
     it('`filterByContentType` should throw if no cdv2 configuration', async () => {
       const mocks = new MockAdapter(null);
-
       mocks
         .onPost('https://test.cdn.content.amplience.net/content/filter', {
           filterBy: [
@@ -414,6 +424,51 @@ describe('ContentClient', () => {
       expect(request.responses).to.deep.equals(NO_RESULTS.responses);
       expect(request.page.responseCount).to.equals(0);
     });
+  });
+
+  it(`getByHierarchy should fetch root item if it isn't passed in`, async () => {
+    const urlBuilder = new HierarchyURLBuilder();
+
+    const mocks = new MockAdapter(null);
+
+    const expectedBody: DefaultContentBody = {
+      _meta: new ContentMeta(MULTI_LAYER_RESULT.content._meta),
+      propertyName1: MULTI_LAYER_RESULT.content.propertyName1,
+    };
+
+    const expectedContent: HierarchyContentItem<DefaultContentBody> = {
+      content: expectedBody,
+      children: MULTI_LAYER_RESULT.children as any,
+    };
+
+    const cd2RunConfig = {
+      name: 'cdv2',
+      hubName: 'hub',
+      type: 'cdn',
+      baseUrl: 'https://hub.cdn.content.amplience.net',
+      config: { hubName: 'hub' },
+    } as ContentClientConfigV2;
+
+    mocks
+      .onGet(
+        'https://hub.cdn.content.amplience.net/content/id/90d6fa96-6ce0-4332-b995-4e6c50b1e233?depth=all&format=inlined'
+      )
+      .reply(200, ROOT);
+
+    mocks
+      .onGet(
+        cd2RunConfig.baseUrl +
+          urlBuilder.buildUrl({
+            rootId: ROOT.content._meta.deliveryId,
+          })
+      )
+      .reply(200, MULTI_LAYER_RESPONSE);
+
+    const mergedConfig = { adaptor: mocks.adapter(), ...cd2RunConfig };
+
+    const client = new ContentClient(mergedConfig);
+    const response = await client.getByHierarchy(ROOT.content._meta.deliveryId);
+    expect(response).to.deep.eq(expectedContent);
   });
 
   it('`getByHierarchy` should throw if no cdv2 configuration', async () => {

@@ -22,7 +22,7 @@ export interface HierarchyContentResponse<Body extends ContentBody> {
   content: Body & IContentMeta;
 }
 
-export interface HierachyContentItem<Body extends ContentBody> {
+export interface HierarchyContentItem<Body extends ContentBody> {
   content: ContentBody;
-  children: HierachyContentItem<Body>[];
+  children: HierarchyContentItem<Body>[];
 }

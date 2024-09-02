@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { GetHierarchy, HierarchyURLBuilder } from './GetHierarchy';
 import {
-  HierachyContentItem,
+  HierarchyContentItem,
   HierarchyContentResponse,
   HierarchyRequest,
   HierarchyResponse,
@@ -47,8 +47,8 @@ export class GetHierarchyImpl<Body extends ContentBody>
   private assembleHierarchy(
     rootItem: ContentItem,
     content: HierarchyContentResponse<Body>[]
-  ): Promise<HierachyContentItem<Body>> {
-    const rootHierarchyItem: HierachyContentItem<Body> = {
+  ): Promise<HierarchyContentItem<Body>> {
+    const rootHierarchyItem: HierarchyContentItem<Body> = {
       content: rootItem.body,
       children: [],
     };
@@ -57,7 +57,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
         return this.isParent(rootItem.body, contentItem.content);
       })
       .map((item) => {
-        const hierarchyItem: HierachyContentItem<Body> = {
+        const hierarchyItem: HierarchyContentItem<Body> = {
           content: item.content,
           children: [],
         };
@@ -71,7 +71,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
   }
 
   assembleChildren(
-    rootItem: HierachyContentItem<Body>,
+    rootItem: HierarchyContentItem<Body>,
     content: HierarchyContentResponse<Body>[]
   ): void {
     rootItem.children.push(
@@ -80,7 +80,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
           return this.isParent(rootItem.content, contentItem.content);
         })
         .map((item) => {
-          const hierarchyItem: HierachyContentItem<any> = {
+          const hierarchyItem: HierarchyContentItem<any> = {
             content: item.content,
             children: [],
           };
@@ -97,7 +97,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
   async getHierarchyByRoot(
     request: HierarchyRequest,
     rootItem: ContentItem
-  ): Promise<HierachyContentItem<Body>> {
+  ): Promise<HierarchyContentItem<Body>> {
     const hierarchyData = await this.getByHierarchy(request);
     const rootHierarchyItem = await this.assembleHierarchy(
       rootItem,
