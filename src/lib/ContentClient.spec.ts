@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import {
   ContentClient,
   ContentClientConfigV2,
+  ContentItem,
   ContentMeta,
   DefaultContentBody,
   HierarchyContentItem,
@@ -467,8 +468,70 @@ describe('ContentClient', () => {
     const mergedConfig = { adaptor: mocks.adapter(), ...cd2RunConfig };
 
     const client = new ContentClient(mergedConfig);
-    const response = await client.getByHierarchy(ROOT.content._meta.deliveryId);
+    const response = await client.getByHierarchy({
+      rootId: ROOT.content._meta.deliveryId,
+    });
     expect(response).to.deep.eq(expectedContent);
+  });
+
+  it(`getByHierarchy should throw an error if the root item is not found`, async () => {
+    const mocks = new MockAdapter(null);
+
+    const cd2RunConfig = {
+      name: 'cdv2',
+      hubName: 'hub',
+      type: 'cdn',
+      baseUrl: 'https://hub.cdn.content.amplience.net',
+      config: { hubName: 'hub' },
+    } as ContentClientConfigV2;
+
+    mocks
+      .onGet(
+        'https://hub.cdn.content.amplience.net/content/id/90d6fa96-6ce0-4332-b995-4e6c50b1e233?depth=all&format=inlined'
+      )
+      .reply(404);
+
+    const mergedConfig = { adaptor: mocks.adapter(), ...cd2RunConfig };
+
+    const client = new ContentClient(mergedConfig);
+    await client
+      .getByHierarchy({ rootId: ROOT.content._meta.deliveryId })
+      .catch((error) => {
+        expect(error.message).to.deep.eq(
+          'Error while retrieving hierarchy root item: Content item "90d6fa96-6ce0-4332-b995-4e6c50b1e233" was not found'
+        );
+      });
+  });
+
+  it(`getByHierarchy should throw an error if the root item id does not match the request rootId`, async () => {
+    const mocks = new MockAdapter(null);
+
+    const rootBody: DefaultContentBody = {
+      _meta: new ContentMeta(ROOT.content._meta),
+      propertyName1: ROOT.content.propertyName1,
+    };
+
+    const rootItem = new ContentItem();
+    rootItem.body = rootBody;
+
+    const cd2RunConfig = {
+      name: 'cdv2',
+      hubName: 'hub',
+      type: 'cdn',
+      baseUrl: 'https://hub.cdn.content.amplience.net',
+      config: { hubName: 'hub' },
+    } as ContentClientConfigV2;
+
+    const mergedConfig = { adaptor: mocks.adapter(), ...cd2RunConfig };
+
+    const client = new ContentClient(mergedConfig);
+    await client
+      .getByHierarchy({ rootId: 'failed test', rootItem: rootItem })
+      .catch((error) => {
+        expect(error.message).to.deep.eq(
+          'The root item id(90d6fa96-6ce0-4332-b995-4e6c50b1e233) does not match the request rootId(failed test)'
+        );
+      });
   });
 
   it('`getByHierarchy` should throw if no cdv2 configuration', async () => {
@@ -476,7 +539,7 @@ describe('ContentClient', () => {
       account: 'test',
     });
 
-    await client.getByHierarchy('ffff').catch((reason) => {
+    await client.getByHierarchy({ rootId: 'ffff' }).catch((reason) => {
       expect(reason.message).to.deep.eq(
         'Not supported. You need to define "hubName" configuration property to use getByHierarchy()'
       );

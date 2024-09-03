@@ -26,7 +26,10 @@ import {
   NotSupportedV2Error,
   NotSupportedV1Error,
 } from './content/model/NotSupportedError';
-import { HierarchyContentItem } from './content/model/ByHierachy';
+import {
+  ContentClientHierarchyRequest,
+  HierarchyContentItem,
+} from './content/model/ByHierachy';
 import { GetHierarchyImpl } from './content/coordinators/GetHierarchyImpl';
 
 /**
@@ -245,34 +248,43 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     );
   }
 
-  /** This function will load a hierarchy and return the root item, with any children attached,
+  /** This function will load a hierarchy and return the root item with any children attached,
    * it will also fetch the root item if needed.
-   *  @param rootId the content item id of the root item
-   *  @param rootItem an optional param to pass the root item if it has already been fetched
-   *  @param depth specifies the maximum depth of the hierarchy query
-   *  @param pageSize specifies the maximum page size for each page of the hierarchy,
-   *  note: this does not override the limit applied by the delivery service
-   *
+   * @param requestParameters parameters for the hierarchies request see {@link ContentClientHierarchyRequest}
    * */
   async getByHierarchy<Body extends ContentBody = DefaultContentBody>(
-    rootId: string,
-    depth?: number,
-    pageSize?: number,
-    rootItem?: ContentItem
+    requestParameters: ContentClientHierarchyRequest
   ): Promise<HierarchyContentItem<Body>> {
     if (!isContentClientConfigV2(this.config)) {
       throw new NotSupportedV2Error('getByHierarchy');
     }
-    if (rootItem == undefined) {
-      rootItem = await this.getContentItemById(rootId);
+    if (requestParameters.rootItem == undefined) {
+      try {
+        requestParameters.rootItem = await this.getContentItemById(
+          requestParameters.rootId
+        );
+      } catch (err) {
+        throw new Error(
+          'Error while retrieving hierarchy root item: ' + err.message
+        );
+      }
+    }
+    if (
+      requestParameters.rootItem.body._meta.deliveryId !=
+      requestParameters.rootId
+    ) {
+      throw new Error(
+        `The root item id(${requestParameters.rootItem.body._meta.deliveryId}) ` +
+          `does not match the request rootId(${requestParameters.rootId})`
+      );
     }
     return new GetHierarchyImpl(this.contentClient).getHierarchyByRoot(
       {
-        rootId: rootItem.body._meta.deliveryId,
-        maximumDepth: depth,
-        maximumPageSize: pageSize,
+        rootId: requestParameters.rootItem.body._meta.deliveryId,
+        maximumDepth: requestParameters.maximumDepth,
+        maximumPageSize: requestParameters.maximumPageSize,
       },
-      rootItem
+      requestParameters.rootItem
     );
   }
 
