@@ -32,9 +32,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
         request.pageCursor = data.page.cursor;
         content.push(...(await this.getByHierarchy(request)));
       }
-      return new Promise((resolve) => {
-        resolve(content);
-      });
+      return content;
     } catch (err) {
       if (err.response) {
         throw new HttpError(err.response.status, err.response.data);
@@ -44,7 +42,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
     }
   }
 
-  private assembleHierarchy(
+  private async assembleHierarchy(
     rootItem: ContentItem,
     content: HierarchyContentResponse<Body>[]
   ): Promise<HierarchyContentItem<Body>> {
@@ -65,9 +63,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
         return hierarchyItem;
       });
 
-    return new Promise((resolve) => {
-      resolve(rootHierarchyItem);
-    });
+    return rootHierarchyItem;
   }
 
   assembleChildren(
@@ -99,9 +95,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
       rootItem,
       hierarchyData
     );
-    return new Promise((resolve) => {
-      resolve(rootHierarchyItem);
-    });
+    return rootHierarchyItem;
   }
 
   private isParent(rootHierarchyItem: ContentBody, contentItem: ContentBody) {

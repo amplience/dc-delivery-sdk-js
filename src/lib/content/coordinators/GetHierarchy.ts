@@ -1,48 +1,40 @@
 import { HierarchyContentItem, HierarchyRequest } from '../model/ByHierachy';
 import { ContentItem } from '../model/ContentItem';
 import { ContentBody } from '../model/ContentBody';
+import { URL } from 'url';
 
 export class HierarchyURLBuilder {
+  static DUMMY_DOMAIN_NAME = 'https://dummy.com';
   static HIERARCHY_URL = '/content/hierarchies/descendants/id/';
   static MAXIMUM_DEPTH_PARAM = 'hierarchyDepth';
   static MAXIMUM_PAGE_SIZE_PARAM = 'maxPageSize';
   static LAST_EVALUATED_PARAM = 'pageCursor';
 
   buildUrl(request: HierarchyRequest): string {
-    let url = HierarchyURLBuilder.HIERARCHY_URL;
-    url += request.rootId;
-    if (
-      request.maximumDepth != undefined ||
-      request.maximumPageSize != undefined ||
-      request.pageCursor != undefined
-    ) {
-      url += '?';
-      let paramSet = false;
-      if (request.maximumDepth != undefined) {
-        url +=
-          HierarchyURLBuilder.MAXIMUM_DEPTH_PARAM + '=' + request.maximumDepth;
-        paramSet = true;
-      }
-
-      if (request.maximumPageSize != undefined) {
-        if (paramSet) {
-          url += '&';
-        }
-        url +=
-          HierarchyURLBuilder.MAXIMUM_PAGE_SIZE_PARAM +
-          '=' +
-          request.maximumPageSize;
-        paramSet = true;
-      }
-      if (request.pageCursor != undefined) {
-        if (paramSet) {
-          url += '&';
-        }
-        url +=
-          HierarchyURLBuilder.LAST_EVALUATED_PARAM + '=' + request.pageCursor;
-      }
+    const url: URL = new URL(
+      HierarchyURLBuilder.DUMMY_DOMAIN_NAME +
+        HierarchyURLBuilder.HIERARCHY_URL +
+        request.rootId
+    );
+    if (request.maximumDepth != undefined) {
+      url.searchParams.append(
+        HierarchyURLBuilder.MAXIMUM_DEPTH_PARAM,
+        request.maximumDepth.toString()
+      );
     }
-    return url;
+    if (request.maximumPageSize != undefined) {
+      url.searchParams.append(
+        HierarchyURLBuilder.MAXIMUM_PAGE_SIZE_PARAM,
+        request.maximumPageSize.toString()
+      );
+    }
+    if (request.pageCursor != undefined) {
+      url.searchParams.append(
+        HierarchyURLBuilder.LAST_EVALUATED_PARAM,
+        request.pageCursor
+      );
+    }
+    return url.toString().replace(HierarchyURLBuilder.DUMMY_DOMAIN_NAME, '');
   }
 }
 
