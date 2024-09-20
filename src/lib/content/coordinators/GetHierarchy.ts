@@ -4,7 +4,7 @@ import { ContentBody } from '../model/ContentBody';
 import { URL } from 'url';
 
 export class HierarchyURLBuilder {
-  static DUMMY_DOMAIN_NAME = 'https://dummy.com';
+  static DUMMY_DOMAIN_NAME = 'https://bigcontent.io';
   static HIERARCHY_URL = '/content/hierarchies/descendants/id/';
   static MAXIMUM_DEPTH_PARAM = 'hierarchyDepth';
   static MAXIMUM_PAGE_SIZE_PARAM = 'maxPageSize';

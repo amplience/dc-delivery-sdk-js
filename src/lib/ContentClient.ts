@@ -31,6 +31,9 @@ import {
   HierarchyContentItem,
 } from './content/model/ByHierachy';
 import { GetHierarchyImpl } from './content/coordinators/GetHierarchyImpl';
+import { FilteringHierachyAssemblerImpl } from './content/assemblers/FilteringHierachyAssemblerImpl';
+import { HierarchyAssemblerImpl } from './content/assemblers/HierarchyAssemblerImpl';
+import { MutatingHierachyAssemblerImpl } from './content/assemblers/MutatingHierarchyAssembler';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
@@ -248,6 +251,33 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     );
   }
 
+  private async getHierarchyRootItem(
+    requestParameters: ContentClientHierarchyRequest
+  ): Promise<ContentItem> {
+    let rootItem: ContentItem;
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('getByHierarchy');
+    }
+    if (requestParameters.rootItem == undefined) {
+      try {
+        rootItem = await this.getContentItemById(requestParameters.rootId);
+      } catch (err) {
+        throw new Error(
+          'Error while retrieving hierarchy root item: ' + err.message
+        );
+      }
+    } else {
+      rootItem = requestParameters.rootItem;
+    }
+    if (rootItem.body._meta.deliveryId !== requestParameters.rootId) {
+      throw new Error(
+        `The root item id(${requestParameters.rootItem.body._meta.deliveryId}) ` +
+          `does not match the request rootId(${requestParameters.rootId})`
+      );
+    }
+    return rootItem;
+  }
+
   /** This function will load a hierarchy and return the root item with any children attached,
    * it will also fetch the root item if needed.
    * @param requestParameters parameters for the hierarchies request see {@link ContentClientHierarchyRequest}
@@ -255,41 +285,67 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   async getByHierarchy<Body extends ContentBody = DefaultContentBody>(
     requestParameters: ContentClientHierarchyRequest
   ): Promise<HierarchyContentItem<Body>> {
-    if (!isContentClientConfigV2(this.config)) {
-      throw new NotSupportedV2Error('getByHierarchy');
-    }
-    if (requestParameters.rootItem == undefined) {
-      try {
-        requestParameters.rootItem = await this.getContentItemById(
-          requestParameters.rootId
-        );
-      } catch (err) {
-        throw new Error(
-          'Error while retrieving hierarchy root item: ' + err.message
-        );
-      }
-    }
-    if (
-      requestParameters.rootItem.body._meta.deliveryId !=
-      requestParameters.rootId
-    ) {
-      throw new Error(
-        `The root item id(${requestParameters.rootItem.body._meta.deliveryId}) ` +
-          `does not match the request rootId(${requestParameters.rootId})`
-      );
-    }
-    return new GetHierarchyImpl(this.contentClient).getHierarchyByRoot(
+    const rootItem = await this.getHierarchyRootItem(requestParameters);
+    return new GetHierarchyImpl(
+      this.contentClient,
+      new HierarchyAssemblerImpl()
+    ).getHierarchyByRoot(
       {
-        rootId: requestParameters.rootItem.body._meta.deliveryId,
+        rootId: rootItem.body._meta.deliveryId,
         maximumDepth: requestParameters.maximumDepth,
         maximumPageSize: requestParameters.maximumPageSize,
       },
-      requestParameters.rootItem
+      rootItem
+    );
+  }
+
+  /** This function will load a hierarchy and return the root item with any children attached,
+   * it will also fetch the root item if needed.
+   * @param requestParameters parameters for the hierarchies request see {@link ContentClientHierarchyRequest}
+   * @param filterFunction the function that is applied to filter the tree, elements are removed on a truthy result
+   * */
+  async getByHierarchyAndFilter<Body extends ContentBody = DefaultContentBody>(
+    requestParameters: ContentClientHierarchyRequest,
+    filterFunction: (contentBody: ContentBody) => boolean
+  ): Promise<HierarchyContentItem<Body>> {
+    const rootItem = await this.getHierarchyRootItem(requestParameters);
+    return new GetHierarchyImpl(
+      this.contentClient,
+      new FilteringHierachyAssemblerImpl(filterFunction)
+    ).getHierarchyByRoot(
+      {
+        rootId: rootItem.body._meta.deliveryId,
+        maximumDepth: requestParameters.maximumDepth,
+        maximumPageSize: requestParameters.maximumPageSize,
+      },
+      rootItem
+    );
+  }
+  /** This function will load a hierarchy and return the root item with any children attached,
+   * it will also fetch the root item if needed.
+   * @param requestParameters parameters for the hierarchies request see {@link ContentClientHierarchyRequest}
+   * @param mutationFunction the function that is applied to the content body while build the hierarchy
+   * */
+  async getByHierarchyAndMutate<Body extends ContentBody = DefaultContentBody>(
+    requestParameters: ContentClientHierarchyRequest,
+    mutationFunction: (contentBody: ContentBody) => ContentBody
+  ): Promise<HierarchyContentItem<Body>> {
+    const rootItem = await this.getHierarchyRootItem(requestParameters);
+    return new GetHierarchyImpl(
+      this.contentClient,
+      new MutatingHierachyAssemblerImpl(mutationFunction)
+    ).getHierarchyByRoot(
+      {
+        rootId: rootItem.body._meta.deliveryId,
+        maximumDepth: requestParameters.maximumDepth,
+        maximumPageSize: requestParameters.maximumPageSize,
+      },
+      rootItem
     );
   }
 
   /**
-   * This function will help construct requests for fetching multiple Content Items or Slots by delivery ID
+   * These functions will help construct requests for fetching multiple Content Items or Slots by delivery ID
    * and is equivalent to:
    *
    * ```ts

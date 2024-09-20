@@ -9,12 +9,16 @@ import {
 import { HttpError } from '../model/HttpError';
 import { ContentItem } from '../model/ContentItem';
 import { ContentBody } from '../model/ContentBody';
+import { HierarchyAssembler } from '../assemblers/HierarchyAssembler';
 
 export class GetHierarchyImpl<Body extends ContentBody>
   implements GetHierarchy<Body> {
   private readonly hierarchyUrlBuilder: HierarchyURLBuilder;
 
-  constructor(private readonly contentClient: AxiosInstance) {
+  constructor(
+    private readonly contentClient: AxiosInstance,
+    private readonly assembler: HierarchyAssembler<Body>
+  ) {
     this.hierarchyUrlBuilder = new HierarchyURLBuilder();
   }
 
@@ -41,68 +45,15 @@ export class GetHierarchyImpl<Body extends ContentBody>
       throw err;
     }
   }
-
-  private async assembleHierarchy(
-    rootItem: ContentItem,
-    content: HierarchyContentResponse<Body>[]
-  ): Promise<HierarchyContentItem<Body>> {
-    const rootHierarchyItem: HierarchyContentItem<Body> = {
-      content: rootItem.body,
-      children: [],
-    };
-    rootHierarchyItem.children = content
-      .filter((contentItem) => {
-        return this.isParent(rootItem.body, contentItem.content);
-      })
-      .map((item) => {
-        const hierarchyItem: HierarchyContentItem<Body> = {
-          content: item.content,
-          children: [],
-        };
-        this.assembleChildren(hierarchyItem, content);
-        return hierarchyItem;
-      });
-
-    return rootHierarchyItem;
-  }
-
-  assembleChildren(
-    rootItem: HierarchyContentItem<Body>,
-    content: HierarchyContentResponse<Body>[]
-  ): void {
-    rootItem.children.push(
-      ...content
-        .filter((contentItem) => {
-          return this.isParent(rootItem.content, contentItem.content);
-        })
-        .map((item) => {
-          const hierarchyItem: HierarchyContentItem<any> = {
-            content: item.content,
-            children: [],
-          };
-          this.assembleChildren(hierarchyItem, content);
-          return hierarchyItem;
-        })
-    );
-  }
-
   async getHierarchyByRoot(
     request: HierarchyRequest,
     rootItem: ContentItem
   ): Promise<HierarchyContentItem<Body>> {
     const hierarchyData = await this.getByHierarchy(request);
-    const rootHierarchyItem = await this.assembleHierarchy(
+    const rootHierarchyItem = this.assembler.assembleRoot(
       rootItem,
       hierarchyData
     );
     return rootHierarchyItem;
-  }
-
-  private isParent(rootHierarchyItem: ContentBody, contentItem: ContentBody) {
-    return (
-      contentItem._meta.hierarchy != undefined &&
-      contentItem._meta.hierarchy.parentId != undefined &&
-      contentItem._meta.hierarchy.parentId == rootHierarchyItem._meta.deliveryId
-    );
   }
 }

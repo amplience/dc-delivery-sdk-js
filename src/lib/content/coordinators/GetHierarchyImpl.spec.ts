@@ -14,6 +14,7 @@ import { ContentBody, DefaultContentBody } from '../model/ContentBody';
 import MockAdapter from 'axios-mock-adapter';
 import { createContentClient } from '../../client/createContentClient';
 import { GetHierarchyImpl } from './GetHierarchyImpl';
+import { HierarchyAssemblerImpl } from '../assemblers/HierarchyAssemblerImpl';
 
 use(chaiAsPromised);
 const contentRoot: ContentItem = new ContentItem<DefaultContentBody>();
@@ -49,7 +50,10 @@ function createCoordinator<T extends ContentBody>(
   const mocks = new MockAdapter(null);
   const mergedConfig = { ...config, adaptor: mocks.adapter() };
   const client = createContentClient(mergedConfig);
-  const coordinator = new GetHierarchyImpl<T>(client);
+  const coordinator = new GetHierarchyImpl<T>(
+    client,
+    new HierarchyAssemblerImpl()
+  );
   return [mocks, coordinator];
 }
 
