@@ -306,7 +306,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * */
   async getByHierarchyAndFilter<Body extends ContentBody = DefaultContentBody>(
     requestParameters: ContentClientHierarchyRequest,
-    filterFunction: (contentBody: ContentBody) => boolean
+    filterFunction: (contentBody: Body) => boolean
   ): Promise<HierarchyContentItem<Body>> {
     const rootItem = await this.getHierarchyRootItem(requestParameters);
     return new GetHierarchyImpl(
@@ -324,11 +324,11 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   /** This function will load a hierarchy and return the root item with any children attached,
    * it will also fetch the root item if needed.
    * @param requestParameters parameters for the hierarchies request see {@link ContentClientHierarchyRequest}
-   * @param mutationFunction the function that is applied to the content body while build the hierarchy
+   * @param mutationFunction the function that is applied to the content body while building the hierarchy
    * */
   async getByHierarchyAndMutate<Body extends ContentBody = DefaultContentBody>(
     requestParameters: ContentClientHierarchyRequest,
-    mutationFunction: (contentBody: ContentBody) => ContentBody
+    mutationFunction: (contentBody: Body) => Body
   ): Promise<HierarchyContentItem<Body>> {
     const rootItem = await this.getHierarchyRootItem(requestParameters);
     return new GetHierarchyImpl(

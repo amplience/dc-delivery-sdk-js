@@ -9,7 +9,7 @@ import { ContentItem } from '../model/ContentItem';
 export class MutatingHierachyAssemblerImpl<Body extends ContentBody>
   implements HierarchyAssembler<Body> {
   constructor(
-    private readonly mutationFunction: (content: ContentBody) => ContentBody
+    private readonly mutationFunction: (content: Body) => ContentBody
   ) {}
   assembleChildren(
     rootItem: HierarchyContentItem<Body>,
@@ -36,7 +36,7 @@ export class MutatingHierachyAssemblerImpl<Body extends ContentBody>
     content: HierarchyContentResponse<Body>[]
   ): HierarchyContentItem<Body> {
     const rootHierarchyItem: HierarchyContentItem<Body> = {
-      content: rootItem.body,
+      content: this.mutationFunction(rootItem.body),
       children: [],
     };
     rootHierarchyItem.children = content

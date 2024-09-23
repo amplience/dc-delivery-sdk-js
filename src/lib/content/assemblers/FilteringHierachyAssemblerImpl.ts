@@ -8,9 +8,7 @@ import { ContentItem } from '../model/ContentItem';
 
 export class FilteringHierachyAssemblerImpl<Body extends ContentBody>
   implements HierarchyAssembler<Body> {
-  constructor(
-    private readonly filterFunction: (content: ContentBody) => boolean
-  ) {}
+  constructor(private readonly filterFunction: (content: Body) => boolean) {}
   assembleChildren(
     rootItem: HierarchyContentItem<Body>,
     content: HierarchyContentResponse<Body>[]
