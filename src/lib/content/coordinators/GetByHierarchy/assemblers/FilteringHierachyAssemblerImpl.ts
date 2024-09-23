@@ -1,16 +1,14 @@
 import { HierarchyAssembler, isParent } from './HierarchyAssembler';
-import { ContentBody } from '../model/ContentBody';
+import { ContentBody } from '../../../model/ContentBody';
 import {
   HierarchyContentItem,
   HierarchyContentResponse,
-} from '../model/ByHierachy';
-import { ContentItem } from '../model/ContentItem';
+} from '../../../model/ByHierachy';
+import { ContentItem } from '../../../model/ContentItem';
 
-export class MutatingHierachyAssemblerImpl<Body extends ContentBody>
+export class FilteringHierachyAssemblerImpl<Body extends ContentBody>
   implements HierarchyAssembler<Body> {
-  constructor(
-    private readonly mutationFunction: (content: Body) => ContentBody
-  ) {}
+  constructor(private readonly filterFunction: (content: Body) => boolean) {}
   assembleChildren(
     rootItem: HierarchyContentItem<Body>,
     content: HierarchyContentResponse<Body>[]
@@ -18,11 +16,14 @@ export class MutatingHierachyAssemblerImpl<Body extends ContentBody>
     rootItem.children.push(
       ...content
         .filter((contentItem) => {
-          return isParent(rootItem.content, contentItem.content);
+          return (
+            isParent(rootItem.content, contentItem.content) &&
+            !this.filterFunction(contentItem.content)
+          );
         })
         .map((item) => {
           const hierarchyItem: HierarchyContentItem<any> = {
-            content: this.mutationFunction(item.content),
+            content: item.content,
             children: [],
           };
           this.assembleChildren(hierarchyItem, content);
@@ -36,16 +37,19 @@ export class MutatingHierachyAssemblerImpl<Body extends ContentBody>
     content: HierarchyContentResponse<Body>[]
   ): HierarchyContentItem<Body> {
     const rootHierarchyItem: HierarchyContentItem<Body> = {
-      content: this.mutationFunction(rootItem.body),
+      content: rootItem.body,
       children: [],
     };
     rootHierarchyItem.children = content
       .filter((contentItem) => {
-        return isParent(rootItem.body, contentItem.content);
+        return (
+          isParent(rootItem.body, contentItem.content) &&
+          !this.filterFunction(contentItem.content)
+        );
       })
       .map((item) => {
         const hierarchyItem: HierarchyContentItem<Body> = {
-          content: this.mutationFunction(item.content),
+          content: item.content,
           children: [],
         };
         this.assembleChildren(hierarchyItem, content);

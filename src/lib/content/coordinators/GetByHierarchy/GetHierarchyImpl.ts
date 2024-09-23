@@ -1,15 +1,16 @@
 import { AxiosInstance } from 'axios';
-import { GetHierarchy, HierarchyURLBuilder } from './GetHierarchy';
+import { GetHierarchy } from './GetHierarchy';
 import {
   HierarchyContentItem,
   HierarchyContentResponse,
   HierarchyRequest,
   HierarchyResponse,
-} from '../model/ByHierachy';
-import { HttpError } from '../model/HttpError';
-import { ContentItem } from '../model/ContentItem';
-import { ContentBody } from '../model/ContentBody';
-import { HierarchyAssembler } from '../assemblers/HierarchyAssembler';
+} from '../../model/ByHierachy';
+import { HttpError } from '../../model/HttpError';
+import { ContentItem } from '../../model/ContentItem';
+import { ContentBody } from '../../model/ContentBody';
+import { HierarchyAssembler } from './assemblers/HierarchyAssembler';
+import { HierarchyURLBuilder } from './UrlBuilder';
 
 export class GetHierarchyImpl<Body extends ContentBody>
   implements GetHierarchy<Body> {

@@ -19,7 +19,7 @@ import * as ROOT from './content/coordinators/__fixtures__/v2/hierarchies/ROOT.j
 
 import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
 import { FilterBy } from './content/coordinators/FilterBy';
-import { HierarchyURLBuilder } from './content/coordinators/GetHierarchy';
+import { HierarchyURLBuilder } from './content/coordinators/GetByHierarchy/UrlBuilder';
 
 const SINGLE_ITEM_RESPONSE = {
   _meta: {

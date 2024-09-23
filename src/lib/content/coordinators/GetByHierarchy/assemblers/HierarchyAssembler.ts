@@ -1,18 +1,17 @@
 import {
   HierarchyContentItem,
   HierarchyContentResponse,
-} from '../model/ByHierachy';
-import { ContentBody } from '../model/ContentBody';
-import { ContentItem } from '../model/ContentItem';
+} from '../../../model/ByHierachy';
+import { ContentBody } from '../../../model/ContentBody';
+import { ContentItem } from '../../../model/ContentItem';
 
 export function isParent(
   rootHierarchyItem: ContentBody,
   contentItem: ContentBody
 ): boolean {
   return (
-    contentItem._meta.hierarchy != undefined &&
-    contentItem._meta.hierarchy.parentId != undefined &&
-    contentItem._meta.hierarchy.parentId == rootHierarchyItem._meta.deliveryId
+    contentItem?._meta?.hierarchy?.parentId ==
+    rootHierarchyItem._meta.deliveryId
   );
 }
 

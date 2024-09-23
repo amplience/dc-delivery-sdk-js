@@ -30,10 +30,10 @@ import {
   ContentClientHierarchyRequest,
   HierarchyContentItem,
 } from './content/model/ByHierachy';
-import { GetHierarchyImpl } from './content/coordinators/GetHierarchyImpl';
-import { FilteringHierachyAssemblerImpl } from './content/assemblers/FilteringHierachyAssemblerImpl';
-import { HierarchyAssemblerImpl } from './content/assemblers/HierarchyAssemblerImpl';
-import { MutatingHierachyAssemblerImpl } from './content/assemblers/MutatingHierarchyAssembler';
+import { GetHierarchyImpl } from './content/coordinators/GetByHierarchy/GetHierarchyImpl';
+import { FilteringHierachyAssemblerImpl } from './content/coordinators/GetByHierarchy/assemblers/FilteringHierachyAssemblerImpl';
+import { HierarchyAssemblerImpl } from './content/coordinators/GetByHierarchy/assemblers/HierarchyAssemblerImpl';
+import { MutatingHierachyAssemblerImpl } from './content/coordinators/GetByHierarchy/assemblers/MutatingHierarchyAssembler';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
@@ -263,7 +263,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
         rootItem = await this.getContentItemById(requestParameters.rootId);
       } catch (err) {
         throw new Error(
-          'Error while retrieving hierarchy root item: ' + err.message
+          `Error while retrieving hierarchy root item: ${err.message}`
         );
       }
     } else {

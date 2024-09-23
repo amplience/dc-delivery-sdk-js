@@ -1,10 +1,10 @@
-import { ContentBody } from '../model/ContentBody';
+import { ContentBody } from '../../../model/ContentBody';
 import { HierarchyAssembler, isParent } from './HierarchyAssembler';
 import {
   HierarchyContentItem,
   HierarchyContentResponse,
-} from '../model/ByHierachy';
-import { ContentItem } from '../model/ContentItem';
+} from '../../../model/ByHierachy';
+import { ContentItem } from '../../../model/ContentItem';
 
 export class HierarchyAssemblerImpl<Body extends ContentBody>
   implements HierarchyAssembler<Body> {
