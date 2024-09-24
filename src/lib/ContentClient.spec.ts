@@ -13,6 +13,7 @@ import * as V2_SINGLE_RESULT from './content/coordinators/__fixtures__/v2/SINGLE
 import * as NO_RESULTS from './content/coordinators/__fixtures__/v2/filterBy/NO_RESULTS.json';
 import * as MULTI_LAYER_RESPONSE from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE.json';
 import * as MULTI_LAYER_RESULT_FILTERED from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_FILTERED.json';
+import * as MULTI_LAYER_RESULT_FILTERED_AND_MUTATED from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_FILTER_AND_MUTATE.json';
 import * as MULTI_LAYER_RESULT_MUTATED from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_MUTATED.json';
 import * as MULTI_LAYER_RESULT from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT.json';
 import * as ROOT from './content/coordinators/__fixtures__/v2/hierarchies/ROOT.json';
@@ -573,6 +574,66 @@ describe('ContentClient', () => {
     const response = await client.getByHierarchyAndMutate(
       {
         rootId: ROOT.content._meta.deliveryId,
+      },
+      (contentBody) => {
+        contentBody['mutatedId'] = contentBody._meta.deliveryId;
+        return contentBody;
+      }
+    );
+    expect(response).to.deep.eq(expectedContent);
+  });
+
+  it(`getByHierarchy should apply a filter and mutation when building a tree with a mutator`, async () => {
+    const urlBuilder = new HierarchyURLBuilder();
+
+    const mocks = new MockAdapter(null);
+
+    const expectedBody: DefaultContentBody = {
+      _meta: new ContentMeta(
+        MULTI_LAYER_RESULT_FILTERED_AND_MUTATED.content._meta
+      ),
+      propertyName1:
+        MULTI_LAYER_RESULT_FILTERED_AND_MUTATED.content.propertyName1,
+      mutatedId: MULTI_LAYER_RESULT_FILTERED_AND_MUTATED.content.mutatedId,
+    };
+
+    const expectedContent: HierarchyContentItem<DefaultContentBody> = {
+      content: expectedBody,
+      children: MULTI_LAYER_RESULT_FILTERED_AND_MUTATED.children as any,
+    };
+
+    const cd2RunConfig = {
+      name: 'cdv2',
+      hubName: 'hub',
+      type: 'cdn',
+      baseUrl: 'https://hub.cdn.content.amplience.net',
+      config: { hubName: 'hub' },
+    } as ContentClientConfigV2;
+
+    mocks
+      .onGet(
+        'https://hub.cdn.content.amplience.net/content/id/90d6fa96-6ce0-4332-b995-4e6c50b1e233?depth=all&format=inlined'
+      )
+      .reply(200, ROOT);
+
+    mocks
+      .onGet(
+        cd2RunConfig.baseUrl +
+          urlBuilder.buildUrl({
+            rootId: ROOT.content._meta.deliveryId,
+          })
+      )
+      .reply(200, MULTI_LAYER_RESPONSE);
+
+    const mergedConfig = { adaptor: mocks.adapter(), ...cd2RunConfig };
+
+    const client = new ContentClient(mergedConfig);
+    const response = await client.getByHierarchyFilterAndMutate(
+      {
+        rootId: ROOT.content._meta.deliveryId,
+      },
+      (contentBody) => {
+        return contentBody['propertyName1'] === 'B';
       },
       (contentBody) => {
         contentBody['mutatedId'] = contentBody._meta.deliveryId;

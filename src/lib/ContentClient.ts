@@ -34,6 +34,7 @@ import { GetHierarchyImpl } from './content/coordinators/GetByHierarchy/GetHiera
 import { FilteringHierachyAssemblerImpl } from './content/coordinators/GetByHierarchy/assemblers/FilteringHierachyAssemblerImpl';
 import { HierarchyAssemblerImpl } from './content/coordinators/GetByHierarchy/assemblers/HierarchyAssemblerImpl';
 import { MutatingHierachyAssemblerImpl } from './content/coordinators/GetByHierarchy/assemblers/MutatingHierarchyAssembler';
+import { FilteringAndMutatingHierarchyAssembler } from './content/coordinators/GetByHierarchy/assemblers/FilteringAndMutatingHierarchyAssembler';
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
@@ -334,6 +335,30 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     return new GetHierarchyImpl(
       this.contentClient,
       new MutatingHierachyAssemblerImpl(mutationFunction)
+    ).getHierarchyByRoot(
+      {
+        rootId: rootItem.body._meta.deliveryId,
+        maximumDepth: requestParameters.maximumDepth,
+        maximumPageSize: requestParameters.maximumPageSize,
+      },
+      rootItem
+    );
+  }
+
+  async getByHierarchyFilterAndMutate<
+    Body extends ContentBody = DefaultContentBody
+  >(
+    requestParameters: ContentClientHierarchyRequest,
+    filterFunction: (contentBody: Body) => boolean,
+    mutationFunction: (contentBody: Body) => Body
+  ): Promise<HierarchyContentItem<Body>> {
+    const rootItem = await this.getHierarchyRootItem(requestParameters);
+    return new GetHierarchyImpl(
+      this.contentClient,
+      new FilteringAndMutatingHierarchyAssembler(
+        filterFunction,
+        mutationFunction
+      )
     ).getHierarchyByRoot(
       {
         rootId: rootItem.body._meta.deliveryId,
