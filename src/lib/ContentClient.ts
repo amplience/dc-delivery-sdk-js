@@ -259,7 +259,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     if (!isContentClientConfigV2(this.config)) {
       throw new NotSupportedV2Error('getByHierarchy');
     }
-    if (requestParameters.rootItem == undefined) {
+    if (requestParameters.rootItem === undefined) {
       try {
         rootItem = await this.getContentItemById(requestParameters.rootId);
       } catch (err) {
