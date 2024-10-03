@@ -10,19 +10,19 @@ export class HierarchyURLBuilder {
   buildUrl(request: HierarchyRequest): string {
     const params: string[][] = [];
 
-    if (request.maximumDepth != undefined) {
+    if (request.maximumDepth !== undefined) {
       params.push([
         HierarchyURLBuilder.MAXIMUM_DEPTH_PARAM,
         request.maximumDepth.toString(),
       ]);
     }
-    if (request.maximumPageSize != undefined) {
+    if (request.maximumPageSize !== undefined) {
       params.push([
         HierarchyURLBuilder.MAXIMUM_PAGE_SIZE_PARAM,
         request.maximumPageSize.toString(),
       ]);
     }
-    if (request.pageCursor != undefined) {
+    if (request.pageCursor !== undefined) {
       params.push([
         HierarchyURLBuilder.LAST_EVALUATED_PARAM,
         request.pageCursor.toString(),
