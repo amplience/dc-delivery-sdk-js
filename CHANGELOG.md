@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **readme:** TRIT-583 - testing ReadMe.
+* **readme:** TRIT-583 - testing.
 
 ## [0.12.1](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.12.0...v0.12.1) (2023-10-27)
 
