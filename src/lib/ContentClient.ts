@@ -295,6 +295,8 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
         rootId: rootItem.body._meta.deliveryId,
         maximumDepth: requestParameters.maximumDepth,
         maximumPageSize: requestParameters.maximumPageSize,
+        sortOrder: requestParameters.sortOrder,
+        sortName: requestParameters.sortName,
       },
       rootItem
     );
@@ -318,6 +320,8 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
         rootId: rootItem.body._meta.deliveryId,
         maximumDepth: requestParameters.maximumDepth,
         maximumPageSize: requestParameters.maximumPageSize,
+        sortOrder: requestParameters.sortOrder,
+        sortName: requestParameters.sortName,
       },
       rootItem
     );
@@ -340,6 +344,8 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
         rootId: rootItem.body._meta.deliveryId,
         maximumDepth: requestParameters.maximumDepth,
         maximumPageSize: requestParameters.maximumPageSize,
+        sortOrder: requestParameters.sortOrder,
+        sortName: requestParameters.sortName,
       },
       rootItem
     );
@@ -364,6 +370,8 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
         rootId: rootItem.body._meta.deliveryId,
         maximumDepth: requestParameters.maximumDepth,
         maximumPageSize: requestParameters.maximumPageSize,
+        sortOrder: requestParameters.sortOrder,
+        sortName: requestParameters.sortName,
       },
       rootItem
     );

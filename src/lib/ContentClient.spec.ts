@@ -12,10 +12,14 @@ import * as V1_SINGLE_RESULT from './content/coordinators/__fixtures__/v1/SINGLE
 import * as V2_SINGLE_RESULT from './content/coordinators/__fixtures__/v2/SINGLE_RESULT.json';
 import * as NO_RESULTS from './content/coordinators/__fixtures__/v2/filterBy/NO_RESULTS.json';
 import * as MULTI_LAYER_RESPONSE from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE.json';
+import * as MULTI_LAYER_RESPONSE_ALT_SORT from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE_ALT_SORT.json';
+import * as MULTI_LAYER_RESPONSE_DESC from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE_DESC.json';
+import * as MULTI_LAYER_RESULT_DESC from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_DESC.json';
 import * as MULTI_LAYER_RESULT_FILTERED from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_FILTERED.json';
 import * as MULTI_LAYER_RESULT_FILTERED_AND_MUTATED from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_FILTER_AND_MUTATE.json';
 import * as MULTI_LAYER_RESULT_MUTATED from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_MUTATED.json';
 import * as MULTI_LAYER_RESULT from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT.json';
+import * as MULTI_LAYER_RESULT_ALT_SORT from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_ALT_SORT.json';
 import * as ROOT from './content/coordinators/__fixtures__/v2/hierarchies/ROOT.json';
 
 import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
@@ -473,6 +477,104 @@ describe('ContentClient', () => {
     const client = new ContentClient(mergedConfig);
     const response = await client.getByHierarchy({
       rootId: ROOT.content._meta.deliveryId,
+    });
+    expect(response).to.deep.eq(expectedContent);
+  });
+
+  it(`getByHierarchy should sort correctly`, async () => {
+    const urlBuilder = new HierarchyURLBuilder();
+
+    const mocks = new MockAdapter(null);
+
+    const expectedBody: DefaultContentBody = {
+      _meta: new ContentMeta(MULTI_LAYER_RESULT_DESC.content._meta),
+      propertyName1: MULTI_LAYER_RESULT_DESC.content.propertyName1,
+    };
+
+    const expectedContent: HierarchyContentItem<DefaultContentBody> = {
+      content: expectedBody,
+      children: MULTI_LAYER_RESULT_DESC.children as any,
+    };
+
+    const cd2RunConfig = {
+      name: 'cdv2',
+      hubName: 'hub',
+      type: 'cdn',
+      baseUrl: 'https://hub.cdn.content.amplience.net',
+      config: { hubName: 'hub' },
+    } as ContentClientConfigV2;
+
+    mocks
+      .onGet(
+        'https://hub.cdn.content.amplience.net/content/id/90d6fa96-6ce0-4332-b995-4e6c50b1e233?depth=all&format=inlined'
+      )
+      .reply(200, ROOT);
+
+    mocks
+      .onGet(
+        cd2RunConfig.baseUrl +
+          urlBuilder.buildUrl({
+            rootId: ROOT.content._meta.deliveryId,
+            sortOrder: 'DESC',
+          })
+      )
+      .reply(200, MULTI_LAYER_RESPONSE_DESC);
+
+    const mergedConfig = { adaptor: mocks.adapter(), ...cd2RunConfig };
+
+    const client = new ContentClient(mergedConfig);
+    const response = await client.getByHierarchy({
+      rootId: ROOT.content._meta.deliveryId,
+      sortOrder: 'DESC',
+    });
+    expect(response).to.deep.eq(expectedContent);
+  });
+
+  it(`getByHierarchy should apply custom sorts`, async () => {
+    const urlBuilder = new HierarchyURLBuilder();
+
+    const mocks = new MockAdapter(null);
+
+    const expectedBody: DefaultContentBody = {
+      _meta: new ContentMeta(MULTI_LAYER_RESULT_ALT_SORT.content._meta),
+      propertyName1: MULTI_LAYER_RESULT_ALT_SORT.content.propertyName1,
+    };
+
+    const expectedContent: HierarchyContentItem<DefaultContentBody> = {
+      content: expectedBody,
+      children: MULTI_LAYER_RESULT_ALT_SORT.children as any,
+    };
+
+    const cd2RunConfig = {
+      name: 'cdv2',
+      hubName: 'hub',
+      type: 'cdn',
+      baseUrl: 'https://hub.cdn.content.amplience.net',
+      config: { hubName: 'hub' },
+    } as ContentClientConfigV2;
+
+    mocks
+      .onGet(
+        'https://hub.cdn.content.amplience.net/content/id/90d6fa96-6ce0-4332-b995-4e6c50b1e233?depth=all&format=inlined'
+      )
+      .reply(200, ROOT);
+
+    mocks
+      .onGet(
+        cd2RunConfig.baseUrl +
+          urlBuilder.buildUrl({
+            rootId: ROOT.content._meta.deliveryId,
+            sortName: '_meta/deliveryId',
+          })
+      )
+      .reply(200, MULTI_LAYER_RESPONSE_ALT_SORT);
+
+    const mergedConfig = { adaptor: mocks.adapter(), ...cd2RunConfig };
+
+    const client = new ContentClient(mergedConfig);
+    const response = await client.getByHierarchy({
+      rootId: ROOT.content._meta.deliveryId,
+      sortName: '_meta/deliveryId',
     });
     expect(response).to.deep.eq(expectedContent);
   });
