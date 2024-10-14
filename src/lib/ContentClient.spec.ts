@@ -527,7 +527,7 @@ describe('ContentClient', () => {
       rootId: ROOT.content._meta.deliveryId,
       sortOrder: 'DESC',
     });
-    expect(response).to.deep.eq(expectedContent);
+    expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });
 
   it(`getByHierarchy should apply custom sorts`, async () => {
@@ -576,7 +576,7 @@ describe('ContentClient', () => {
       rootId: ROOT.content._meta.deliveryId,
       sortName: '_meta/deliveryId',
     });
-    expect(response).to.deep.eq(expectedContent);
+    expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });
 
   it(`getByHierarchy should apply filter when building a tree with a filter`, async () => {
