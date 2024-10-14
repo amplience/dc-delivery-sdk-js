@@ -478,7 +478,7 @@ describe('ContentClient', () => {
     const response = await client.getByHierarchy({
       rootId: ROOT.content._meta.deliveryId,
     });
-    expect(response).to.deep.eq(expectedContent);
+    expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });
 
   it(`getByHierarchy should sort correctly`, async () => {
@@ -628,7 +628,7 @@ describe('ContentClient', () => {
         return contentBody['propertyName1'] === 'C';
       }
     );
-    expect(response).to.deep.eq(expectedContent);
+    expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });
 
   it(`getByHierarchy should apply a mutation when building a tree with a mutator`, async () => {
@@ -682,7 +682,7 @@ describe('ContentClient', () => {
         return contentBody;
       }
     );
-    expect(response).to.deep.eq(expectedContent);
+    expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });
 
   it(`getByHierarchy should apply a filter and mutation when building a tree with a mutator`, async () => {
@@ -742,7 +742,7 @@ describe('ContentClient', () => {
         return contentBody;
       }
     );
-    expect(response).to.deep.eq(expectedContent);
+    expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });
 
   it(`getByHierarchy should throw an error if the root item is not found`, async () => {

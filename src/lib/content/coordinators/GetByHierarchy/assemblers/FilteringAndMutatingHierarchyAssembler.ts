@@ -40,7 +40,7 @@ export class FilteringAndMutatingHierarchyAssembler<Body extends ContentBody>
     content: HierarchyContentResponse<Body>[]
   ): HierarchyContentItem<Body> {
     const rootHierarchyItem: HierarchyContentItem<Body> = {
-      content: this.mutationFunction(rootItem.body),
+      content: this.mutationFunction(rootItem.toJSON()),
       children: [],
     };
     rootHierarchyItem.children = content
