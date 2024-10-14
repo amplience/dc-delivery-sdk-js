@@ -33,7 +33,7 @@ export class HierarchyAssemblerImpl<Body extends ContentBody>
     content: HierarchyContentResponse<Body>[]
   ): HierarchyContentItem<Body> {
     const rootHierarchyItem: HierarchyContentItem<Body> = {
-      content: rootItem.body,
+      content: rootItem.toJSON(),
       children: [],
     };
     rootHierarchyItem.children = content
