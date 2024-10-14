@@ -625,7 +625,7 @@ describe('ContentClient', () => {
         rootId: ROOT.content._meta.deliveryId,
       },
       (contentBody) => {
-        return contentBody['propertyName1'] === 'B';
+        return contentBody['propertyName1'] === 'C';
       }
     );
     expect(response).to.deep.eq(expectedContent);
@@ -735,7 +735,7 @@ describe('ContentClient', () => {
         rootId: ROOT.content._meta.deliveryId,
       },
       (contentBody) => {
-        return contentBody['propertyName1'] === 'B';
+        return contentBody['propertyName1'] === 'C';
       },
       (contentBody) => {
         contentBody['mutatedId'] = contentBody._meta.deliveryId;

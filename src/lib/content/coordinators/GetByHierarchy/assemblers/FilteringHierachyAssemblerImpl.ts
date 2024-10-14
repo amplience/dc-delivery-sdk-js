@@ -18,7 +18,7 @@ export class FilteringHierachyAssemblerImpl<Body extends ContentBody>
         .filter((contentItem) => {
           return (
             isParent(rootItem.content, contentItem.content) &&
-            !this.filterFunction(contentItem.content)
+            this.filterFunction(contentItem.content)
           );
         })
         .map((item) => {
