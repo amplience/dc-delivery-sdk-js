@@ -1,0 +1,49 @@
+{
+  "responses": [
+    {
+      "content": {
+        "_meta": {
+          "name": "A",
+          "schema": "https://hierarchies.com",
+          "hierarchy": {
+            "parentId": "90d6fa96-6ce0-4332-b995-4e6c50b1e233",
+            "root": false
+          },
+          "deliveryId": "1ebab07d-acd8-4e19-a614-ec632cdf95d5"
+        },
+        "propertyName1": "A"
+      }
+    },
+    {
+      "content": {
+        "_meta": {
+          "name": "B",
+          "schema": "https://hierarchies.com",
+          "hierarchy": {
+            "parentId": "1ebab07d-acd8-4e19-a614-ec632cdf95d5",
+            "root": false
+          },
+          "deliveryId": "4db37251-0c86-4f45-ad8a-583ebf6efc80"
+        },
+        "propertyName1": "B"
+      }
+    },
+    {
+      "content": {
+        "_meta": {
+          "name": "C",
+          "schema": "https://hierarchies.com",
+          "hierarchy": {
+            "parentId": "1ebab07d-acd8-4e19-a614-ec632cdf95d5",
+            "root": false
+          },
+          "deliveryId": "68676cda-5ab2-4a5e-bcfb-58c5cf3eb8ed"
+        },
+        "propertyName1": "C"
+      }
+    }
+  ],
+  "page": {
+    "responseCount": 3
+  }
+}
