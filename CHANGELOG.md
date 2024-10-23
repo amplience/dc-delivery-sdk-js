@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.12.3](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.12.2...v0.12.3) (2024-10-23)
+
+
+### Bug Fixes
+
+* changed filter method to remove content on truthy result content on ([5b2a66f](https://github.com/amplience/dc-delivery-sdk-js/commit/5b2a66f8576e27a71d53b140bc14850f114e71df))
+* stripped functions off of returned object ([10f8a51](https://github.com/amplience/dc-delivery-sdk-js/commit/10f8a51e2d268ad74fd977ae25dc32cacc522364))
+
 ## [0.12.2](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.12.1...v0.12.2) (2024-10-08)
 
 
