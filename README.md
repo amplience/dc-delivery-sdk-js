@@ -15,6 +15,7 @@ This SDK is designed to help build client side and server side content managed a
 - Localize content
 - Transform images on the fly using the [Dynamic Media Service](http://playground.amplience.com/di/app/#/intro)
 - Filter Content Items using the [FilterBy](https://amplience.com/docs/development/contentdelivery/filterandsort.html) endpoint
+- Fetch Hierarchies using the Hierarchies endpoint in CDv2
 
 So we can have nice things:
 
@@ -332,6 +333,76 @@ const res = await client.filterContentItems({
 console.log(res);
 ```
 
+### Fetching hierarchies in a single request
+**Note:** Fetching content via `getByHierarchy()` is only supported when using [Content Delivery 2 or Fresh API](#content-delivery-versions).
+This method wraps the Hierarchies endpoint of CDv2 and allows the fetching of hierarchical content from it's root node.
+```ts
+client.getByHierarchy({rootId: '90d6fa96-6ce0-4332-b995-4e6c50b1e233'})
+```
+The response from the delivery service is then reconstructed from the flat data structure of the response into a content tree
+```json
+{
+  "content": {
+    "_meta": {
+      "name": "Root",
+      "schema": "https://hierarchies.com",
+      "hierarchy": {
+        "root": true
+      },
+      "deliveryId": "90d6fa96-6ce0-4332-b995-4e6c50b1e233"
+    },
+    "propertyName1": "Root"
+  },
+  "children": [
+    {
+      "content": {
+        "_meta": {
+          "name": "A",
+          "schema": "https://hierarchies.com",
+          "hierarchy": {
+            "parentId": "90d6fa96-6ce0-4332-b995-4e6c50b1e233",
+            "root": false
+          },
+          "deliveryId": "1ebab07d-acd8-4e19-a614-ec632cdf95d5"
+        },
+        "propertyName1": "A"
+      },
+      "children": [
+        {
+          "content": {
+            "_meta": {
+              "name": "B",
+              "schema": "https://hierarchies.com",
+              "hierarchy": {
+                "parentId": "1ebab07d-acd8-4e19-a614-ec632cdf95d5",
+                "root": false
+              },
+              "deliveryId": "4db37251-0c86-4f45-ad8a-583ebf6efc80"
+            },
+            "propertyName1": "B"
+          },
+          "children": []
+        },
+        {
+          "content": {
+            "_meta": {
+              "name": "C",
+              "schema": "https://hierarchies.com",
+              "hierarchy": {
+                "parentId": "1ebab07d-acd8-4e19-a614-ec632cdf95d5",
+                "root": false
+              },
+              "deliveryId": "68676cda-5ab2-4a5e-bcfb-58c5cf3eb8ed"
+            },
+            "propertyName1": "C"
+          },
+          "children": []
+        }
+      ]
+    }
+  ]
+}
+```
 ### Fetching multiple Content Items or Slots in a single request
 
 **Note:** Fetching content via `getContentItemsById() | getContentItemsByKey() | getContentItems() | fetchContentItems()` is only supported when using [Content Delivery 2 or Fresh API](#content-delivery-versions).
