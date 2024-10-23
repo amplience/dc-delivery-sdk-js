@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>FilterByImpl | dc-delivery-sdk-js</title>
+	<title>HierarchyAssemblerImpl | dc-delivery-sdk-js</title>
 	<meta name="description" content="Documentation for dc-delivery-sdk-js">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="filterbyimpl.html">FilterByImpl</a>
+					<a href="hierarchyassemblerimpl.html">HierarchyAssemblerImpl</a>
 				</li>
 			</ul>
-			<h1>Class FilterByImpl&lt;Body&gt;</h1>
+			<h1>Class HierarchyAssemblerImpl&lt;Body&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,7 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>Body</h4>
+						<h4>Body<span class="tsd-signature-symbol">: </span><a href="../interfaces/contentbody.html" class="tsd-signature-type">ContentBody</a></h4>
 					</li>
 				</ul>
 			</section>
@@ -78,8 +78,14 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">FilterByImpl</span>
+						<span class="target">HierarchyAssemblerImpl</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/hierarchyassembler.html" class="tsd-signature-type">HierarchyAssembler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -87,101 +93,68 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="filterbyimpl.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="filterbyimpl.html#config" class="tsd-kind-icon">config</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="filterbyimpl.html#contentclient" class="tsd-kind-icon">content<wbr>Client</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="filterbyimpl.html#fetch" class="tsd-kind-icon">fetch</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="hierarchyassemblerimpl.html#assemblechildren" class="tsd-kind-icon">assemble<wbr>Children</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="hierarchyassemblerimpl.html#assembleroot" class="tsd-kind-icon">assemble<wbr>Root</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Filter<wbr>ByImpl<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/contentclientconfigv2.html" class="tsd-signature-type">ContentClientConfigV2</a>, contentClient<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AxiosInstance</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="filterbyimpl.html" class="tsd-signature-type">FilterByImpl</a></li>
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="assemblechildren" class="tsd-anchor"></a>
+					<h3>assemble<wbr>Children</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">assemble<wbr>Children<span class="tsd-signature-symbol">(</span>rootItem<span class="tsd-signature-symbol">: </span><a href="../interfaces/hierarchycontentitem.html" class="tsd-signature-type">HierarchyContentItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span>, content<span class="tsd-signature-symbol">: </span><a href="../interfaces/hierarchycontentresponse.html" class="tsd-signature-type">HierarchyContentResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/hierarchyassembler.html">HierarchyAssembler</a>.<a href="../interfaces/hierarchyassembler.html#assemblechildren">assembleChildren</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/4f28cf5/src/lib/content/coordinators/FilterByImpl.ts#L6">src/lib/content/coordinators/FilterByImpl.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/4f28cf5/src/lib/content/coordinators/GetByHierarchy/assemblers/HierarchyAssemblerImpl.ts#L11">src/lib/content/coordinators/GetByHierarchy/assemblers/HierarchyAssemblerImpl.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/contentclientconfigv2.html" class="tsd-signature-type">ContentClientConfigV2</a></h5>
+									<h5>rootItem: <a href="../interfaces/hierarchycontentitem.html" class="tsd-signature-type">HierarchyContentItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>contentClient: <span class="tsd-signature-type">AxiosInstance</span></h5>
+									<h5>content: <a href="../interfaces/hierarchycontentresponse.html" class="tsd-signature-type">HierarchyContentResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="filterbyimpl.html" class="tsd-signature-type">FilterByImpl</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="config" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> config</h3>
-					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <a href="../interfaces/contentclientconfigv2.html" class="tsd-signature-type">ContentClientConfigV2</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/4f28cf5/src/lib/content/coordinators/FilterByImpl.ts#L8">src/lib/content/coordinators/FilterByImpl.ts:8</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="contentclient" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> content<wbr>Client</h3>
-					<div class="tsd-signature tsd-kind-icon">content<wbr>Client<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AxiosInstance</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/4f28cf5/src/lib/content/coordinators/FilterByImpl.ts#L9">src/lib/content/coordinators/FilterByImpl.ts:9</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="fetch" class="tsd-anchor"></a>
-					<h3>fetch</h3>
+					<a name="assembleroot" class="tsd-anchor"></a>
+					<h3>assemble<wbr>Root</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">fetch<span class="tsd-signature-symbol">(</span>requestConfig<span class="tsd-signature-symbol">: </span><a href="../interfaces/filterbyrequest.html" class="tsd-signature-type">FilterByRequest</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/filterbyresponse.html" class="tsd-signature-type">FilterByResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">assemble<wbr>Root<span class="tsd-signature-symbol">(</span>rootItem<span class="tsd-signature-symbol">: </span><a href="contentitem.html" class="tsd-signature-type">ContentItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span>, content<span class="tsd-signature-symbol">: </span><a href="../interfaces/hierarchycontentresponse.html" class="tsd-signature-type">HierarchyContentResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/hierarchycontentitem.html" class="tsd-signature-type">HierarchyContentItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/hierarchyassembler.html">HierarchyAssembler</a>.<a href="../interfaces/hierarchyassembler.html#assembleroot">assembleRoot</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/4f28cf5/src/lib/content/coordinators/FilterByImpl.ts#L12">src/lib/content/coordinators/FilterByImpl.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/4f28cf5/src/lib/content/coordinators/GetByHierarchy/assemblers/HierarchyAssemblerImpl.ts#L31">src/lib/content/coordinators/GetByHierarchy/assemblers/HierarchyAssemblerImpl.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>requestConfig: <a href="../interfaces/filterbyrequest.html" class="tsd-signature-type">FilterByRequest</a></h5>
+									<h5>rootItem: <a href="contentitem.html" class="tsd-signature-type">ContentItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5>content: <a href="../interfaces/hierarchycontentresponse.html" class="tsd-signature-type">HierarchyContentResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/filterbyresponse.html" class="tsd-signature-type">FilterByResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/hierarchycontentitem.html" class="tsd-signature-type">HierarchyContentItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Body</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -200,19 +173,13 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-has-type-parameter">
-						<a href="filterbyimpl.html" class="tsd-kind-icon">Filter<wbr>ByImpl</a>
+						<a href="hierarchyassemblerimpl.html" class="tsd-kind-icon">Hierarchy<wbr>Assembler<wbr>Impl</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="filterbyimpl.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="filterbyimpl.html#config" class="tsd-kind-icon">config</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="filterbyimpl.html#contentclient" class="tsd-kind-icon">content<wbr>Client</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="hierarchyassemblerimpl.html#assemblechildren" class="tsd-kind-icon">assemble<wbr>Children</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="filterbyimpl.html#fetch" class="tsd-kind-icon">fetch</a>
+								<a href="hierarchyassemblerimpl.html#assembleroot" class="tsd-kind-icon">assemble<wbr>Root</a>
 							</li>
 						</ul>
 					</li>
