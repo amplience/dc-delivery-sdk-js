@@ -6,7 +6,7 @@ export class HierarchyURLBuilder {
   static MAXIMUM_DEPTH_PARAM = 'hierarchyDepth';
   static MAXIMUM_PAGE_SIZE_PARAM = 'maxPageSize';
   static LAST_EVALUATED_PARAM = 'pageCursor';
-  static CUSTOM_SORT_PARAM = 'sortByKey';
+  static SORT_KEY_PARAM = 'sortByKey';
   static SORT_ORDER_PARAM = 'sortByOrder';
   buildUrl(request: HierarchyRequest): string {
     const params: string[][] = [];
@@ -29,8 +29,8 @@ export class HierarchyURLBuilder {
         request.pageCursor.toString(),
       ]);
     }
-    if (request.sortOrder !== undefined) {
-      params.push([HierarchyURLBuilder.SORT_ORDER_PARAM, request.sortOrder]);
+    if (request.sortKey !== undefined) {
+      params.push([HierarchyURLBuilder.SORT_KEY_PARAM, request.sortKey]);
     }
     if (request.sortOrder !== undefined) {
       params.push([HierarchyURLBuilder.SORT_ORDER_PARAM, request.sortOrder]);

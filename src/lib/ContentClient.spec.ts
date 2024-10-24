@@ -564,7 +564,7 @@ describe('ContentClient', () => {
         cd2RunConfig.baseUrl +
           urlBuilder.buildUrl({
             rootId: ROOT.content._meta.deliveryId,
-            sortName: '_meta/deliveryId',
+            sortKey: '_meta/deliveryId',
           })
       )
       .reply(200, MULTI_LAYER_RESPONSE_ALT_SORT);
@@ -574,7 +574,7 @@ describe('ContentClient', () => {
     const client = new ContentClient(mergedConfig);
     const response = await client.getByHierarchy({
       rootId: ROOT.content._meta.deliveryId,
-      sortName: '_meta/deliveryId',
+      sortKey: '_meta/deliveryId',
     });
     expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });

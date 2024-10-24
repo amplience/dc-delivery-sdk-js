@@ -8,7 +8,7 @@ export interface HierarchyRequest {
   maximumDepth?: number;
   maximumPageSize?: number;
   pageCursor?: string;
-  sortName?: string;
+  sortKey?: string;
   sortOrder?: IOrder;
 }
 
@@ -19,7 +19,7 @@ export interface HierarchyRequest {
  *  @member maximumDepth (optional)  specifies the maximum depth of the hierarchy query
  *  @member maximumPageSize (optional)  specifies the maximum page size for each page of the hierarchy,
  *  @member sortOrder (optional) specifies the sort the service should use when retrieving content from the database
- *  @member sortName (optional) specifies the name of the sort parameter used to retrieve content, this can effect what content is returned
+ *  @member sortKey (optional) specifies the name of the sort parameter used to retrieve content, this can effect what content is returned
  *  note: maximumDepth and maximumPageSize will not override the limits set by the delivery service.
  */
 export interface ContentClientHierarchyRequest {
@@ -27,7 +27,7 @@ export interface ContentClientHierarchyRequest {
   maximumDepth?: number;
   maximumPageSize?: number;
   rootItem?: ContentItem;
-  sortName?: string;
+  sortKey?: string;
   sortOrder?: IOrder;
 }
 
