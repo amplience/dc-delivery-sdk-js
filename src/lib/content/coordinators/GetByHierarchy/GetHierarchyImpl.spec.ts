@@ -84,7 +84,6 @@ describe('getByHierarchies', () => {
           '/content/hierarchies/descendants/id/testId?hierarchyDepth=3&maxPageSize=5&pageCursor=LEKEY'
         );
       });
-
     it('Url should be constructed properly without max depth', () => {
       const hierachyURL: HierarchyURLBuilder = new HierarchyURLBuilder();
       const request: HierarchyRequest = {
@@ -118,6 +117,28 @@ describe('getByHierarchies', () => {
           '/content/hierarchies/descendants/id/testId?pageCursor=LEKEY'
         );
       });
+    it('Url should be constructed properly with sort key', () => {
+      const hierachyURL: HierarchyURLBuilder = new HierarchyURLBuilder();
+      const request: HierarchyRequest = {
+        rootId: 'testId',
+        sortKey: '_meta/JSON/ID',
+      };
+      const result = hierachyURL.buildUrl(request);
+      expect(result).to.deep.eq(
+        '/content/hierarchies/descendants/id/testId?sortByKey=_meta%2FJSON%2FID'
+      );
+    });
+    it('Url should be constructed properly with sort order', () => {
+      const hierachyURL: HierarchyURLBuilder = new HierarchyURLBuilder();
+      const request: HierarchyRequest = {
+        rootId: 'testId',
+        sortOrder: 'DESC',
+      };
+      const result = hierachyURL.buildUrl(request);
+      expect(result).to.deep.eq(
+        '/content/hierarchies/descendants/id/testId?sortByOrder=DESC'
+      );
+    });
   });
 
   describe('Should correctly retrieve and build flat hierarchies', () => {
