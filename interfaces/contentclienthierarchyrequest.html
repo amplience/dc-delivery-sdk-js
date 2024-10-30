@@ -82,7 +82,13 @@
 						<dd><p>maximumDepth (optional)  specifies the maximum depth of the hierarchy query</p>
 						</dd>
 						<dt>member</dt>
-						<dd><p>maximumPageSize (optional)  specifies the maximum page size for each page of the hierarchy,
+						<dd><p>maximumPageSize (optional)  specifies the maximum page size for each page of the hierarchy,</p>
+						</dd>
+						<dt>member</dt>
+						<dd><p>sortOrder (optional) specifies the sort the service should use when retrieving content from the database</p>
+						</dd>
+						<dt>member</dt>
+						<dd><p>sortKey (optional) specifies the name of the sort parameter used to retrieve content, this can effect what content is returned
 							note: maximumDepth and maximumPageSize will not override the limits set by the delivery service.</p>
 						</dd>
 					</dl>
@@ -107,6 +113,8 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contentclienthierarchyrequest.html#maximumpagesize" class="tsd-kind-icon">maximum<wbr>Page<wbr>Size</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contentclienthierarchyrequest.html#rootid" class="tsd-kind-icon">root<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contentclienthierarchyrequest.html#rootitem" class="tsd-kind-icon">root<wbr>Item</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contentclienthierarchyrequest.html#sortkey" class="tsd-kind-icon">sort<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="contentclienthierarchyrequest.html#sortorder" class="tsd-kind-icon">sort<wbr>Order</a></li>
 							</ul>
 						</section>
 					</div>
@@ -120,7 +128,7 @@
 					<div class="tsd-signature tsd-kind-icon">maximum<wbr>Depth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/4f28cf5/src/lib/content/model/ByHierachy.ts#L22">src/lib/content/model/ByHierachy.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/10db2f4/src/lib/content/model/ByHierachy.ts#L27">src/lib/content/model/ByHierachy.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -130,7 +138,7 @@
 					<div class="tsd-signature tsd-kind-icon">maximum<wbr>Page<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/4f28cf5/src/lib/content/model/ByHierachy.ts#L23">src/lib/content/model/ByHierachy.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/10db2f4/src/lib/content/model/ByHierachy.ts#L28">src/lib/content/model/ByHierachy.ts:28</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -140,7 +148,7 @@
 					<div class="tsd-signature tsd-kind-icon">root<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/4f28cf5/src/lib/content/model/ByHierachy.ts#L21">src/lib/content/model/ByHierachy.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/10db2f4/src/lib/content/model/ByHierachy.ts#L26">src/lib/content/model/ByHierachy.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -150,7 +158,27 @@
 					<div class="tsd-signature tsd-kind-icon">root<wbr>Item<span class="tsd-signature-symbol">:</span> <a href="../classes/contentitem.html" class="tsd-signature-type">ContentItem</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/4f28cf5/src/lib/content/model/ByHierachy.ts#L24">src/lib/content/model/ByHierachy.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/10db2f4/src/lib/content/model/ByHierachy.ts#L29">src/lib/content/model/ByHierachy.ts:29</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="sortkey" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">sort<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/10db2f4/src/lib/content/model/ByHierachy.ts#L30">src/lib/content/model/ByHierachy.ts:30</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="sortorder" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>Order</h3>
+					<div class="tsd-signature tsd-kind-icon">sort<wbr>Order<span class="tsd-signature-symbol">:</span> <a href="../globals.html#iorder" class="tsd-signature-type">IOrder</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/amplience/dc-delivery-sdk-js/blob/10db2f4/src/lib/content/model/ByHierachy.ts#L31">src/lib/content/model/ByHierachy.ts:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -182,6 +210,12 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="contentclienthierarchyrequest.html#rootitem" class="tsd-kind-icon">root<wbr>Item</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="contentclienthierarchyrequest.html#sortkey" class="tsd-kind-icon">sort<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="contentclienthierarchyrequest.html#sortorder" class="tsd-kind-icon">sort<wbr>Order</a>
 							</li>
 						</ul>
 					</li>
