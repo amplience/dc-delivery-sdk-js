@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **readme:** TRIT-582 - trigger release please and cleanup ([80b2e47](https://github.com/amplience/dc-delivery-sdk-js/commit/80b2e47932d70db57b0e908dc7a5d935dd07d894))
+* **release:** This change exposes the new parameters in the hierarchies endpoint for custom sort. (https://github.com/amplience/dc-delivery-sdk-js/pull/108)
 
 ## [0.12.3](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.12.2...v0.12.3) (2024-10-23)
 
