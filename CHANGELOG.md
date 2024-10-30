@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.13.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.12.3...v0.13.0) (2024-10-30)
+
+
+### Features
+
+* **release:** This change exposes the new parameters in the hierarchies endpoint for custom sort. (https://github.com/amplience/dc-delivery-sdk-js/pull/108)
+
 ## [0.12.3](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.12.2...v0.12.3) (2024-10-23)
 
 
