@@ -5,12 +5,13 @@ use(chaiAsPromised);
 
 import { StagingEnvironmentFactory } from './StagingEnvironmentFactory';
 import { StagingEnvironmentFactoryConfig } from './StagingEnvironmentFactoryConfig';
+import Axios from 'axios';
 
 function createFactory(
   stagingEnvironment: string,
   config: StagingEnvironmentFactoryConfig = {}
 ): [MockAdapter, StagingEnvironmentFactory] {
-  const mocks = new MockAdapter(null);
+  const mocks = new MockAdapter(Axios.create());
   const client = new StagingEnvironmentFactory(stagingEnvironment, {
     adaptor: mocks.adapter(),
     ...config,

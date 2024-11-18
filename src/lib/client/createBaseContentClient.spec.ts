@@ -39,12 +39,16 @@ describe('createBaseContentClient', () => {
         adaptor: () =>
           Promise.resolve<any>({
             data: 'response',
+            headers: {},
           }),
       },
       'https://example.com'
     );
     return client.get('/test').then((response) => {
-      expect(response).to.deep.eq({ data: 'response' });
+      expect(JSON.parse(JSON.stringify(response))).to.deep.eq({
+        data: 'response',
+        headers: {},
+      });
     });
   });
 
@@ -58,6 +62,7 @@ describe('createBaseContentClient', () => {
 
           return Promise.resolve<any>({
             data: 'response',
+            headers: {},
           });
         },
         timeout: 1234,
@@ -66,7 +71,10 @@ describe('createBaseContentClient', () => {
     );
 
     return client.get('/test').then((response) => {
-      expect(response).to.deep.eq({ data: 'response' });
+      expect(JSON.parse(JSON.stringify(response))).to.deep.eq({
+        data: 'response',
+        headers: {},
+      });
       expect(adaptorTimeout).to.eq(1234);
     });
   });

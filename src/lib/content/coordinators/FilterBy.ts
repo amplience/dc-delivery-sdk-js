@@ -13,19 +13,18 @@ export class FilterBy<Body = any> {
   static SCHEMA_PATH = '/_meta/schema';
   static PARENT_PATH = '/_meta/hierarchy/parentId';
 
+  private readonly filterByService: FilterByImpl<Body>;
+
   private requestConfig: FilterByRequest = {
     filterBy: [],
   };
 
-  private readonly filterByService: FilterByImpl<Body> = new FilterByImpl(
-    this.config,
-    this.contentClient
-  );
-
   constructor(
     private readonly config: ContentClientConfigV2,
     private readonly contentClient: AxiosInstance
-  ) {}
+  ) {
+    this.filterByService = new FilterByImpl(this.config, this.contentClient);
+  }
 
   /**
    *  This function will help construct requests for filtering Content Items or Slots
