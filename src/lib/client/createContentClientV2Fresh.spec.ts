@@ -3,6 +3,7 @@ import {
   createContentClientV2Fresh,
   getRetryConfig,
 } from './createContentClientV2Fresh';
+import { AxiosError, AxiosHeaders } from 'axios';
 
 describe('createContentClientV2Fresh', () => {
   it('should add the apiKey to the client as an X-API-Key header', () => {
@@ -29,11 +30,12 @@ describe('createContentClientV2Fresh', () => {
       retryDelay: (count) => count * 10000,
       retryCondition: () => false,
     });
-    const mockError = {
+    const headers = new AxiosHeaders();
+    const mockError: AxiosError = {
       isAxiosError: true,
       name: '',
       message: '',
-      config: {},
+      config: { headers: headers },
       toJSON: () => ({}),
     };
 

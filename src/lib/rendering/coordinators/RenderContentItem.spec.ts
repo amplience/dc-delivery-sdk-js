@@ -5,12 +5,13 @@ import { createContentClient } from '../../client/createContentClient';
 use(chaiAsPromised);
 
 import { RenderContentItem } from './RenderContentItem';
+import Axios from 'axios';
 
 function createCoordinator(
   accountName: string,
   locale?: string
 ): [MockAdapter, RenderContentItem] {
-  const mocks = new MockAdapter(null);
+  const mocks = new MockAdapter(Axios.create());
 
   const config = {
     account: accountName,

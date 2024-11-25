@@ -14,12 +14,13 @@ import { ContentMapper } from '../mapper/ContentMapper';
 import { ContentMeta } from '../model/ContentMeta';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
 import { createContentClient } from '../../client/createContentClient';
+import Axios from 'axios';
 
 function createCoordinator(
   accountName: string,
   locale?: string
 ): [MockAdapter, GetContentItemV1Impl] {
-  const mocks = new MockAdapter(null);
+  const mocks = new MockAdapter(Axios.create());
   const config = { account: accountName, adaptor: mocks.adapter(), locale };
   const client = createContentClient(config);
   const coordinator = new GetContentItemV1Impl(

@@ -11,6 +11,7 @@ import { HttpError } from '../model/HttpError';
 import { ContentNotFoundError } from '../model/ContentNotFoundError';
 import { createContentClient } from '../../client/createContentClient';
 import { ContentClientRetryConfig } from '../../config/ContentClientConfigV2Fresh';
+import Axios from 'axios';
 
 use(chaiAsPromised);
 
@@ -20,7 +21,7 @@ function createCoordinator(config: {
   apiKey?: string;
   retryConfig?: ContentClientRetryConfig;
 }): [MockAdapter, GetContentItemV2Impl] {
-  const mocks = new MockAdapter(null);
+  const mocks = new MockAdapter(Axios.create());
   const mergedConfig = { adaptor: mocks.adapter(), ...config };
   const client = createContentClient(mergedConfig);
 

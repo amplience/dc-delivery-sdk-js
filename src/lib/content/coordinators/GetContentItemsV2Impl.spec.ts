@@ -7,11 +7,12 @@ import RESULT from './__fixtures__/v2/fetch/RESULT.json';
 
 import { createContentClient } from '../../client/createContentClient';
 import { HttpError } from '../model/HttpError';
+import Axios from 'axios';
 
 use(chaiAsPromised);
 
 function createCoordinator(config): [MockAdapter, GetContentItemsV2Impl] {
-  const mocks = new MockAdapter(null);
+  const mocks = new MockAdapter(Axios);
   const mergedConfig = { adaptor: mocks.adapter(), ...config };
   const client = createContentClient(mergedConfig);
 
