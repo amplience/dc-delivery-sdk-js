@@ -35,7 +35,7 @@ export abstract class Media {
   /**
    * Mime type of the media object
    */
-  mimeType: string;
+  mimeType: string | undefined;
 
   constructor(data: any, protected config: CommonContentClientConfig) {
     Object.assign(this, data);

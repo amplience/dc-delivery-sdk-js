@@ -16,6 +16,7 @@ describe('Image', () => {
         name: 'image',
         endpoint: 'test',
         defaultHost: 'cdn.media.amplience.net',
+        mimeType: 'image/png'
       };
 
       const content = new Image(json, config);

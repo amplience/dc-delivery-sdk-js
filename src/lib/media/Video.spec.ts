@@ -15,6 +15,7 @@ describe('Video', () => {
         name: 'video',
         endpoint: 'test',
         defaultHost: 'cdn.media.amplience.net',
+        mimeType: 'video/mpeg'
       };
 
       const content = new Video(json, config);
