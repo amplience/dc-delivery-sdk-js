@@ -32,6 +32,11 @@ export abstract class Media {
    */
   id: string;
 
+  /**
+   * Mime type of the media object
+   */
+  mimeType: string;
+
   constructor(data: any, protected config: CommonContentClientConfig) {
     Object.assign(this, data);
   }
@@ -65,6 +70,7 @@ export abstract class Media {
       endpoint: this.endpoint,
       name: this.name,
       id: this.id,
+      mimeType: this.mimeType,
     };
   }
 }
