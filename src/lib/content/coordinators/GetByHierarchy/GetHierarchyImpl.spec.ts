@@ -15,6 +15,7 @@ import { createContentClient } from '../../../client/createContentClient';
 import { GetHierarchyImpl } from './GetHierarchyImpl';
 import { HierarchyAssemblerImpl } from './assemblers/HierarchyAssemblerImpl';
 import { HierarchyURLBuilder } from './UrlBuilder';
+import Axios from 'axios';
 
 use(chaiAsPromised);
 const contentRoot: ContentItem = new ContentItem<DefaultContentBody>();
@@ -47,7 +48,7 @@ const runs = [cd2RunConfig, freshRunConfig];
 function createCoordinator<T extends ContentBody>(
   config: any
 ): [MockAdapter, GetHierarchyImpl<T>] {
-  const mocks = new MockAdapter(null);
+  const mocks = new MockAdapter(Axios);
   const mergedConfig = { ...config, adaptor: mocks.adapter() };
   const client = createContentClient(mergedConfig);
   const coordinator = new GetHierarchyImpl<T>(

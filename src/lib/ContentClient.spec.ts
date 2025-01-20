@@ -25,6 +25,7 @@ import * as ROOT from './content/coordinators/__fixtures__/v2/hierarchies/ROOT.j
 import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
 import { FilterBy } from './content/coordinators/FilterBy';
 import { HierarchyURLBuilder } from './content/coordinators/GetByHierarchy/UrlBuilder';
+import Axios from 'axios';
 
 const SINGLE_ITEM_RESPONSE = {
   _meta: {
@@ -91,7 +92,7 @@ describe('ContentClient', () => {
   context('getContentItem', () => {
     context('ContentClientConfigV1', () => {
       it('should resolve if content item is found', async () => {
-        const mocks = new MockAdapter(null);
+        const mocks = new MockAdapter(Axios.create());
         mocks
           .onGet(
             'https://cdn.c1.amplience.net/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
@@ -112,7 +113,7 @@ describe('ContentClient', () => {
     });
     context('ContentClientConfigV2', () => {
       it('should resolve if content item is found', async () => {
-        const mocks = new MockAdapter(null);
+        const mocks = new MockAdapter(Axios.create());
         mocks
           .onGet(
             'https://test.cdn.content.amplience.net/content/id/0bf85aa1-9386-4068-adad-6b9a813f5ddb?depth=all&format=inlined'
@@ -133,7 +134,7 @@ describe('ContentClient', () => {
     });
     context('ContentClientConfigV2Fresh', () => {
       it('should resolve if content item is found', async () => {
-        const mocks = new MockAdapter(null);
+        const mocks = new MockAdapter(Axios.create());
         mocks
           .onGet(
             'https://test.fresh.content.amplience.net/content/id/0bf85aa1-9386-4068-adad-6b9a813f5ddb?depth=all&format=inlined'
@@ -158,7 +159,7 @@ describe('ContentClient', () => {
   context('getContentItemById', () => {
     context('ContentClientConfigV1', () => {
       it('should resolve if content item is found', async () => {
-        const mocks = new MockAdapter(null);
+        const mocks = new MockAdapter(Axios.create());
         mocks
           .onGet(
             'https://cdn.c1.amplience.net/cms/content/query?query=%7B%22sys.iri%22%3A%22http%3A%2F%2Fcontent.cms.amplience.com%2F2c7efa09-7e31-4503-8d00-5a150ff82f17%22%7D&fullBodyObject=true&scope=tree&store=test'
@@ -179,7 +180,7 @@ describe('ContentClient', () => {
     });
     context('ContentClientConfigV2', () => {
       it('should resolve if content item is found', async () => {
-        const mocks = new MockAdapter(null);
+        const mocks = new MockAdapter(Axios.create());
         mocks
           .onGet(
             'https://test.cdn.content.amplience.net/content/id/0bf85aa1-9386-4068-adad-6b9a813f5ddb?depth=all&format=inlined'
@@ -199,7 +200,7 @@ describe('ContentClient', () => {
       });
 
       it('should resolve use v2 if account was supplied', async () => {
-        const mocks = new MockAdapter(null);
+        const mocks = new MockAdapter(Axios.create());
         mocks
           .onGet(
             'https://test.cdn.content.amplience.net/content/id/0bf85aa1-9386-4068-adad-6b9a813f5ddb?depth=all&format=inlined'
@@ -221,7 +222,7 @@ describe('ContentClient', () => {
     });
     context('ContentClientConfigV2Fresh', () => {
       it('should resolve use v2 if account was supplied', async () => {
-        const mocks = new MockAdapter(null);
+        const mocks = new MockAdapter(Axios.create());
         mocks
           .onGet(
             'https://test.fresh.content.amplience.net/content/id/0bf85aa1-9386-4068-adad-6b9a813f5ddb?depth=all&format=inlined'
@@ -242,7 +243,7 @@ describe('ContentClient', () => {
         expect(response.toJSON()).to.deep.eq(V2_SINGLE_RESULT['content']);
       });
       it('should resolve if content item is found', async () => {
-        const mocks = new MockAdapter(null);
+        const mocks = new MockAdapter(Axios.create());
         mocks
           .onGet(
             'https://test.fresh.content.amplience.net/content/id/0bf85aa1-9386-4068-adad-6b9a813f5ddb?depth=all&format=inlined'
@@ -278,7 +279,7 @@ describe('ContentClient', () => {
     });
     context('ContentClientConfigV2', () => {
       it('should resolve if content item is found', async () => {
-        const mocks = new MockAdapter(null);
+        const mocks = new MockAdapter(Axios.create());
         mocks
           .onGet(
             'https://test.cdn.content.amplience.net/content/key/welcome-para-1?depth=all&format=inlined'
@@ -297,7 +298,7 @@ describe('ContentClient', () => {
     });
     context('ContentClientConfigV2Fresh', () => {
       it('should resolve if content item is found', async () => {
-        const mocks = new MockAdapter(null);
+        const mocks = new MockAdapter(Axios.create());
         mocks
           .onGet(
             'https://test.fresh.content.amplience.net/content/key/welcome-para-1?depth=all&format=inlined'
@@ -402,7 +403,7 @@ describe('ContentClient', () => {
     });
 
     it('`filterByContentType` should throw if no cdv2 configuration', async () => {
-      const mocks = new MockAdapter(null);
+      const mocks = new MockAdapter(Axios.create());
       mocks
         .onPost('https://test.cdn.content.amplience.net/content/filter', {
           filterBy: [
@@ -437,7 +438,7 @@ describe('ContentClient', () => {
   it(`getByHierarchy should fetch root item if it isn't passed in`, async () => {
     const urlBuilder = new HierarchyURLBuilder();
 
-    const mocks = new MockAdapter(null);
+    const mocks = new MockAdapter(Axios.create());
 
     const expectedBody: DefaultContentBody = {
       _meta: new ContentMeta(MULTI_LAYER_RESULT.content._meta),
@@ -484,7 +485,7 @@ describe('ContentClient', () => {
   it(`getByHierarchy should sort correctly`, async () => {
     const urlBuilder = new HierarchyURLBuilder();
 
-    const mocks = new MockAdapter(null);
+    const mocks = new MockAdapter(Axios.create());
 
     const expectedBody: DefaultContentBody = {
       _meta: new ContentMeta(MULTI_LAYER_RESULT_DESC.content._meta),
@@ -533,7 +534,7 @@ describe('ContentClient', () => {
   it(`getByHierarchy should apply custom sorts`, async () => {
     const urlBuilder = new HierarchyURLBuilder();
 
-    const mocks = new MockAdapter(null);
+    const mocks = new MockAdapter(Axios.create());
 
     const expectedBody: DefaultContentBody = {
       _meta: new ContentMeta(MULTI_LAYER_RESULT_ALT_SORT.content._meta),
@@ -582,7 +583,7 @@ describe('ContentClient', () => {
   it(`getByHierarchy should apply filter when building a tree with a filter`, async () => {
     const urlBuilder = new HierarchyURLBuilder();
 
-    const mocks = new MockAdapter(null);
+    const mocks = new MockAdapter(Axios.create());
 
     const expectedBody: DefaultContentBody = {
       _meta: new ContentMeta(MULTI_LAYER_RESULT.content._meta),
@@ -634,7 +635,7 @@ describe('ContentClient', () => {
   it(`getByHierarchy should apply a mutation when building a tree with a mutator`, async () => {
     const urlBuilder = new HierarchyURLBuilder();
 
-    const mocks = new MockAdapter(null);
+    const mocks = new MockAdapter(Axios.create());
 
     const expectedBody: DefaultContentBody = {
       _meta: new ContentMeta(MULTI_LAYER_RESULT_MUTATED.content._meta),
@@ -688,7 +689,7 @@ describe('ContentClient', () => {
   it(`getByHierarchy should apply a filter and mutation when building a tree with a mutator`, async () => {
     const urlBuilder = new HierarchyURLBuilder();
 
-    const mocks = new MockAdapter(null);
+    const mocks = new MockAdapter(Axios.create());
 
     const expectedBody: DefaultContentBody = {
       _meta: new ContentMeta(
@@ -746,7 +747,7 @@ describe('ContentClient', () => {
   });
 
   it(`getByHierarchy should throw an error if the root item is not found`, async () => {
-    const mocks = new MockAdapter(null);
+    const mocks = new MockAdapter(Axios.create());
 
     const cd2RunConfig = {
       name: 'cdv2',
@@ -775,7 +776,7 @@ describe('ContentClient', () => {
   });
 
   it(`getByHierarchy should throw an error if the root item id does not match the request rootId`, async () => {
-    const mocks = new MockAdapter(null);
+    const mocks = new MockAdapter(Axios.create());
 
     const rootBody: DefaultContentBody = {
       _meta: new ContentMeta(ROOT.content._meta),
