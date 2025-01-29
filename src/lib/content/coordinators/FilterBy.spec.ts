@@ -8,11 +8,12 @@ import * as PAGED_RESPONSE from './__fixtures__/v2/filterBy/PAGED_RESPONSE.json'
 import { FilterBy } from './FilterBy';
 import { HttpError } from '../model/HttpError';
 import { createContentClient } from '../../client/createContentClient';
+import Axios from 'axios';
 
 use(chaiAsPromised);
 
 function createCoordinator<T = any>(config: any): [MockAdapter, FilterBy<T>] {
-  const mocks = new MockAdapter(null);
+  const mocks = new MockAdapter(Axios.create());
   const mergedConfig = { ...config, adaptor: mocks.adapter() };
   const client = createContentClient(mergedConfig);
   const coordinator = new FilterBy<T>(mergedConfig, client);
