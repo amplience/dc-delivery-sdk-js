@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.15.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.14.0...v0.15.0) (2025-01-29)
+
+
+### Features
+
+* Exposing mimeType ([6e8999f](https://github.com/amplience/dc-delivery-sdk-js/commit/6e8999f3c8bd0dc95bf4f266af8caeae271c8911))
+
 ## [0.14.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.13.0...v0.14.0) (2025-01-20)
 
 
