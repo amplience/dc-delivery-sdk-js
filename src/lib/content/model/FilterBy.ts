@@ -21,6 +21,7 @@ export interface IFilterBy {
   value: any;
 }
 
+export type RequestType = 'id' | "key";
 export type IOrder = 'DESC' | 'ASC';
 
 export interface ISortBy {

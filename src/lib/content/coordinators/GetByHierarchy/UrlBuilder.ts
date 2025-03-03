@@ -2,7 +2,7 @@ import { HierarchyRequest } from '../../model/ByHierachy';
 import { encodeQueryString } from '../../../utils/Url';
 
 export class HierarchyURLBuilder {
-  static HIERARCHY_URL = '/content/hierarchies/descendants/id/';
+  static HIERARCHY_URL_BASE = '/content/hierarchies/descendants/';
   static MAXIMUM_DEPTH_PARAM = 'hierarchyDepth';
   static MAXIMUM_PAGE_SIZE_PARAM = 'maxPageSize';
   static LAST_EVALUATED_PARAM = 'pageCursor';
@@ -10,6 +10,7 @@ export class HierarchyURLBuilder {
   static SORT_ORDER_PARAM = 'sortByOrder';
   buildUrl(request: HierarchyRequest): string {
     const params: string[][] = [];
+    const requestType = request.deliveryType + "/"
 
     if (request.maximumDepth !== undefined) {
       params.push([
@@ -36,11 +37,11 @@ export class HierarchyURLBuilder {
       params.push([HierarchyURLBuilder.SORT_ORDER_PARAM, request.sortOrder]);
     }
     if (params.length > 0) {
-      return `${HierarchyURLBuilder.HIERARCHY_URL}${
+      return `${HierarchyURLBuilder.HIERARCHY_URL_BASE}${requestType}${
         request.rootId
       }?${encodeQueryString(params)}`;
     } else {
-      return HierarchyURLBuilder.HIERARCHY_URL + request.rootId;
+      return HierarchyURLBuilder.HIERARCHY_URL_BASE + requestType + request.rootId;
     }
   }
 }

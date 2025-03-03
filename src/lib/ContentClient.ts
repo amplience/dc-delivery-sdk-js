@@ -18,7 +18,11 @@ import { GetContentItemV2Impl } from './content/coordinators/GetContentItemV2Imp
 import { GetContentItemsV2Impl } from './content/coordinators/GetContentItemsV2Impl';
 import { GetContentItemByKey } from './content/coordinators/GetContentItemByKey';
 import { FilterByImpl } from './content/coordinators/FilterByImpl';
-import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
+import {
+  FilterByRequest,
+  FilterByResponse,
+  RequestType
+} from './content/model/FilterBy';
 import { AxiosInstance } from 'axios';
 import { createContentClient } from './client/createContentClient';
 import { FetchRequest, FetchResponse } from './content/model/Fetch';
@@ -35,6 +39,9 @@ import { FilteringHierachyAssemblerImpl } from './content/coordinators/GetByHier
 import { HierarchyAssemblerImpl } from './content/coordinators/GetByHierarchy/assemblers/HierarchyAssemblerImpl';
 import { MutatingHierachyAssemblerImpl } from './content/coordinators/GetByHierarchy/assemblers/MutatingHierarchyAssembler';
 import { FilteringAndMutatingHierarchyAssembler } from './content/coordinators/GetByHierarchy/assemblers/FilteringAndMutatingHierarchyAssembler';
+import {
+  HierarchyAssembler
+} from "./content/coordinators/GetByHierarchy/assemblers/HierarchyAssembler";
 
 /**
  * Amplience [Content Delivery API](https://docs.amplience.net/integration/deliveryapi.html?h=delivery) client.
@@ -253,30 +260,75 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   }
 
   private async getHierarchyRootItem(
-    requestParameters: ContentClientHierarchyRequest
+    requestParameters: ContentClientHierarchyRequest,
+    requestType: RequestType
   ): Promise<ContentItem> {
     let rootItem: ContentItem;
     if (!isContentClientConfigV2(this.config)) {
       throw new NotSupportedV2Error('getByHierarchy');
     }
-    if (requestParameters.rootItem === undefined) {
+    if(requestParameters.rootItem !== null) {
+      rootItem = requestParameters.rootItem
+    } else {
+      rootItem = await this.getRootItem(requestParameters, requestType);
+    }
+      if (!this.isSameItem(rootItem, requestType, requestParameters)) {
+        throw new Error(
+          `The root item id(${requestParameters.rootItem.body._meta.deliveryId}) ` +
+          `does not match the request rootId(${requestParameters.rootId})`
+        );
+      }
+    return rootItem;
+  }
+
+  private isSameItem(rootItem: ContentItem<DefaultContentBody>, requestType: RequestType, requestParameters: ContentClientHierarchyRequest) {
+    if(requestType === "id") {
+      return rootItem.body._meta.deliveryId !== requestParameters.rootId;
+    } else {
+      return rootItem.body._meta.deliveryKey !== undefined &&
+        rootItem.body._meta.deliveryKey !== requestParameters.rootId;;
+    }
+  }
+
+  private async getRootItem(requestParameters: ContentClientHierarchyRequest, requestType: RequestType) {
       try {
-        rootItem = await this.getContentItemById(requestParameters.rootId);
+        if (requestType == "id") {
+        return await this.getContentItemById(requestParameters.rootId);
+      } else {
+          return await this.getContentItemByKey(requestParameters.rootId);
+        }
       } catch (err) {
         throw new Error(
           `Error while retrieving hierarchy root item: ${err.message}`
         );
       }
-    } else {
-      rootItem = requestParameters.rootItem;
-    }
-    if (rootItem.body._meta.deliveryId !== requestParameters.rootId) {
-      throw new Error(
-        `The root item id(${requestParameters.rootItem.body._meta.deliveryId}) ` +
-          `does not match the request rootId(${requestParameters.rootId})`
-      );
-    }
-    return rootItem;
+  }
+
+
+  private async executeHierarchyRequest(requestParameters: ContentClientHierarchyRequest, deliveryType: RequestType) {
+    return await this.executeHierarchyRequestWithAssembler(requestParameters, deliveryType, new HierarchyAssemblerImpl())
+  }
+
+  private async executeHierarchyRequestWithAssembler(
+    requestParameters: ContentClientHierarchyRequest,
+    deliveryType: RequestType,
+    hierarchyAssembler: HierarchyAssembler<ContentBody>
+    ) {
+    const rootItem = await this.getHierarchyRootItem(requestParameters, deliveryType)
+    return new GetHierarchyImpl(
+      this.contentClient,
+      hierarchyAssembler
+    ).getHierarchyByRoot(
+      {
+        rootId: rootItem.body._meta.deliveryId,
+        maximumDepth: requestParameters.maximumDepth,
+        maximumPageSize: requestParameters.maximumPageSize,
+        sortOrder: requestParameters.sortOrder,
+        sortKey: requestParameters.sortKey,
+        deliveryType: deliveryType
+      },
+      rootItem
+    );
   }
 
   /** This function will load a hierarchy and return the root item with any children attached,
@@ -286,21 +338,17 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   async getByHierarchy<Body extends ContentBody = DefaultContentBody>(
     requestParameters: ContentClientHierarchyRequest
   ): Promise<HierarchyContentItem<Body>> {
-    const rootItem = await this.getHierarchyRootItem(requestParameters);
-    return new GetHierarchyImpl(
-      this.contentClient,
-      new HierarchyAssemblerImpl()
-    ).getHierarchyByRoot(
-      {
-        rootId: rootItem.body._meta.deliveryId,
-        maximumDepth: requestParameters.maximumDepth,
-        maximumPageSize: requestParameters.maximumPageSize,
-        sortOrder: requestParameters.sortOrder,
-        sortKey: requestParameters.sortKey,
-      },
-      rootItem
-    );
+    const deliveryType: RequestType = "id"
+    return await this.executeHierarchyRequest(requestParameters, deliveryType);
   }
+
+  async getHierarchyByKey<Body extends ContentBody = DefaultContentBody>(
+    requestParameters: ContentClientHierarchyRequest
+  ): Promise<HierarchyContentItem<Body>> {
+    const deliveryType: RequestType = "key"
+    return await this.executeHierarchyRequest(requestParameters, deliveryType);
+  }
+
 
   /** This function will load a hierarchy and return the root item with any children attached,
    * it will also fetch the root item if needed.
@@ -311,20 +359,23 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     requestParameters: ContentClientHierarchyRequest,
     filterFunction: (contentBody: Body) => boolean
   ): Promise<HierarchyContentItem<Body>> {
-    const rootItem = await this.getHierarchyRootItem(requestParameters);
-    return new GetHierarchyImpl(
-      this.contentClient,
-      new FilteringHierachyAssemblerImpl(filterFunction)
-    ).getHierarchyByRoot(
-      {
-        rootId: rootItem.body._meta.deliveryId,
-        maximumDepth: requestParameters.maximumDepth,
-        maximumPageSize: requestParameters.maximumPageSize,
-        sortOrder: requestParameters.sortOrder,
-        sortKey: requestParameters.sortKey,
-      },
-      rootItem
-    );
+    const deliveryType: RequestType = "id"
+    return await this.executeHierarchyRequestWithAssembler(
+      requestParameters,
+      deliveryType,
+      new FilteringHierachyAssemblerImpl(filterFunction));
+  }
+
+  async getHierarchyByKeyAndFilter<Body extends ContentBody = DefaultContentBody>(
+    requestParameters: ContentClientHierarchyRequest,
+    filterFunction: (contentBody: Body) => boolean
+  ): Promise<HierarchyContentItem<Body>> {
+
+    const deliveryType: RequestType = "key"
+    return await this.executeHierarchyRequestWithAssembler(
+      requestParameters,
+      deliveryType,
+      new FilteringHierachyAssemblerImpl(filterFunction));
   }
   /** This function will load a hierarchy and return the root item with any children attached,
    * it will also fetch the root item if needed.
@@ -335,20 +386,24 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     requestParameters: ContentClientHierarchyRequest,
     mutationFunction: (contentBody: Body) => Body
   ): Promise<HierarchyContentItem<Body>> {
-    const rootItem = await this.getHierarchyRootItem(requestParameters);
-    return new GetHierarchyImpl(
-      this.contentClient,
-      new MutatingHierachyAssemblerImpl(mutationFunction)
-    ).getHierarchyByRoot(
-      {
-        rootId: rootItem.body._meta.deliveryId,
-        maximumDepth: requestParameters.maximumDepth,
-        maximumPageSize: requestParameters.maximumPageSize,
-        sortOrder: requestParameters.sortOrder,
-        sortKey: requestParameters.sortKey,
-      },
-      rootItem
-    );
+
+    const deliveryType: RequestType = "id"
+    return await this.executeHierarchyRequestWithAssembler(
+      requestParameters,
+      deliveryType,
+      new MutatingHierachyAssemblerImpl(mutationFunction));
+  }
+
+  async getHierarchyByKeyAndMutate<Body extends ContentBody = DefaultContentBody>(
+    requestParameters: ContentClientHierarchyRequest,
+    mutationFunction: (contentBody: Body) => Body
+  ): Promise<HierarchyContentItem<Body>> {
+
+    const deliveryType: RequestType = "key"
+    return await this.executeHierarchyRequestWithAssembler(
+      requestParameters,
+      deliveryType,
+      new MutatingHierachyAssemblerImpl(mutationFunction));
   }
 
   async getByHierarchyFilterAndMutate<
@@ -358,23 +413,26 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     filterFunction: (contentBody: Body) => boolean,
     mutationFunction: (contentBody: Body) => Body
   ): Promise<HierarchyContentItem<Body>> {
-    const rootItem = await this.getHierarchyRootItem(requestParameters);
-    return new GetHierarchyImpl(
-      this.contentClient,
-      new FilteringAndMutatingHierarchyAssembler(
-        filterFunction,
-        mutationFunction
-      )
-    ).getHierarchyByRoot(
-      {
-        rootId: rootItem.body._meta.deliveryId,
-        maximumDepth: requestParameters.maximumDepth,
-        maximumPageSize: requestParameters.maximumPageSize,
-        sortOrder: requestParameters.sortOrder,
-        sortKey: requestParameters.sortKey,
-      },
-      rootItem
-    );
+
+    const deliveryType: RequestType = "id"
+    return await this.executeHierarchyRequestWithAssembler(
+      requestParameters,
+      deliveryType,
+      new FilteringAndMutatingHierarchyAssembler(filterFunction, mutationFunction));
+  }
+  async getHierarchyByKeyFilterAndMutate<
+    Body extends ContentBody = DefaultContentBody
+  >(
+    requestParameters: ContentClientHierarchyRequest,
+    filterFunction: (contentBody: Body) => boolean,
+    mutationFunction: (contentBody: Body) => Body
+  ): Promise<HierarchyContentItem<Body>> {
+
+    const deliveryType: RequestType = "key"
+    return await this.executeHierarchyRequestWithAssembler(
+      requestParameters,
+      deliveryType,
+      new FilteringAndMutatingHierarchyAssembler(filterFunction, mutationFunction));
   }
 
   /**

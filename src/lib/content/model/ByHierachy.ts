@@ -1,10 +1,13 @@
 import { IContentMeta } from './ContentMeta';
 import { ContentBody } from './ContentBody';
 import { ContentItem } from './ContentItem';
-import { IOrder } from './FilterBy';
+import {RequestType, IOrder} from './FilterBy';
+
+
 
 export interface HierarchyRequest {
   rootId: string;
+  deliveryType: RequestType;
   maximumDepth?: number;
   maximumPageSize?: number;
   pageCursor?: string;
