@@ -66,7 +66,7 @@ describe('getByHierarchies', () => {
         rootId: 'testId',
         maximumPageSize: 5,
         maximumDepth: 3,
-        deliveryType: "id"
+        deliveryType: 'id',
       };
       const result = hierachyURL.buildUrl(request);
       expect(result).to.deep.eq(
@@ -80,8 +80,7 @@ describe('getByHierarchies', () => {
           maximumPageSize: 5,
           maximumDepth: 3,
           pageCursor: 'LEKEY',
-          deliveryType: "id"
-
+          deliveryType: 'id',
         };
         const result = hierachyURL.buildUrl(request);
         expect(result).to.deep.eq(
@@ -93,8 +92,7 @@ describe('getByHierarchies', () => {
       const request: HierarchyRequest = {
         rootId: 'testId',
         maximumPageSize: 5,
-        deliveryType: "id"
-
+        deliveryType: 'id',
       };
       const result = hierachyURL.buildUrl(request);
       expect(result).to.deep.eq(
@@ -106,7 +104,7 @@ describe('getByHierarchies', () => {
         const request: HierarchyRequest = {
           rootId: 'testId',
           maximumDepth: 5,
-          deliveryType: "id"
+          deliveryType: 'id',
         };
         const result = hierachyURL.buildUrl(request);
         expect(result).to.deep.eq(
@@ -118,7 +116,7 @@ describe('getByHierarchies', () => {
         const request: HierarchyRequest = {
           rootId: 'testId',
           pageCursor: 'LEKEY',
-          deliveryType: "id"
+          deliveryType: 'id',
         };
         const result = hierachyURL.buildUrl(request);
         expect(result).to.deep.eq(
@@ -130,7 +128,7 @@ describe('getByHierarchies', () => {
       const request: HierarchyRequest = {
         rootId: 'testId',
         sortKey: '_meta/JSON/ID',
-        deliveryType: "id"
+        deliveryType: 'id',
       };
       const result = hierachyURL.buildUrl(request);
       expect(result).to.deep.eq(
@@ -142,7 +140,7 @@ describe('getByHierarchies', () => {
       const request: HierarchyRequest = {
         rootId: 'testId',
         sortOrder: 'DESC',
-        deliveryType: "id"
+        deliveryType: 'id',
       };
       const result = hierachyURL.buildUrl(request);
       expect(result).to.deep.eq(
@@ -168,7 +166,7 @@ describe('getByHierarchies', () => {
         const result = await coordinator.getHierarchyByRoot(
           {
             rootId: contentRoot.body._meta.deliveryId,
-            deliveryType: "id"
+            deliveryType: 'id',
           },
           contentRoot
         );
@@ -194,7 +192,7 @@ describe('getByHierarchies', () => {
         const result = await coordinator.getHierarchyByRoot(
           {
             rootId: contentRoot.body._meta.deliveryId,
-            deliveryType: "id"
+            deliveryType: 'id',
           },
           contentRoot
         );
@@ -214,7 +212,7 @@ describe('getByHierarchies', () => {
             host +
               urlBuilder.buildUrl({
                 rootId: contentRoot.body._meta.deliveryId,
-                deliveryType: "id"
+                deliveryType: 'id',
               })
           )
           .replyOnce(200, MULTI_LAYER_RESPONSE_P1);
@@ -225,7 +223,7 @@ describe('getByHierarchies', () => {
               urlBuilder.buildUrl({
                 rootId: contentRoot.body._meta.deliveryId,
                 pageCursor: 'testCursor',
-                deliveryType: "id"
+                deliveryType: 'id',
               })
           )
           .replyOnce(200, MULTI_LAYER_RESPONSE_P2);
@@ -233,7 +231,7 @@ describe('getByHierarchies', () => {
         const result = await coordinator.getHierarchyByRoot(
           {
             rootId: contentRoot.body._meta.deliveryId,
-            deliveryType: "id"
+            deliveryType: 'id',
           },
           contentRoot
         );

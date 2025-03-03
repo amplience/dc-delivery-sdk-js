@@ -10,7 +10,7 @@ export class HierarchyURLBuilder {
   static SORT_ORDER_PARAM = 'sortByOrder';
   buildUrl(request: HierarchyRequest): string {
     const params: string[][] = [];
-    const requestType = request.deliveryType + "/"
+    const requestType = request.deliveryType + '/';
 
     if (request.maximumDepth !== undefined) {
       params.push([
@@ -41,7 +41,9 @@ export class HierarchyURLBuilder {
         request.rootId
       }?${encodeQueryString(params)}`;
     } else {
-      return HierarchyURLBuilder.HIERARCHY_URL_BASE + requestType + request.rootId;
+      return (
+        HierarchyURLBuilder.HIERARCHY_URL_BASE + requestType + request.rootId
+      );
     }
   }
 }

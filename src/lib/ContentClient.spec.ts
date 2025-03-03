@@ -469,7 +469,7 @@ describe('ContentClient', () => {
         cd2RunConfig.baseUrl +
           urlBuilder.buildUrl({
             rootId: ROOT.content._meta.deliveryId,
-            deliveryType: "id"
+            deliveryType: 'id',
           })
       )
       .reply(200, MULTI_LAYER_RESPONSE);
@@ -518,7 +518,7 @@ describe('ContentClient', () => {
           urlBuilder.buildUrl({
             rootId: ROOT.content._meta.deliveryId,
             sortOrder: 'DESC',
-            deliveryType: "id"
+            deliveryType: 'id',
           })
       )
       .reply(200, MULTI_LAYER_RESPONSE_DESC);
@@ -568,7 +568,7 @@ describe('ContentClient', () => {
           urlBuilder.buildUrl({
             rootId: ROOT.content._meta.deliveryId,
             sortKey: '_meta/deliveryId',
-            deliveryType: "id"
+            deliveryType: 'id',
           })
       )
       .reply(200, MULTI_LAYER_RESPONSE_ALT_SORT);
@@ -617,7 +617,7 @@ describe('ContentClient', () => {
         cd2RunConfig.baseUrl +
           urlBuilder.buildUrl({
             rootId: ROOT.content._meta.deliveryId,
-            deliveryType: "id"
+            deliveryType: 'id',
           })
       )
       .reply(200, MULTI_LAYER_RESPONSE);
@@ -671,7 +671,7 @@ describe('ContentClient', () => {
         cd2RunConfig.baseUrl +
           urlBuilder.buildUrl({
             rootId: ROOT.content._meta.deliveryId,
-            deliveryType: "id"
+            deliveryType: 'id',
           })
       )
       .reply(200, MULTI_LAYER_RESPONSE);
@@ -729,7 +729,7 @@ describe('ContentClient', () => {
         cd2RunConfig.baseUrl +
           urlBuilder.buildUrl({
             rootId: ROOT.content._meta.deliveryId,
-            deliveryType: "id"
+            deliveryType: 'id',
           })
       )
       .reply(200, MULTI_LAYER_RESPONSE);
