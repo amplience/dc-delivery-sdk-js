@@ -267,7 +267,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     if (!isContentClientConfigV2(this.config)) {
       throw new NotSupportedV2Error('getByHierarchy');
     }
-    if(requestParameters.rootItem !== null) {
+    if (requestParameters.rootItem !== null) {
       rootItem = requestParameters.rootItem
     } else {
       rootItem = await this.getRootItem(requestParameters, requestType);
@@ -282,7 +282,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   }
 
   private isSameItem(rootItem: ContentItem<DefaultContentBody>, requestType: RequestType, requestParameters: ContentClientHierarchyRequest) {
-    if(requestType === "id") {
+    if (requestType === "id") {
       return rootItem.body._meta.deliveryId !== requestParameters.rootId;
     } else {
       return rootItem.body._meta.deliveryKey !== undefined &&
@@ -377,6 +377,8 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       deliveryType,
       new FilteringHierachyAssemblerImpl(filterFunction));
   }
+
+
   /** This function will load a hierarchy and return the root item with any children attached,
    * it will also fetch the root item if needed.
    * @param requestParameters parameters for the hierarchies request see {@link ContentClientHierarchyRequest}
@@ -420,6 +422,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       deliveryType,
       new FilteringAndMutatingHierarchyAssembler(filterFunction, mutationFunction));
   }
+
   async getHierarchyByKeyFilterAndMutate<
     Body extends ContentBody = DefaultContentBody
   >(
