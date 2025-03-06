@@ -14,7 +14,9 @@ import * as NO_RESULTS from './content/coordinators/__fixtures__/v2/filterBy/NO_
 import * as MULTI_LAYER_RESPONSE from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE.json';
 import * as MULTI_LAYER_RESPONSE_ALT_SORT from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE_ALT_SORT.json';
 import * as MULTI_LAYER_RESPONSE_DESC from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE_DESC.json';
+import * as MULTI_LAYER_RESPONSE_DESC_KEY from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE_DESC_KEY.json';
 import * as MULTI_LAYER_RESULT_DESC from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_DESC.json';
+import * as MULTI_LAYER_RESULT_DESC_KEY from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_DESC_KEY.json';
 import * as MULTI_LAYER_RESULT_FILTERED from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_FILTERED.json';
 import * as MULTI_LAYER_RESULT_FILTERED_AND_MUTATED from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_FILTER_AND_MUTATE.json';
 import * as MULTI_LAYER_RESULT_MUTATED from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_MUTATED.json';
@@ -692,8 +694,6 @@ describe('ContentClient', () => {
   });
 
   it(`getByHierarchy should apply a filter and mutation when building a tree with a mutator`, async () => {
-    const urlBuilder = new HierarchyURLBuilder();
-
     const mocks = new MockAdapter(Axios.create());
 
     const expectedBody: DefaultContentBody = {
@@ -727,10 +727,8 @@ describe('ContentClient', () => {
     mocks
       .onGet(
         cd2RunConfig.baseUrl +
-          urlBuilder.buildUrl({
-            rootId: ROOT.content._meta.deliveryId,
-            deliveryType: 'id',
-          })
+          '/content/hierarchies/descendants/id/' +
+          ROOT.content._meta.deliveryId
       )
       .reply(200, MULTI_LAYER_RESPONSE);
 
@@ -810,6 +808,50 @@ describe('ContentClient', () => {
           'The root item id(90d6fa96-6ce0-4332-b995-4e6c50b1e233) does not match the request rootId(failed test)'
         );
       });
+  });
+
+  it(`getHierarchyByKey should work without root`, async () => {
+    const urlBuilder = new HierarchyURLBuilder();
+
+    const mocks = new MockAdapter(Axios.create());
+
+    const expectedBody: DefaultContentBody = {
+      _meta: new ContentMeta(MULTI_LAYER_RESULT_DESC_KEY.content._meta),
+      propertyName1: MULTI_LAYER_RESULT_DESC_KEY.content.propertyName1,
+    };
+
+    const expectedContent: HierarchyContentItem<DefaultContentBody> = {
+      content: expectedBody,
+      children: MULTI_LAYER_RESULT_DESC_KEY.children as any,
+    };
+
+    const cd2RunConfig = {
+      name: 'cdv2',
+      hubName: 'hub',
+      type: 'cdn',
+      baseUrl: 'https://hub.cdn.content.amplience.net',
+      config: { hubName: 'hub' },
+    } as ContentClientConfigV2;
+
+    mocks
+      .onGet(
+        cd2RunConfig.baseUrl +
+          urlBuilder.buildUrl({
+            rootId: 'test',
+            sortOrder: 'DESC',
+            deliveryType: 'key',
+          })
+      )
+      .reply(200, MULTI_LAYER_RESPONSE_DESC_KEY);
+
+    const mergedConfig = { adaptor: mocks.adapter(), ...cd2RunConfig };
+
+    const client = new ContentClient(mergedConfig);
+    const response = await client.getHierarchyByKey({
+      rootId: 'test',
+      sortOrder: 'DESC',
+    });
+    expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });
 
   it('`getByHierarchy` should throw if no cdv2 configuration', async () => {

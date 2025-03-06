@@ -159,6 +159,7 @@ describe('getByHierarchies', () => {
           .onGet(
             host +
               HierarchyURLBuilder.HIERARCHY_URL_BASE +
+              'id/' +
               contentRoot.body._meta.deliveryId
           )
           .replyOnce(200, SINGLE_LAYER_RESPONSE);
@@ -185,6 +186,7 @@ describe('getByHierarchies', () => {
           .onGet(
             host +
               HierarchyURLBuilder.HIERARCHY_URL_BASE +
+              'id/' +
               contentRoot.body._meta.deliveryId
           )
           .replyOnce(200, MULTI_LAYER_RESPONSE);
