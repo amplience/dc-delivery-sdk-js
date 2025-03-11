@@ -18,11 +18,7 @@ import { GetContentItemV2Impl } from './content/coordinators/GetContentItemV2Imp
 import { GetContentItemsV2Impl } from './content/coordinators/GetContentItemsV2Impl';
 import { GetContentItemByKey } from './content/coordinators/GetContentItemByKey';
 import { FilterByImpl } from './content/coordinators/FilterByImpl';
-import {
-  FilterByRequest,
-  FilterByResponse,
-  RequestType,
-} from './content/model/FilterBy';
+import { FilterByRequest, FilterByResponse } from './content/model/FilterBy';
 import { AxiosInstance } from 'axios';
 import { createContentClient } from './client/createContentClient';
 import { FetchRequest, FetchResponse } from './content/model/Fetch';
@@ -33,6 +29,7 @@ import {
 import {
   ContentClientHierarchyRequest,
   HierarchyContentItem,
+  RequestType,
 } from './content/model/ByHierachy';
 import { GetHierarchyImpl } from './content/coordinators/GetByHierarchy/GetHierarchyImpl';
 import { FilteringHierachyAssemblerImpl } from './content/coordinators/GetByHierarchy/assemblers/FilteringHierachyAssemblerImpl';

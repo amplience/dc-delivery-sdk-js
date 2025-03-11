@@ -29,7 +29,6 @@ export interface IFilterByLookUp extends FilterByComponent {
   value: string;
 }
 
-export type RequestType = 'id' | 'key';
 export type IOrder = 'DESC' | 'ASC';
 
 export interface ISortBy {

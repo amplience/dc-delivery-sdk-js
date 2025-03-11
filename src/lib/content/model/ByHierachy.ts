@@ -1,7 +1,9 @@
 import { IContentMeta } from './ContentMeta';
 import { ContentBody } from './ContentBody';
 import { ContentItem } from './ContentItem';
-import { RequestType, IOrder } from './FilterBy';
+import { IOrder } from './FilterBy';
+
+export type RequestType = 'id' | 'key';
 
 export interface HierarchyRequest {
   rootId: string;
