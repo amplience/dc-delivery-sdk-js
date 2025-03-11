@@ -16,9 +16,17 @@ export interface ContentItemResponse<Body = any> {
   linkedContent?: Array<Record<string, any> & IContentMeta>;
 }
 
-export interface IFilterBy {
-  path: string;
+export interface FilterByComponent {
   value: any;
+}
+
+export interface IFilterBy extends FilterByComponent {
+  path: string;
+}
+
+export interface IFilterByLookUp extends FilterByComponent {
+  lookupBy: string;
+  value: string;
 }
 
 export type RequestType = 'id' | 'key';
@@ -41,7 +49,7 @@ export interface IPage {
 }
 
 export interface FilterByRequest {
-  filterBy: Array<IFilterBy>;
+  filterBy: Array<FilterByComponent>;
   sortBy?: ISortBy;
   page?: Partial<Omit<IPage, 'next'>>;
   parameters?: RequestOptions;

@@ -28,6 +28,7 @@ import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
 import { FilterBy } from './content/coordinators/FilterBy';
 import { HierarchyURLBuilder } from './content/coordinators/GetByHierarchy/UrlBuilder';
 import Axios from 'axios';
+import { IFilterBy } from './content/model/FilterBy';
 
 const SINGLE_ITEM_RESPONSE = {
   _meta: {
@@ -422,14 +423,13 @@ describe('ContentClient', () => {
         hubName: 'test',
         adaptor: mocks.adapter(),
       });
+      const filter: IFilterBy = {
+        path: '/_meta/schema',
+        value: 'https://filter-by-sort-by.com',
+      };
 
       const request = await client.filterContentItems({
-        filterBy: [
-          {
-            path: '/_meta/schema',
-            value: 'https://filter-by-sort-by.com',
-          },
-        ],
+        filterBy: [filter],
       });
 
       expect(request.responses).to.deep.equals(NO_RESULTS.responses);
