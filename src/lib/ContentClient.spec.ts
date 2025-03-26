@@ -810,10 +810,18 @@ describe('ContentClient', () => {
       });
   });
 
-  it(`getHierarchyByKey should work without root`, async () => {
+  it(`getHierarchyByKey should be handled in the same fashion as by id`, async () => {
     const urlBuilder = new HierarchyURLBuilder();
 
     const mocks = new MockAdapter(Axios.create());
+    const rootBody: DefaultContentBody = {
+      _meta: new ContentMeta(ROOT.content._meta),
+      propertyName1: ROOT.content.propertyName1,
+    };
+
+    const rootItem = new ContentItem();
+    rootItem.body = rootBody;
+    rootItem.body._meta.deliveryKey = 'test';
 
     const expectedBody: DefaultContentBody = {
       _meta: new ContentMeta(MULTI_LAYER_RESULT_DESC_KEY.content._meta),
@@ -850,6 +858,7 @@ describe('ContentClient', () => {
     const response = await client.getHierarchyByKey({
       rootId: 'test',
       sortOrder: 'DESC',
+      rootItem: rootItem,
     });
     expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });

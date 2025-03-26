@@ -158,9 +158,10 @@ describe('getByHierarchies', () => {
         mocks
           .onGet(
             host +
-              HierarchyURLBuilder.HIERARCHY_URL_BASE +
-              'id/' +
-              contentRoot.body._meta.deliveryId
+              urlBuilder.buildUrl({
+                rootId: contentRoot.body._meta.deliveryId,
+                deliveryType: 'id',
+              })
           )
           .replyOnce(200, SINGLE_LAYER_RESPONSE);
 

@@ -282,7 +282,8 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   }
 
   private async getHierarchyRootItem(
-    requestParameters: ContentClientHierarchyRequest
+    requestParameters: ContentClientHierarchyRequest,
+    requestType: RequestType
   ): Promise<ContentItem> {
     let rootItem: ContentItem;
     if (!isContentClientConfigV2(this.config)) {
@@ -291,20 +292,36 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     if (requestParameters.rootItem !== undefined) {
       rootItem = requestParameters.rootItem;
     } else {
-      rootItem = await this.getRootItem(requestParameters);
+      rootItem = await this.getRootItem(requestParameters, requestType);
     }
-    if (rootItem.body._meta.deliveryId !== requestParameters.rootId) {
-      throw new Error(
-        `The root item id(${requestParameters.rootItem.body._meta.deliveryId}) ` +
-          `does not match the request rootId(${requestParameters.rootId})`
-      );
+    if (requestType === 'id') {
+      if (rootItem.body._meta.deliveryId != requestParameters.rootId) {
+        throw new Error(
+          `The root item id(${requestParameters.rootItem.body._meta.deliveryId}) ` +
+            `does not match the request rootId(${requestParameters.rootId})`
+        );
+      }
+    } else {
+      if (rootItem.body._meta.deliveryKey !== requestParameters.rootId) {
+        throw new Error(
+          `The root item id(${requestParameters.rootItem.body._meta.deliveryKey}) ` +
+            `does not match the request rootId(${requestParameters.rootId})`
+        );
+      }
     }
     return rootItem;
   }
 
-  private async getRootItem(requestParameters: ContentClientHierarchyRequest) {
+  private async getRootItem(
+    requestParameters: ContentClientHierarchyRequest,
+    requestType: RequestType
+  ) {
     try {
-      return await this.getContentItemById(requestParameters.rootId);
+      if (requestType === 'id') {
+        return await this.getContentItemById(requestParameters.rootId);
+      } else {
+        return await this.getContentItemByKey(requestParameters.rootId);
+      }
     } catch (err) {
       throw new Error(
         `Error while retrieving hierarchy root item: ${err.message}`
@@ -328,35 +345,24 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     deliveryType: RequestType,
     hierarchyAssembler: HierarchyAssembler<ContentBody>
   ) {
-    if (deliveryType === 'id') {
-      const rootItem = await this.getHierarchyRootItem(requestParameters);
-      return await new GetHierarchyImpl(
-        this.contentClient,
-        hierarchyAssembler
-      ).getHierarchyByRoot(
-        {
-          rootId: rootItem.body._meta.deliveryId,
-          maximumDepth: requestParameters.maximumDepth,
-          maximumPageSize: requestParameters.maximumPageSize,
-          sortOrder: requestParameters.sortOrder,
-          sortKey: requestParameters.sortKey,
-          deliveryType: deliveryType,
-        },
-        rootItem
-      );
-    } else {
-      return await new GetHierarchyImpl(
-        this.contentClient,
-        hierarchyAssembler
-      ).getHierarchyByKey({
+    const rootItem = await this.getHierarchyRootItem(
+      requestParameters,
+      deliveryType
+    );
+    return await new GetHierarchyImpl(
+      this.contentClient,
+      hierarchyAssembler
+    ).getHierarchyByRoot(
+      {
         rootId: requestParameters.rootId,
         maximumDepth: requestParameters.maximumDepth,
         maximumPageSize: requestParameters.maximumPageSize,
         sortOrder: requestParameters.sortOrder,
         sortKey: requestParameters.sortKey,
         deliveryType: deliveryType,
-      });
-    }
+      },
+      rootItem
+    );
   }
 
   /** This function will load a hierarchy and return the root item with any children attached,

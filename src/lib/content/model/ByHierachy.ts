@@ -18,7 +18,7 @@ export interface HierarchyRequest {
 /**
  * wrapping object for the content client request
  *  @member rootId the deliveryId of the root item
- *  @member rootItem (optional) to pass the root item if it has already been fetched, note: not used as part of by Key requests.
+ *  @member rootItem (optional) to pass the root item if it has already been fetched
  *  @member maximumDepth (optional)  specifies the maximum depth of the hierarchy query
  *  @member maximumPageSize (optional)  specifies the maximum page size for each page of the hierarchy,
  *  @member sortOrder (optional) specifies the sort the service should use when retrieving content from the database

@@ -58,29 +58,4 @@ export class GetHierarchyImpl<Body extends ContentBody>
     );
     return rootHierarchyItem;
   }
-
-  async getHierarchyByKey(
-    request: HierarchyRequest
-  ): Promise<HierarchyContentItem<Body>> {
-    const hierarchyData = await this.getByHierarchy(request);
-    if (hierarchyData.length > 0) {
-      const rootItem: ContentItem<Body> = new ContentItem<Body>();
-      rootItem.body = this.findRootItem(request, hierarchyData).content;
-      const rootHierarchyItem = this.assembler.assembleRoot(
-        rootItem,
-        hierarchyData
-      );
-      return rootHierarchyItem;
-    }
-    return undefined;
-  }
-
-  private findRootItem(
-    request: HierarchyRequest,
-    data: HierarchyContentResponse<Body>[]
-  ): HierarchyContentResponse<Body> {
-    return data.find((item) => {
-      return item.content._meta.deliveryKey === request.rootId;
-    });
-  }
 }

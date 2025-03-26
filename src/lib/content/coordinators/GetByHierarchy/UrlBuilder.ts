@@ -36,14 +36,11 @@ export class HierarchyURLBuilder {
     if (request.sortOrder !== undefined) {
       params.push([HierarchyURLBuilder.SORT_ORDER_PARAM, request.sortOrder]);
     }
+    let url =
+      HierarchyURLBuilder.HIERARCHY_URL_BASE + requestType + request.rootId;
     if (params.length > 0) {
-      return `${HierarchyURLBuilder.HIERARCHY_URL_BASE}${requestType}${
-        request.rootId
-      }?${encodeQueryString(params)}`;
-    } else {
-      return (
-        HierarchyURLBuilder.HIERARCHY_URL_BASE + requestType + request.rootId
-      );
+      url += `?${encodeQueryString(params)}`;
     }
+    return url;
   }
 }
