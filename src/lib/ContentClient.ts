@@ -27,6 +27,8 @@ import {
   NotSupportedV1Error,
 } from './content/model/NotSupportedError';
 import {
+  ByIdContentClientHierarchyRequest,
+  ByKeyContentClientHierarchyRequest,
   ContentClientHierarchyRequest,
   HierarchyContentItem,
   RequestType,
@@ -282,6 +284,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   }
 
   private async getHierarchyRootItem(
+    rootId: string,
     requestParameters: ContentClientHierarchyRequest,
     requestType: RequestType
   ): Promise<ContentItem> {
@@ -292,35 +295,32 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     if (requestParameters.rootItem !== undefined) {
       rootItem = requestParameters.rootItem;
     } else {
-      rootItem = await this.getRootItem(requestParameters, requestType);
+      rootItem = await this.getRootItem(rootId, requestType);
     }
     if (requestType === 'id') {
-      if (rootItem.body._meta.deliveryId != requestParameters.rootId) {
+      if (rootItem.body._meta.deliveryId != rootId) {
         throw new Error(
           `The root item id(${requestParameters.rootItem.body._meta.deliveryId}) ` +
-            `does not match the request rootId(${requestParameters.rootId})`
+            `does not match the request rootId(${rootId})`
         );
       }
     } else {
-      if (rootItem.body._meta.deliveryKey !== requestParameters.rootId) {
+      if (rootItem.body._meta.deliveryKey !== rootId) {
         throw new Error(
           `The root item id(${requestParameters.rootItem.body._meta.deliveryKey}) ` +
-            `does not match the request rootId(${requestParameters.rootId})`
+            `does not match the request rootId(${rootId})`
         );
       }
     }
     return rootItem;
   }
 
-  private async getRootItem(
-    requestParameters: ContentClientHierarchyRequest,
-    requestType: RequestType
-  ) {
+  private async getRootItem(rootId: string, requestType: RequestType) {
     try {
       if (requestType === 'id') {
-        return await this.getContentItemById(requestParameters.rootId);
+        return await this.getContentItemById(rootId);
       } else {
-        return await this.getContentItemByKey(requestParameters.rootId);
+        return await this.getContentItemByKey(rootId);
       }
     } catch (err) {
       throw new Error(
@@ -345,7 +345,16 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     deliveryType: RequestType,
     hierarchyAssembler: HierarchyAssembler<ContentBody>
   ) {
+    let rootId: string;
+    if (deliveryType == 'id') {
+      rootId = (requestParameters as ByIdContentClientHierarchyRequest)
+        .contentId;
+    } else {
+      rootId = (requestParameters as ByKeyContentClientHierarchyRequest)
+        .deliveryKey;
+    }
     const rootItem = await this.getHierarchyRootItem(
+      rootId,
       requestParameters,
       deliveryType
     );
@@ -354,7 +363,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       hierarchyAssembler
     ).getHierarchyByRoot(
       {
-        rootId: requestParameters.rootId,
+        rootId: rootId,
         maximumDepth: requestParameters.maximumDepth,
         maximumPageSize: requestParameters.maximumPageSize,
         sortOrder: requestParameters.sortOrder,
@@ -370,14 +379,14 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @param requestParameters parameters for the hierarchies request see {@link ContentClientHierarchyRequest}
    * */
   async getByHierarchy<Body extends ContentBody = DefaultContentBody>(
-    requestParameters: ContentClientHierarchyRequest
+    requestParameters: ByIdContentClientHierarchyRequest
   ): Promise<HierarchyContentItem<Body>> {
     const deliveryType: RequestType = 'id';
     return await this.executeHierarchyRequest(requestParameters, deliveryType);
   }
 
   async getHierarchyByKey<Body extends ContentBody = DefaultContentBody>(
-    requestParameters: ContentClientHierarchyRequest
+    requestParameters: ByKeyContentClientHierarchyRequest
   ): Promise<HierarchyContentItem<Body>> {
     const deliveryType: RequestType = 'key';
     return await this.executeHierarchyRequest(requestParameters, deliveryType);
@@ -389,7 +398,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @param filterFunction the function that is applied to filter the tree, elements are removed on a truthy result
    * */
   async getByHierarchyAndFilter<Body extends ContentBody = DefaultContentBody>(
-    requestParameters: ContentClientHierarchyRequest,
+    requestParameters: ByIdContentClientHierarchyRequest,
     filterFunction: (contentBody: Body) => boolean
   ): Promise<HierarchyContentItem<Body>> {
     const deliveryType: RequestType = 'id';
@@ -403,7 +412,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   async getHierarchyByKeyAndFilter<
     Body extends ContentBody = DefaultContentBody
   >(
-    requestParameters: ContentClientHierarchyRequest,
+    requestParameters: ByKeyContentClientHierarchyRequest,
     filterFunction: (contentBody: Body) => boolean
   ): Promise<HierarchyContentItem<Body>> {
     const deliveryType: RequestType = 'key';
@@ -420,7 +429,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
    * @param mutationFunction the function that is applied to the content body while building the hierarchy
    * */
   async getByHierarchyAndMutate<Body extends ContentBody = DefaultContentBody>(
-    requestParameters: ContentClientHierarchyRequest,
+    requestParameters: ByIdContentClientHierarchyRequest,
     mutationFunction: (contentBody: Body) => Body
   ): Promise<HierarchyContentItem<Body>> {
     const deliveryType: RequestType = 'id';
@@ -434,7 +443,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   async getHierarchyByKeyAndMutate<
     Body extends ContentBody = DefaultContentBody
   >(
-    requestParameters: ContentClientHierarchyRequest,
+    requestParameters: ByKeyContentClientHierarchyRequest,
     mutationFunction: (contentBody: Body) => Body
   ): Promise<HierarchyContentItem<Body>> {
     const deliveryType: RequestType = 'key';
@@ -448,7 +457,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   async getByHierarchyFilterAndMutate<
     Body extends ContentBody = DefaultContentBody
   >(
-    requestParameters: ContentClientHierarchyRequest,
+    requestParameters: ByIdContentClientHierarchyRequest,
     filterFunction: (contentBody: Body) => boolean,
     mutationFunction: (contentBody: Body) => Body
   ): Promise<HierarchyContentItem<Body>> {
@@ -466,7 +475,7 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   async getHierarchyByKeyFilterAndMutate<
     Body extends ContentBody = DefaultContentBody
   >(
-    requestParameters: ContentClientHierarchyRequest,
+    requestParameters: ByKeyContentClientHierarchyRequest,
     filterFunction: (contentBody: Body) => boolean,
     mutationFunction: (contentBody: Body) => Body
   ): Promise<HierarchyContentItem<Body>> {

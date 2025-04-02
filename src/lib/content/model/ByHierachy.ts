@@ -27,12 +27,21 @@ export interface HierarchyRequest {
  */
 
 export interface ContentClientHierarchyRequest {
-  rootId: string;
   maximumDepth?: number;
   maximumPageSize?: number;
   rootItem?: ContentItem;
   sortKey?: string;
   sortOrder?: IOrder;
+}
+
+export interface ByIdContentClientHierarchyRequest
+  extends ContentClientHierarchyRequest {
+  contentId: string;
+}
+
+export interface ByKeyContentClientHierarchyRequest
+  extends ContentClientHierarchyRequest {
+  deliveryKey: string;
 }
 
 export interface HierarchyPage {

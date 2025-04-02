@@ -480,7 +480,7 @@ describe('ContentClient', () => {
 
     const client = new ContentClient(mergedConfig);
     const response = await client.getByHierarchy({
-      rootId: ROOT.content._meta.deliveryId,
+      contentId: ROOT.content._meta.deliveryId,
     });
     expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });
@@ -529,7 +529,7 @@ describe('ContentClient', () => {
 
     const client = new ContentClient(mergedConfig);
     const response = await client.getByHierarchy({
-      rootId: ROOT.content._meta.deliveryId,
+      contentId: ROOT.content._meta.deliveryId,
       sortOrder: 'DESC',
     });
     expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
@@ -579,7 +579,7 @@ describe('ContentClient', () => {
 
     const client = new ContentClient(mergedConfig);
     const response = await client.getByHierarchy({
-      rootId: ROOT.content._meta.deliveryId,
+      contentId: ROOT.content._meta.deliveryId,
       sortKey: '_meta/deliveryId',
     });
     expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
@@ -629,7 +629,7 @@ describe('ContentClient', () => {
     const client = new ContentClient(mergedConfig);
     const response = await client.getByHierarchyAndFilter(
       {
-        rootId: ROOT.content._meta.deliveryId,
+        contentId: ROOT.content._meta.deliveryId,
       },
       (contentBody) => {
         return contentBody['propertyName1'] === 'C';
@@ -683,7 +683,7 @@ describe('ContentClient', () => {
     const client = new ContentClient(mergedConfig);
     const response = await client.getByHierarchyAndMutate(
       {
-        rootId: ROOT.content._meta.deliveryId,
+        contentId: ROOT.content._meta.deliveryId,
       },
       (contentBody) => {
         contentBody['mutatedId'] = contentBody._meta.deliveryId;
@@ -737,7 +737,7 @@ describe('ContentClient', () => {
     const client = new ContentClient(mergedConfig);
     const response = await client.getByHierarchyFilterAndMutate(
       {
-        rootId: ROOT.content._meta.deliveryId,
+        contentId: ROOT.content._meta.deliveryId,
       },
       (contentBody) => {
         return contentBody['propertyName1'] === 'C';
@@ -771,7 +771,7 @@ describe('ContentClient', () => {
 
     const client = new ContentClient(mergedConfig);
     await client
-      .getByHierarchy({ rootId: ROOT.content._meta.deliveryId })
+      .getByHierarchy({ contentId: ROOT.content._meta.deliveryId })
       .catch((error) => {
         expect(error.message).to.deep.eq(
           'Error while retrieving hierarchy root item: Content item "90d6fa96-6ce0-4332-b995-4e6c50b1e233" was not found'
@@ -802,7 +802,7 @@ describe('ContentClient', () => {
 
     const client = new ContentClient(mergedConfig);
     await client
-      .getByHierarchy({ rootId: 'failed test', rootItem: rootItem })
+      .getByHierarchy({ contentId: 'failed test', rootItem: rootItem })
       .catch((error) => {
         expect(error.message).to.deep.eq(
           'The root item id(90d6fa96-6ce0-4332-b995-4e6c50b1e233) does not match the request rootId(failed test)'
@@ -856,7 +856,7 @@ describe('ContentClient', () => {
 
     const client = new ContentClient(mergedConfig);
     const response = await client.getHierarchyByKey({
-      rootId: 'test',
+      deliveryKey: 'test',
       sortOrder: 'DESC',
       rootItem: rootItem,
     });
@@ -868,7 +868,7 @@ describe('ContentClient', () => {
       account: 'test',
     });
 
-    await client.getByHierarchy({ rootId: 'ffff' }).catch((reason) => {
+    await client.getByHierarchy({ contentId: 'ffff' }).catch((reason) => {
       expect(reason.message).to.deep.eq(
         'Not supported. You need to define "hubName" configuration property to use getByHierarchy()'
       );
