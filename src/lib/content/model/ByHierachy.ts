@@ -36,12 +36,12 @@ export interface ContentClientHierarchyRequest {
 
 export interface ByIdContentClientHierarchyRequest
   extends ContentClientHierarchyRequest {
-  contentId: string;
+  rootId: string;
 }
 
 export interface ByKeyContentClientHierarchyRequest
   extends ContentClientHierarchyRequest {
-  deliveryKey: string;
+  rootKey: string;
 }
 
 export interface HierarchyPage {

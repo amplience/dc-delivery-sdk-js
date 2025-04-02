@@ -347,11 +347,10 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
   ) {
     let rootId: string;
     if (deliveryType == 'id') {
-      rootId = (requestParameters as ByIdContentClientHierarchyRequest)
-        .contentId;
+      rootId = (requestParameters as ByIdContentClientHierarchyRequest).rootId;
     } else {
       rootId = (requestParameters as ByKeyContentClientHierarchyRequest)
-        .deliveryKey;
+        .rootKey;
     }
     const rootItem = await this.getHierarchyRootItem(
       rootId,
