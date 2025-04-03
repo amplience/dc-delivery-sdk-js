@@ -283,6 +283,31 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
     ).lookUpByHierarchyDeliveryKey(deliveryKey);
   }
 
+  /**
+   *  This function will help construct requests for filtering Content Items or Slots
+   *
+   * equivalent to:
+   *
+   * ```ts
+   *  client.lookUpBy(key, value)
+   * ```
+   *
+   * @param key - the key for the lookup eg: HIERARCHY_PARENT_META_DELIVERY_KEY
+   * @param value - the value for the lookup
+   *
+   * @returns `FilterBy<Body>`
+   */
+  lookUpBy<Body = any>(key: string, value: string): FilterBy<Body> {
+    if (!isContentClientConfigV2(this.config)) {
+      throw new NotSupportedV2Error('filterByContentType');
+    }
+
+    return new FilterBy<Body>(this.config, this.contentClient).lookUpBy(
+      key,
+      value
+    );
+  }
+
   private async getHierarchyRootItem(
     rootId: string,
     requestParameters: ContentClientHierarchyRequest,
