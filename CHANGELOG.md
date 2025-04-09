@@ -17,8 +17,6 @@ All notable changes to this project will be documented in this file. See [standa
 * implement by key support on hierarchies endpoint ([a607319](https://github.com/amplience/dc-delivery-sdk-js/commit/a607319b661350bb1c7603ed6dba3526285ef325))
 
 
-### Bug Fixes
-
 ### Miscellaneous Chores
 
 * release 1.0.0 ([6f90f97](https://github.com/amplience/dc-delivery-sdk-js/commit/6f90f97966a5f2a4682d5223fc6d9f9e56cddcc9))
