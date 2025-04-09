@@ -19,9 +19,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* fixed missunderstanding with how byKey works for hierarchies ([2af84af](https://github.com/amplience/dc-delivery-sdk-js/commit/2af84af756de8022332555c48a82f2b33493a0ac))
-
-
 ### Miscellaneous Chores
 
 * release 1.0.0 ([6f90f97](https://github.com/amplience/dc-delivery-sdk-js/commit/6f90f97966a5f2a4682d5223fc6d9f9e56cddcc9))
