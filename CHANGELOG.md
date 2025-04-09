@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.15.0...v1.0.0) (2025-04-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* Breaking changes in the hierarchies and filterBy contract to add support for byKey delivery
+
+### Features
+
+* added support for filter by hierarchy using delivery key ([b318db4](https://github.com/amplience/dc-delivery-sdk-js/commit/b318db495af4691cdd22bf4d4b1cac75b80ec6d9))
+* added test for by key heirachies and fixed failing tests ([421f0e9](https://github.com/amplience/dc-delivery-sdk-js/commit/421f0e9579c320c8f14127fef3667273012ce51f))
+* Breaking changes in the hierarchies and filterBy contract to add support for byKey delivery ([7362d51](https://github.com/amplience/dc-delivery-sdk-js/commit/7362d51436133f91c5afbdc38b18aa3c08fa0d6a))
+* implement by key support on hierarchies endpoint ([a607319](https://github.com/amplience/dc-delivery-sdk-js/commit/a607319b661350bb1c7603ed6dba3526285ef325))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0 ([6f90f97](https://github.com/amplience/dc-delivery-sdk-js/commit/6f90f97966a5f2a4682d5223fc6d9f9e56cddcc9))
+
 ## [0.15.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.14.0...v0.15.0) (2025-01-29)
 
 
