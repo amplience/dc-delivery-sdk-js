@@ -46,6 +46,7 @@ export class GetHierarchyImpl<Body extends ContentBody>
       throw err;
     }
   }
+
   async getHierarchyByRoot(
     request: HierarchyRequest,
     rootItem: ContentItem

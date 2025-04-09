@@ -3,6 +3,8 @@ import { ContentClientConfigV2 } from '../../config/ContentClientConfigV2';
 import {
   FilterByRequest,
   FilterByResponse,
+  IFilterBy,
+  IFilterByLookUp,
   IOrder,
   RequestOptions,
 } from '../model/FilterBy';
@@ -12,6 +14,7 @@ import { FilterByImpl } from './FilterByImpl';
 export class FilterBy<Body = any> {
   static SCHEMA_PATH = '/_meta/schema';
   static PARENT_PATH = '/_meta/hierarchy/parentId';
+  static HIERARCHY_DELIVERY_KEY = 'HIERARCHY_PARENT_META_DELIVERY_KEY';
 
   private readonly filterByService: FilterByImpl<Body>;
 
@@ -35,12 +38,27 @@ export class FilterBy<Body = any> {
    * @returns `FilterBy<Body>`
    */
   filterBy<T = any>(path: string, value: T): FilterBy<Body> {
-    this.requestConfig.filterBy.push({
+    const filterBy: IFilterBy = {
       path,
       value,
-    });
+    };
+    this.requestConfig.filterBy.push(filterBy);
 
     return this;
+  }
+
+  lookUpBy(lookupBy: string, value: string): FilterBy<Body> {
+    const filterBy: IFilterByLookUp = {
+      lookupBy,
+      value,
+    };
+    this.requestConfig.filterBy.push(filterBy);
+
+    return this;
+  }
+
+  lookUpByHierarchyDeliveryKey(deliveryKey: string) {
+    return this.lookUpBy(FilterBy.HIERARCHY_DELIVERY_KEY, deliveryKey);
   }
 
   /**

@@ -3,8 +3,11 @@ import { ContentBody } from './ContentBody';
 import { ContentItem } from './ContentItem';
 import { IOrder } from './FilterBy';
 
+export type RequestType = 'id' | 'key';
+
 export interface HierarchyRequest {
   rootId: string;
+  deliveryType: RequestType;
   maximumDepth?: number;
   maximumPageSize?: number;
   pageCursor?: string;
@@ -22,13 +25,23 @@ export interface HierarchyRequest {
  *  @member sortKey (optional) specifies the name of the sort parameter used to retrieve content, this can effect what content is returned
  *  note: maximumDepth and maximumPageSize will not override the limits set by the delivery service.
  */
+
 export interface ContentClientHierarchyRequest {
-  rootId: string;
   maximumDepth?: number;
   maximumPageSize?: number;
   rootItem?: ContentItem;
   sortKey?: string;
   sortOrder?: IOrder;
+}
+
+export interface ByIdContentClientHierarchyRequest
+  extends ContentClientHierarchyRequest {
+  rootId: string;
+}
+
+export interface ByKeyContentClientHierarchyRequest
+  extends ContentClientHierarchyRequest {
+  rootKey: string;
 }
 
 export interface HierarchyPage {
