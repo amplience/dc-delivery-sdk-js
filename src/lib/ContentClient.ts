@@ -31,6 +31,7 @@ import {
   ByKeyContentClientHierarchyRequest,
   ContentClientHierarchyRequest,
   HierarchyContentItem,
+  HierarchyRequest,
   RequestType,
 } from './content/model/ByHierachy';
 import { GetHierarchyImpl } from './content/coordinators/GetByHierarchy/GetHierarchyImpl';
@@ -382,20 +383,23 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
       requestParameters,
       deliveryType
     );
+    const request: HierarchyRequest = {
+      rootId: rootId,
+      maximumDepth: requestParameters.maximumDepth,
+      maximumPageSize: requestParameters.maximumPageSize,
+      sortOrder: requestParameters.sortOrder,
+      sortKey: requestParameters.sortKey,
+      deliveryType: deliveryType,
+    };
+
+    if (this.config.locale) {
+      request.locale = this.config.locale;
+    }
+
     return await new GetHierarchyImpl(
       this.contentClient,
       hierarchyAssembler
-    ).getHierarchyByRoot(
-      {
-        rootId: rootId,
-        maximumDepth: requestParameters.maximumDepth,
-        maximumPageSize: requestParameters.maximumPageSize,
-        sortOrder: requestParameters.sortOrder,
-        sortKey: requestParameters.sortKey,
-        deliveryType: deliveryType,
-      },
-      rootItem
-    );
+    ).getHierarchyByRoot(request, rootItem);
   }
 
   /** This function will load a hierarchy and return the root item with any children attached,
