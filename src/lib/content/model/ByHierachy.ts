@@ -13,6 +13,7 @@ export interface HierarchyRequest {
   pageCursor?: string;
   sortKey?: string;
   sortOrder?: IOrder;
+  locale?: string;
 }
 
 /**

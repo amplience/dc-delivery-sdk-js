@@ -8,6 +8,7 @@ export class HierarchyURLBuilder {
   static LAST_EVALUATED_PARAM = 'pageCursor';
   static SORT_KEY_PARAM = 'sortByKey';
   static SORT_ORDER_PARAM = 'sortByOrder';
+  static LOCALE = 'locale';
   buildUrl(request: HierarchyRequest): string {
     const params: string[][] = [];
     const requestType = request.deliveryType + '/';
@@ -35,6 +36,9 @@ export class HierarchyURLBuilder {
     }
     if (request.sortOrder !== undefined) {
       params.push([HierarchyURLBuilder.SORT_ORDER_PARAM, request.sortOrder]);
+    }
+    if (request.locale !== undefined) {
+      params.push([HierarchyURLBuilder.LOCALE, request.locale]);
     }
     let url =
       HierarchyURLBuilder.HIERARCHY_URL_BASE + requestType + request.rootId;
