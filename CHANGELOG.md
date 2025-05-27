@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v1.0.0...v1.1.0) (2025-05-27)
+
+
+### Features
+
+* added support for conflig locale in get by desencdents ([8b89f17](https://github.com/amplience/dc-delivery-sdk-js/commit/8b89f171c29c9e726bda453792bee1c79abd3923))
+
 ## [1.0.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v0.15.0...v1.0.0) (2025-04-09)
 
 
