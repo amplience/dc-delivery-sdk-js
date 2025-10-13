@@ -32,6 +32,8 @@ function bundleConfig(name) {
               ],
             ],
             plugins: [
+              ['@babel/plugin-transform-class-properties'],
+              ['@babel/plugin-transform-class-static-block'],
               [
                 '@babel/plugin-transform-for-of',
                 {
