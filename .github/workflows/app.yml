@@ -20,7 +20,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm ci
+          npm ci --ignore-scripts
           npm test
           npm run cov:check
         env:
