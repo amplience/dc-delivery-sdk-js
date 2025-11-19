@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v1.1.0...v1.2.0) (2025-11-19)
+
+
+### Features
+
+* update project to support node 24 ([33eae0f](https://github.com/amplience/dc-delivery-sdk-js/commit/33eae0f03bcca50e91b5f938348758eb793d2302))
+
+
+### Bug Fixes
+
+* add babel plugins to support the use of static properties and static block properties ([799a00c](https://github.com/amplience/dc-delivery-sdk-js/commit/799a00c3917a4cfa5cfef730dcccbecab2fb8ed9))
+
 ## [1.1.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v1.0.0...v1.1.0) (2025-05-27)
 
 
