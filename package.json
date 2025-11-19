@@ -53,7 +53,7 @@
     "release": "Bump package.json version, update CHANGELOG.md, tag release"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "dependencies": {
     "axios": "^1.6.0",
@@ -61,6 +61,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-class-properties": "^7.27.1",
+    "@babel/plugin-transform-class-static-block": "^7.28.3",
     "@babel/polyfill": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@commitlint/cli": "^17.8.1",

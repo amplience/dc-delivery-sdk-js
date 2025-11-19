@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16, 18, 20]
+        node: [20, 22, 24]
 
     steps:
       - uses: actions/checkout@v3
@@ -20,13 +20,13 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm ci
+          npm ci --ignore-scripts
           npm test
           npm run cov:check
         env:
           CI: true
 
-      - if: matrix.node-version == '18'
+      - if: matrix.node-version == '24'
         continue-on-error: true
         name: Coveralls GitHub Action
         uses: coverallsapp/github-action@3dfc5567390f6fa9267c0ee9c251e4c8c3f18949 #v2.2.3

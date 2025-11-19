@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  id-token: write
 
 jobs:
   release-please:
@@ -17,7 +18,7 @@ jobs:
       - uses: GoogleCloudPlatform/release-please-action@v3
         id: release
         with:
-          token: ${{ secrets.GH_REPO_ACCESS }}
+          token: ${{ secrets.GH_REPO_ACCESS_PUBLIC_REPOS }}
           release-type: node
           package-name: dc-delivery-sdk-js
           bump-minor-pre-major: true
@@ -44,6 +45,4 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
 
       - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         if: ${{ steps.release.outputs.release_created }}
