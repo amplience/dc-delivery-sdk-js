@@ -17,6 +17,11 @@ export interface CommonContentClientConfig {
   stagingEnvironment?: string;
 
   /**
+   * If set while staging environment is, the SDK will send this as an `x-api-key` header
+   */
+  previewKey?: string;
+
+  /**
    * If set, the SDK will request content using the locale settings provided.
    * If your content contains any localized fields, this will cause a single
    * locale to be returned rather than the complete list of values.
