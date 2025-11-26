@@ -16,6 +16,8 @@ export interface CommonContentClientConfig {
    */
   stagingEnvironment?: string;
 
+  signingProxyAddress?: string;
+
   /**
    * If set while staging environment is, the SDK will send this as an `x-api-key` header
    */
