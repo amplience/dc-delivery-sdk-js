@@ -17,7 +17,7 @@
     "listEmittedFiles": false,
     "listFiles": false,
     "pretty": true,
-    "lib": ["es2017"],
+    "lib": ["es2017", "ES5", "DOM"],
     "typeRoots": ["node_modules/@types", "src/types"],
     "resolveJsonModule": true
   },
