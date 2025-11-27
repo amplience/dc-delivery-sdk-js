@@ -16,11 +16,16 @@ export interface CommonContentClientConfig {
    */
   stagingEnvironment?: string;
 
+  /**
+   * If set with `stagingEnvironment`, the SDK will send requests to the signing proxy address instead
+   */
+
   signingProxyAddress?: string;
 
   /**
-   * If set while staging environment is, the SDK will send this as an `x-api-key` header
+   * If set with `stagingEnvironment`, the SDK will send `previewKey` as an `x-api-key` header
    */
+
   previewKey?: string;
 
   /**
