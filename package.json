@@ -57,13 +57,13 @@
   },
   "dependencies": {
     "axios": "^1.13.2",
-    "axios-retry": "^4.5.0",
-    "expect": "^30.2.0"
+    "axios-retry": "^4.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/plugin-transform-class-properties": "^7.27.1",
     "@babel/plugin-transform-class-static-block": "^7.28.3",
+    "expect": "^30.2.0",
     "@babel/polyfill": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@commitlint/cli": "^17.8.1",
