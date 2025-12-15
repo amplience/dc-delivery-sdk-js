@@ -23,6 +23,8 @@ import * as MULTI_LAYER_RESULT_MUTATED from './content/coordinators/__fixtures__
 import * as MULTI_LAYER_RESULT from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT.json';
 import * as MULTI_LAYER_RESULT_ALT_SORT from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_ALT_SORT.json';
 import * as ROOT from './content/coordinators/__fixtures__/v2/hierarchies/ROOT.json';
+import * as MULTI_LAYER_RESPONSE_MULTIPLE_DELIVERY_KEYS from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE_MULTIPLE_DELIVERY_KEYS.json';
+import * as MULTI_LAYER_RESULT_MULTIPLE_DELIVERY_KEYS from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_MULTIPLE_DELIVERY_KEYS.json';
 
 import { ContentClientConfigV1 } from './config/ContentClientConfigV1';
 import { FilterBy } from './content/coordinators/FilterBy';
@@ -858,6 +860,66 @@ describe('ContentClient', () => {
     const response = await client.getHierarchyByKey({
       rootKey: 'test',
       sortOrder: 'DESC',
+      rootItem: rootItem,
+    });
+    expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
+  });
+
+  it(`getHierarchyByKey should be handled in the same fashion as by id, even if the key provided is one derived key from a collection of multiple keys`, async () => {
+    const urlBuilder = new HierarchyURLBuilder();
+
+    const mocks = new MockAdapter(Axios.create());
+    const rootBody: DefaultContentBody = {
+      _meta: new ContentMeta(ROOT.content._meta),
+      propertyName1: ROOT.content.propertyName1,
+    };
+
+    const rootItem = new ContentItem();
+    rootItem.body = rootBody;
+    rootItem.body._meta.deliveryKey = 'multiple-delivery-keys';
+    rootItem.body._meta.deliveryKeys = {
+      values: [
+        { value: 'es-mx/multiple-delivery-keys1' },
+        { value: 'es-es/multiple-delivery-keys2' },
+      ],
+    };
+
+    const expectedBody: DefaultContentBody = {
+      _meta: new ContentMeta(
+        MULTI_LAYER_RESULT_MULTIPLE_DELIVERY_KEYS.content._meta
+      ),
+      propertyName1:
+        MULTI_LAYER_RESULT_MULTIPLE_DELIVERY_KEYS.content.propertyName1,
+    };
+
+    const expectedContent: HierarchyContentItem<DefaultContentBody> = {
+      content: expectedBody,
+      children: MULTI_LAYER_RESULT_MULTIPLE_DELIVERY_KEYS.children as any,
+    };
+
+    const cd2RunConfig = {
+      name: 'cdv2',
+      hubName: 'hub',
+      type: 'cdn',
+      baseUrl: 'https://hub.cdn.content.amplience.net',
+      config: { hubName: 'hub' },
+    } as ContentClientConfigV2;
+
+    mocks
+      .onGet(
+        cd2RunConfig.baseUrl +
+          urlBuilder.buildUrl({
+            rootId: 'es-mx/multiple-delivery-keys1',
+            deliveryType: 'key',
+          })
+      )
+      .reply(200, MULTI_LAYER_RESPONSE_MULTIPLE_DELIVERY_KEYS);
+
+    const mergedConfig = { adaptor: mocks.adapter(), ...cd2RunConfig };
+
+    const client = new ContentClient(mergedConfig);
+    const response = await client.getHierarchyByKey({
+      rootKey: 'es-mx/multiple-delivery-keys1',
       rootItem: rootItem,
     });
     expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
