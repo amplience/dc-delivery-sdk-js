@@ -23,6 +23,7 @@ import * as MULTI_LAYER_RESULT_MUTATED from './content/coordinators/__fixtures__
 import * as MULTI_LAYER_RESULT from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT.json';
 import * as MULTI_LAYER_RESULT_ALT_SORT from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_ALT_SORT.json';
 import * as ROOT from './content/coordinators/__fixtures__/v2/hierarchies/ROOT.json';
+import * as ROOT_SINGLE_DELIVERY_KEY from './content/coordinators/__fixtures__/v2/hierarchies/ROOT_SINGLE_DELIVERY_KEY.json';
 import * as MULTI_LAYER_RESPONSE_MULTIPLE_DELIVERY_KEYS from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESPONSE_MULTIPLE_DELIVERY_KEYS.json';
 import * as MULTI_LAYER_RESULT_MULTIPLE_DELIVERY_KEYS from './content/coordinators/__fixtures__/v2/hierarchies/MULTI_LAYER_RESULT_MULTIPLE_DELIVERY_KEYS.json';
 
@@ -865,7 +866,7 @@ describe('ContentClient', () => {
     expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
   });
 
-  it(`getHierarchyByKey should be handled in the same fashion as by id, even if the key provided is one derived key from a collection of multiple keys`, async () => {
+  it(`getHierarchyByKey should be handled in the same fashion as by id, even if the key provided is a variant from a collection of multiple keys`, async () => {
     const urlBuilder = new HierarchyURLBuilder();
 
     const mocks = new MockAdapter(Axios.create());
@@ -876,7 +877,7 @@ describe('ContentClient', () => {
 
     const rootItem = new ContentItem();
     rootItem.body = rootBody;
-    rootItem.body._meta.deliveryKey = 'multiple-delivery-keys';
+    // only contains a list of delivery keys, not a single key
     rootItem.body._meta.deliveryKeys = {
       values: [
         { value: 'es-mx/multiple-delivery-keys1' },
@@ -911,6 +912,7 @@ describe('ContentClient', () => {
           urlBuilder.buildUrl({
             rootId: 'es-mx/multiple-delivery-keys1',
             deliveryType: 'key',
+            sortOrder: 'DESC',
           })
       )
       .reply(200, MULTI_LAYER_RESPONSE_MULTIPLE_DELIVERY_KEYS);
@@ -921,8 +923,59 @@ describe('ContentClient', () => {
     const response = await client.getHierarchyByKey({
       rootKey: 'es-mx/multiple-delivery-keys1',
       rootItem: rootItem,
+      sortOrder: 'DESC',
     });
     expect(response).to.deep.eq(JSON.parse(JSON.stringify(expectedContent)));
+  });
+
+  it(`getHierarchyByKey should throw an error if the root item id does not match the request rootId and there are no additional matching variant keys`, async () => {
+    const urlBuilder = new HierarchyURLBuilder();
+
+    const mocks = new MockAdapter(Axios.create());
+    const rootBody: DefaultContentBody = {
+      _meta: new ContentMeta(ROOT_SINGLE_DELIVERY_KEY.content._meta),
+      propertyName1: ROOT_SINGLE_DELIVERY_KEY.content.propertyName1,
+    };
+
+    const rootItem = new ContentItem();
+    rootItem.body = rootBody;
+    rootItem.body._meta.deliveryKey = 'multiple-delivery-keys';
+    rootItem.body._meta.deliveryKeys = {
+      values: [
+        { value: 'es-mx/multiple-delivery-keys1' },
+        { value: 'es-es/multiple-delivery-keys2' },
+      ],
+    };
+
+    const cd2RunConfig = {
+      name: 'cdv2',
+      hubName: 'hub',
+      type: 'cdn',
+      baseUrl: 'https://hub.cdn.content.amplience.net',
+      config: { hubName: 'hub' },
+    } as ContentClientConfigV2;
+
+    mocks
+      .onGet(
+        cd2RunConfig.baseUrl +
+          urlBuilder.buildUrl({
+            rootId: 'es-mx/multiple-delivery-keys1',
+            deliveryType: 'key',
+            sortOrder: 'DESC',
+          })
+      )
+      .reply(200, MULTI_LAYER_RESPONSE_MULTIPLE_DELIVERY_KEYS);
+
+    const mergedConfig = { adaptor: mocks.adapter(), ...cd2RunConfig };
+
+    const client = new ContentClient(mergedConfig);
+    await client
+      .getHierarchyByKey({ rootKey: 'failed test', rootItem: rootItem })
+      .catch((error) => {
+        expect(error.message).to.deep.eq(
+          'The root item id(multiple-delivery-keys) does not match the request rootId(failed test)'
+        );
+      });
   });
 
   it('`getByHierarchy` should throw if no cdv2 configuration', async () => {

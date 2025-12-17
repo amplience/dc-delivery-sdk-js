@@ -4,7 +4,6 @@
       "schema": "https://hierarchies.com",
       "name": "Root",
       "deliveryId": "90d6fa96-6ce0-4332-b995-4e6c50b1e233",
-      "deliveryKey": "multiple-delivery-keys",
       "hierarchy": {
         "root": true
       }

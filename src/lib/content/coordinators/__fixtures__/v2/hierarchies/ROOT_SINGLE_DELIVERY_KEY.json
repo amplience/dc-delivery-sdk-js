@@ -1,0 +1,14 @@
+{
+  "content": {
+    "_meta": {
+      "name": "Root",
+      "schema": "https://hierarchies.com",
+      "hierarchy": {
+        "root": true
+      },
+      "deliveryId": "90d6fa96-6ce0-4332-b995-4e6c50b1e233",
+      "deliveryKey": "some-delivery-key"
+    },
+    "propertyName1": "Root"
+  }
+}
