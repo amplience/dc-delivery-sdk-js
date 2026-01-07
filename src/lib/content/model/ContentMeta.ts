@@ -38,6 +38,14 @@ export interface IContentMeta {
   hierarchy?: Hierarchy;
 }
 
+export interface DeliveryKeyValue {
+  value: string;
+}
+
+export interface DeliveryKeys {
+  values: DeliveryKeyValue[];
+}
+
 /**
  * Class providing meta data about a content item with helper functions.
  */
@@ -57,6 +65,11 @@ export class ContentMeta extends FragmentMeta {
    * Delivery Key of the content item
    */
   deliveryKey?: string;
+
+  /**
+   * An array of delivery keys
+   */
+  deliveryKeys?: DeliveryKeys;
 
   /**
    * Metadata related to the lifecycle status of this content item, by default this is undefined.

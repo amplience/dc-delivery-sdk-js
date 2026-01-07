@@ -331,7 +331,12 @@ export class ContentClient implements GetContentItemById, GetContentItemByKey {
         );
       }
     } else {
-      if (rootItem.body._meta.deliveryKey !== rootId) {
+      if (
+        rootItem.body._meta.deliveryKey !== rootId &&
+        !rootItem.body._meta.deliveryKeys?.values
+          .map((key) => key.value)
+          .includes(rootId)
+      ) {
         throw new Error(
           `The root item id(${requestParameters.rootItem.body._meta.deliveryKey}) ` +
             `does not match the request rootId(${rootId})`
