@@ -84,19 +84,21 @@ If you need to support old browsers a legacy version of the bundle is provided, 
 
 ### Configuration options
 
-| Option             | Description                                                                                                                                                                 |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| account            | Content Delivery 1 API - Required\* - Account to retrieve content from                                                                                                      |
-| hubName            | Content Delivery 2 API - Required\* - hubName to retrieve content from - [finding the hub name](https://docs.amplience.net/development/contentdelivery/readme.html#hubname) |
-| apiKey             | Fresh API - Required\* - API key required for use with the Fresh API service. `hubName` must also be set                                                                    |
-| retryConfig        | Allows override of the default [retry configuration](#override-fresh-api-retry-configuration) used by the Fresh API client                                                  |
-| stagingEnvironment | If set, the SDK will request content and media from the staging environment host name specified.                                                                            |
-| locale             | If set, the SDK will request content using the locale settings provided.                                                                                                    |
-| mediaHost          | Allows users with custom hostnames to override the hostname used when constructing media URLs.                                                                              |
-| secureMediaHost    | Allows users with custom hostnames to override the hostname used when constructing secure media URLs.                                                                       |
-| baseUrl            | Override for the content delivery API base URL                                                                                                                              |
-| adaptor            | Allows custom handling of requests which makes testing and supporting non-standard environments easier.                                                                     |
-| timeout            | If set, requests made will timeout after the number of milliseconds specified.                                                                                              |
+| Option              | Description                                                                                                                                                                  |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| account             | Content Delivery 1 API - Required\* - Account to retrieve content from                                                                                                       |
+| hubName             | Content Delivery 2 API - Required\* - hubName to retrieve content from - [finding the hub name](https://docs.amplience.net/development/contentdelivery/readme.html#hubname)  |
+| apiKey              | Fresh API - Required\* - API key required for use with the Fresh API service. `hubName` must also be set                                                                     |
+| retryConfig         | Allows override of the default [retry configuration](#override-fresh-api-retry-configuration) used by the Fresh API client                                                   |
+| stagingEnvironment  | If set, the SDK will request content and media from the staging environment host name specified.                                                                             |
+| previewKey          | If set, the SDK will send an x-api-key header that contains this value, with any VSE content requests, this must be set with staging environments.                           |
+| signingProxyAddress | If set, redirect any requests to the supplied address, this is designed for use with signed urls in the Virtual Staging Environment                                          |
+| locale              | If set, the SDK will request content using the locale settings provided.                                                                                                     |
+| mediaHost           | Allows users with custom hostnames to override the hostname used when constructing media URLs.                                                                               |
+| secureMediaHost     | Allows users with custom hostnames to override the hostname used when constructing secure media URLs.                                                                        |
+| baseUrl             | Override for the content delivery API base URL                                                                                                                               |
+| adaptor             | Allows custom handling of requests which makes testing and supporting non-standard environments easier.                                                                      |
+| timeout             | If set, requests made will timeout after the number of milliseconds specified.                                                                                               |
 
 \* see [Content Delivery versions](#content-delivery-versions)
 
@@ -461,6 +463,25 @@ By default, the content client will request content from the production content 
 const client = new ContentClient({
   account: 'myaccount',
   stagingEnvironment: 'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io',
+});
+```
+To use Preview keys to do authentication with the VSE a user should simply add the Preview Key to your client config: 
+
+```js
+const client = new ContentClient({
+  account: 'myaccount',
+  stagingEnvironment: 'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io',
+  previewKey: 'amp_vse_XXXXXXXXXXXXXX.XXXXXXXXXXXXXXXXXXXX=='
+});
+```
+
+To use a Signing Proxy to do signed url authentication with the VSE, a user should set the `signingProxyAddress` field in the config, that will redirect all requests through the address specified (NOTE: a VSE domain must also be set):
+
+```js
+const client = new ContentClient({
+  account: 'myaccount',
+  stagingEnvironment: 'fhboh562c3tx1844c2ycknz96.staging.bigcontent.io',
+  signingProxyAddress: "https//proxy.bigcontent.io"
 });
 ```
 

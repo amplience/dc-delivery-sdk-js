@@ -17,6 +17,18 @@ export interface CommonContentClientConfig {
   stagingEnvironment?: string;
 
   /**
+   * If set with `stagingEnvironment`, the SDK will send requests to the signing proxy address instead
+   */
+
+  signingProxyAddress?: string;
+
+  /**
+   * If set with `stagingEnvironment`, the SDK will send `previewKey` as an `x-api-key` header
+   */
+
+  previewKey?: string;
+
+  /**
    * If set, the SDK will request content using the locale settings provided.
    * If your content contains any localized fields, this will cause a single
    * locale to be returned rather than the complete list of values.
