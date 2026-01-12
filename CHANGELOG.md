@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.1](https://github.com/amplience/dc-delivery-sdk-js/compare/v1.2.0...v1.2.1) (2026-01-07)
+
+
+### Bug Fixes
+
+* check if delivery key list includes root id before throwing ([e3d3b71](https://github.com/amplience/dc-delivery-sdk-js/commit/e3d3b719ca6cb42a5a10fae84fa2f8aeb18e8af0))
+
 ## [1.2.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v1.1.0...v1.2.0) (2025-11-19)
 
 
