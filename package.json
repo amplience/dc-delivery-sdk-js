@@ -56,22 +56,22 @@
     "node": ">=20"
   },
   "dependencies": {
-    "axios": "^1.6.0",
-    "axios-retry": "^3.2.3"
+    "axios": "^1.13.2",
+    "axios-retry": "^4.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/plugin-transform-class-properties": "^7.27.1",
     "@babel/plugin-transform-class-static-block": "^7.28.3",
+    "expect": "^30.2.0",
     "@babel/polyfill": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@commitlint/cli": "^17.8.1",
     "@commitlint/config-conventional": "^17.8.1",
-    "@types/chai": "^4.2.11",
-    "@types/chai-as-promised": "^7.1.2",
-    "@types/expect": "^24.3.2",
-    "@types/mocha": "^7.0.2",
-    "@types/node": "^16.11.6",
+    "@types/chai": "^5.2.3",
+    "@types/chai-as-promised": "^8.0.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^18.19.130",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "axios-mock-adapter": "^2.1.0",
@@ -104,10 +104,10 @@
     "trash-cli": "^5.0.0",
     "ts-loader": "^7.0.5",
     "ts-mocha": "^11.1.0",
-    "ts-node": "^8.10.2",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typedoc": "^0.17.8",
-    "typescript": "^4.7.4",
+    "typescript": "5.9.3",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
   },
