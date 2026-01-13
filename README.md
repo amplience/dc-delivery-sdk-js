@@ -732,6 +732,7 @@ Please use the following documentation resources to assist building your applica
 
 If you need help using the SDK please reach out using one of the following channels:
 
+- [SDK documentation](https://amplience.github.io/dc-delivery-sdk-js/index.html)
 - Ask a question on [StackOverflow](https://stackoverflow.com/) using the tag `amplience-dynamic-content`
 - Open a support ticket with [Amplience Support](https://support.amplience.com/)
 - Contact your [Amplience Customer Success](https://amplience.com/customer-success) representative
