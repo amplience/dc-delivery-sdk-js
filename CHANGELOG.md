@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v1.3.0...v1.4.0) (2026-01-14)
+
+
+### Features
+
+* update typedocs ([e7b2ba8](https://github.com/amplience/dc-delivery-sdk-js/commit/e7b2ba8a3e81c82ee29b5fa667d99f5737f32df3))
+
 ## [1.3.0](https://github.com/amplience/dc-delivery-sdk-js/compare/v1.2.1...v1.3.0) (2026-01-12)
 
 
